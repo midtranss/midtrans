@@ -45,6 +45,13 @@ function canonicalFor(page, content) {
   return content.seo.canonical || page.canonical;
 }
 
+function relativeAssetPath(slug, assetPath) {
+  const cleanAssetPath = assetPath.replace(/^\//, "");
+  const depth = slug === "/" ? 0 : slug.replace(/^\/|\/$/g, "").split("/").filter(Boolean).length;
+
+  return `${"../".repeat(depth)}${cleanAssetPath}`;
+}
+
 function buildHreflang(page, registry, languageMap) {
   const equivalents = registry.filter((candidate) => candidate.hreflangGroup === page.hreflangGroup);
   const availableCodes = new Set(languageMap.availableLanguages.map((language) => language.code));
@@ -81,7 +88,7 @@ ${hreflang}
     <meta property="og:title" content="${escapeAttribute(og.title || seo.title)}">
     <meta property="og:description" content="${escapeAttribute(og.description || seo.description)}">
     <meta property="og:url" content="${escapeAttribute(canonical)}">
-    <link rel="stylesheet" href="/assets/styles.css">`;
+    <link rel="stylesheet" href="${escapeAttribute(relativeAssetPath(page.slug, "/assets/styles.css"))}">`;
 }
 
 function organizationSchema(company) {

@@ -58,9 +58,9 @@ def assert_page(path):
     assert parser.jsonld_blocks, f"{path}: missing JSON-LD"
 
     for href in parser.stylesheets:
-        if href and href.startswith("/"):
-            target = ROOT / href.lstrip("/")
-            assert target.exists(), f"{path}: missing stylesheet {href}"
+        if href and not href.startswith(("http://", "https://")):
+            target = ROOT / href.lstrip("/") if href.startswith("/") else path.parent / href
+            assert target.resolve().exists(), f"{path}: missing stylesheet {href}"
 
     for block in parser.jsonld_blocks:
         parsed = json.loads(block)
