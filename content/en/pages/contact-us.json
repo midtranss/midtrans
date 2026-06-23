@@ -1,0 +1,38 @@
+{
+  "slug": "/contact-us/",
+  "language": "en",
+  "pageType": "contact",
+  "seo": {
+    "title": "Contact MIDTRANS | Dubai and Syria Offices",
+    "description": "MIDTRANS contact details for the Dubai head office, Syrian office in Damascus, and Whatsapp contact number.",
+    "canonical": "https://www.mid-trans.com/contact-us/",
+    "robots": "index,follow",
+    "openGraph": {
+      "title": "Contact MIDTRANS | Dubai and Syria Offices",
+      "description": "Dubai head office, Syrian office, and Whatsapp details for MIDTRANS."
+    }
+  },
+  "hero": {
+    "eyebrow": "Offices",
+    "h1": "Contact MIDTRANS",
+    "summary": "Use the office details below for MIDTRANS Shipping & Services contact, enquiries, and shipment coordination."
+  },
+  "breadcrumbs": [
+    {
+      "labelKey": "home",
+      "url": "/"
+    },
+    {
+      "label": "Contact",
+      "url": "/contact-us/"
+    }
+  ],
+  "sections": {
+    "offices": {
+      "ariaLabel": "Office contact details"
+    },
+    "whatsapp": {
+      "supportingText": "Use this number for direct Whatsapp communication with MIDTRANS."
+    }
+  }
+}

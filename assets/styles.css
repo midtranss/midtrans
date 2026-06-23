@@ -69,10 +69,37 @@ a:focus {
   letter-spacing: 0.08em;
 }
 
+.nav-links {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+}
+
 main {
   margin: 0 auto;
   max-width: 1120px;
   padding: 0 1.5rem;
+}
+
+.breadcrumbs {
+  color: var(--muted);
+  font-size: 0.9rem;
+  padding-top: 1.5rem;
+}
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumbs li:not(:last-child)::after {
+  color: var(--muted);
+  content: "/";
+  margin-left: 0.5rem;
 }
 
 .hero,

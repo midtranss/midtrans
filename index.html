@@ -1,48 +1,91 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MIDTRANS Shipping & Services | Contact Offices</title>
-    <meta
-      name="description"
-      content="Contact MIDTRANS Shipping & Services offices in Dubai, United Arab Emirates and Damascus, Syria."
-    >
+    <title>MIDTRANS Shipping &amp; Services | Contact Offices</title>
+    <meta name="description" content="Contact MIDTRANS Shipping &amp; Services offices in Dubai, United Arab Emirates and Damascus, Syria.">
+    <meta name="robots" content="index,follow">
     <link rel="canonical" href="https://www.mid-trans.com/">
+    <link rel="alternate" hreflang="en" href="https://www.mid-trans.com/">
+    <link rel="alternate" hreflang="x-default" href="https://www.mid-trans.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MIDTRANS Shipping &amp; Services | Contact Offices">
+    <meta property="og:description" content="Office and Whatsapp contact details for MIDTRANS Shipping &amp; Services.">
+    <meta property="og:url" content="https://www.mid-trans.com/">
     <link rel="stylesheet" href="/assets/styles.css">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "MIDTRANS Shipping & Services",
-        "url": "https://www.mid-trans.com/",
-        "telephone": ["+97142714480", "+971552928560", "+963119067", "+963933383858"],
-        "address": [
+        "@graph": [
           {
-            "@type": "PostalAddress",
-            "streetAddress": "Deira, Port Saeed, Al Makateb Building, Office No 611",
-            "addressLocality": "Dubai",
-            "addressCountry": "AE"
+            "@type": "Organization",
+            "@id": "https://www.mid-trans.com/#organization",
+            "name": "MIDTRANS Shipping & Services",
+            "url": "https://www.mid-trans.com/",
+            "telephone": [
+              "+97142714480",
+              "+971552928560",
+              "+963119067",
+              "+963933383858"
+            ],
+            "address": [
+              {
+                "@type": "PostalAddress",
+                "streetAddress": "Deira, Port Saeed, Al Makateb Building, Office No 611",
+                "addressLocality": "Dubai",
+                "addressCountry": "AE"
+              },
+              {
+                "@type": "PostalAddress",
+                "streetAddress": "Halponi, Mouslam Al Baroudi Street, 2nd Floor",
+                "addressLocality": "Damascus",
+                "addressCountry": "SY"
+              }
+            ],
+            "contactPoint": [
+              {
+                "@type": "ContactPoint",
+                "telephone": "+97142714480",
+                "contactType": "Head Office",
+                "areaServed": "AE"
+              },
+              {
+                "@type": "ContactPoint",
+                "telephone": "+963119067",
+                "contactType": "Syrian Office",
+                "areaServed": "SY"
+              },
+              {
+                "@type": "ContactPoint",
+                "telephone": "+963944334338",
+                "contactType": "Whatsapp",
+                "areaServed": "SY"
+              }
+            ]
           },
           {
-            "@type": "PostalAddress",
-            "streetAddress": "Halponi, Mouslam Al Baroudi Street, 2nd Floor",
-            "addressLocality": "Damascus",
-            "addressCountry": "SY"
-          }
-        ],
-        "contactPoint": [
-          {
-            "@type": "ContactPoint",
-            "telephone": "+97142714480",
-            "contactType": "Head Office",
-            "areaServed": "AE"
+            "@type": "WebSite",
+            "@id": "https://www.mid-trans.com/#website",
+            "name": "MIDTRANS Shipping & Services",
+            "url": "https://www.mid-trans.com/",
+            "publisher": {
+              "@id": "https://www.mid-trans.com/#organization"
+            }
           },
           {
-            "@type": "ContactPoint",
-            "telephone": "+963944334338",
-            "contactType": "Whatsapp",
-            "areaServed": "SY"
+            "@type": "WebPage",
+            "@id": "https://www.mid-trans.com/#webpage",
+            "url": "https://www.mid-trans.com/",
+            "name": "MIDTRANS Shipping & Services | Contact Offices",
+            "description": "Contact MIDTRANS Shipping & Services offices in Dubai, United Arab Emirates and Damascus, Syria.",
+            "inLanguage": "en",
+            "isPartOf": {
+              "@id": "https://www.mid-trans.com/#website"
+            },
+            "about": {
+              "@id": "https://www.mid-trans.com/#organization"
+            }
           }
         ]
       }
@@ -51,26 +94,25 @@
   <body>
     <header class="site-header">
       <nav class="nav" aria-label="Main navigation">
-        <a class="brand" href="/">MIDTRANS</a>
-        <a href="/contact-us/">Contact</a>
+        <a class="brand" href="/" aria-current="page">MIDTRANS</a>
+        <div class="nav-links">
+          <a href="/contact-us/">Contact</a>
+        </div>
       </nav>
     </header>
 
     <main>
       <section class="hero">
-        <p class="eyebrow">Shipping & Services</p>
+        <p class="eyebrow">Shipping &amp; Services</p>
         <h1>MIDTRANS office contacts</h1>
-        <p class="lede">
-          Reach MIDTRANS through the head office in Dubai, the Syrian office in Damascus,
-          or the dedicated Whatsapp contact.
-        </p>
+        <p class="lede">Reach MIDTRANS through the head office in Dubai, the Syrian office in Damascus, or the dedicated Whatsapp contact.</p>
         <a class="button" href="/contact-us/">View full contact details</a>
       </section>
 
       <section class="office-grid" aria-label="MIDTRANS offices">
         <article class="office-card">
           <p class="office-label">Head Office</p>
-          <h2>Dubai, United Arab Emirates</h2>
+          <h2>Dubai - United Arab Emirates</h2>
           <address>
             Deira, Port Saeed, Al Makateb Building<br>
             Office No 611<br>
@@ -84,7 +126,7 @@
 
         <article class="office-card">
           <p class="office-label">Syrian Office</p>
-          <h2>Damascus, Syria</h2>
+          <h2>Damascus - Syria</h2>
           <address>
             Halponi, Mouslam Al Baroudi Street<br>
             2nd Floor<br>
@@ -107,7 +149,7 @@
     </main>
 
     <footer class="site-footer">
-      <p>&copy; MIDTRANS Shipping & Services</p>
+      <p>&copy; MIDTRANS Shipping &amp; Services</p>
     </footer>
   </body>
 </html>

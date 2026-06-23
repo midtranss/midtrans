@@ -1,0 +1,32 @@
+{
+  "slug": "/",
+  "language": "en",
+  "pageType": "home",
+  "seo": {
+    "title": "MIDTRANS Shipping & Services | Contact Offices",
+    "description": "Contact MIDTRANS Shipping & Services offices in Dubai, United Arab Emirates and Damascus, Syria.",
+    "canonical": "https://www.mid-trans.com/",
+    "robots": "index,follow",
+    "openGraph": {
+      "title": "MIDTRANS Shipping & Services | Contact Offices",
+      "description": "Office and Whatsapp contact details for MIDTRANS Shipping & Services."
+    }
+  },
+  "hero": {
+    "eyebrow": "Shipping & Services",
+    "h1": "MIDTRANS office contacts",
+    "summary": "Reach MIDTRANS through the head office in Dubai, the Syrian office in Damascus, or the dedicated Whatsapp contact.",
+    "cta": {
+      "labelKey": "viewContactDetails",
+      "url": "/contact-us/"
+    }
+  },
+  "sections": {
+    "offices": {
+      "ariaLabel": "MIDTRANS offices"
+    },
+    "whatsapp": {
+      "heading": "Message MIDTRANS directly"
+    }
+  }
+}
