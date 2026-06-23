@@ -1,0 +1,43 @@
+{
+  "defaultLanguage": "en",
+  "availableLanguages": [
+    {
+      "code": "en",
+      "label": "English",
+      "dir": "ltr",
+      "status": "available"
+    }
+  ],
+  "plannedLanguages": [
+    {
+      "code": "ar",
+      "label": "Arabic",
+      "dir": "rtl"
+    },
+    {
+      "code": "fr",
+      "label": "French",
+      "dir": "ltr"
+    },
+    {
+      "code": "de",
+      "label": "German",
+      "dir": "ltr"
+    },
+    {
+      "code": "tr",
+      "label": "Turkish",
+      "dir": "ltr"
+    },
+    {
+      "code": "zh",
+      "label": "Chinese",
+      "dir": "ltr"
+    },
+    {
+      "code": "sv",
+      "label": "Swedish",
+      "dir": "ltr"
+    }
+  ]
+}
