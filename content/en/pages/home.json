@@ -3,26 +3,46 @@
   "language": "en",
   "pageType": "home",
   "seo": {
-    "title": "MIDTRANS Shipping & Services | Contact Offices",
-    "description": "Contact MIDTRANS Shipping & Services offices in Dubai, United Arab Emirates and Damascus, Syria.",
+    "title": "MIDTRANS Shipping & Services | International Logistics Coordination",
+    "description": "MIDTRANS Shipping & Services coordinates international freight, office communication, and digital logistics support through Dubai and Damascus.",
     "canonical": "https://www.mid-trans.com/",
     "robots": "index,follow",
     "openGraph": {
-      "title": "MIDTRANS Shipping & Services | Contact Offices",
-      "description": "Office and Whatsapp contact details for MIDTRANS Shipping & Services."
+      "title": "MIDTRANS Shipping & Services | International Logistics Coordination",
+      "description": "International freight coordination, office contact details, and digital logistics support from MIDTRANS Shipping & Services."
     }
   },
   "hero": {
-    "eyebrow": "Shipping & Services",
-    "h1": "MIDTRANS office contacts",
-    "summary": "Reach MIDTRANS through the head office in Dubai, the Syrian office in Damascus, or the dedicated Whatsapp contact.",
+    "eyebrow": "International Shipping & AI-Supported Logistics",
+    "h1": "Freight coordination with digital logistics support",
+    "summary": "MIDTRANS connects international freight movement, documentation follow-up, customs coordination, and office communication through a structured logistics process.",
     "cta": {
       "labelKey": "viewContactDetails",
       "url": "/contact-us/"
     }
   },
   "sections": {
+    "capabilities": {
+      "eyebrow": "Operational scope",
+      "heading": "Built for international cargo movement",
+      "items": [
+        {
+          "title": "Freight coordination",
+          "body": "Sea, air, and land freight planning for commercial cargo and regional trade lanes."
+        },
+        {
+          "title": "Documentation control",
+          "body": "Structured follow-up for shipment documents, customs requirements, and operational communication."
+        },
+        {
+          "title": "Digital logistics support",
+          "body": "AI-supported workflows and shipment visibility concepts connected to MIDTRANS digital operations."
+        }
+      ]
+    },
     "offices": {
+      "eyebrow": "Office network",
+      "heading": "Contact MIDTRANS operations",
       "ariaLabel": "MIDTRANS offices"
     },
     "whatsapp": {

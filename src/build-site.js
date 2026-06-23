@@ -194,9 +194,13 @@ function renderHeader(strings, company, currentSlug) {
 
   return `<header class="site-header">
       <nav class="nav" aria-label="Main navigation">
-        <a class="brand" href="/"${homeCurrent}>${escapeHtml(company.brandName)}</a>
+        <a class="brand" href="/"${homeCurrent}>
+          <span class="brand-mark">MT</span>
+          <span>${escapeHtml(company.brandName)}</span>
+        </a>
         <div class="nav-links">
           <a href="/contact-us/"${contactCurrent}>${escapeHtml(strings.navigation.contact)}</a>
+          <a class="nav-cta" href="https://wa.me/963944334338">Whatsapp</a>
         </div>
       </nav>
     </header>`;
@@ -241,9 +245,29 @@ function renderHero(content) {
     : "";
 
   return `<section class="${content.pageType === "home" ? "hero" : "page-heading"}">
-        <p class="eyebrow">${escapeHtml(hero.eyebrow)}</p>
-        <h1>${escapeHtml(hero.h1)}</h1>
-        <p class="lede">${escapeHtml(hero.summary)}</p>${cta}
+        <div class="hero-copy">
+          <p class="eyebrow">${escapeHtml(hero.eyebrow)}</p>
+          <h1>${escapeHtml(hero.h1)}</h1>
+          <p class="lede">${escapeHtml(hero.summary)}</p>${cta}
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="globe-card">
+            <span class="signal-dot dubai"></span>
+            <span class="signal-dot damascus"></span>
+            <span class="signal-dot corridor"></span>
+            <div class="route-line route-line-one"></div>
+            <div class="route-line route-line-two"></div>
+            <div class="ai-chip">AI-supported coordination</div>
+            <div class="metric-card metric-card-primary">
+              <span>Modes</span>
+              <strong>Sea / Air / Land</strong>
+            </div>
+            <div class="metric-card metric-card-secondary">
+              <span>Network</span>
+              <strong>Dubai - Damascus</strong>
+            </div>
+          </div>
+        </div>
       </section>`;
 }
 
@@ -305,6 +329,51 @@ function renderOfficeCards(company, mode) {
     .join("\n\n        ");
 }
 
+function renderCapabilities(content) {
+  const capabilities = content.sections.capabilities;
+
+  if (!capabilities || !Array.isArray(capabilities.items)) {
+    return "";
+  }
+
+  const cards = capabilities.items
+    .map(
+      (item) => `<article class="capability-card">
+          <span class="capability-icon"></span>
+          <h3>${escapeHtml(item.title)}</h3>
+          <p>${escapeHtml(item.body)}</p>
+        </article>`
+    )
+    .join("\n        ");
+
+  return `<section class="section-block">
+        <div class="section-heading">
+          <p class="eyebrow">${escapeHtml(capabilities.eyebrow)}</p>
+          <h2>${escapeHtml(capabilities.heading)}</h2>
+        </div>
+        <div class="capability-grid">
+          ${cards}
+        </div>
+      </section>`;
+}
+
+function renderOfficesSection(content, company, mode) {
+  const officeSection = content.sections.offices;
+  const heading = officeSection.heading
+    ? `<div class="section-heading">
+          ${officeSection.eyebrow ? `<p class="eyebrow">${escapeHtml(officeSection.eyebrow)}</p>` : ""}
+          <h2>${escapeHtml(officeSection.heading)}</h2>
+        </div>`
+    : "";
+
+  return `<section class="section-block" aria-label="${escapeAttribute(officeSection.ariaLabel)}">
+${heading ? `        ${heading}
+` : ""}        <div class="office-grid">
+          ${renderOfficeCards(company, mode)}
+        </div>
+      </section>`;
+}
+
 function renderWhatsappPanel(company, content, strings, mode) {
   const section = content.sections.whatsapp || {};
 
@@ -329,26 +398,20 @@ function renderWhatsappPanel(company, content, strings, mode) {
 }
 
 function renderHome(content, company, strings) {
-  const officeSection = content.sections.offices;
-
   return `${renderHero(content)}
 
-      <section class="office-grid" aria-label="${escapeAttribute(officeSection.ariaLabel)}">
-        ${renderOfficeCards(company, "summary")}
-      </section>
+      ${renderCapabilities(content)}
+
+      ${renderOfficesSection(content, company, "summary")}
 
       ${renderWhatsappPanel(company, content, strings, "summary")}`;
 }
 
 function renderContact(content, company, strings) {
-  const officeSection = content.sections.offices;
-
   return `${renderBreadcrumbs(content, strings)}
       ${renderHero(content)}
 
-      <section class="office-grid" aria-label="${escapeAttribute(officeSection.ariaLabel)}">
-        ${renderOfficeCards(company, "detail")}
-      </section>
+      ${renderOfficesSection(content, company, "detail")}
 
       ${renderWhatsappPanel(company, content, strings, "detail")}`;
 }
