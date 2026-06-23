@@ -257,14 +257,14 @@ function renderHero(content) {
             <span class="signal-dot corridor"></span>
             <div class="route-line route-line-one"></div>
             <div class="route-line route-line-two"></div>
-            <div class="ai-chip">AI-supported coordination</div>
+            <div class="ai-chip">Route and document review</div>
             <div class="metric-card metric-card-primary">
-              <span>Modes</span>
-              <strong>Sea / Air / Land</strong>
+              <span>Shipment facts</span>
+              <strong>Origin / cargo / route</strong>
             </div>
             <div class="metric-card metric-card-secondary">
-              <span>Network</span>
-              <strong>Dubai - Damascus</strong>
+              <span>Office support</span>
+              <strong>Dubai and Damascus</strong>
             </div>
           </div>
         </div>
