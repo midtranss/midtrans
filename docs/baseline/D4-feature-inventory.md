@@ -114,6 +114,67 @@ before MIRA went live. That assumption no longer holds. MIRA is already talking 
 work — they are **remediation of a live system**, and they come before anything else in the
 programme.
 
+### First observed MIRA output — sample of 1, 2026-09-16
+
+A live MIRA reply was supplied by the account owner. It responded to a question about system
+configuration (creating timers / scheduled automated messages) by declining and routing the
+request to the technical team.
+
+**This confirms MIRA is live and conversational.** Four findings from one sample:
+
+| # | Finding | Severity |
+|---|---|---|
+| 1 | **MIRA presents itself as a human colleague** — it describes itself as a member of the MIDTRANS team and does not disclose being an AI assistant | **High** |
+| 2 | **No topical boundary** — it engaged substantively with a software/system-administration question, entirely outside logistics | **High** |
+| 3 | The *shape* of the refusal is good — acknowledge, explain the limit, route to the responsible team | Positive |
+| 4 | The refusal was grounded in a **capability** limit ("I cannot edit code"), not a **policy** limit | Informative |
+
+#### Finding 1 — undisclosed AI
+
+MIRA introduces itself as a member of the MIDTRANS team. A visitor reading that reasonably
+believes they are speaking to a person.
+
+Two consequences:
+
+- **Commercial:** a statement that reads as coming from a MIDTRANS employee carries more implied
+  authority than one from a bot. If MIRA ever states a rate, the customer will have understood it
+  as a quote from staff. This *amplifies* the exposure in §2 of `../standards/MIRA-GUARDRAILS.md`.
+- **Regulatory:** Phase 07 targets Germany, France, the Netherlands and Sweden. EU transparency
+  rules require that a person be informed they are interacting with an AI system. Presenting as a
+  human team member is the opposite of that.
+
+**Required:** MIRA discloses that it is MIDTRANS's AI assistant, in every language, at the start
+of a conversation. This is not a tone question — it is a disclosure obligation and a liability
+control.
+
+#### Finding 2 — unbounded scope is the real warning
+
+The important signal is not *what* MIRA said about timers. It is that MIRA **entered the topic at
+all**.
+
+A freight-forwarding assistant that will reason about system configuration has no topical
+boundary. An assistant with no topical boundary has no pricing boundary either — the same
+willingness to engage applies when a visitor asks what a container costs to Latakia.
+
+**Required:** a scope definition — what MIRA discusses, and what it routes away — alongside the
+prohibitions in `MIRA-GUARDRAILS.md` §2.
+
+#### Finding 3 — the refusal shape is worth keeping
+
+The reply acknowledged the request, explained what actually blocked it, and named who could help.
+That is structurally the substitution pattern in `MIRA-GUARDRAILS.md` §4. The behaviour exists;
+it needs pointing at the right category.
+
+#### What this sample does NOT establish
+
+**It does not test the prohibited categories.** The question was about system configuration, not
+about a shipment. Declining a request it *cannot* fulfil says nothing about whether MIRA will
+answer a question it *must not* fulfil.
+
+The pricing, transit-time and acceptance tests in `MIRA-GUARDRAILS.md` §8 remain **unrun**.
+
+---
+
 ### Questions D1 must answer, in priority order
 
 1. **Does MIRA currently have ANY guardrail preventing it from stating a rate, transit time,
