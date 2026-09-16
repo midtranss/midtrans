@@ -17,6 +17,10 @@ meta:
   note: >
     No entry may be served while status is draft. Answers were drafted from observable
     mailbox evidence and general trade practice, not from MIDTRANS's documented procedure.
+    kb-011 to kb-016 were added on 2026-09-16 from the six-month mailbox sweep
+    (docs/baseline/D3-rfq-analysis.md §8c); each cites the register id of the enquiry that
+    asked it, never the enquirer. Eight of the sixteen are deliberately unanswered because
+    the answer belongs to MIDTRANS operations and guessing it would be worse than silence.
 
 entries:
 
@@ -266,3 +270,174 @@ entries:
     status: draft
     escalate_if: [the user asks to speak to a person]
     never_say: [that you are a member of staff, a human name, a job title]
+
+  # ------------------------------------------------------------------------------------
+  # Added 2026-09-16 from the six-month mailbox sweep (docs/baseline/D3-rfq-analysis.md §8c).
+  # Every question below was asked by a real enquirer in September 2026, and each cites the
+  # register id in tools/ops/enquiries.csv rather than the enquirer — a knowledge base is not
+  # a place to keep customer identities.
+  # ------------------------------------------------------------------------------------
+
+  - id: kb-011
+    topic: uae-consolidation
+    question:
+      en: Can you receive goods from several suppliers in Jebel Ali and ship them to Syria as one consignment?
+      ar: هل تستقبلون بضاعة من عدّة موردين في جبل علي وتشحنونها إلى سوريا كشحنة واحدة؟
+    answer:
+      en: >
+        Consolidation means your purchases from different suppliers are delivered to one warehouse,
+        checked and combined, then move onward as a single shipment under one set of documents.
+        It is the normal way a first order from several suppliers is handled, because shipping each
+        one separately multiplies the paperwork rather than the cargo. What our team needs to work
+        it out: how many suppliers and where they are, roughly how many cartons or pallets in total,
+        the gross weight if you have it, and who the consignee will be. The number of collections
+        matters more than the volume, so the supplier count is the first thing to tell us.
+      ar: >
+        التجميع يعني أن مشترياتك من موردين مختلفين تُسلَّم إلى مستودع واحد، تُفحص وتُضمّ، ثم تتحرّك
+        كشحنة واحدة بمجموعة وثائق واحدة. وهذه الطريقة المعتادة في أول طلبية من عدّة موردين، لأن
+        شحن كلٍّ على حدة يضاعف الأوراق لا البضاعة. ما يحتاجه فريقنا: كم مورّداً وأين، وكم كرتونة
+        أو طبلية تقريباً، والوزن الإجمالي إن توفّر، ومن سيكون المرسَل إليه. وعدد عمليات الاستلام
+        أهمّ من الحجم، فابدأ بعدد الموردين.
+    source: Enquiry 2026-09-15-fmcg-jebelali. Process description only — MIDTRANS operations must confirm the service is offered on this lane and correct the detail.
+    owner: null
+    reviewed_at: null
+    expires_at: null
+    status: draft
+    escalate_if: [a request for charges, a request for transit time, food or regulated commodities, any specific shipment]
+    never_say: [warehouse charges, consolidation charges, transit time, that consolidation is available for a specific commodity]
+
+  - id: kb-012
+    topic: heat-sensitive-cargo
+    question:
+      en: I am importing chocolate and gummies. Does the heat matter?
+      ar: أستورد شوكولا وحلويات جيلاتينية. هل تؤثّر الحرارة؟
+    answer:
+      en: >
+        Yes, and it is worth deciding before you buy rather than after. Chocolate, gummies and
+        jelly soften and deform well below the temperatures a container reaches standing on a
+        quay or crossing the Gulf in summer, and the damage is usually cosmetic enough to sell
+        badly but not obvious enough to argue about. It changes how the cargo should be packed
+        and routed, and whether temperature-controlled equipment is worth considering. Tell our
+        team what proportion of the shipment is heat-sensitive and when you plan to ship, and
+        they will cover it in the quotation.
+      ar: >
+        نعم، ويُفضَّل حسمها قبل الشراء لا بعده. الشوكولا والحلويات الجيلاتينية تلين وتتشوّه عند
+        حرارات أقلّ بكثير مما تبلغه الحاوية واقفةً على الرصيف أو عابرةً الخليج صيفاً، والضرر عادةً
+        شكليٌّ بما يكفي ليُفسد البيع، وغير ظاهر بما يكفي للمطالبة به. وهو يغيّر طريقة التعبئة
+        والمسار، وما إذا كانت المعدّات المبرّدة تستحقّ النظر. أخبر فريقنا ما نسبة البضاعة الحسّاسة
+        للحرارة ومتى تنوي الشحن، ليغطّيها في العرض.
+    source: Enquiry 2026-09-15-fmcg-jebelali — raised by MIDTRANS, not by the customer. Physical property of the commodity; MIDTRANS operations should add what it does about it on this lane.
+    owner: null
+    reviewed_at: null
+    expires_at: null
+    status: draft
+    escalate_if: [a request for reefer charges, a guarantee about condition on arrival, any specific shipment]
+    never_say: [that cargo will arrive undamaged, reefer rates, temperature guarantees, transit time]
+
+  - id: kb-013
+    topic: vehicle-shipping-method
+    question:
+      en: How are vehicles shipped — RoRo or in a container?
+      ar: كيف تُشحن المركبات — دحرجة أم داخل حاوية؟
+    answer:
+      en: >
+        Both are used, and what decides between them is the vehicle rather than a preference.
+        RoRo means the vehicle is driven on and off the ship, so it must be self-propelled and
+        road-legal at loading. Containerised means it is secured inside a container, which suits
+        vehicles that do not run, that are being shipped with parts or cargo inside, or where the
+        destination has no RoRo service. Dimensions matter for the second: a long wheelbase van can
+        exceed what a standard container takes. What our team needs: the make, model and dimensions,
+        the gross weight, whether the vehicle is running and road-legal, and the destination port.
+      ar: >
+        الطريقتان مستخدمتان، والذي يحسم بينهما هو المركبة لا التفضيل. الدحرجة (RoRo) تعني أن
+        المركبة تُقاد صعوداً ونزولاً، فيجب أن تكون عاملة وصالحة للسير عند التحميل. والحاوية تعني
+        تثبيتها داخلها، وهو مناسب للمركبات غير العاملة، أو المشحونة ومعها قطع أو بضاعة، أو حين لا
+        تتوفّر خدمة دحرجة في الوجهة. والأبعاد مهمّة في الثانية: مركبة بقاعدة عجلات طويلة قد تتجاوز
+        ما تستوعبه الحاوية القياسية. ما يحتاجه فريقنا: النوع والطراز والأبعاد، والوزن الإجمالي،
+        وهل المركبة عاملة وصالحة للسير، ومرفأ الوجهة.
+    source: Enquiry 2026-09-16-sprinters. Method description only. Whether MIDTRANS books RoRo on a given lane is an operations question — see kb-006.
+    owner: null
+    reviewed_at: null
+    expires_at: null
+    status: draft
+    escalate_if: [a request for a rate, a sailing schedule, whether a vehicle may be imported, any specific shipment]
+    never_say: [which method is cheaper, rates, sailing dates, space availability, that a vehicle may be imported]
+
+  - id: kb-014
+    topic: food-import-syria
+    question:
+      en: What is required to import food, confectionery or beverages into Syria?
+      ar: ما المطلوب لاستيراد المواد الغذائية والحلويات والمشروبات إلى سوريا؟
+    answer:
+      en: >
+        DRAFT — MUST BE COMPLETED BY MIDTRANS OPERATIONS. Food is a regulated category: health
+        certificates, shelf-life rules, labelling and product registration all apply, and they
+        differ from the general import case in kb-003. This entry stays unserved until operations
+        writes what is actually required, who issues each document, and which parts change by
+        product type. A first-time food importer acting on a guessed list loses the consignment,
+        not an argument.
+      ar: >
+        مسوّدة — يجب أن يكملها فريق عمليات ميدترانس. المواد الغذائية فئة منظَّمة: شهادات صحّية،
+        وقواعد صلاحية، ووسم، وتسجيل منتجات — وكلّها تختلف عن حالة الاستيراد العامة في kb-003.
+        يبقى هذا المُدخَل غير مُقدَّم حتى يكتب الفريق ما هو مطلوب فعلاً، ومن يُصدر كل وثيقة، وأي
+        الأجزاء يتغيّر بتغيّر نوع المنتج. المستورد الأول الذي يتصرّف بقائمة مُخمَّنة يخسر الشحنة،
+        لا النقاش.
+    source: REQUIRED — MIDTRANS operations knowledge capture. Asked in enquiry 2026-09-15-fmcg-jebelali, sixteen questions of which several were regulatory.
+    owner: null
+    reviewed_at: null
+    expires_at: null
+    status: draft
+    escalate_if: [any food or beverage enquiry, any question about permitted products, any specific shipment]
+    never_say: [that a product is permitted, that a document set is sufficient, duty, clearance cost, shelf-life rules]
+
+  - id: kb-015
+    topic: turkey-transit
+    question:
+      en: Can cargo move through Turkey under customs transit without being imported into Turkey?
+      ar: هل يمكن أن تمرّ البضاعة عبر تركيا بنظام العبور الجمركي دون استيرادها إلى تركيا؟
+    answer:
+      en: >
+        DRAFT — MUST BE COMPLETED BY MIDTRANS OPERATIONS. Two separate questions sit inside this
+        one: whether the transit arrangement exists as described, and whether MIDTRANS operates it.
+        The first is a customs matter and the second is a capability question, and neither may be
+        answered from general knowledge. This entry stays unserved until operations answers both,
+        because a shipper who plans a route on a guessed answer discovers the error at a border.
+      ar: >
+        مسوّدة — يجب أن يكملها فريق عمليات ميدترانس. في هذا السؤال سؤالان: هل ترتيب العبور موجود
+        بالصيغة الموصوفة، وهل تشغّله ميدترانس. الأول شأن جمركي والثاني شأن قدرة، ولا يجوز الإجابة
+        عن أيٍّ منهما من معرفة عامة. يبقى هذا المُدخَل غير مُقدَّم حتى يجيب الفريق عنهما، لأن
+        الشاحن الذي يخطّط مساراً على جواب مُخمَّن يكتشف الخطأ عند الحدود.
+    source: REQUIRED — MIDTRANS operations knowledge capture. Asked in enquiry 2026-09-12-usa-syria, which went to five forwarders simultaneously.
+    owner: null
+    reviewed_at: null
+    expires_at: null
+    status: draft
+    escalate_if: [any transit routing question, any question about what a country permits, any specific shipment]
+    never_say: [that a transit route is available, that a country permits something, transit time, rates]
+
+  - id: kb-016
+    topic: branded-goods
+    question:
+      en: I am importing clothing and footwear from China. Do brand marks cause a problem at clearance?
+      ar: أستورد ألبسة وأحذية من الصين. هل تسبّب العلامات التجارية مشكلة عند التخليص؟
+    answer:
+      en: >
+        DRAFT — MUST BE COMPLETED BY MIDTRANS OPERATIONS. Branded and brand-resembling goods are
+        the category where a consignment is most often held, and what happens depends on the mark,
+        the destination and the documentation the importer holds. MIRA must not tell a customer
+        their goods will clear, and must not tell them they will not. What this entry should
+        contain, once operations writes it: what MIDTRANS asks for before shipping in this
+        category, and what it has seen go wrong. Until then MIRA raises the question and routes it.
+      ar: >
+        مسوّدة — يجب أن يكملها فريق عمليات ميدترانس. البضائع التي تحمل علامات تجارية أو ما يشبهها
+        هي الفئة الأكثر تعرّضاً للحجز، وما يحدث يعتمد على العلامة والوجهة والوثائق التي يملكها
+        المستورد. لا يجوز أن تخبر MIRA العميل أن بضاعته ستُخلَّص، ولا أنها لن تُخلَّص. ما يجب أن
+        يحويه هذا المُدخَل حين يكتبه الفريق: ما تطلبه ميدترانس قبل الشحن في هذه الفئة، وما رأته
+        يقع من أخطاء. وحتى ذلك الحين تثير MIRA السؤال وتحيله.
+    source: REQUIRED — MIDTRANS operations knowledge capture. Asked in enquiries 2026-09-13-lcl-china and 2026-09-12-usa-syria within four days of each other.
+    owner: null
+    reviewed_at: null
+    expires_at: null
+    status: draft
+    escalate_if: [any branded or replica goods question, any question about whether goods will clear, any specific shipment]
+    never_say: [that goods will clear, that goods will be held, that a brand is acceptable, duty, clearance cost]

@@ -465,6 +465,22 @@ baseline in `../phases/PHASE-01-MEASUREMENT-FRAMEWORK.md` §7a cannot be built f
 Six named enquiries, dated, with the cargo and route already stated. Four unread. The oldest is
 four days old; the newest arrived today.
 
+### What the six say about content demand
+
+Read as demand rather than as a backlog, the six point somewhere specific. Four of them —
+vehicles, chemicals twice, food — are **regulated categories**, where the enquirer is not
+comparing prices but asking whether the thing is possible at all. That is a different question,
+and it is answered by knowledge, not by a quote.
+
+Three questions arrived that the knowledge base did not have. They are now `kb-014` food import,
+`kb-015` Turkey transit and `kb-016` branded goods, all deliberately unanswered, with capture
+sessions 6–8 in `../phases/PHASE-04-KNOWLEDGE-CAPTURE.md` §3a. Three more — UAE consolidation,
+heat-sensitive cargo, and how vehicles are actually shipped — were answerable from process
+description alone and are drafted as `kb-011` to `kb-013`.
+
+The vehicle-import question has now arrived **three times, twice in German**, and the newest went
+to three forwarders at once. Its capture session was priority *medium*; it should not be.
+
 **Drafted replies for all six: `D3-REPLY-DRAFTS.md`.** Each written after reading the full
 enquiry, so none asks for anything the customer already sent — which is the failure §5 documents.
 No rate, duration, acceptance or regulatory determination in any of them, verified against
