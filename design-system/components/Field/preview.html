@@ -1,0 +1,21 @@
+<!-- @dsCard group="Forms" height=300 subtitle="Label, control, help text and error state" -->
+<style>
+  body { margin: 0; padding: 24px; background: var(--surface-page); }
+  .grid { display: grid; gap: 16px; max-width: 420px; }
+</style>
+<div class="grid">
+  <div class="mt-field">
+    <label class="mt-field__label" for="f-org">Port of loading<span class="mt-field__req" aria-hidden="true">*</span></label>
+    <input class="mt-field__control" id="f-org" type="text" value="Lattakia, SY" />
+    <span class="mt-field__help">Port, airport or inland terminal where we take custody.</span>
+  </div>
+  <div class="mt-field">
+    <label class="mt-field__label" for="f-awb">Master air waybill</label>
+    <input class="mt-field__control" id="f-awb" type="text" data-mono value="020-44817365" />
+  </div>
+  <div class="mt-field mt-field--invalid">
+    <label class="mt-field__label" for="f-wt">Gross weight<span class="mt-field__req" aria-hidden="true">*</span></label>
+    <input class="mt-field__control" id="f-wt" type="text" value="" placeholder="e.g. 12 500 KG" aria-describedby="f-wt-err" aria-invalid="true" />
+    <span class="mt-field__error" id="f-wt-err">Enter the gross weight in kilograms to continue.</span>
+  </div>
+</div>
