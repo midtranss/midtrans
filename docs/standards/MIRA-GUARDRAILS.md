@@ -216,6 +216,19 @@ invented answer is not.
 
 ## 6. Escalation triggers — hand to a human immediately
 
+**Implemented in `../../mira/escalation.py` as of 2026-09-16.** Until then this section was
+documentation only: none of the seven triggers existed in code, so a P&I enquirer raising a claim
+would have been answered by MIRA on its own. Phase 06 D7 described it as "already an
+immediate-escalation trigger" — that was true of this document and not of the system.
+
+Two things follow from how it is built, and both are deliberate:
+
+- **It inspects the customer's message, not MIRA's.** Escalation is a routing decision, not a
+  suppression one. Nothing a customer says is a violation, and nothing here is recorded against
+  MIRA's guardrail record.
+- **It runs before the model is called.** A claims conversation is one MIRA must not hold at all,
+  so screening its answer afterwards is the wrong shape — the answer should never exist.
+
 MIRA must stop self-serving and route to a human when any of these appear:
 
 - Any prohibited category from §2 is asked twice

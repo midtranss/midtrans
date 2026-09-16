@@ -149,8 +149,16 @@ MIRA recognises maritime and P&I intent (Phase 02 / D5 trigger list) and routes 
 contact path, not the freight RFQ.
 
 **Guardrail note:** MIRA must never engage substantively on claim, liability, incident, or
-coverage language. This is already an immediate-escalation trigger under
-`../standards/MIRA-GUARDRAILS.md` §6, and it applies with full force here.
+coverage language.
+
+> **⚠️ Correction, 2026-09-16.** This previously read "this is **already** an immediate-escalation
+> trigger". It was not. §6 listed seven triggers and **none of them existed in code** — tested
+> against §6's own examples, every one passed through. A shipowner opening a conversation about
+> damage and a claim, the exact conversation this phase exists to prevent, would have been
+> answered by MIRA on its own.
+>
+> Now implemented in `../../mira/escalation.py`, checked **before the model is called**, with 25
+> must-escalate and 12 must-continue cases. See `PHASE-06-BOUNDARY-AND-ESCALATION.md`.
 
 ---
 
@@ -209,7 +217,8 @@ the most common failure mode for maritime content.
 | Published emergency contact goes unanswered | Confirm monitoring and escalation with operations before publishing any incident route |
 | Content written generically by a non-specialist | Domain-competent writer required; terminology review is a gate, not a courtesy |
 | Low traffic read as phase failure | Gate is enquiry quality, not volume — agreed explicitly at phase start |
-| MIRA engages on a claim or liability question | Existing escalation trigger; verified in the Phase 02 test suite |
+| MIRA engages on a claim or liability question | Escalation triggers **now implemented** (`mira/escalation.py`) and checked before the model is called. They did not exist until 2026-09-16 — see `PHASE-06-BOUNDARY-AND-ESCALATION.md` §1 |
+| An escalation is raised and nobody receives it | `on_escalation` wired to a route that reaches a named person, tested end to end. The customer has been told a human is coming |
 
 **Rollback:** additive content, unpublishable per page with a 301 to the hub. The incident contact
 route is separately disableable if monitoring cannot be sustained — and should be disabled rather
@@ -226,6 +235,9 @@ than left unanswered.
 - [ ] Emergency and incident contact route tested and confirmed monitored
 - [ ] No response-time promise that operations has not committed to
 - [ ] MIRA escalation on claim and incident language verified in production configuration
+- [ ] `check_page.py` clean across the maritime cluster — it blocks liability, coverage and
+      claim-outcome phrasings, and blocks a P&I page carrying no boundary statement
+- [ ] Per-trigger firing rates measured against the D0 conversation export before any tuning
 - [ ] Cross-linking with Phase 04 port content complete
 - [ ] Every page passes the uniqueness test
 - [ ] Level 1 and Level 2 checklists passed

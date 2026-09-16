@@ -165,6 +165,86 @@ check("no false positive inside a longer word", "forbidden_word" not in blockers
       str([f.excerpt for f in r.blockers]))
 
 # --------------------------------------------------------------------------------------
+print("\n=== Phase 06: coordination, never determination ===")
+
+PI_FRONT = GOOD_FRONT.replace(
+    "title: Documents required to import into Syria",
+    "title: P&I correspondent services at Latakia")
+
+PI_BODY = """
+# P&I correspondent services at Latakia
+
+A club appointing a correspondent is assessing exactly where our role starts and stops. This page
+sets that out before it sets out anything else, because vague scope is disqualifying in this
+market and every correspondent page that avoids the question is telling you something.
+
+## What we do
+
+We attend, coordinate and document. We arrange surveyor attendance, secure access to the
+terminal, collect the documentary record, and report what we observed. Where an independent
+surveyor appointment is required we facilitate it and do not substitute for it.
+
+## What we do not do
+
+We do not give an opinion on liability, assess or value a claim, or interpret coverage. Those
+belong to the club, the adjuster, and qualified specialist advice.
+
+## Attending an incident
+
+Our team reaches the terminal and records condition as found. See the
+[Latakia port page](../ports/latakia.md), [survey coordination](../survey.md) and
+[contact](../contact.md).
+"""
+
+r = report_for(PI_FRONT + PI_BODY)
+check("a correctly bounded P&I page passes", r.passed,
+      str([(f.rule, f.message[:60]) for f in r.blockers]))
+
+for label, sentence in [
+    ("a liability opinion", "On these facts the carrier is liable for the water ingress."),
+    ("liability phrasing", "Liability rests with the terminal operator."),
+    ("a coverage interpretation", "Water damage of this kind is covered under the policy."),
+    ("a claim outcome", "The claim will be paid once the survey report is lodged."),
+    ("claim valuation", "We value the claim at the invoice value of the affected cartons."),
+    ("an opinion", "In our opinion the stow was inadequate."),
+    ("a determination", "We conclude that the damage occurred before loading."),
+]:
+    r = report_for(PI_FRONT + PI_BODY + "\n\n## Assessment\n\n" + sentence + "\n")
+    check(f"blocks {label}", "determination" in blockers(r), str(blockers(r)))
+
+# A maritime page with no boundary statement is itself a finding. Written fresh rather than
+# stripped from the good page: "we attend, coordinate and document" is itself a scope statement,
+# so removing the explicit section is not enough to produce a page that lacks one.
+NO_BOUNDARY = """
+# P&I correspondent services at Latakia
+
+We act as P&I correspondent at Latakia and Tartous, attending casualties and arranging survey
+where a club or underwriter requires local presence. Our team knows the terminal and the people
+who run it, which is what shortens the time between a call and someone standing on the quay.
+
+## Attendance
+
+We reach the terminal quickly and record condition as found, working alongside the surveyor and
+the charterer's representative through the claim.
+
+## Reporting
+
+Our report goes to the club with photographs, the documentary record, and the terminal's own
+paperwork. See [Latakia](../ports/latakia.md), [survey](../s.md), [contact](../c.md).
+"""
+
+r = report_for(PI_FRONT + NO_BOUNDARY)
+check("a P&I page without a boundary statement blocks",
+      "missing_boundary" in blockers(r), str(blockers(r)))
+
+# A freight page that happens to say "claim" once must not be dragged into the requirement.
+r = report_for(GOOD_FRONT + GOOD_BODY +
+               "\n\n## If something goes wrong\n\nTell us and we will put you in touch with "
+               "the right person to handle a claim.\n")
+check("one passing mention does not trigger the boundary rule",
+      "missing_boundary" not in blockers(r), str(blockers(r)))
+
+# --------------------------------------------------------------------------------------
 print("\n=== front matter ===")
 
 r = report_for(GOOD_BODY)

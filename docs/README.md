@@ -63,6 +63,7 @@ writer, or a coding agent — without further briefing.
 | 05 | `PHASE-05-market-entry-representation.md` | 8–10 weeks | Representation + market-entry hubs live and converting |
 | 05 | `PHASE-05-CLAIMS-AND-DUPLICATION.md` | — | Market-claim sourcing, and the cluster duplication test |
 | 06 | `PHASE-06-maritime-pi.md` | 6 weeks | Maritime and P&I hubs live, qualified enquiries received |
+| 06 | `PHASE-06-BOUNDARY-AND-ESCALATION.md` | — | The liability boundary, and the escalation §6 lacked |
 | 07 | `PHASE-07-trust-conditional-expansion.md` | Continuous | Per-market gates, opened one at a time |
 
 ### Baseline workspace

@@ -8,5 +8,8 @@ echo
 echo "=== client wiring ==="
 python3 mira/tests/test_client.py
 echo
+echo "=== escalation triggers ==="
+python3 mira/tests/test_escalation.py
+echo
 echo "=== live-log auditor ==="
 python3 mira/tests/test_audit_logs.py

@@ -144,6 +144,49 @@ CITATION = (
 # inherit that citation and pass. The paragraph is the unit a reader treats as one statement.
 
 
+# PHASE-06's hard boundary: MIDTRANS coordinates, attends and documents. It does not opine on
+# liability, assess or value a claim, or interpret coverage. These are the phrasings that cross
+# it — the liability exposure in this cluster is larger than the SEO one.
+DETERMINATION = [
+    (r"\b(?:is|are|was|were|will be)\s+(?:therefore\s+|clearly\s+|likely\s+)?liable\b",
+     "a liability opinion"),
+    (r"\bliab(?:le|ility)\s+(?:rests|lies|sits|falls)\b", "a liability opinion"),
+    (r"\b(?:the\s+)?(?:carrier|shipper|consignee|owner|charterer|terminal)\s+"
+     r"(?:is|was|will be)\s+(?:at fault|responsible|liable)\b", "a liability opinion"),
+    (r"\bin our (?:view|opinion|assessment)\b", "an opinion where only a record belongs"),
+    (r"\bwe (?:assess|determine|conclude|find)\s+that\b", "a determination"),
+    (r"\b(?:is|are|will be)\s+covered (?:under|by)\b", "a coverage interpretation"),
+    (r"\bcoverage (?:applies|does not apply|extends)\b", "a coverage interpretation"),
+    (r"\bfalls (?:within|outside) the policy\b", "a coverage interpretation"),
+    (r"\bthe claim (?:will|should|is likely to) be (?:paid|accepted|settled|defended|rejected)\b",
+     "a claim outcome"),
+    (r"\bwe (?:value|assess|adjust|quantif(?:y|ied))\s+the\s+(?:claim|loss|damage)\b",
+     "claim valuation"),
+    (r"\bwe (?:can )?confirm (?:that )?the (?:vessel|cargo|damage|loss)\b", "a determination"),
+    (r"\bno liability\b", "a liability determination"),
+    (r"\bwithout prejudice\b", "legal drafting on a public page"),
+]
+
+# Every P&I page must say where coordination stops. PHASE-06 D3/D4 require it per page.
+BOUNDARY_MARKERS = (
+    r"coordinat\w+ and (?:attend|document)|"
+    r"does not (?:give an opinion|assess|adjust|interpret|determine|substitute)|"
+    r"we do not (?:opine|assess|adjust|interpret|determine)|"
+    r"not (?:legal|insurance) advice|"
+    r"independent (?:surveyor|appointment)|"
+    r"qualified specialist|specialist advice"
+)
+
+# Terms whose presence marks a page as belonging to the maritime/P&I cluster, so the boundary
+# requirement applies. Being generous here is safe: it only asks for a sentence the phase
+# already requires on every such page.
+MARITIME_MARKERS = (
+    r"\bp\s*&\s*i\b|\bprotection and indemnity\b|\bcorrespondent\b|"
+    r"\bclaim(?:s)?\b|\bsurvey(?:or|s)?\b|\bcasualt(?:y|ies)\b|\bcharterer\b|"
+    r"\bgeneral average\b|\bsalvage\b|\bunderwriter\b|\bmarine insur"
+)
+
+
 REQUIRED_FRONT_MATTER = {
     "title": "the page's own title",
     "language": "en or ar — the language this file is written in, not translated into",
@@ -325,6 +368,28 @@ def check_prohibited(report: PageReport, prose: str, offset: int, exempt=()) -> 
                 excerpt=excerpt_at(prose, match.start())))
 
 
+def check_determination(report: PageReport, prose: str, offset: int) -> None:
+    """PHASE-06's hard boundary: coordination and documentation, never determination."""
+    for pattern, label in DETERMINATION:
+        for match in re.finditer(pattern, prose, re.I):
+            report.findings.append(Finding(
+                BLOCKER, "determination",
+                f"{label.capitalize()}. PHASE-06 § Out of scope: MIDTRANS coordinates, attends "
+                "and documents — it does not opine on liability, assess a claim, or interpret "
+                "coverage.",
+                line=line_of(prose, match.start(), offset),
+                excerpt=excerpt_at(prose, match.start())))
+
+    # A page in this cluster must state where coordination stops.
+    hits = len(re.findall(MARITIME_MARKERS, prose, re.I))
+    if hits >= 3 and not re.search(BOUNDARY_MARKERS, prose, re.I):
+        report.findings.append(Finding(
+            BLOCKER, "missing_boundary",
+            "This reads as a maritime or P&I page but carries no statement of where "
+            "coordination stops and determination begins. PHASE-06 D3 and D4 require one on "
+            "every page — a P&I club assessing a correspondent is assessing exactly that line."))
+
+
 def check_language(report: PageReport, prose: str, offset: int) -> None:
     lowered = prose.lower()
     for word in NEVER_USE:
@@ -429,6 +494,7 @@ def check_page(path: str) -> PageReport:
     check_front_matter(report, fields)
     exempt = check_market_claims(report, prose, offset)
     check_prohibited(report, prose, offset, exempt=exempt)
+    check_determination(report, prose, offset)
     check_language(report, prose, offset)
     check_structure(report, body, prose, offset)
     check_arabic(report, fields, prose)

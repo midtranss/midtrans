@@ -39,6 +39,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Iterable, Sequence
 
+import escalation
 from guardrails import SAFE_FALLBACK, Verdict, check_response
 
 log = logging.getLogger("mira")
@@ -114,9 +115,17 @@ class MiraResult:
     verdict: Verdict | None = None
     raw: str | None = None  #: the model's original text when blocked — for the audit log only
 
+    #: Set when GUARDRAILS.md §6 says a human must take over. `text` is then the handover
+    #: message and the model was never called — routing is the caller's job.
+    escalation: Any = None
+
     @property
     def safe_to_send(self) -> bool:
         return bool(self.text)
+
+    @property
+    def needs_human(self) -> bool:
+        return bool(self.escalation)
 
 
 class _ModelNotFound(RuntimeError):
@@ -145,6 +154,10 @@ class MiraClient:
     #: a _ModelNotFound here means the pinned model is gone and MIRA is silently broken.
     on_api_error: Callable[[Exception, dict], None] | None = None
 
+    #: Called with (escalation, context) when §6 routes a conversation to a human. Wire this
+    #: to whatever actually reaches a person — an escalation nobody receives is not one.
+    on_escalation: Callable[[Any, dict], None] | None = None
+
     def __post_init__(self) -> None:
         if self.api_client is None:
             self.api_client = self._default_client()
@@ -170,6 +183,14 @@ class MiraClient:
         """Produce a customer-safe reply. Never raises; always returns something sendable."""
         context = context or {}
         fallback = SAFE_FALLBACK.get(lang, SAFE_FALLBACK["en"])
+
+        # GUARDRAILS.md §6 is checked BEFORE the model is called. A claims or incident
+        # conversation is one MIRA must not hold at all, so screening its answer afterwards is
+        # the wrong shape — the answer should never be generated. It also saves the call.
+        routed = escalation.detect(messages)
+        if routed:
+            self._report_escalation(routed, context)
+            return MiraResult(text=escalation.handover(lang), escalation=routed)
 
         try:
             candidate = self._call_model(messages)
@@ -201,6 +222,13 @@ class MiraClient:
         """
         context = context or {}
         fallback = SAFE_FALLBACK.get(lang, SAFE_FALLBACK["en"])
+
+        routed = escalation.detect(messages)
+        if routed:
+            self._report_escalation(routed, context)
+            yield escalation.handover(lang)
+            return
+
         user_said = _last_user_text(messages)
         accumulated = ""
         released = 0
@@ -302,6 +330,15 @@ class MiraClient:
                 self.on_violation(verdict.rules, verdict.findings, raw, context)
             except Exception:  # noqa: BLE001 - alerting must never break the response path
                 log.exception("on_violation handler raised")
+
+    def _report_escalation(self, routed, context: dict) -> None:
+        logging.getLogger("mira").warning(
+            "MIRA escalation: %s | %s", ",".join(routed.names), context)
+        if self.on_escalation:
+            try:
+                self.on_escalation(routed, context)
+            except Exception:  # noqa: BLE001 - a broken hook must not break the reply
+                logging.getLogger("mira").exception("on_escalation hook failed")
 
     def _report_api_error(self, exc: Exception, context: dict) -> None:
         if isinstance(exc, _ModelNotFound):

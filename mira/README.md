@@ -190,3 +190,19 @@ some protection already exists.
 - [ ] Test suite passing
 - [ ] The conversational suite in `GUARDRAILS.md` §8 run against staging in both languages
 - [ ] A named owner for the monthly audit
+
+## Escalation — `escalation.py`
+
+`MIRA-GUARDRAILS.md` §6 says seven kinds of conversation must go to a human immediately. Until
+2026-09-16 that was documentation only, and none of them existed in code.
+
+```bash
+python3 mira/tests/test_escalation.py
+```
+
+It inspects the **customer's** message, not MIRA's, and runs **before the model is called** — a
+claims conversation is one MIRA must not hold at all, so screening the answer afterwards is the
+wrong shape. `MiraClient` takes an `on_escalation` hook: wire it to something that actually
+reaches a person, because the customer has just been told one is coming.
+
+Full account: `../docs/phases/PHASE-06-BOUNDARY-AND-ESCALATION.md`.
