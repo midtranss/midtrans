@@ -51,6 +51,7 @@ writer, or a coding agent — without further briefing.
 |---|---|---|---|
 | 00 | `PHASE-00-diagnostics-baseline.md` | 2 weeks | Baseline document signed off |
 | 01 | `PHASE-01-conversion-infrastructure.md` | 4–6 weeks | Qualified RFQ volume measurably up |
+| 01 | `PHASE-01-RFQ-WIZARD-SPEC.md` | — | Implementation spec for Phase 01 / D1 |
 | 02 | `PHASE-02-mira-controlled-asset.md` | 4–6 weeks | MIRA generates qualified leads, zero commitments given |
 | 03 | `PHASE-03-tools-lead-engine.md` | 4 weeks | Each tool produces a measurable conversion path |
 | 04 | `PHASE-04-syria-trade-center.md` | 6–8 weeks | 25–40 deep pages live, originality verified |
