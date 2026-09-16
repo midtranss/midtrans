@@ -191,7 +191,14 @@ def check_response(text: str, lang: str = "en") -> Verdict:
         findings.append(Finding(rule=rule, excerpt=_excerpt(norm, pos), position=pos))
 
     # Rule 1 — a monetary amount anywhere.
-    for m in re.finditer(rf"(?:{_MONEY_SYMBOL})\s*{_NUMBER}|{_NUMBER}\s*(?:{_MONEY_WORDS})", norm):
+    # All three orderings occur in freight quoting: "$4500", "4500 USD", and "USD 4500".
+    # The last is the most common in this trade, and is the one a naive pattern misses.
+    money = (
+        rf"(?:{_MONEY_SYMBOL})\s*{_NUMBER}"
+        rf"|{_NUMBER}\s*(?:{_MONEY_WORDS})"
+        rf"|(?:{_MONEY_WORDS})\s*{_NUMBER}"
+    )
+    for m in re.finditer(money, norm):
         if not _in_allowlist(m.start(), allowed):
             record("money_amount", m.start())
 

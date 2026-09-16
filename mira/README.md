@@ -30,7 +30,9 @@ Drop-in components that put MIDTRANS's live AI assistant under control.
 |---|---|
 | `SYSTEM-PROMPT.md` | Layer 1 — the production system prompt, paste verbatim |
 | `guardrails.py` | Layer 2 — output check that runs independently of the model |
-| `tests/test_guardrails.py` | Regression suite: 32 must-block, 25 must-pass |
+| `client.py` | Both layers wired into one response path — import and call `reply()` |
+| `tests/test_guardrails.py` | Guardrail suite: 35 must-block, 25 must-pass |
+| `tests/test_client.py` | Wiring suite: 32 checks, runs offline with a fake API client |
 
 No third-party dependencies. Python 3.10+.
 
@@ -45,6 +47,40 @@ optimises for. The system prompt is the first line, not the last one.
 **Ship both. Layer 1 alone is not a guardrail.**
 
 ## Wiring it in
+
+### The short version — use `client.py`
+
+```python
+from mira.client import MiraClient
+
+mira = MiraClient(
+    on_violation=lambda rules, findings, raw, ctx: alert_mira_owner(ctx, rules),
+    on_api_error=lambda exc, ctx: page_oncall(exc),
+)
+
+result = mira.reply(conversation, lang=user_language, context={"conversation_id": cid})
+send_to_customer(result.text)          # always safe to send
+```
+
+`MiraClient` handles the whole path: loads the prompt from `SYSTEM-PROMPT.md`, pins the model,
+calls the API, screens the output, logs violations, and fails closed. **It never raises** — every
+path returns something sendable, because a broken widget or a stack trace in front of a customer
+is its own kind of failure.
+
+Four behaviours worth knowing:
+
+| Situation | What the customer gets |
+|---|---|
+| Clean response | The model's text |
+| Guardrail violation | The redirect. The model's text is kept in `result.raw` for the audit log only |
+| API failure of any kind | The redirect |
+| **Pinned model returns 404** | The redirect, **and a CRITICAL log plus `on_api_error`** — this is the retired-model failure, made loud |
+
+That last row exists because of what actually happened: a retired model returned `not_found_error`
+for months and, per Anthropic's own notice, *the failure did not appear on the Usage page*. A 404
+on the pinned model is now the loudest event this module produces.
+
+### The long version — call the pieces yourself
 
 ```python
 from mira.guardrails import check_response, SAFE_FALLBACK

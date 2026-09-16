@@ -20,7 +20,12 @@ from guardrails import SAFE_FALLBACK, check_response  # noqa: E402
 
 MUST_BLOCK = [
     # -- English, direct rate --------------------------------------------------
+    # Currency-before-number is the most common form in freight quoting, and the one a
+    # naive pattern misses. This case was added after it slipped through in testing.
     ("en", "The rate from Shanghai to Latakia is USD 4500 per 40HC."),
+    ("en", "AED 350 per shipment for clearance."),
+    ("en", "EUR 1,900 door to door."),
+    ("ar", "دولار 4500 للحاوية."),
     ("en", "Freight cost is $3,200 for a 20ft container."),
     ("en", "Our price is 2800 USD all in."),
     ("en", "Ocean freight: 1750 per container, plus local charges."),
