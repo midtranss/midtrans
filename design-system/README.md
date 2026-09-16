@@ -17,7 +17,7 @@ Write in the operator's voice: calm, precise, and accountable for what it states
 ### Colour
 
 - Set page backgrounds in `surface-page`, panels and tables in `surface-card`, and recessed bands, table headers and sidebar rails in `surface-sunken`.
-- `brand-accent` is the identity blue `#007DC5`, exact in both themes. Spend it on graphics, rules, chart marks and display type at 24px or larger. White on it measures 4.43:1, so it never fills a button or any surface carrying body-size text.
+- `brand-accent` is the official identity blue `#007DC5`, exact in both themes. It supersedes the `#0a5a9c` used by the current public site stylesheet, which is legacy and is not carried forward. Spend it on graphics, rules, chart marks and display type at 24px or larger. White on it measures 4.43:1, so it never fills a button or any surface carrying body-size text.
 - Fill primary actions with `brand-primary` and label them `ink-on-brand`. `brand-primary` is the identity blue darkened for light and lightened for dark, which is what keeps the label legible in both.
 - Use `surface-inverse` with `ink-inverse` for deep-navy bands: the site footer, a hero, a letterhead. One such band per screen.
 - Keep body copy in `ink-body`, headings and figures in `ink-strong`, and secondary text in `ink-muted`. Every text token's note names the grounds it is cleared for; do not put text on a ground its note does not list.
@@ -33,7 +33,7 @@ Write in the operator's voice: calm, precise, and accountable for what it states
 ### Spacing, radius and elevation
 
 - Lay everything out on the 4px grid in `spacing`. Page gutters are `space-8` on desktop, `space-4` on mobile; cards are padded `space-5` on desktop and `space-4` below 768px.
-- Radii stay small: `radius-sm` for inputs and badges, `radius-md` for buttons, cards and modals, `radius-lg` only for hero and media blocks. `radius-pill` is reserved for the status dot and dismissible filter chips.
+- Radii follow the international enterprise band: `radius-sm` (4px) for inputs and badges, `radius-md` (8px) for buttons, cards, panels and modals, `radius-lg` (12px) for hero blocks, media frames and document letterheads. `radius-pill` is reserved for status dots, meters and dismissible filter chips — never a button.
 - A card at rest carries `border-subtle` and no shadow. Shadow means the element floats above the page: `shadow-md` for dropdowns and popovers, `shadow-lg` for modals.
 
 ### States

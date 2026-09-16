@@ -52,10 +52,10 @@
     "MIDTRANS~20LOGO"
   ],
   "lastChange": {
-    "at": "2026-09-16T21:21:40Z",
+    "at": "2026-09-16T21:35:12Z",
     "by": "Khaldoun",
     "via": "Claude Code",
-    "note": "Logo usage corrected to the owner's rules: blue for light grounds, white for dark, the blue-field icon for the browser and app icon."
+    "note": "#007DC5 confirmed official; radii moved to the international enterprise band 4/8/12; added Footer, Document, Calculator and HSCodeLookup, and the ink-inverse-muted token."
   },
   "layout": "files",
   "libraries": [],
