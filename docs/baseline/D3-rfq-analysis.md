@@ -56,7 +56,7 @@ actually read, not from those estimates.
 |---|---|---|---|
 | **New website RFQ wizard** (`QREQ-` references) | **4 total**, 11–16 Sep 2026 | **HIGH** | Sequential references make this exact |
 | **Older website form** ("global freight quote request") | 5 threads / 12 months | MED-HIGH | Structured field format; superseded by the wizard |
-| **Website chat widget** | At least 1 conversation observed | LOW | Volume not established — see §9 |
+| **MIRA / website chat** | At least 1 conversation observed | LOW | **MIRA is live** — see §8a. Volume not established |
 | **Direct email to operations address** | ~15 genuine end-customer enquiries / 12 months | MED | Free-mail proxy; a floor, not a total |
 | **Public website address** (`info@` on the .com domain) | High volume, ~85% non-enquiry | MED | See §3 |
 | **Forwarder / agent rate requests** | Continuous, high volume | HIGH | Partner traffic, not website-sourced |
@@ -277,6 +277,48 @@ should follow.
 
 ---
 
+## 8a. MIRA is live — ⚠️ correction to an earlier version of this file
+
+> An earlier version of this analysis concluded that no autonomous AI assistant appeared to be
+> live. **That conclusion was wrong**, and it has been withdrawn. It generalised from one chat
+> conversation that staff answered — most likely an escalation *from* MIRA, not evidence that
+> MIRA does not exist.
+
+**MIRA is live and runs on the Claude API.** Documentary evidence in the mailbox:
+
+- An Anthropic service notice (11 Sep 2026) names an API key **`MIRA · mira.midtrans.org`**
+- MIRA has its own mailbox, `mira@midtrans.org`
+- Anthropic billing receipts dated 20 Aug, 11 Sep and 15 Sep 2026 confirm active paid API use
+
+The same notice reports that a MIRA code path is calling **`claude-3-5-haiku-20241022`** — a model
+retired on 19 February 2026 — and that the call **fails silently**: Anthropic states the failure
+"does not appear on the Usage page."
+
+### What this changes in the programme
+
+| Was | Is |
+|---|---|
+| Guardrails are a prerequisite to be built before MIRA ships | **Guardrails are remediation of a live system** |
+| Phase 02 begins after Phase 01 | **The guardrail question is open now, ahead of everything** |
+| No active commercial exposure | **Exposure is active until proven otherwise** |
+
+Full detail, the migration fix, and the eight questions D1 must answer are in
+`D4-feature-inventory.md` § MIRA status.
+
+### The single most urgent open question
+
+> **Does MIRA currently have any guardrail preventing it from stating a rate, transit time,
+> customs cost, cargo acceptance, or capacity?**
+
+Given §4 of this analysis — that the dominant inbound buyer is a first-time importer who opens
+with *"how much to ship X to Syria"* — an unguarded MIRA is being asked the exact question it must
+never answer, by most of the people who reach it.
+
+Reviewing MIRA's recent conversation logs for any stated rate, transit time or acceptance is the
+fastest way to establish whether the exposure has already materialised.
+
+---
+
 ## 9. What this analysis does NOT establish
 
 Recorded honestly rather than estimated, per `README.md`:
@@ -308,6 +350,8 @@ Recorded honestly rather than estimated, per `README.md`:
 | 9 | At least one lane declined after the enquiry | Publish a served-lanes page in Phase 04 |
 | 10 | Wizard acknowledgement is guardrail-compliant | Use it as the template for Phase 01 copy |
 | 11 | At least one enquirer chased twice without a rate | Phase 01 needs an SLA and a follow-up mechanism |
+| **12** | **MIRA is live on the Claude API** (`mira.midtrans.org`) | **Guardrails become remediation, not preparation — this outranks everything else in the programme** |
+| **13** | **A MIRA code path calls a model retired in Feb 2026 and fails silently** | Pin `claude-haiku-4-5`, drop the `-latest` alias, and add failure alerting |
 
 ---
 

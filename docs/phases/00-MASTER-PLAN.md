@@ -231,7 +231,8 @@ A phase without a named owner does not start.
 
 | Risk | Impact | Mitigation |
 |---|---|---|
-| MIRA invents a rate or transit time | Commercial and legal exposure; loss of trust | Guardrails as blocking prerequisite; independent output check; stop-the-line on violation |
+| **MIRA invents a rate or transit time — ACTIVE, not hypothetical: MIRA is already live** | Commercial and legal exposure; loss of trust | **Audit live conversation logs now**; treat as unguarded until proven otherwise; then guardrails, independent output check, stop-the-line |
+| A MIRA model call fails silently in production | Broken behaviour nobody sees | Pin model IDs, never use `-latest`; alert on failed model calls |
 | Thin or templated content triggers site-level suppression | Loss of ranking across the whole domain | Uniqueness test mandatory per page; US location pages removed |
 | Content capacity below plan | Phases stall; half-finished sections go live | Language tiering; conservative page targets; no partial publication |
 | Phase gates bypassed under schedule pressure | Compounding a failed assumption | Gate rule in `DEFINITION-OF-DONE.md`; written gate decision record |
@@ -250,8 +251,11 @@ These must be closed at the Phase 00 gate:
 1. **Where does the production website codebase live?** Not yet identified. Phase 00 cannot start
    without it.
 2. **Current stack, CMS, and i18n implementation** — unknown until Phase 00.
-3. **Which tools already exist and work** — Loading Calculator, MIRA, Invoice Builder status is
-   assumed, not verified.
+3. **Which tools already exist and work** — partially answered. **MIRA is confirmed live** at
+   `mira.midtrans.org`, and the RFQ wizard launched 11 Sep 2026. Calculator and Invoice Builder
+   status remains unverified. See `../baseline/D4-feature-inventory.md`.
+3b. **Does the live MIRA have any guardrails?** — the highest-priority open question in the
+   programme.
 4. **Team capacity and budget** — determines whether the estimates in §3 hold.
 5. **Analytics and consent tooling currently in place.**
 6. **URL scheme for languages** — to be decided once, against the existing codebase, then frozen.

@@ -20,6 +20,39 @@ replies, and any future voice or messaging channel.
 
 ---
 
+## 0. ⚠️ MIRA IS ALREADY LIVE — this file is remediation, not preparation
+
+**Established 2026-09-16 from documentary evidence** (see `../baseline/D4-feature-inventory.md`
+§ MIRA status): MIRA runs on the Claude API under its own API key and subdomain,
+`mira.midtrans.org`, and is already in contact with website visitors.
+
+This file was drafted on the assumption that guardrails would be built **before** MIRA shipped.
+That assumption is void.
+
+| What changes | Consequence |
+|---|---|
+| Guardrails are not a precondition for future work | They are **remediation of a system already running** |
+| The exposure is not hypothetical | It is **active until proven otherwise** |
+| Phase 02 is not "next after Phase 01" | **The guardrail question is open right now** |
+
+### The one question that comes before everything else
+
+> **Does MIRA currently have any guardrail preventing it from stating a rate, transit time,
+> customs cost, cargo acceptance, or capacity?**
+
+Until that is answered:
+
+1. **Audit MIRA's recent conversation logs** for any stated rate, transit time, cost, or
+   acceptance. This establishes whether the exposure has already materialised, and it is the
+   fastest thing to do.
+2. **Treat MIRA as unguarded.** If it can quote, it must not be proactive — see §7.
+3. **Do not expand MIRA's reach** until §9 is satisfied.
+
+Everything below applies unchanged. Only the sequencing changed: these rules are now owed to
+customers MIRA is already talking to.
+
+---
+
 ## 1. Why this file exists and comes first
 
 MIRA is designed to be proactive. A proactive assistant that is also unconstrained will, sooner

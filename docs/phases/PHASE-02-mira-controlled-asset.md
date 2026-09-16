@@ -37,9 +37,37 @@ Deployment, review cadence, and proactive engagement ship together or not at all
 
 ---
 
+## ⚠️ Status changed — MIRA is already live
+
+**Established 2026-09-16** (`../baseline/D4-feature-inventory.md` § MIRA status): MIRA is in
+production on the Claude API at `mira.midtrans.org`. It is talking to visitors now.
+
+This phase was written as "build MIRA properly". It is now **"bring a live MIRA under control"** —
+a different job with a different urgency.
+
+| Consequence | Detail |
+|---|---|
+| **Guardrail work is no longer gated behind Phase 01** | The audit question in `../standards/MIRA-GUARDRAILS.md` §0 is open immediately |
+| **Two production defects are already known** | An unanswered guardrail question, and a code path calling a model retired in Feb 2026 that fails silently |
+| **D5 (proactive engagement) moves to the end** | Do not make a possibly-unguarded assistant *more* proactive |
+| **A new D0 is required** | Audit what MIRA does today before changing it |
+
+### D0 — Audit the live MIRA (new; comes first)
+
+1. Review recent conversation logs for any stated rate, transit time, customs cost, acceptance or
+   capacity. **This establishes whether the exposure has already materialised.**
+2. Record what constraints exist today — system prompt only, output check, or nothing.
+3. Identify every model reference, and fix the retired-model call: pin `claude-haiku-4-5`, drop
+   the `-latest` alias, add alerting so a failed model call is never silent again.
+4. Establish what MIRA is grounded in, and which languages it answers in.
+
+Only then proceed to D1 below.
+
+---
+
 ## Blocking prerequisite
 
-**Phase 02 does not start until every box in `../standards/MIRA-GUARDRAILS.md` §9 is ticked**,
+**No expansion of MIRA's reach or proactivity happens until every box in `../standards/MIRA-GUARDRAILS.md` §9 is ticked**,
 including the full test suite in §8 — with its Arabic and indirect-phrasing variants passing.
 
 This is the single hardest gate in the programme, and it is deliberate. One invented rate that
