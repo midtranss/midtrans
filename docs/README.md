@@ -56,6 +56,7 @@ writer, or a coding agent — without further briefing.
 | 02 | `PHASE-02-D0-AUDIT.md` | — | Executable now: audit what the live MIRA has already said |
 | 02 | `PHASE-02-mira-controlled-asset.md` | 4–6 weeks | MIRA generates qualified leads, zero commitments given |
 | 03 | `PHASE-03-tools-lead-engine.md` | 4 weeks | Each tool produces a measurable conversion path |
+| 03 | `PHASE-03-TOOL-CALCULATION-SPEC.md` | — | What each tool computes, and what it must never compute |
 | 04 | `PHASE-04-syria-trade-center.md` | 6–8 weeks | 25–40 deep pages live, originality verified |
 | 04 | `PHASE-04-KNOWLEDGE-CAPTURE.md` | — | Interview guides — the critical path for Phase 04 |
 | 05 | `PHASE-05-market-entry-representation.md` | 8–10 weeks | Representation + market-entry hubs live and converting |

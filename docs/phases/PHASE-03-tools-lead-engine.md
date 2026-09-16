@@ -60,6 +60,11 @@ Plus, for each: landing page, user guide, FAQ, MIRA integration, and a measured 
 **No tool produces a price, a rate, a transit time, a customs cost, a duty figure, or an
 acceptance decision.**
 
+This is enforced by a test, not only by intention: `tools/calc/tests/test_freight_math.py` runs
+every string the calculation core can emit through the MIRA guardrail check in
+`../../mira/guardrails.py`. The tools and the assistant are held to one standard, because the
+customer does not distinguish between them.
+
 The tools calculate physical and documentary facts: volume, weight, fit, utilisation, document
 completeness. A "rate estimator" is a quote wearing an engineering costume, and it is prohibited
 under `../standards/WRITING-STANDARDS.md` §4.
@@ -70,9 +75,19 @@ under `../standards/WRITING-STANDARDS.md` §4.
 
 ### D1 — Tool functionality
 
+**The calculation layer is specified and built: `PHASE-03-TOOL-CALCULATION-SPEC.md`, implemented
+in `../../tools/calc/freight_math.py`.** Every UI calculator calls it rather than re-deriving the
+arithmetic, so the boundary in §"Out of scope" is enforced in one place and tested there.
+
+Three properties of that layer decide whether this phase's hard constraint actually holds:
+the volumetric divisor is a required argument with no default; container feasibility returns
+`EXCEEDS` / `REVIEW` / `LIKELY_FITS` and never "fits"; and every reference capacity is
+`unconfirmed` until a named person at operations signs it off.
+
 Per the Phase 00 verdicts. For each tool, whether built or fixed:
 
 - Correct calculation, verified against worked examples reviewed by MIDTRANS operations
+  (§7 of the spec defines what operations must supply, and why the suite cannot substitute for it)
 - Mobile-first — these are used on phones, in warehouses and offices
 - Clear, exportable output the user can act on or send onward
 - Sensible input validation with useful error messages
@@ -191,6 +206,8 @@ site unaffected. Existing tools are not removed until the replacement is proven.
 
 - [ ] Calculations verified against operations-reviewed worked examples
 - [ ] No price, rate, transit time, duty, or acceptance output anywhere in any tool
+- [ ] `PHASE-03-TOOL-CALCULATION-SPEC.md` §9 checklist passed — in particular
+      `unconfirmed_rows()` empty, and `LIKELY_FITS` never rendered as "Fits"
 - [ ] Every tool tested on real mobile devices
 - [ ] Accessibility audit passed per tool
 - [ ] RFQ pre-population verified end to end
