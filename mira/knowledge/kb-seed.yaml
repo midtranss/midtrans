@@ -1,0 +1,268 @@
+# MIRA knowledge base — seed set
+#
+# Questions sourced from real MIDTRANS enquiries (docs/baseline/D3-rfq-analysis.md §6).
+# Answers are DRAFT and must be reviewed by MIDTRANS operations before being served.
+#
+# Schema per entry:
+#   id, question (en/ar), answer (en/ar), source, owner, reviewed_at, expires_at,
+#   status: draft | approved | retired
+#   escalate_if: conditions that must route to a human instead of answering
+#   never_say: category reminders for this specific topic
+
+meta:
+  version: 0.1
+  created: 2026-09-16
+  status: draft
+  review_required_by: MIDTRANS operations
+  note: >
+    No entry may be served while status is draft. Answers were drafted from observable
+    mailbox evidence and general trade practice, not from MIDTRANS's documented procedure.
+
+entries:
+
+  - id: kb-001
+    topic: china-syria-lcl
+    question:
+      en: Do you do LCL from China to Syria, and how does consolidation work?
+      ar: هل تقومون بالشحن الجزئي LCL من الصين إلى سوريا، وكيف يعمل التجميع؟
+    answer:
+      en: >
+        Yes — LCL means your cargo shares a container with other shippers' goods. It is collected
+        at a consolidation warehouse at origin, loaded with other cargo, then separated again at
+        destination. It suits shipments too small to justify a full container, which is most first
+        orders. What you need to prepare: the commodity description, the gross weight, the volume
+        in CBM or the carton dimensions, and whether your supplier delivers to the warehouse or we
+        collect. Tell me those and I will put it in front of our team.
+      ar: >
+        نعم — الشحن الجزئي يعني أن بضاعتك تتشارك الحاوية مع بضائع شاحنين آخرين. تُجمَّع في مستودع
+        تجميع في بلد المنشأ، وتُحمَّل مع غيرها، ثم تُفصَل في الوجهة. وهو مناسب للشحنات الأصغر من أن
+        تبرّر حاوية كاملة، وهذه حال معظم الطلبيات الأولى. ما تحتاج تجهيزه: وصف البضاعة، والوزن
+        الإجمالي، والحجم بالمتر المكعب أو أبعاد الكراتين، وهل يسلّم مورّدك إلى المستودع أم نستلم
+        نحن. أعطني هذه وأضعها أمام فريقنا.
+    source: TO BE CONFIRMED — MIDTRANS operations
+    owner: null
+    reviewed_at: null
+    expires_at: null
+    status: draft
+    escalate_if: [dangerous goods, restricted commodity, a request for a rate or transit time]
+    never_say: [rate, transit time, sailing date, capacity]
+
+  - id: kb-002
+    topic: supplier-direct-delivery
+    question:
+      en: Can my Alibaba supplier ship directly to your warehouse in China?
+      ar: هل يستطيع مورّدي على Alibaba إرسال البضاعة مباشرة إلى مستودعكم في الصين؟
+    answer:
+      en: >
+        This is usually how a first LCL order works: your supplier delivers to the consolidation
+        point and we take it from there. What our team needs to set it up: the origin city, the
+        supplier's contact for the handover, the number and size of cartons, and the commodity.
+        Whether the supplier delivers or we collect from their factory depends on the Incoterm you
+        agreed with them — if you are not sure which one that is, say so and our team will work it
+        out with you.
+      ar: >
+        هذه عادةً طريقة عمل أول طلبية جزئية: يسلّم مورّدك إلى نقطة التجميع، ونتولّى نحن ما بعدها.
+        ما يحتاجه فريقنا لترتيبها: مدينة المنشأ، وجهة الاتصال لدى المورّد للتسليم، وعدد الكراتين
+        وأحجامها، ونوع البضاعة. وهل يسلّم المورّد أم نستلم من مصنعه يعتمد على شرط التسليم الذي
+        اتفقت معه عليه — وإن لم تكن متأكداً منه، قل ذلك وفريقنا يرتّبها معك.
+    source: TO BE CONFIRMED — MIDTRANS operations
+    owner: null
+    reviewed_at: null
+    expires_at: null
+    status: draft
+    escalate_if: [supplier dispute, payment terms, a request for a rate]
+    never_say: [rate, transit time, customs cost]
+
+  - id: kb-003
+    topic: syria-import-first-time
+    question:
+      en: What documents do I need to import into Syria for the first time?
+      ar: ما الوثائق التي أحتاجها للاستيراد إلى سوريا لأول مرة؟
+    answer:
+      en: >
+        DRAFT — MUST BE COMPLETED BY MIDTRANS OPERATIONS. The document set is the single most
+        valuable thing MIRA can answer accurately, and it is exactly the thing that must not be
+        guessed. This entry stays unserved until operations writes the actual list, states who
+        issues each document, and says which ones vary by commodity.
+      ar: >
+        مسوّدة — يجب أن يكملها فريق عمليات ميدترانس. قائمة الوثائق هي أثمن ما تستطيع MIRA الإجابة
+        عنه بدقة، وهي بالضبط ما لا يجوز تخمينه. يبقى هذا المُدخَل غير مُقدَّم حتى يكتب الفريق
+        القائمة الفعلية، ويحدّد الجهة المُصدِرة لكل وثيقة، وأيّها يختلف باختلاف البضاعة.
+    source: REQUIRED — MIDTRANS operations knowledge capture (Phase 04 / D4)
+    owner: null
+    reviewed_at: null
+    expires_at: null
+    status: draft
+    escalate_if: [any specific shipment, any compliance question]
+    never_say: [that a document set is sufficient for a specific shipment, duty, clearance cost]
+
+  - id: kb-004
+    topic: chemicals-dg
+    question:
+      en: Do you ship chemicals, and what do you need from me?
+      ar: هل تشحنون المواد الكيميائية، وماذا تحتاجون منّي؟
+    answer:
+      en: >
+        Chemical shipments are handled case by case, and whether a specific cargo can move depends
+        on its classification and the carrier's current acceptance policy — that is an operational
+        decision, not one I can confirm. What our team needs to assess it: the safety data sheet
+        (MSDS) from your supplier, the UN number and class if you have them, the net and gross
+        weight, the packaging type, and the origin and destination. Send me the MSDS and I will
+        route it straight to the team.
+      ar: >
+        شحنات المواد الكيميائية تُدرَس حالة بحالة، وإمكانية نقل بضاعة بعينها تعتمد على تصنيفها
+        وسياسة القبول الحالية لدى الناقل — وهذا قرار تشغيلي لا أستطيع تأكيده. ما يحتاجه فريقنا
+        لتقييمها: صحيفة بيانات السلامة (MSDS) من مورّدك، ورقم الأمم المتحدة والفئة إن توفّرا،
+        والوزن الصافي والإجمالي، ونوع التعبئة، والمنشأ والوجهة. أرسل لي الـ MSDS وأحوّلها للفريق
+        مباشرة.
+    source: Observed enquiry pattern; DG requirements are standard carrier practice
+    owner: null
+    reviewed_at: null
+    expires_at: null
+    status: draft
+    escalate_if: [always — every DG enquiry routes to a human]
+    never_say: [that a cargo is or is not dangerous, acceptance, rate, transit time]
+
+  - id: kb-005
+    topic: incoterms
+    question:
+      en: What is DDP versus DDU, and which do I need?
+      ar: ما الفرق بين DDP و DDU، وأيّهما أحتاج؟
+    answer:
+      en: >
+        Under DDP the seller delivers to your door with import duties and taxes paid. Under DDU
+        (now DAP) the seller delivers to your door but you pay the import duties and taxes. Which
+        suits you depends on what you agreed with your supplier and whether you want to handle
+        import charges yourself. I cannot tell you what those charges will be — that depends on
+        the classification and current regulations, and our customs team handles it. If you tell
+        me what your supplier quoted, our team can tell you what it does and does not include.
+      ar: >
+        في DDP يسلّم البائع إلى بابك ورسوم الاستيراد والضرائب مدفوعة. وفي DDU (وتُسمّى الآن DAP)
+        يسلّم إلى بابك لكنك تدفع رسوم الاستيراد والضرائب. وأيّهما يناسبك يعتمد على ما اتفقت عليه
+        مع مورّدك وهل تريد تولّي رسوم الاستيراد بنفسك. ولا أستطيع إخبارك بقيمة تلك الرسوم — فهي
+        تعتمد على التصنيف واللوائح السارية، وفريق التخليص لدينا يتولّاها. إن أخبرتني بما عرضه
+        مورّدك، يستطيع فريقنا أن يبيّن لك ما يشمله وما لا يشمله.
+    source: Standard Incoterms 2020 definitions
+    owner: null
+    reviewed_at: null
+    expires_at: null
+    status: draft
+    escalate_if: [a request for the duty amount, a specific shipment calculation]
+    never_say: [duty rate, tax amount, clearance cost, total landed cost]
+
+  - id: kb-006
+    topic: lane-coverage
+    question:
+      en: Do you serve route X?
+      ar: هل تخدمون خط الشحن كذا؟
+    answer:
+      en: >
+        DRAFT — REQUIRES A SERVED-LANES LIST FROM MIDTRANS OPERATIONS. D3 found at least one
+        enquiry declined after the fact because the lane is not served, costing both sides time.
+        MIRA should be able to answer this immediately, but only from a maintained list. Until
+        that list exists, this entry routes to a human rather than guessing.
+      ar: >
+        مسوّدة — تحتاج قائمة الخطوط المخدومة من فريق العمليات. كشف تحليل D3 استفساراً واحداً على
+        الأقل رُفض بعد وصوله لأن الخط غير مخدوم، ما كلّف الطرفين وقتاً. يجب أن تجيب MIRA فوراً،
+        لكن من قائمة مُصانة فقط. وإلى أن توجد، يُحوَّل هذا المُدخَل إلى إنسان بدل التخمين.
+    source: REQUIRED — MIDTRANS operations (also becomes a published page, Phase 04)
+    owner: null
+    reviewed_at: null
+    expires_at: null
+    status: draft
+    escalate_if: [always, until the served-lanes list exists]
+    never_say: [that a lane is served when it is not, capacity, rate]
+
+  - id: kb-007
+    topic: syria-export
+    question:
+      en: Can you ship from Syria to Europe or the USA?
+      ar: هل تستطيعون الشحن من سوريا إلى أوروبا أو الولايات المتحدة؟
+    answer:
+      en: >
+        DRAFT — MUST BE ANSWERED BY MIDTRANS MANAGEMENT, NOT DRAFTED HERE. Export from Syria
+        carries compliance considerations that are not MIRA's to assess and not this session's to
+        summarise. Real enquiries of this kind arrived during the D3 period. Until management
+        writes this answer, every such enquiry escalates immediately to a human.
+      ar: >
+        مسوّدة — يجب أن تكتبها إدارة ميدترانس، لا أن تُصاغ هنا. التصدير من سوريا يحمل اعتبارات
+        امتثال ليست من شأن MIRA تقييمها ولا من شأن هذه الجلسة تلخيصها. وقد وصلت استفسارات حقيقية
+        من هذا النوع خلال فترة تحليل D3. وإلى أن تكتب الإدارة الجواب، يُصعَّد كل استفسار كهذا
+        إلى إنسان فوراً.
+    source: REQUIRED — MIDTRANS management
+    owner: null
+    reviewed_at: null
+    expires_at: null
+    status: draft
+    escalate_if: [always]
+    never_say: [any compliance, sanctions or eligibility determination; acceptance; rate]
+
+  - id: kb-008
+    topic: vehicle-import
+    question:
+      en: Can you bring a vehicle into Syria and clear it?
+      ar: هل تستطيعون إدخال سيارة إلى سوريا وتخليصها؟
+    answer:
+      en: >
+        DRAFT — REQUIRES MIDTRANS OPERATIONS INPUT. Vehicle import has its own documentation and
+        clearance path, and the requirements change. Two enquiries of this kind arrived during the
+        D3 period, one in German. Until operations documents the actual requirements, this routes
+        to a human.
+      ar: >
+        مسوّدة — تحتاج مُدخَلات من فريق العمليات. استيراد المركبات له مسار وثائق وتخليص خاص به،
+        ومتطلباته تتغيّر. وقد وصل استفساران من هذا النوع خلال فترة D3، أحدهما بالألمانية. وإلى أن
+        يوثّق الفريق المتطلبات الفعلية، يُحوَّل هذا إلى إنسان.
+    source: REQUIRED — MIDTRANS operations
+    owner: null
+    reviewed_at: null
+    expires_at: null
+    status: draft
+    escalate_if: [always, until documented]
+    never_say: [duty, clearance cost, timeline, that a specific vehicle will clear]
+
+  - id: kb-009
+    topic: ports-latakia-tartous
+    question:
+      en: Can you handle customs clearance at Latakia or Tartous, and what does that involve?
+      ar: هل تتولّون التخليص الجمركي في اللاذقية أو طرطوس، وماذا يتضمّن ذلك؟
+    answer:
+      en: >
+        DRAFT — THIS IS MIDTRANS'S STRONGEST SUBJECT AND MUST COME FROM OPERATIONS. MIDTRANS has
+        worked through these ports since 1998. That experience is the content moat Phase 04 is
+        built on, and it cannot be drafted from outside. Operations should describe the actual
+        sequence, the documents genuinely required, and where shipments most commonly get delayed.
+      ar: >
+        مسوّدة — هذا أقوى موضوع لدى ميدترانس، ويجب أن يأتي من فريق العمليات. تعمل الشركة عبر هذين
+        المرفأين منذ ١٩٩٨، وتلك الخبرة هي الحصن المعرفي الذي تقوم عليه المرحلة الرابعة، ولا يمكن
+        صياغتها من الخارج. على الفريق أن يصف التسلسل الفعلي، والوثائق المطلوبة حقاً، وأين تتأخّر
+        الشحنات غالباً.
+    source: REQUIRED — MIDTRANS operations knowledge capture (Phase 04)
+    owner: null
+    reviewed_at: null
+    expires_at: null
+    status: draft
+    escalate_if: [a specific shipment, a clearance-time question]
+    never_say: [clearance time, duty, storage charges, that a shipment will clear]
+
+  - id: kb-010
+    topic: what-mira-is
+    question:
+      en: Am I talking to a person?
+      ar: هل أتحدّث مع شخص؟
+    answer:
+      en: >
+        No — I'm MIRA, MIDTRANS's AI assistant. I can explain how shipping and customs work, and I
+        collect the details our team needs so they can come back to you properly. I don't quote
+        rates or confirm bookings myself. If you'd rather speak to someone directly, tell me and
+        I'll arrange it.
+      ar: >
+        لا — أنا ميرا، المساعد الذكي لميدترانس. أستطيع أن أشرح لك كيف يعمل الشحن والتخليص، وأجمع
+        التفاصيل التي يحتاجها فريقنا ليعود إليك بجواب دقيق. لا أعطي أسعاراً ولا أؤكّد حجوزات. وإن
+        كنت تفضّل التحدّث مع شخص مباشرة، قل لي وأرتّب ذلك.
+    source: MIRA-GUARDRAILS.md §0 and SYSTEM-PROMPT.md — AI disclosure requirement
+    owner: null
+    reviewed_at: null
+    expires_at: null
+    status: draft
+    escalate_if: [the user asks to speak to a person]
+    never_say: [that you are a member of staff, a human name, a job title]
