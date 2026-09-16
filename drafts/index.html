@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MIDTRANS drafts</title>
+<meta name="theme-color" content="#007DC5">
+<link rel="stylesheet" href="theme/tokens.css">
+<link rel="stylesheet" href="theme/midtrans.css">
+<style>
+  body { margin: 0; background: var(--surface-sunken); font-family: var(--font-sans); color: var(--ink-body); }
+  .wrap { max-width: 900px; margin-inline: auto; padding: var(--space-8) var(--mt-gutter) var(--space-10); }
+  h1 { font: var(--text-display-2); color: var(--ink-strong); margin: 0 0 var(--space-2); }
+  .lede { font: var(--text-body-lg); color: var(--ink-body); margin: 0 0 var(--space-6); max-width: 60ch; }
+  .g { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-4); }
+  .bar { display: flex; gap: var(--space-2); margin-block-end: var(--space-6); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>MIDTRANS drafts</h1>
+  <p class="lede">Static drafts of every MIDTRANS surface, built on the design system. Nothing here is connected to a server, a database or live data. Open each one, resize it, switch the theme and the direction, and mark what should change.</p>
+  <div class="bar">
+    <button class="mt-btn mt-btn--secondary mt-btn--sm" onclick="tog()">Dark / light</button>
+    <button class="mt-btn mt-btn--secondary mt-btn--sm" onclick="dir()">LTR / RTL</button>
+  </div>
+  <div class="mt-alert mt-alert--warning" role="status" style="margin-block-end:var(--space-6)">
+    <div class="mt-alert__body">
+      <p class="mt-alert__title">Draft — every figure is a masked placeholder</p>
+      <p class="mt-alert__text">No rate, transit time, duty or date on these pages came from an operational source. They exist to show layout only.</p>
+    </div>
+  </div>
+  <div class="g">
+    <a class="mt-service" href="website.html"><span class="mt-service__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15h18l-2.1 4.2a1.5 1.5 0 0 1-1.35.8H6.45a1.5 1.5 0 0 1-1.35-.8L3 15Z"/><path d="M8 15v-5h6v5"/><path d="M11 10V6h4"/></svg></span><h3 class="mt-service__title">Website</h3><p class="mt-service__text">midtrans.org — home page: hero, services, trade lanes, closing band, footer.</p></a>
+    <a class="mt-service" href="app-shipments.html"><span class="mt-service__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="9" rx="0.5"/><path d="M7 8v9M11 8v9M15 8v9"/></svg></span><h3 class="mt-service__title">Platform — register</h3><p class="mt-service__text">app.midtrans.net — the shipment list, with the side rail and the stacked mobile view.</p></a>
+    <a class="mt-service" href="app-shipment.html"><span class="mt-service__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3H13l5 5v13H6.5z"/><path d="M13 3v5h5"/></svg></span><h3 class="mt-service__title">Platform — shipment</h3><p class="mt-service__text">One record: detail, timeline, documents, and the back navigation.</p></a>
+    <a class="mt-service" href="tools.html"><span class="mt-service__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M8 6.5h8v3.2H8z"/><path d="M8.6 13.5h.01M12 13.5h.01M15.4 13.5h.01M8.6 17h.01M12 17h.01M15.4 17h.01"/></svg></span><h3 class="mt-service__title">Tools</h3><p class="mt-service__text">Loading calculator and HS code lookup — what they compute and what they refuse to.</p></a>
+    <a class="mt-service" href="quotation.html"><span class="mt-service__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5.5v14M8 20.5h8M5 8.5h14"/><path d="M5 8.5 2.5 14h5L5 8.5ZM19 8.5 16.5 14h5L19 8.5Z"/><circle cx="12" cy="6" r="1.2"/></svg></span><h3 class="mt-service__title">Quotation</h3><p class="mt-service__text">The commercial document, on screen and in print. Try Ctrl+P.</p></a>
+    <a class="mt-service" href="mira.html"><span class="mt-service__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 17a7.5 7.5 0 1 1 15 0"/><path d="M12 17 15.6 11.6"/><circle cx="12" cy="17" r="1.1"/></svg></span><h3 class="mt-service__title">Mira</h3><p class="mt-service__text">mira.midtrans.net — the assistant, and the boundary it must not cross.</p></a>
+    <a class="mt-service" href="theme/_harness.html"><span class="mt-service__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.3 15.3 5.2 5.2"/></svg></span><h3 class="mt-service__title">Component harness</h3><p class="mt-service__text">Every component in one page, for checking themes, focus and breakpoints.</p></a>
+  </div>
+</div>
+<script>
+function tog(){const h=document.documentElement;h.setAttribute('data-theme',h.getAttribute('data-theme')==='dark'?'light':'dark')}
+function dir(){const h=document.documentElement;const r=h.getAttribute('dir')==='rtl';h.setAttribute('dir',r?'ltr':'rtl');h.setAttribute('lang',r?'en':'ar')}
+</script>
+</body>
+</html>

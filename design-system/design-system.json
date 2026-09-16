@@ -69,10 +69,10 @@
     "Icons"
   ],
   "lastChange": {
-    "at": "2026-09-16T21:48:18Z",
+    "at": "2026-09-16T22:02:01Z",
     "by": "Khaldoun",
     "via": "Claude Code",
-    "note": "Phases 1-4: verified the domain estate from DNS; added the 16-icon logistics set; added Hero, ServiceCard, TradeLaneCard, CTABlock, Milestone and Icon; added the properties-and-domains section."
+    "note": "Phase 7: motion layer - alert flash at 1.67Hz (half the WCAG seizure threshold, once, never looping), status and milestone transitions, Toast, loading skeletons, capped row entrance. All of it switched off by prefers-reduced-motion."
   },
   "layout": "files",
   "libraries": [],

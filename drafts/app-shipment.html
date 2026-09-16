@@ -1,0 +1,51 @@
+<!doctype html><html lang="en" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#007DC5"><link rel="stylesheet" href="theme/tokens.css"><link rel="stylesheet" href="theme/midtrans.css"><title>MDT-2026-004182 — MIDTRANS platform (draft)</title>
+<style>body{margin:0}.cols{display:grid;gap:var(--space-5)}\@media(min-width:900px){.cols{grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr)}}
+h2{font:var(--text-heading-2);color:var(--ink-strong);margin:0 0 var(--space-3)}</style></head><body>
+<div class="mt-shell">
+  <header class="mt-shell__header">
+    <a class="mt-shell__back" href="app-shipments.html" aria-label="Back to shipments"><svg viewBox="0 0 24 24"><path d="M20 12H5"/><path d="m10.5 6.5-5.5 5.5 5.5 5.5"/></svg></a>
+    <h1 class="mt-shell__title">MDT-2026-004182</h1>
+    <span class="mt-badge mt-badge--info"><span class="mt-badge__dot"></span>In transit</span>
+    <button class="mt-btn mt-btn--secondary mt-btn--sm" onclick="tg()">Theme</button>
+  </header>
+  <nav class="mt-shell__nav"><a class="mt-shell__nav-item" href="app-shipments.html" aria-current="page"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="9" rx="0.5"/><path d="M7 8v9M11 8v9M15 8v9"/></svg>Shipments</a><a class="mt-shell__nav-item" href="quotation.html"><svg viewBox="0 0 24 24"><path d="M6.5 3H13l5 5v13H6.5z"/><path d="M13 3v5h5"/></svg>Quotations</a><a class="mt-shell__nav-item" href="tools.html"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M8 6.5h8v3.2H8z"/></svg>Tools</a><a class="mt-shell__nav-item" href="mira.html"><svg viewBox="0 0 24 24"><path d="M4.5 17a7.5 7.5 0 1 1 15 0"/><path d="M12 17 15.6 11.6"/><circle cx="12" cy="17" r="1.1"/></svg>Mira</a></nav>
+  <main class="mt-shell__main">
+    <div class="mt-alert mt-alert--warning" role="status" style="margin-block-end:var(--space-5)">
+      <div class="mt-alert__body"><p class="mt-alert__title">Certificate of origin not yet attached</p><p class="mt-alert__text">The destination authority will request it before release. Attach it now to avoid a hold.</p></div>
+    </div>
+    <div class="cols">
+      <div>
+        <h2>Record</h2>
+        <dl class="mt-kv">
+          <dt>Booking</dt><dd data-mono>MDT-2026-004182</dd>
+          <dt>Bill of lading</dt><dd data-mono>MEDUL9284471</dd>
+          <dt>Route</dt><dd>Lattakia, SY → Hamburg, DE</dd>
+          <dt>Incoterm</dt><dd>FOB Lattakia</dd>
+          <dt>Equipment</dt><dd>1 × 40HC, general cargo</dd>
+          <dt>Gross weight</dt><dd data-mono>12 500 KG</dd>
+          <dt>Volume</dt><dd data-mono>24.8 CBM</dd>
+          <dt>Ocean freight</dt><dd data-pending>Confirmed on booking</dd>
+          <dt>Arrival</dt><dd data-pending>Per carrier schedule</dd>
+        </dl>
+        <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-block-start:var(--space-5)">
+          <button class="mt-btn mt-btn--primary mt-btn--sm">Attach document</button>
+          <a class="mt-btn mt-btn--secondary mt-btn--sm" href="quotation.html">Open quotation</a>
+          <button class="mt-btn mt-btn--danger mt-btn--sm">Cancel booking</button>
+        </div>
+      </div>
+      <div>
+        <h2>Progress</h2>
+        <ol class="mt-timeline">
+          <li class="mt-timeline__step" data-state="done"><div><p class="mt-timeline__title">Booking confirmed</p><p class="mt-timeline__meta">02 Sep 2026 · Lattakia</p></div></li>
+          <li class="mt-timeline__step" data-state="done"><div><p class="mt-timeline__title">Loaded on vessel</p><p class="mt-timeline__meta">08 Sep 2026</p></div></li>
+          <li class="mt-timeline__step" data-state="current"><div><p class="mt-timeline__title">In transit</p><p class="mt-timeline__meta">Departed 09 Sep 2026</p></div></li>
+          <li class="mt-timeline__step" data-state="pending"><div><p class="mt-timeline__title">Arrival at destination port</p><p class="mt-timeline__meta">Per carrier schedule</p></div></li>
+          <li class="mt-timeline__step" data-state="pending"><div><p class="mt-timeline__title">Customs clearance</p><p class="mt-timeline__meta">Pending arrival</p></div></li>
+          <li class="mt-timeline__step" data-state="pending"><div><p class="mt-timeline__title">Delivered</p><p class="mt-timeline__meta">On clearance</p></div></li>
+        </ol>
+      </div>
+    </div>
+  </main>
+</div>
+<script>function tg(){const h=document.documentElement;h.setAttribute('data-theme',h.getAttribute('data-theme')==='dark'?'light':'dark')}</script>
+</body></html>
