@@ -9,14 +9,17 @@
 # register starts from the real backlog rather than from zero. Fill `owner`, and
 # `acknowledged_at` once each is answered. Drafts for the last six are in
 # ../../docs/baseline/D3-REPLY-DRAFTS.md
+#
+# `owner` filled 2026-09-16 from ENQUIRY-INTAKE.md §2, which assigns both public
+# mailboxes to Faten Kheyrallah. If §2 row 1 or 2 is reassigned, these change with it.
 id,received_at,channel,owner,genuine,acknowledged_at,closed_at,note
-2026-07-27-porcelain,2026-07-27,info@midtrans.org,,yes,,,"LCL porcelain Chaozhou to Latakia — HS 6911, 1.0-1.5 CBM, 150-220 kg"
-2026-08-10-galvanic-eu,2026-08-10,info@mid-trans.com,,yes,,,"EXW Germany to Damascus, beauty products — Incoterm and full service scope given"
-2026-08-11-anise,2026-08-11,info@midtrans.org,,yes,,,300 kg anise seed Syria to Los Angeles — phytosanitary and FDA Prior Notice named
-2026-09-09-charcoal-ftl,2026-09-09,info@mid-trans.com,,yes,,,"FTL Trabzon to Dubai — DAP, HS 4402.20.00, 910 kg/pallet, 1-10 trucks/month, asked for a meeting"
-2026-09-12-usa-syria,2026-09-12,info@mid-trans.com,,yes,,,New Jersey to Syria via Turkey transit — sent to 5 forwarders at once
-2026-09-12-ford-transit,2026-09-12,info@midtrans.org,,yes,,,Ford Transit 2017 import and clearance in Syria — sent to 3 forwarders. See kb-008
-2026-09-13-lcl-china,2026-09-13,info@midtrans.org,,yes,,,"LCL trial shipment, clothing and shoes, China to Latakia — 5 and 10 CBM to compare"
-2026-09-14-galvanic-de,2026-09-14,info@midtrans.org,,yes,,,"Lorrach to Damascus, 47.5 L galvanic chemicals — four SDS attached by the enquirer"
-2026-09-15-fmcg-jebelali,2026-09-15,info@midtrans.org,,yes,,,"Jebel Ali consolidation to Latakia — new confectionery retail, test then repeat"
-2026-09-16-sprinters,2026-09-16,info@midtrans.org,,yes,,,"6 Mercedes Sprinters Gdansk to Latakia/Tartous/Aqaba — manufacturer, quote wanted same day"
+2026-07-27-porcelain,2026-07-27,info@midtrans.org,Faten Kheyrallah,yes,,,"LCL porcelain Chaozhou to Latakia — HS 6911, 1.0-1.5 CBM, 150-220 kg"
+2026-08-10-galvanic-eu,2026-08-10,info@mid-trans.com,Faten Kheyrallah,yes,,,"EXW Germany to Damascus, beauty products — Incoterm and full service scope given"
+2026-08-11-anise,2026-08-11,info@midtrans.org,Faten Kheyrallah,yes,,,300 kg anise seed Syria to Los Angeles — phytosanitary and FDA Prior Notice named
+2026-09-09-charcoal-ftl,2026-09-09,info@mid-trans.com,Faten Kheyrallah,yes,,,"FTL Trabzon to Dubai — DAP, HS 4402.20.00, 910 kg/pallet, 1-10 trucks/month, asked for a meeting"
+2026-09-12-usa-syria,2026-09-12,info@mid-trans.com,Faten Kheyrallah,yes,,,New Jersey to Syria via Turkey transit — sent to 5 forwarders at once
+2026-09-12-ford-transit,2026-09-12,info@midtrans.org,Faten Kheyrallah,yes,,,Ford Transit 2017 import and clearance in Syria — sent to 3 forwarders. See kb-008
+2026-09-13-lcl-china,2026-09-13,info@midtrans.org,Faten Kheyrallah,yes,,,"LCL trial shipment, clothing and shoes, China to Latakia — 5 and 10 CBM to compare"
+2026-09-14-galvanic-de,2026-09-14,info@midtrans.org,Faten Kheyrallah,yes,,,"Lorrach to Damascus, 47.5 L galvanic chemicals — four SDS attached by the enquirer"
+2026-09-15-fmcg-jebelali,2026-09-15,info@midtrans.org,Faten Kheyrallah,yes,,,"Jebel Ali consolidation to Latakia — new confectionery retail, test then repeat"
+2026-09-16-sprinters,2026-09-16,info@midtrans.org,Faten Kheyrallah,yes,,,"6 Mercedes Sprinters Gdansk to Latakia/Tartous/Aqaba — manufacturer, quote wanted same day"

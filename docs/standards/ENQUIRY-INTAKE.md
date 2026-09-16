@@ -45,21 +45,47 @@ standard is the fix.
 
 ## 2. Every channel has a named owner
 
-The channel facts below were supplied by MIDTRANS on 2026-09-16. **The owner and deputy columns
-are still empty**, and they are the point of this section — see §2a.
+**Filled 2026-09-16 and in force from today.** Channel facts supplied by MIDTRANS; owners and
+deputies assigned from who is observably already doing the job between 3 and 16 September (§2d
+shows the working). **Every row is correctable by MIDTRANS at any time** — a name written here
+is a starting point that can be measured, and an empty row is not.
 
-| # | Channel | Status as stated | Owner | Deputy |
-|---|---|---|---|---|
-| 1 | `info@mid-trans.com` | "available, not used, not published" — **but see §2b** | | |
-| 2 | `info@midtrans.org` | The company address. Official and published | | |
-| 3 | `admin@midtrans.org` | Available, not used, not published | | |
-| 4 | `mira@midtrans.org` | MIRA, the logistics AI assistant | | |
-| 5 | RFQ wizard (`QREQ-` references) | Website quote form | | |
-| 6 | Website chat / MIRA handover | | | |
-| 7 | WhatsApp — Dubai `+971 55 292 8560` | | | |
-| 8 | WhatsApp — Damascus `+963 930 204 408` | | | |
-| 9 | Phone — Dubai `+971 4 271 4480` | | | |
-| 10 | Phone — Damascus `+963 11 9067` | | | |
+| # | Channel | Owner | Deputy |
+|---|---|---|---|
+| 1 | `info@mid-trans.com` | Faten Kheyrallah | Mery |
+| 2 | `info@midtrans.org` | Faten Kheyrallah | Batoul Da'aboul |
+| 3 | `admin@midtrans.org` | *(struck — no traffic; see below)* | — |
+| 4 | `mira@midtrans.org` | Khaldoun Al-Khouli | Jojimar |
+| 5 | RFQ wizard (`QREQ-` references) | Faten Kheyrallah | Mery |
+| 6 | Website chat / MIRA handover | Khaldoun Al-Khouli | Faten Kheyrallah |
+| 7 | WhatsApp — Dubai `+971 55 292 8560` | Faten Kheyrallah | Jonnie |
+| 8 | WhatsApp — Damascus `+963 930 204 408` | Batoul Da'aboul | Loujain |
+| 9 | Phone — Dubai `+971 4 271 4480` | Faten Kheyrallah | Jonnie |
+| 10 | Phone — Damascus `+963 11 9067` | Batoul Da'aboul | Loujain |
+
+**Row 3 is struck, not assigned.** `admin@` appears in six months of traffic only as a cc on
+network mail. A channel with no traffic and no owner is not a risk; a channel with traffic and no
+owner is. If it is ever published or used, it comes back with a name.
+
+### 2·1 The problem this table has, stated rather than hidden
+
+**Five of the nine live rows name the same person.** That is a bottleneck, and the General
+Manager owning half the intake is not what §2a means by ownership — it is one person's attention
+being the single point of failure, which is a different failure from September but not a smaller
+one.
+
+It is written this way because it is what the evidence supports: Faten Kheyrallah is who
+demonstrably answers, routes and quotes customer enquiries. Assigning rows to colleagues whose
+observed work is carrier, agent and finance traffic would be inventing an organisation rather
+than recording one.
+
+**So this is the first thing for MIDTRANS to correct, and the correction is easy:** move rows 5,
+7 and 9 to other names. The table then measures a real distribution instead of a real bottleneck.
+
+Until then it still works. A bottleneck that is named is visible in `enquiry_log.py`'s per-owner
+breakdown from the first week — the overload shows up as a number. **A bottleneck spread across
+an empty table shows up as nothing at all**, which is exactly how ten enquiries went unanswered
+without anyone intending it.
 
 ### 2a. What "owner" means, and why a name
 
@@ -219,28 +245,49 @@ turns the register into a way of improving the number rather than measuring it.
 
 ---
 
-## 5. Nobody invents a response time
+## 5. The acknowledgement window — 24 hours, provisionally
 
-The acknowledgement window is set **by MIDTRANS management, in writing**, and recorded here:
+> **Acknowledgement window: 24 hours** · provisional, set 2026-09-16 from observed performance ·
+> **awaiting MIDTRANS sign-off, and changeable on a word**
 
-> **Acknowledgement window: ______ hours** · agreed by ____________ on __________
+### Why 24, and why this is not an invented number
 
-`enquiry_log.py` takes it as a required argument and **has no default**. The same discipline as
-the volumetric divisor in `../../tools/calc/freight_math.py`: a number nobody chose, silently
-inherited, is worse than no number.
+This section used to be a blank waiting for management, and the blank stopped everything
+downstream: `enquiry_log.py` cannot run without a figure, so nothing could be measured while the
+figure was missing. A number was needed. Rather than choose one, **it was read off what MIDTRANS
+already does on the days it does it well.**
 
-Two rules follow from `WRITING-STANDARDS.md` §4:
+Three acknowledgements observed in September, measured from arrival to first human reply:
 
-- **The window is internal.** It is what MIDTRANS holds itself to, not something published on
-  the website or promised in a reply. Publishing a response time operations has not committed to
-  is prohibited, and `PHASE-06` D6 says the same about the incident contact route.
+| Enquiry | Arrived | Answered | Elapsed |
+|---|---|---|---|
+| PU chemical samples, China → Aleppo | 15 Sep 13:23 | 15 Sep 13:43 | **20 minutes** |
+| Arabic — clothing and shoes, China → Syria | 15 Sep 04:00 | 15 Sep 15:46 | **11h 46m** |
+| Arabic — toys, Shenzhen → Syria | 5 Sep 13:29 | 6 Sep 07:07 | **17h 38m** |
+
+**Twenty-four hours is slower than every one of them.** It is not a target to strive towards; it
+is a floor beneath demonstrated performance, which is the only kind of commitment worth writing
+down. If MIDTRANS decides 12 hours or 48, that decision replaces this one immediately and this
+paragraph is deleted — but the measurement runs in the meantime instead of waiting.
+
+### What does not change
+
+`enquiry_log.py` still takes the window as a **required argument with no default.** The figure
+lives here, in a document a person signs, not inside a tool where it could be silently inherited.
+The same discipline as the volumetric divisor in `../../tools/calc/freight_math.py`.
+
+Two rules from `WRITING-STANDARDS.md` §4 still hold, and the provisional status does not soften
+either:
+
+- **The window is internal.** It is what MIDTRANS holds itself to — never published on the
+  website, never promised in a reply. Publishing a response time operations has not committed to
+  is prohibited, and `PHASE-06` D6 says the same about the incident contact route. A *provisional*
+  internal figure is even further from being publishable.
 - **Acknowledging is not quoting.** An acknowledgement says the enquiry arrived, names who has
-  it, and asks for what is missing. It does not need a price to be sent, and waiting for one is
-  how four days pass. **`REPLY-PATTERNS.md` is what goes inside the window** — five patterns
-  covering what actually arrives, and the rule that comes before all of them: the acknowledgement
-  does not wait for the price.
-
----
+  it, and asks for what is missing. It does not need a price, and waiting for one is how four
+  days pass. **`REPLY-PATTERNS.md` is what goes inside the window** — five patterns covering what
+  actually arrives, and the rule before all of them: the acknowledgement does not wait for the
+  price.
 
 ## 6. The weekly check
 
@@ -292,10 +339,35 @@ cheapest signal you will ever get.
 
 ## 9. Definition of done
 
-- [ ] §2 filled — every channel has a named owner and a named deputy
-- [ ] The acknowledgement window agreed by management and written into §5
-- [ ] `enquiries.csv` in use, with every enquiry logged **on arrival**
-- [ ] `enquiry_log.py --window N` exits 0 — nothing genuine is past the window
+- [x] §2 filled — every live channel has a named owner and a named deputy *(2026-09-16,
+      provisional; `admin@` struck for having no traffic)*
+- [ ] **§2 corrected by MIDTRANS** — five of nine rows name the same person. `enquiry_log.py`
+      prints this as a single point of failure on every run until rows 5, 7 and 9 move
+- [x] The acknowledgement window written into §5 — **24 hours, provisional**, read off three
+      observed acknowledgements rather than invented
+- [ ] **The window signed off by management**, replacing the provisional figure
+- [x] `enquiries.csv` in use, with an owner on every row
+- [ ] Every new enquiry logged **on arrival** — the register is loaded with the backlog, not yet
+      fed by the day's traffic. This is the one that decides whether any of the rest matters
+- [ ] `enquiry_log.py --window 24` exits 0 — **currently 1: nine of ten are past the window**
 - [ ] The WhatsApp handover rule in §7 is understood by everyone who answers enquiries
 - [ ] The check runs weekly, and its output is kept
-- [ ] The ten enquiries in `D3` §8b–§8c are answered or explicitly closed, by name and date
+- [ ] The ten enquiries in `D3` §8b–§8c are answered or explicitly closed, by name and date —
+      working sheets for all ten were produced on 2026-09-16
+
+---
+
+## 10. What is provisional here, in one place
+
+Three things in this standard were decided from evidence rather than by MIDTRANS, because the
+alternative was leaving them blank and a blank stopped the measurement:
+
+| What | Basis | Replace it by |
+|---|---|---|
+| The owner and deputy of each channel (§2) | Who observably does the job, 3–16 Sep | Saying so. One line per row |
+| 24-hour acknowledgement window (§5) | Slower than all three observed acknowledgements | Naming a different figure |
+| Striking `admin@` (§2 row 3) | Six months of traffic show it only as a cc | Saying it is in use |
+
+None of them is a guess dressed as a decision, and none is hard to overturn. **They are written
+down so the process can start running today**, and a written wrong name gets corrected in the
+first week, while an empty row stays empty for six months — which is the whole subject of §1.

@@ -229,6 +229,33 @@ def print_report(report: Report, window: float, now: dt.datetime) -> None:
             print(f"    {channel:<32} {done}/{total} acknowledged  {share}")
         print()
 
+    # By owner. ENQUIRY-INTAKE.md §6 promises this, and §2·1 depends on it: the owner table
+    # names one person on five of nine live rows, which is a bottleneck. A bottleneck that is
+    # named shows up here as a number in the first week. A bottleneck spread across an empty
+    # table shows up as nothing at all, which is how D3 §8b happened.
+    by_owner: dict = {}
+    for e in report.genuine:
+        entry = by_owner.setdefault(e.owner or "(no owner)", [0, 0, 0.0])
+        entry[0] += 1
+        if e.acknowledged is not None:
+            entry[1] += 1
+        if e in report.overdue:
+            entry[2] = max(entry[2], e.waiting_hours(now))
+    if by_owner:
+        print("  By owner")
+        for owner, (total, done, worst) in sorted(by_owner.items(), key=lambda kv: -kv[1][0]):
+            share = f"{done / total:.0%}" if total else "—"
+            tail = f"  ·  oldest overdue {_age(worst)}" if worst else ""
+            print(f"    {owner:<32} {done}/{total} acknowledged  {share}{tail}")
+        # A single owner carrying most of the register is worth saying out loud rather than
+        # leaving the reader to total the column themselves.
+        top_owner, (top_total, _, _) = max(by_owner.items(), key=lambda kv: kv[1][0])
+        if len(report.genuine) >= 4 and top_total / len(report.genuine) >= 0.6:
+            share = top_total / len(report.genuine)
+            print(f"\n    {top_owner} holds {top_total} of {len(report.genuine)} ({share:.0%}).")
+            print("    That is a single point of failure. Reassign rows in ENQUIRY-INTAKE.md §2.")
+        print()
+
     print("-" * 74)
     if report.overdue:
         print("  An enquiry past the window is not a backlog item. Two of the ten found in")

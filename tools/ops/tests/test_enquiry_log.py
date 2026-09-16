@@ -164,7 +164,29 @@ real = el.load(el.DEFAULT_FILE)
 check("ten enquiries pre-loaded", len(real) == 10, len(real))
 check("all genuine", all(e.genuine for e in real))
 check("none acknowledged yet", all(e.open for e in real))
-check("none has an owner yet", all(e.owner == "" for e in real))
+# Owners were filled on 2026-09-16 from ENQUIRY-INTAKE.md §2. The register shipped empty and
+# this check asserted that; it now asserts the opposite, because an unowned row is the failure
+# the whole standard exists to prevent — not a state worth protecting in a test.
+check("every enquiry has a named owner", all(e.owner for e in real),
+      [e.id for e in real if not e.owner])
+check("the owner is a person, not a placeholder",
+      all(e.owner.lower() not in el.NOT_A_PERSON for e in real),
+      sorted({e.owner for e in real}))
+
+# The ownerless detector still has to work, so it is exercised on a fixture rather than on the
+# shipped register — a check that can only fail when live data regresses is not a test.
+res = run("--window", "24", "--file", write(rows(
+    "x,2026-09-01,info@midtrans.org,,yes,,,unowned",
+    "y,2026-09-01,info@midtrans.org,Operations,yes,,,a team is not a person")))
+check("an unowned row is still reported", "NO NAMED OWNER" in res.stdout, res.stdout[-300:])
+check("and a team name counts as unowned", res.stdout.count("NO NAMED OWNER") == 1
+      and "Operations" in res.stdout, res.stdout[-300:])
+
+# §2·1 names one person on most rows. §6 promises the breakdown that makes that visible.
+res = run("--window", "24")
+check("the per-owner breakdown is printed", "By owner" in res.stdout, res.stdout[-300:])
+check("a dominant owner is called out", "single point of failure" in res.stdout,
+      res.stdout[-400:])
 check("the oldest is the July porcelain enquiry",
       min(real, key=lambda e: e.received).id == "2026-07-27-porcelain")
 check("notes survived the CSV",
