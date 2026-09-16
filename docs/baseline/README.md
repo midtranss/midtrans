@@ -6,8 +6,8 @@ Fill these in as Phase 00 runs. They are the evidence every later gate is measur
 |---|---|---|---|
 | `D1-technical-audit.md` | D1 — Technical audit | Technical lead | ⬜ not started |
 | `D2-traffic-baseline.md` | D2 — Traffic & conversion | Measurement owner | ⬜ not started |
-| `D3-rfq-analysis.md` | D3 — RFQ intake analysis | Programme owner | ⬜ not started |
-| `D4-feature-inventory.md` | D4 — Feature inventory | Technical lead | ⬜ not started |
+| `D3-rfq-analysis.md` | D3 — RFQ intake analysis | Programme owner | ✅ **first pass complete** (2026-09-16) |
+| `D4-feature-inventory.md` | D4 — Feature inventory | Technical lead | 🟡 partial — email evidence only, needs D1 |
 | `D6-BASELINE.md` | D6 — Baseline document | Measurement owner | ⬜ not started |
 
 **Rule:** a field you could not establish is marked `UNKNOWN`, never guessed. A baseline with
