@@ -2,12 +2,14 @@
 """
 Sample-size and minimum-detectable-effect tables for the Phase 01 gate.
 
-Generates the three tables in docs/phases/PHASE-01-MEASUREMENT-FRAMEWORK.md §6-§7.
+Generates the tables in docs/phases/PHASE-01-MEASUREMENT-FRAMEWORK.md §6-§7 and the
+zero-violation bounds in docs/phases/PHASE-02-D0-AUDIT.md §5.
 Standard library only. Re-run with the real baseline before the gate is used —
 the numbers printed with the defaults are illustrative, the method is not.
 
     python3 tools/measurement/sample_size.py
     python3 tools/measurement/sample_size.py --baseline 34
+    python3 tools/measurement/sample_size.py --zero-events 140
 """
 
 import argparse
@@ -60,6 +62,30 @@ def table_completion():
     print()
 
 
+def zero_event_bound(n):
+    """Upper 95% bound on an event rate after n observations with zero events.
+
+    Exact: the largest p for which observing zero in n has probability >= 0.05,
+    i.e. (1-p)^n = 0.05. (The familiar 3/n is this, approximated.)
+    """
+    return 1 - 0.05 ** (1 / n)
+
+
+def table_zero_events(extra=None):
+    print("§5 (Phase 02) — what zero observed violations supports")
+    print(f"{'conversations':>14} | {'upper 95% bound':>16} | {'i.e. as often as':>20}")
+    print("-" * 56)
+    sizes = [30, 50, 100, 200, 300, 500, 1000, 2000]
+    if extra:
+        sizes = sorted(set(sizes + [int(extra)]))
+    for n in sizes:
+        p = zero_event_bound(n)
+        print(f"{n:>14} | {p * 100:>15.2f}% | 1 in {1 / p:>14,.0f}")
+    print()
+    print("  Zero observed is never zero. It bounds the rate; it does not establish it.")
+    print()
+
+
 def table_followup():
     print("§7 — follow-up rate: submissions needed per period")
     targets = (0.50, 0.40, 0.30, 0.20, 0.10)
@@ -80,6 +106,11 @@ def main():
         type=float,
         help="Real actionable-RFQ baseline per 4 weeks. Adds the row that actually applies.",
     )
+    parser.add_argument(
+        "--zero-events",
+        type=int,
+        help="Conversations audited with zero violations. Adds the row that actually applies.",
+    )
     args = parser.parse_args()
 
     baselines = [5, 10, 20, 30, 50, 80, 120, 200]
@@ -89,6 +120,15 @@ def main():
     table_counts(baselines)
     table_completion()
     table_followup()
+    table_zero_events(args.zero_events)
+
+    if args.zero_events:
+        p = zero_event_bound(args.zero_events)
+        print(
+            f"{args.zero_events} conversations with zero violations bounds the rate at "
+            f"{p * 100:.2f}% — about 1 in {1 / p:,.0f} conversations.\n"
+            "State it that way in the gate decision. Do not write \"MIRA does not quote\".\n"
+        )
 
     if args.baseline:
         lam1 = count_mde(args.baseline)

@@ -17,6 +17,8 @@ Drop-in components that put MIDTRANS's live AI assistant under control.
 | ١ | `SYSTEM-PROMPT.md` | برومبت الإنتاج كاملاً — يُلصَق حرفياً |
 | ٢ | `guardrails.py` | فحص مستقل عن النموذج يعترض الرد قبل وصوله للعميل |
 
+ولفحص ما قالته MIRA **فعلاً** في الإنتاج: `python3 mira/audit_logs.py export.jsonl` — يشغّل الفحص نفسه على سجلّات مصدَّرة، محلّياً بالكامل، ويُخفي عناوين البريد وأرقام الهواتف. الدليل الكامل في `../docs/phases/PHASE-02-D0-AUDIT.md`.
+
 **لماذا طبقتان؟** النموذج المُوجَّه بألا يُسعّر سيُسعّر يوماً تحت إلحاح كافٍ أو صياغة غير متوقّعة.
 الطبقة الثانية موجودة لتلك اللحظة تحديداً — ولا تعتمد على النموذج إطلاقاً.
 
@@ -31,8 +33,10 @@ Drop-in components that put MIDTRANS's live AI assistant under control.
 | `SYSTEM-PROMPT.md` | Layer 1 — the production system prompt, paste verbatim |
 | `guardrails.py` | Layer 2 — output check that runs independently of the model |
 | `client.py` | Both layers wired into one response path — import and call `reply()` |
-| `tests/test_guardrails.py` | Guardrail suite: 35 must-block, 25 must-pass |
+| `audit_logs.py` | Runs the same check over exported production logs — answers what live MIRA has already said |
+| `tests/test_guardrails.py` | Guardrail suite: 41 must-block, 25 must-pass, 7 with conversation context |
 | `tests/test_client.py` | Wiring suite: 32 checks, runs offline with a fake API client |
+| `tests/test_audit_logs.py` | Auditor suite: export shapes, redaction, exit codes |
 
 No third-party dependencies. Python 3.10+.
 

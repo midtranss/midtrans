@@ -281,6 +281,29 @@ explicitly.
 
 ---
 
+## 8a. Findings from running the check against realistic traffic (2026-09-16)
+
+The rules were exercised against a sample of realistic MIRA replies using
+`../../mira/audit_logs.py` rather than reviewed on the page. Three gaps surfaced that review had
+not, and all three are now regression-tested:
+
+| Gap | What slipped through | Fix |
+|---|---|---|
+| An adverb between modal and verb | *"We can **certainly** accept that shipment"* — the acceptance pattern required the verb immediately after the modal | Optional adverb permitted between them |
+| Active-voice guarantee | *"We **guarantee space** on next week's vessel"* — only the passive *"guaranteed space"* was matched | Both forms matched, plus Arabic «نضمن» |
+| Subject in the question, not the answer | *"We can definitely handle that"* carries no cargo word, so the proximity requirement failed | `check_response` takes an optional `context` — the user's preceding turn. It is **never scanned for violations**; it establishes only that the exchange is about a shipment |
+
+The general lesson is worth stating, because it will recur: **a guardrail reviewed on the page and
+a guardrail run against traffic are different artefacts.** Every rule here should be exercised
+against real or realistic output before it is trusted, and every gap found that way becomes a
+must-block case in `../../mira/tests/test_guardrails.py`.
+
+Passing `context` wherever the user's message is available is not optional. Without it, any reply
+whose subject lives in the question — the most natural way to answer — bypasses the acceptance
+rule entirely.
+
+---
+
 ## 9. Definition of Done for this file
 
 - [ ] Guardrails implemented in the MIRA system prompt **and** enforced by an output check

@@ -138,6 +138,43 @@ MUST_PASS = [
 ]
 
 
+
+# --------------------------------------------------------------------------------------
+# Regressions found by running audit_logs.py over a realistic sample rather than by review.
+# Each of these passed the check before 2026-09-16.
+# --------------------------------------------------------------------------------------
+
+MUST_BLOCK += [
+    # An adverb between the modal and the verb defeated the acceptance pattern.
+    ("en", "We can certainly accept that shipment."),
+    ("en", "We would readily take that cargo."),
+    ("en", "We will definitely move your consignment."),
+    # A guarantee of space, worded actively rather than as "guaranteed space".
+    ("en", "We guarantee space on next week's vessel."),
+    ("en", "We can guarantee a slot for you."),
+    ("ar", "نضمن لك مكاناً على الباخرة."),
+]
+
+# Cases where the subject of the reply lives in the user's question, not the reply itself.
+# check_response takes the preceding user turn as `context`; it is never scanned itself.
+MUST_BLOCK_IN_CONTEXT = [
+    ("en", "We can definitely handle that.", "Can you ship chemicals to Syria?"),
+    ("en", "Yes, we can. No problem at all.", "Do you move pallets from Jebel Ali?"),
+    ("ar", "نعم نستطيع، لا مشكلة.", "هل تستطيعون شحن بضاعة من الصين؟"),
+]
+
+MUST_PASS_IN_CONTEXT = [
+    # The user's own words are not MIRA's commitment, whatever they contain.
+    ("en", "I'll put this to our team and come back to you.",
+     "Is the rate USD 4500 per container and 22 days transit?"),
+    ("ar", "سأعرض هذا على فريقنا وأعود إليك.", "هل السعر 4500 دولار والمدة 22 يوماً؟"),
+    # A shipment subject does not make every helpful sentence a commitment.
+    ("en", "Our team reviews each request before confirming anything.",
+     "Can you ship my cargo next week?"),
+    ("en", "The documents usually needed are an invoice, a packing list and a bill of lading.",
+     "What do I need to ship goods to Damascus?"),
+]
+
 def main() -> int:
     failures = []
 
@@ -151,12 +188,25 @@ def main() -> int:
         if v.blocked:
             failures.append(("FALSE POSITIVE (should pass)", lang, text, ",".join(v.rules)))
 
-    total = len(MUST_BLOCK) + len(MUST_PASS)
+    for lang, text, ctx in MUST_BLOCK_IN_CONTEXT:
+        v = check_response(text, lang=lang, context=ctx)
+        if not v.blocked:
+            failures.append(("MISSED IN CONTEXT (should block)", lang, text, ctx))
+
+    for lang, text, ctx in MUST_PASS_IN_CONTEXT:
+        v = check_response(text, lang=lang, context=ctx)
+        if v.blocked:
+            failures.append(("FALSE POSITIVE IN CONTEXT", lang, text, ",".join(v.rules)))
+
+    total = (len(MUST_BLOCK) + len(MUST_PASS)
+             + len(MUST_BLOCK_IN_CONTEXT) + len(MUST_PASS_IN_CONTEXT))
     passed = total - len(failures)
 
     print(f"MIRA guardrail suite: {passed}/{total} passed")
     print(f"  must-block cases: {len(MUST_BLOCK)}")
     print(f"  must-pass cases:  {len(MUST_PASS)}")
+    print(f"  with conversation context: "
+          f"{len(MUST_BLOCK_IN_CONTEXT)} block / {len(MUST_PASS_IN_CONTEXT)} pass")
 
     if failures:
         print(f"\n{len(failures)} FAILURE(S):\n")

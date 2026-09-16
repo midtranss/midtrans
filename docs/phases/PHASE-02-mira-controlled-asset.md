@@ -54,8 +54,13 @@ a different job with a different urgency.
 
 ### D0 — Audit the live MIRA (new; comes first)
 
+**Full protocol: `PHASE-02-D0-AUDIT.md`.** It is executable today — nothing in it waits on Phase 01.
+
 1. Review recent conversation logs for any stated rate, transit time, customs cost, acceptance or
-   capacity. **This establishes whether the exposure has already materialised.**
+   capacity. **This establishes whether the exposure has already materialised.** Do not read
+   transcripts by hand: `mira/audit_logs.py` runs the guardrail check over an export and reports
+   every message that would have been blocked. Export the logs **before** changing anything —
+   a change can end the period being audited and, in some deployments, rotate the log store.
 2. Record what constraints exist today — system prompt only, output check, or nothing.
 3. Identify every model reference, and fix the retired-model call: pin `claude-haiku-4-5`, drop
    the `-latest` alias, add alerting so a failed model call is never silent again.
@@ -266,6 +271,11 @@ entirely restores the Phase 01 contact routes, which remain live throughout.
 
 > **MIRA produces qualified leads at a measurable rate, with zero confirmed guardrail violations
 > over four weeks of production traffic.**
+
+**"Zero violations" must be reported with its bound.** Zero observed in *n* conversations does not
+establish a zero rate — at 100 conversations it bounds the rate at ~3%, roughly one in thirty-four.
+Record the conversation count and the bound in the gate decision, and state which languages and
+surfaces the sample did *not* cover. `PHASE-02-D0-AUDIT.md` §5 gives the table and the wording.
 
 Also required:
 - Handoff rate meets the target set at phase start

@@ -82,6 +82,28 @@ def load_system_prompt(path: Path | None = None) -> str:
 # --------------------------------------------------------------------------------------
 
 
+def _last_user_text(messages: Sequence[dict]) -> str:
+    """The most recent user turn, so the guardrail knows what the reply is answering.
+
+    A reply like "we can definitely handle that" carries no cargo word of its own; the subject
+    lives in the question. The user's text is never scanned for violations — see
+    `guardrails.check_response`.
+    """
+    for message in reversed(list(messages or [])):
+        if message.get("role") != "user":
+            continue
+        content = message.get("content", "")
+        if isinstance(content, str):
+            return content
+        if isinstance(content, list):
+            return "\n".join(
+                block.get("text", "")
+                for block in content
+                if isinstance(block, dict) and block.get("type") == "text"
+            )
+    return ""
+
+
 @dataclass
 class MiraResult:
     """What to send, and what happened."""
@@ -155,7 +177,10 @@ class MiraClient:
             self._report_api_error(exc, context)
             return MiraResult(text=fallback, error=type(exc).__name__)
 
-        return self._screen(candidate, lang=lang, context=context, fallback=fallback)
+        return self._screen(
+            candidate, lang=lang, context=context, fallback=fallback,
+            user_said=_last_user_text(messages),
+        )
 
     def reply_streaming(
         self,
@@ -176,6 +201,7 @@ class MiraClient:
         """
         context = context or {}
         fallback = SAFE_FALLBACK.get(lang, SAFE_FALLBACK["en"])
+        user_said = _last_user_text(messages)
         accumulated = ""
         released = 0
 
@@ -184,7 +210,7 @@ class MiraClient:
                 accumulated += delta
                 if len(accumulated) - released < flush_chars:
                     continue
-                verdict = check_response(accumulated, lang=lang)
+                verdict = check_response(accumulated, lang=lang, context=user_said)
                 if verdict.blocked:
                     self._report_violation(verdict, accumulated, context)
                     yield "\n\n"
@@ -197,7 +223,7 @@ class MiraClient:
             yield fallback
             return
 
-        verdict = check_response(accumulated, lang=lang)
+        verdict = check_response(accumulated, lang=lang, context=user_said)
         if verdict.blocked:
             self._report_violation(verdict, accumulated, context)
             yield "\n\n"
@@ -208,8 +234,10 @@ class MiraClient:
 
     # -- internals ---------------------------------------------------------------------
 
-    def _screen(self, candidate: str, lang: str, context: dict, fallback: str) -> MiraResult:
-        verdict = check_response(candidate, lang=lang)
+    def _screen(
+        self, candidate: str, lang: str, context: dict, fallback: str, user_said: str = ""
+    ) -> MiraResult:
+        verdict = check_response(candidate, lang=lang, context=user_said)
         if verdict.blocked:
             self._report_violation(verdict, candidate, context)
             return MiraResult(text=fallback, blocked=True, verdict=verdict, raw=candidate)

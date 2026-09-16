@@ -95,9 +95,13 @@ _HEDGES = (
     r"تقريبا|تقريبي|حوالي|حوالى|نحو|عادة|غالبا|بحدود|يتراوح|تتراوح|ابتداء من|في حدود|تقدير"
 )
 
+# An adverb between the modal and the verb is the natural way a model phrases this
+# ("we can certainly accept"), and it defeated the original pattern. Found by running the
+# auditor over a realistic sample, not by review.
+_ADVERB = r"(?:certainly|definitely|absolutely|easily|readily|surely|normally|usually|generally|typically|of course)"
+
 _ACCEPTANCE = (
-    r"we can (?:handle|ship|accept|take|carry|move|do)|"
-    r"we will (?:handle|ship|accept|take|carry|move)|"
+    rf"we (?:can|will|could|would)\s+(?:{_ADVERB}\s+)?(?:handle|ship|accept|take|carry|move|do)|"
     r"yes,? we (?:can|do|will)|that (?:is|'s) (?:fine|no problem|possible|doable)|"
     r"no problem|we accept|it can be shipped|this is acceptable|"
     r"نستطيع (?:شحن|نقل|قبول|تحمل)|يمكننا (?:شحن|نقل|قبول)|نقبل|مقبول|"
@@ -106,8 +110,11 @@ _ACCEPTANCE = (
 
 _CAPACITY = (
     r"space is available|we have space|equipment is available|we have containers available|"
-    r"guaranteed space|slot is available|"
-    r"يوجد مساحة|المساحة متاحة|لدينا مساحة|الحاويات متوفرة|مضمونة"
+    r"slot is available|"
+    # A guarantee of space is a capacity commitment however it is worded, and "guarantee" is
+    # itself a forbidden word in WRITING-STANDARDS §4.
+    r"we (?:can )?guarantee|guaranteed?\s+(?:you\s+)?(?:space|a\s+slot|slot|equipment|capacity|booking)|"
+    r"يوجد مساحة|المساحة متاحة|لدينا مساحة|الحاويات متوفرة|مضمونة|نضمن"
 )
 
 # --------------------------------------------------------------------------------------
@@ -178,12 +185,26 @@ def _excerpt(text: str, pos: int, pad: int = 45) -> str:
     return ("…" if lo else "") + text[lo:hi].strip() + ("…" if hi < len(text) else "")
 
 
-def check_response(text: str, lang: str = "en") -> Verdict:
-    """Inspect a candidate MIRA response. Returns a Verdict; `blocked` is the decision."""
+_CARGO_VOCAB = (
+    r"\b(?:cargo|ship|ships|shipped|shipping|shipment|shipments|container|containers|"
+    r"goods|freight|consignment|pallet|pallets|vessel|cbm|lcl|fcl)\b|"
+    r"شحنة|شحن|بضاعة|بضائع|حاوية|حاويات|طرد|طرود"
+)
+
+
+def check_response(text: str, lang: str = "en", context: str = "") -> Verdict:
+    """Inspect a candidate MIRA response. Returns a Verdict; `blocked` is the decision.
+
+    `context` is the user's preceding message. It is never scanned for violations — the user
+    may say whatever they like — but it establishes that the exchange is about a shipment.
+    Without it, a reply like "we can definitely handle that" carries no cargo word of its own
+    and slips past the acceptance rule. Pass it wherever it is available.
+    """
     if not text or not text.strip():
         return Verdict(blocked=False, lang=lang)
 
     norm = normalize(text)
+    topic_is_shipment = bool(re.search(_CARGO_VOCAB, normalize(context))) if context else False
     allowed = _allowlisted_spans(norm)
     findings: list[Finding] = []
 
@@ -225,9 +246,10 @@ def check_response(text: str, lang: str = "en") -> Verdict:
         if num and not _in_allowlist(lo + num.start(), allowed):
             record("hedged_figure", m.start())
 
-    # Rule 5 — an acceptance commitment near cargo/shipment language.
+    # Rule 5 — an acceptance commitment, where the exchange is about a shipment.
+    # The subject may be established by the response itself or by what the user just asked.
     for m in re.finditer(_ACCEPTANCE, norm):
-        if _near(norm, m.start(), r"cargo|shipment|container|goods|freight|شحنة|بضاعة|حاوية|بضائع"):
+        if topic_is_shipment or _near(norm, m.start(), _CARGO_VOCAB):
             record("acceptance_commitment", m.start())
 
     # Rule 6 — a capacity or space guarantee.

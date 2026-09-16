@@ -7,3 +7,6 @@ python3 mira/tests/test_guardrails.py
 echo
 echo "=== client wiring ==="
 python3 mira/tests/test_client.py
+echo
+echo "=== live-log auditor ==="
+python3 mira/tests/test_audit_logs.py
