@@ -55,6 +55,7 @@ writer, or a coding agent — without further briefing.
 | 02 | `PHASE-02-mira-controlled-asset.md` | 4–6 weeks | MIRA generates qualified leads, zero commitments given |
 | 03 | `PHASE-03-tools-lead-engine.md` | 4 weeks | Each tool produces a measurable conversion path |
 | 04 | `PHASE-04-syria-trade-center.md` | 6–8 weeks | 25–40 deep pages live, originality verified |
+| 04 | `PHASE-04-KNOWLEDGE-CAPTURE.md` | — | Interview guides — the critical path for Phase 04 |
 | 05 | `PHASE-05-market-entry-representation.md` | 8–10 weeks | Representation + market-entry hubs live and converting |
 | 06 | `PHASE-06-maritime-pi.md` | 6 weeks | Maritime and P&I hubs live, qualified enquiries received |
 | 07 | `PHASE-07-trust-conditional-expansion.md` | Continuous | Per-market gates, opened one at a time |
