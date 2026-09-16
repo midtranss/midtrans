@@ -50,6 +50,38 @@
       "order": [
         "midtrans-icons.svg"
       ]
+    },
+    "Mira": {
+      "files": {
+        "mira-portrait.jpg": {
+          "blob": "14be6d0392a893dac5ed106043a23d00",
+          "name": "mira-portrait.jpg",
+          "sha256": "1d97754fa5c6c6fdc9e8c6b837077fa93e6a7762444ffe0084fa30aa804b25ae",
+          "size": 14254,
+          "type": "image/jpeg"
+        },
+        "mira-avatar.png": {
+          "blob": "dd47dd8ead9d3c471011d313a06f43b0",
+          "name": "mira-avatar.png",
+          "sha256": "2c2f991a141938fc0005a16e84e7e0b259938463a6e125c94befb8cbb9773f22",
+          "size": 90008,
+          "type": "image/png"
+        },
+        "midtrans-chat-mark.png": {
+          "blob": "d16570913b0700cf78b066247bcd4278",
+          "name": "midtrans-chat-mark.png",
+          "sha256": "4d59ffbc38c25c7ffd94c97df87899e125e0e9cf92c8bb74a09548d414884452",
+          "size": 40372,
+          "type": "image/png"
+        }
+      },
+      "name": "Mira",
+      "tile": "m",
+      "order": [
+        "mira-portrait.jpg",
+        "mira-avatar.png",
+        "midtrans-chat-mark.png"
+      ]
     }
   },
   "blobs": {},
@@ -66,13 +98,14 @@
   },
   "groups": [
     "MIDTRANS~20LOGO",
-    "Icons"
+    "Icons",
+    "Mira"
   ],
   "lastChange": {
-    "at": "2026-09-16T23:10:56Z",
+    "at": "2026-09-16T23:22:10Z",
     "by": "Khaldoun",
     "via": "Claude Code",
-    "note": "Reconciled with the running app: Document rebuilt element for element on the official template anatomy; brand-primary is now the app's own #0074B7 (5.02:1 on white); the dark surfaces are the app's #050D1A / #0E1B2E / #22334C / #F0F5FB. Adds Assistant (Mira), Contact with the office rail, FAQ and HSCodeCard."
+    "note": "Mira resolved: the photographic portrait is her avatar and is now in the system (extracted from the PDF the owner sent). The name-and-role label is mandatory and enforced in CSS - an identity block without the role prints a visible error. The illustrated avatar is kept as the record of what the app ships today."
   },
   "layout": "files",
   "libraries": [],

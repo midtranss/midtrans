@@ -1051,9 +1051,26 @@
 .mt-avatar--lg { width: 64px; height: 64px; }
 .mt-avatar--xl { width: 96px; height: 96px; }
 
-.mt-assistant__id { display: flex; align-items: center; gap: var(--space-3); font-family: var(--font-sans); }
+.mt-assistant__id { position: relative; display: flex; align-items: center; gap: var(--space-3); font-family: var(--font-sans); }
 .mt-assistant__name { margin: 0; font-size: 15px; line-height: 23px; font-weight: 600; color: var(--ink-strong); }
 .mt-assistant__role { margin: 0; font-size: 12px; line-height: 18px; color: var(--ink-muted); }
+
+/* The label is MANDATORY, not recommended. Mira's avatar is a photograph of
+   a person, so wherever she is introduced the name and the role must appear
+   with her. An identity block missing the role announces itself loudly in
+   review rather than shipping silently. */
+.mt-assistant__id:not(:has(.mt-assistant__role))::after {
+  content: "Missing required label — Mira · MIDTRANS logistics assistant";
+  position: absolute; inset-inline-start: 0; inset-block-start: 100%;
+  margin-block-start: var(--space-1);
+  padding: 2px 8px; border-radius: var(--radius-sm);
+  background: var(--status-danger-soft); color: var(--status-danger);
+  font-size: 12px; line-height: 18px; font-weight: 600; white-space: nowrap;
+}
+/* The compact form, for a launcher or a notification row. */
+.mt-assistant__id--inline { gap: var(--space-2); }
+.mt-assistant__id--inline .mt-assistant__name { font-size: 13px; line-height: 20px; }
+.mt-assistant__id--inline .mt-assistant__role { font-size: 11px; line-height: 16px; }
 
 /* ---------- Chat ---------- */
 .mt-chat { display: flex; flex-direction: column; gap: var(--space-4); font-family: var(--font-sans); }
