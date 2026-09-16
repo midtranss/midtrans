@@ -110,23 +110,36 @@ to make from here** — it touches live mail routing:
 
 Doing nothing is a fourth option and it is the status quo that produced §1.
 
-### 2c. The published WhatsApp number does not match the one in use
+### 2c. A MIDTRANS number is published that must not be published
 
-| Source | Number |
+**Resolved by MIDTRANS, 2026-09-16.** The Damascus WhatsApp number carried on the prototype's
+contact page is a genuine MIDTRANS number, **but it is not to be published** — the instruction
+was explicit: publishing it spreads confusion rather than reach.
+
+| | |
 |---|---|
-| `config/company-profile.json` in this repository publishes | `+963 944 334 338` |
-| Stated as the Damascus WhatsApp in use (2026-09-16) | `+963 930 204 408` |
+| Published on the prototype contact page | A MIDTRANS number, **not for publication** — digits deliberately not repeated here |
+| The Damascus WhatsApp that *is* published and in use | `+963 930 204 408` |
 
-**Unverified against the live site** — this repository is a prototype, not the deployed site
-(`../baseline/D1-technical-audit.md`). So this is a flag, not yet a finding: check what
-`www.mid-trans.com` publishes today before changing anything.
+**Where it appears**, on the unmerged PR #1 branch — not in this working tree, which is why a
+grep here finds nothing:
 
-If the live site carries the same number, it is a silent leak of exactly the §1 kind. A customer
-who messages a published number that nobody watches gets no reply and no bounce, and unlike email
-there is no record on our side that they ever wrote. **It cannot appear in any reply-rate
-measurement**, which means the number in §6 would be wrong and wrong in the flattering direction.
+- `config/company-profile.json` — `display`, `url`, and `schemaTelephone`
+- `contact-us/index.html` — the JSON-LD `telephone` field and the header WhatsApp button
 
-Two facts needed, from MIDTRANS: which number is correct, and whether the other one is alive.
+Three of these matter more than they look. `schemaTelephone` and the JSON-LD `telephone` feed
+**structured data**, which is what Google and AI assistants read and repeat. A number published
+there does not merely sit on a page; it propagates into answers given about MIDTRANS elsewhere,
+and it keeps propagating after the page is corrected.
+
+**Required, before that branch is merged or the live site is touched:** replace all five with
+`+963 930 204 408`, and check what `www.mid-trans.com` serves today — **this has not been
+verified**; this repository is a prototype, not the deployed site.
+
+**Why this is the same failure as §1.** A published number nobody watches gives the customer no
+reply and no bounce, and leaves **no record on our side that they ever wrote**. It cannot appear
+in any reply-rate measurement, so §6's number would be wrong — and wrong in the flattering
+direction. The §1 enquiries are at least countable. This kind is not.
 
 ## 3. Every enquiry is logged when it arrives
 
