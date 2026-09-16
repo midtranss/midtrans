@@ -75,40 +75,44 @@ where the September pattern can recur, and there is no tooling in this repositor
 compensates for a missing name. `enquiry_log.py` reports per-owner; with the column empty it
 reports one bucket called nothing.
 
-### 2b. `info@mid-trans.com` is unmonitored by design and receiving by accident
+### 2b. `info@mid-trans.com` is a live working channel — correcting what this section said
 
-This is the single most dangerous row in the table, and it was found by checking the statement
-against the mailbox rather than by accepting it.
+**This subsection said the mailbox was unmonitored. That was wrong, and the correction matters
+more than the original claim.**
 
-| Stated | Observed |
+What prompted it: the channel was described as "available, we do not use it and do not publish
+it", yet ten threads reached it on 16 September alone and **three of the ten unanswered enquiries
+in §1 arrived there** — `2026-08-10-galvanic-eu`, `2026-09-09-charcoal-ftl`, `2026-09-12-usa-syria`.
+Those facts hold. The conclusion drawn from them did not.
+
+A sweep of the sent folder shows the mailbox is worked daily. One thread settles it:
+
+| | |
 |---|---|
-| "available, we do not use it and do not publish it" | **10 threads delivered to it on 16 September 2026 alone** (`deliveredto:info@mid-trans.com newer_than:14d`) |
-| — | **3 of the 10 unanswered enquiries in §1 arrived there**: `2026-08-10-galvanic-eu`, `2026-09-09-charcoal-ftl`, `2026-09-12-usa-syria` |
+| 5 Sep 13:29 | An Arabic enquiry — toys from Shenzhen/Shantou to Syria — arrives at `info@mid-trans.com` |
+| 6 Sep 07:07 | Answered from that mailbox in **under 18 hours** and routed by name |
+| 6 Sep 07:24 | The named person acknowledges: *"Noted, will follow"* |
+| 7 Sep | The enquirer replies from a company address — the lead has converted |
+| 10 Sep 10:42 | A full itemised quotation goes out in Arabic |
 
-Those three are not marginal. `2026-09-09-charcoal-ftl` proposed one to ten trucks a month and
-asked for a meeting — the recurring-lane shape that `REPLY-PATTERNS.md` §5 escalates to
-management. It landed in a mailbox nobody is responsible for.
+That is the process working end to end, on the mailbox this section called unmonitored. Several
+colleagues reply through it every day on carrier, agent and finance traffic.
 
-**A mailbox that is unmonitored by policy and receiving in practice is the worst of the two
-possible configurations.** An unused mailbox is harmless. A watched one is fine. This one
-collects real customers and holds them where nobody is looking.
+**So the real finding is narrower and harder.** The failure is not a mailbox nobody watches. It
+is that **five or more people touch each channel and none of them owns it** — which produces the
+same outcome as no one watching, on the days when it produces an outcome at all. One enquiry is
+answered in eighteen hours; the one beside it is never opened. Nothing distinguishes them except
+whether somebody happened to pick it up.
 
-Likely mechanism — **inference, not verified**: the public website is on `www.mid-trans.com`, so
-`info@` + the domain in the browser bar is what a customer guesses, and the prototype in this
-repository publishes **no email address at all**, only phone numbers. A customer who wants to
-write has to invent the address, and they invent the one that matches the site.
+§1 already said this: *"That is not a workload problem or a judgement problem. It is an
+ownership problem."* This subsection briefly mistook it for a mailbox problem. It is not.
 
-Three ways to close it, in order of preference. **This is a decision for MIDTRANS, not a change
-to make from here** — it touches live mail routing:
+**What still needs deciding** about this address, and it is a smaller question than it looked:
 
-1. **Forward it to `info@midtrans.org`** and give row 2 the owner. One mailbox to watch, nothing
-   lost, no customer ever told their address was wrong.
-2. **Give row 1 its own owner** and treat it as a real channel. Honest, but it is a second
-   mailbox to keep watched, and §1 is what happens when watching is incidental.
-3. **Publish the address on the website** so the guessing stops. Worth doing regardless of 1 or
-   2, and it belongs in the Phase 02 site work.
-
-Doing nothing is a fourth option and it is the status quo that produced §1.
+1. Is it published anywhere? If customers reach it by guessing the website's domain, publishing
+   a real address on the site ends the guessing. That belongs in the Phase 02 site work.
+2. Whichever way, **it gets an owner and a deputy in the table above**, because it is a working
+   customer channel whatever the original intent was.
 
 ### 2c. A MIDTRANS number is published that must not be published
 
@@ -140,6 +144,37 @@ verified**; this repository is a prototype, not the deployed site.
 reply and no bounce, and leaves **no record on our side that they ever wrote**. It cannot appear
 in any reply-rate measurement, so §6's number would be wrong — and wrong in the flattering
 direction. The §1 enquiries are at least countable. This kind is not.
+
+### 2d. A proposed table, drawn from what the mailbox already shows
+
+Filling ten rows × two names from a blank page is work. **Confirming or correcting a draft is
+not**, so here is a draft — built from who is observably already doing each job between 3 and
+16 September 2026.
+
+**This is what the email traffic shows, not a decision.** Traffic shows what people *do*; it
+cannot show what they are *accountable for*, and those differ. Every row needs confirming,
+correcting or striking by MIDTRANS before it becomes binding.
+
+| # | Channel | Proposed owner | Proposed deputy | What the traffic shows |
+|---|---|---|---|---|
+| 1 | `info@mid-trans.com` | Faten Kheyrallah | Mery | Customer enquiries routed and quoted by Faten; carrier and agent traffic answered by Mery and Jonnie |
+| 2 | `info@midtrans.org` | Faten Kheyrallah | Batoul Da'aboul | Faten answers and routes; Batoul takes the Damascus side |
+| 3 | `admin@midtrans.org` | — | — | Appears only as a cc on network mail. **Strike the row, or name someone** |
+| 4 | `mira@midtrans.org` | Khaldoun Al-Khouli | — | Only Khaldoun corresponds with it. Needs a deputy |
+| 5 | RFQ wizard (`QREQ-`) | **needs one name** | | Notifications go to `info@` cc'd to four people. **Four recipients is the diffusion this standard exists to end** |
+| 6 | Website chat / MIRA handover | **unassigned** | | No observed owner |
+| 7 | WhatsApp — Dubai | ? | ? | Not visible in email |
+| 8 | WhatsApp — Damascus | Batoul Da'aboul | ? | The Damascus number is handed out on the Damascus routing |
+| 9 | Phone — Dubai | Faten Kheyrallah | ? | The published extension is hers |
+| 10 | Phone — Damascus | ? | ? | Not visible in email |
+
+Also seen in the traffic and not yet placed: **Jojimar**, **Jonnie**, **Loujain**.
+
+**Row 5 is the one to look at hardest.** The website's own quote requests are delivered to a
+shared address with four people copied. Four named recipients and no owner is precisely the
+arrangement that produced §1, and it is the channel MIDTRANS controls most directly.
+
+---
 
 ## 3. Every enquiry is logged when it arrives
 
