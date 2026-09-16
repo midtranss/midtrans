@@ -224,7 +224,7 @@ for capture and factual review.
 | **Knowledge capture does not happen** | Schedule and confirm before phase start; it is the critical path and the phase's whole premise |
 | Content drifts generic to hit the page count | Uniqueness test mandatory per page; 25–40 is a ceiling, and shipping fewer is acceptable |
 | Published procedure becomes outdated | Named owner and review date per page; quarterly review cycle; MIRA entries carry `expires_at` |
-| A cost or timing figure is published | Explicit out-of-scope list; review checklist item; editorial sign-off |
+| A cost or timing figure is published | **Mechanical gate before publication** — `../../tools/content/check_page.py` runs the MIRA guardrail over every draft and blocks the page. Plus the out-of-scope list, review, and editorial sign-off. See `PHASE-04-EDITORIAL-GATE.md` |
 | Content strays into compliance or legal determination | Out of scope; escalate any such question to a human specialist |
 | Arabic delivered as machine translation | Arabic authored, not translated; native domain review required |
 | Key-person dependency | Capture sessions recorded and documented, so the knowledge outlives the individual |
@@ -237,7 +237,9 @@ hub. No existing page is removed or rewritten without explicit approval.
 
 ## Validation
 
-- [ ] Every page passes the uniqueness test, recorded per page
+- [ ] `check_page.py` runs clean over the whole cluster, immediately before the gate
+- [ ] Every page passes the uniqueness test, **recorded per page by a named reviewer** —
+      `PHASE-04-EDITORIAL-GATE.md` §4 defines what a real answer looks like
 - [ ] Every factual claim reviewed and signed off by MIDTRANS operations
 - [ ] No duty rate, cost, clearance-time, or acceptance statement anywhere in the cluster
 - [ ] No compliance, sanctions, or legal determination

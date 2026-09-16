@@ -59,6 +59,7 @@ writer, or a coding agent — without further briefing.
 | 03 | `PHASE-03-TOOL-CALCULATION-SPEC.md` | — | What each tool computes, and what it must never compute |
 | 04 | `PHASE-04-syria-trade-center.md` | 6–8 weeks | 25–40 deep pages live, originality verified |
 | 04 | `PHASE-04-KNOWLEDGE-CAPTURE.md` | — | Interview guides — the critical path for Phase 04 |
+| 04 | `PHASE-04-EDITORIAL-GATE.md` | — | Pre-publication check for every content page |
 | 05 | `PHASE-05-market-entry-representation.md` | 8–10 weeks | Representation + market-entry hubs live and converting |
 | 06 | `PHASE-06-maritime-pi.md` | 6 weeks | Maritime and P&I hubs live, qualified enquiries received |
 | 07 | `PHASE-07-trust-conditional-expansion.md` | Continuous | Per-market gates, opened one at a time |
