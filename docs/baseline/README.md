@@ -4,7 +4,7 @@ Fill these in as Phase 00 runs. They are the evidence every later gate is measur
 
 | File | Phase 00 deliverable | Owner | Status |
 |---|---|---|---|
-| `D1-technical-audit.md` | D1 — Technical audit | Technical lead | ⬜ not started |
+| `D1-technical-audit.md` | D1 — Technical audit | Technical lead | 🟡 partial — infrastructure only; codebase needs SSH |
 | `D2-traffic-baseline.md` | D2 — Traffic & conversion | Measurement owner | ⬜ not started |
 | `D3-rfq-analysis.md` | D3 — RFQ intake analysis | Programme owner | ✅ **first pass complete** (2026-09-16) |
 | `D4-feature-inventory.md` | D4 — Feature inventory | Technical lead | 🟡 partial — email evidence only, needs D1 |
