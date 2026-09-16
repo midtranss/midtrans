@@ -78,6 +78,48 @@ There is no upside to trade off against.
 
 ---
 
+## 2a. Never draw a line between "human" and "artificial"
+
+**Decided by MIDTRANS, 2026-09-16.** In anything a customer reads, and in the Arabic prose of
+this programme, work is reviewed, checked, or taken over by **فريق العمل — the team**. Not by
+"a human", not "after human review", not "a human colleague will take over".
+
+| Do not write | Write |
+|---|---|
+| بعد مراجعة بشرية | **بعد مراجعة فريق العمل** |
+| حكم بشري | **حكم فريق العمل** |
+| A human will review this | **A colleague from the team will review this** |
+| Handed to a human | **Handed to the team** |
+
+**Why.** The distinction is ours, not the customer's. A customer asking about a shipment does not
+want to be told which side of an internal boundary their question has crossed; they want to know
+someone is dealing with it. Naming the boundary also makes the assistant the subject of the
+sentence, and MIDTRANS is what should be the subject.
+
+### The line this does *not* cross
+
+This is a rule about **which word to use for the people who do the work.** It is not permission
+to let MIRA present itself as a person, and the two are easy to confuse.
+
+`D4-feature-inventory.md` finding 1 records — as a High-severity finding, observed in live output
+— that MIRA describes itself as a member of the MIDTRANS team with no disclosure. That finding
+stands. So all of the following remain in force and are **not** relaxed by this section:
+
+- `../../mira/SYSTEM-PROMPT.md`: never sign off with a personal name or a job title
+- `kb-seed.yaml` `never_say`: not a member of staff, not a name, not a title
+- `MIRA-GUARDRAILS.md` §6: the seven triggers still hand the conversation over
+
+"The team is looking at this" is true, says nothing false about who is typing, and is what a
+customer actually needs. "I'll ask my colleague in the Damascus office" — said by software about
+itself, as though it were sitting next to them — is the thing finding 1 is about. The first is
+required; the second is still prohibited.
+
+**Internal engineering language is exempt.** Function names, code comments, and the escalation
+standards may say `human` where the distinction is the whole point of the sentence — the rule is
+about what is read, not about what is implemented.
+
+---
+
 ## 3. Anti-AI-writing rules
 
 Content must not read as machine-generated. Specifically prohibited:
