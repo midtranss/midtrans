@@ -58,6 +58,13 @@ writer, or a coding agent — without further briefing.
 | 06 | `PHASE-06-maritime-pi.md` | 6 weeks | Maritime and P&I hubs live, qualified enquiries received |
 | 07 | `PHASE-07-trust-conditional-expansion.md` | Continuous | Per-market gates, opened one at a time |
 
+### Baseline workspace
+
+| File | Purpose |
+|---|---|
+| `baseline/` | Phase 00 worksheets — fill in as the audit runs. `D6-BASELINE.md` is the document every later gate is measured against. |
+| `briefs/` | Paste-ready execution briefs for agents or developers with access this planning session lacks. |
+
 ### Reference
 
 | File | Purpose |
