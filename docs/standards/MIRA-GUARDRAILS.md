@@ -306,6 +306,20 @@ not, and all three are now regression-tested:
 | Active-voice guarantee | *"We **guarantee space** on next week's vessel"* — only the passive *"guaranteed space"* was matched | Both forms matched, plus Arabic «نضمن» |
 | Subject in the question, not the answer | *"We can definitely handle that"* carries no cargo word, so the proximity requirement failed | `check_response` takes an optional `context` — the user's preceding turn. It is **never scanned for violations**; it establishes only that the exchange is about a shipment |
 
+A fourth surfaced on 2026-09-16, writing real replies to real unanswered enquiries
+(`../baseline/D3-REPLY-DRAFTS.md`):
+
+| Gap | What was blocked | Fix |
+|---|---|---|
+| **Ordered-list markers are numbers** | *"…we cannot price that line without it. **3.** Consignee…"* — `normalize()` collapses newlines, so the marker landed inside a cost context. Five of seven drafted replies blocked, every one a false positive | Markers allowlisted: one or two digits, a period or bracket, then whitespace. `4500` and `4.500` do not match |
+| `hedged_figure` read only the first number in its window | An allowlisted marker before a real figure would have masked it | Every number in the window is now examined |
+| The sentence-end class lacked `؟` | An Arabic numbered list passed at the first marker and failed at the second | `؟` and `۔` added |
+
+That one matters more than it looks. **MIRA asks its qualifying questions as a numbered list** —
+§4's own safe fallback does — so this would have suppressed legitimate clarifying replies in
+production and served the fallback instead. It is the precision failure this document warns
+about, found in the only way it could be found.
+
 The general lesson is worth stating, because it will recur: **a guardrail reviewed on the page and
 a guardrail run against traffic are different artefacts.** Every rule here should be exercised
 against real or realistic output before it is trusted, and every gap found that way becomes a

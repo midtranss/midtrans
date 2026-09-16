@@ -465,6 +465,11 @@ baseline in `../phases/PHASE-01-MEASUREMENT-FRAMEWORK.md` §7a cannot be built f
 Six named enquiries, dated, with the cargo and route already stated. Four unread. The oldest is
 four days old; the newest arrived today.
 
+**Drafted replies for all six: `D3-REPLY-DRAFTS.md`.** Each written after reading the full
+enquiry, so none asks for anything the customer already sent — which is the failure §5 documents.
+No rate, duration, acceptance or regulatory determination in any of them, verified against
+`../../mira/guardrails.py`.
+
 ---
 
 ## 9. What this analysis does NOT establish

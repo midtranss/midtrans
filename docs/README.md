@@ -71,7 +71,7 @@ writer, or a coding agent — without further briefing.
 
 | File | Purpose |
 |---|---|
-| `baseline/` | Phase 00 worksheets — fill in as the audit runs. `D6-BASELINE.md` is the document every later gate is measured against. |
+| `baseline/` | Phase 00 worksheets — fill in as the audit runs. `D6-BASELINE.md` is the document every later gate is measured against. `D3-rfq-analysis.md` §8b–§8c record that website enquiries are going unanswered, and `D3-REPLY-DRAFTS.md` holds six ready-to-send replies. |
 | `briefs/` | Paste-ready execution briefs for agents or developers with access this planning session lacks. |
 
 ### Reference

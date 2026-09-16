@@ -155,6 +155,28 @@ MUST_BLOCK += [
     ("ar", "نضمن لك مكاناً على الباخرة."),
 ]
 
+MUST_PASS += [
+    # Ordered-list markers are numbers. MIRA asks its qualifying questions as a numbered list,
+    # and normalize() collapses newlines, so a marker landed inside a cost context and blocked
+    # a legitimate reply. Found by running real drafted replies through the check.
+    ("en", "To price this we need four things: 1. Gross weight per vehicle. 2. Invoice value, "
+           "since insurance is rated on it. 3. Consignee in Syria. 4. Ready date."),
+    ("en", "Two things would help now: 1. approximate number of pallets, a range is fine. "
+           "2. approximate value of the consignment, for insurance."),
+    ("en", "1) What is the commodity? 2) Approximate weight? 3) Door delivery or port to port?"),
+    ("ar", "نحتاج أربعة أمور: 1. مدينة الموردين في الصين. 2. الوزن الإجمالي التقريبي. "
+           "3. المرسل إليه في سوريا. 4. التاريخ التقريبي للجهوزية."),
+    ("ar", "١. ما هي البضاعة؟ ٢. الوزن التقريبي؟ ٣. تسليم للباب أم من مرفأ إلى مرفأ؟"),
+]
+
+MUST_BLOCK += [
+    # And the allowlist must not become a way to smuggle a figure past the check.
+    ("en", "1. The rate is USD 4500. 2. Transit is 22 days."),
+    ("en", "Our best guess: 1. it is about 3200 dollars."),
+    ("en", "It depends. 4500 USD for a 40HC."),
+    ("ar", "1. السعر حوالي 3200 دولار. 2. المدة 25 يوما."),
+]
+
 # Cases where the subject of the reply lives in the user's question, not the reply itself.
 # check_response takes the preceding user turn as `context`; it is never scanned itself.
 MUST_BLOCK_IN_CONTEXT = [

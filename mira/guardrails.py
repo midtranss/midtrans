@@ -134,6 +134,16 @@ _ALLOWLIST = [
     re.compile(r"\+\d[\d\s\-()]{7,}|\bext\.?\s*\d+\b|\bتحويلة\s*\d+\b"),
     # Document counts: "3 documents", "ثلاث وثائق"
     re.compile(r"\b\d+\s*(?:documents?|copies|originals?|وثائق|نسخ|نسخة|أصول)\b"),
+    # Ordered-list markers: "1. ", "2) ", "١. ". MIRA asks its qualifying questions as a
+    # numbered list, and normalize() collapses newlines, so "…does not price it. 2. Consignee…"
+    # put the digit 2 inside a cost context and blocked a legitimate reply. Found by running
+    # real drafted replies through the check, not by review.
+    # Deliberately narrow: one or two digits, a period or bracket, then whitespace. A figure
+    # like "4500" or "4.500" does not match, so this opens no hole for a rate.
+    # The sentence-end class must include the Arabic question mark U+061F and the Arabic
+    # full stop, or an Arabic numbered list — "ما هي البضاعة؟ ٢. الوزن…" — fails at the
+    # second marker while passing at the first. Caught by an Arabic test case, not by review.
+    re.compile(r"(?:(?<=[.!?:;،؛؟۔])|^)\s*\d{1,2}[.)]\s"),
 ]
 
 
@@ -240,11 +250,14 @@ def check_response(text: str, lang: str = "en", context: str = "") -> Verdict:
             record("transit_time", m.start())
 
     # Rule 4 — a hedge next to a figure. "roughly 4500" is the classic break.
+    # Every number in the window is examined, not just the first: an allowlisted list marker
+    # sitting before a real figure would otherwise mask it.
     for m in re.finditer(_HEDGES, norm):
         lo, hi = max(0, m.start() - 40), min(len(norm), m.end() + 40)
-        num = re.search(_NUMBER, norm[lo:hi])
-        if num and not _in_allowlist(lo + num.start(), allowed):
-            record("hedged_figure", m.start())
+        for num in re.finditer(_NUMBER, norm[lo:hi]):
+            if not _in_allowlist(lo + num.start(), allowed):
+                record("hedged_figure", m.start())
+                break
 
     # Rule 5 — an acceptance commitment, where the exchange is about a shipment.
     # The subject may be established by the response itself or by what the user just asked.
