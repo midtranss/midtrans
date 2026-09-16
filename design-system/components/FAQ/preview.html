@@ -1,0 +1,31 @@
+<!-- @dsCard group="Site" height=380 subtitle="Accordion questions, with the structured-data contract" -->
+<style>body { margin: 0; padding: 24px; background: var(--surface-page); }
+ .wrap { max-width: 640px; }</style>
+<div class="wrap">
+  <div class="mt-faq">
+    <div class="mt-faq__item">
+      <button class="mt-faq__q" type="button" aria-expanded="true" aria-controls="a1"><span>What do you need to quote a shipment?</span><span class="mt-faq__sign" aria-hidden="true"></span></button>
+      <div class="mt-faq__a" id="a1">
+        <p>Origin and destination, the commodity, gross weight and dimensions, the incoterm, and your ready date. For sea freight, whether the cargo is FCL or LCL.</p>
+        <p>We reply with what we still need, and with a quotation once the carrier confirms space and rate.</p>
+      </div>
+    </div>
+    <div class="mt-faq__item">
+      <button class="mt-faq__q" type="button" aria-expanded="false" aria-controls="a2"><span>How long does shipping take?</span><span class="mt-faq__sign" aria-hidden="true"></span></button>
+      <div class="mt-faq__a" id="a2"><p>Transit time depends on the sailing or flight, the season, and clearance at destination. We confirm it against the carrier's schedule at booking rather than publishing an average.</p></div>
+    </div>
+    <div class="mt-faq__item">
+      <button class="mt-faq__q" type="button" aria-expanded="false" aria-controls="a3"><span>Do you handle customs clearance?</span><span class="mt-faq__sign" aria-hidden="true"></span></button>
+      <div class="mt-faq__a" id="a3"><p>Yes, in-house. The same team that books the shipment prepares the declaration and the documents.</p></div>
+    </div>
+    <div class="mt-faq__item">
+      <button class="mt-faq__q" type="button" aria-expanded="false" aria-controls="a4"><span>Which HS code applies to my goods?</span><span class="mt-faq__sign" aria-hidden="true"></span></button>
+      <div class="mt-faq__a" id="a4"><p>Our lookup returns candidate classifications, and our team reviews them against your commercial invoice. The binding determination is made by the customs authority of the country of import.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+document.querySelectorAll('.mt-faq__q').forEach(q => q.addEventListener('click', () => {
+  q.setAttribute('aria-expanded', q.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
+}));
+</script>

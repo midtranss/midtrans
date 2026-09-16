@@ -1,4 +1,4 @@
-MIDTRANS is an international freight forwarding and logistics company operating from Damascus since 1998. Everything built with this system — the public website, the platform, ERP, CRM, quotations, the logistics chatbot and printed documents — should read as enterprise operational software: organised, specific, and answerable. Not a consumer app, and not generic SaaS.
+MIDTRANS is an international freight forwarding and logistics company, founded in Damascus in 1998, with its head office in Dubai and its Syrian office in Damascus. Everything built with this system — the public website, the platform, ERP, CRM, quotations, the logistics chatbot and printed documents — should read as enterprise operational software: organised, specific, and answerable. Not a consumer app, and not generic SaaS.
 
 ## Content fundamentals
 
@@ -19,7 +19,7 @@ Three forms, reproduced exactly — the letters, the capitals and the spacing ar
 Short references: **MIDTRANS** in capitals, or **ميدترانس** in Arabic. Never "Midtrans Shipping", never "MTS", never an invented abbreviation, and never the name translated into French, German, Turkish, Chinese or Swedish — the Arabic form is the only translated form there is.
 
 - **Be specific or be silent.** Never publish a price, transit time, customs cost, route, capacity, acceptance or delivery commitment that has not been confirmed operationally. Where a figure is not yet known, write "Confirmed on booking" and set it in `ink-muted`, not a placeholder number.
-- **No superlatives.** "Best", "largest", "fastest", "guaranteed", "world-leading" and unsupported market-leadership claims do not appear in any locale. Replace the claim with the fact behind it: "Operating from Damascus since 1998", "Sea, air and land freight with in-house customs clearance".
+- **No superlatives.** "Best", "largest", "fastest", "guaranteed", "world-leading" and unsupported market-leadership claims do not appear in any locale. Replace the claim with the fact behind it: "Founded in Damascus in 1998", "Offices in Dubai and Damascus", "Sea, air and land freight with in-house customs clearance".
 - **Sentence case for everything a person reads** — headings, buttons, table headers, notification titles. Uppercase belongs only to the `label` style, which the component applies with `text-transform`.
 - **Say what happens next.** Every empty state, error and confirmation names the next action: "Attach the packing list to continue", not "Missing document".
 - **Address the reader as "you"; MIDTRANS is "we".** In Arabic use the formal plural.

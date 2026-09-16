@@ -69,10 +69,10 @@
     "Icons"
   ],
   "lastChange": {
-    "at": "2026-09-16T22:37:33Z",
+    "at": "2026-09-16T22:42:59Z",
     "by": "Khaldoun",
     "via": "Claude Code",
-    "note": "Arabic now binds to Cairo by language, not by a remembered class: lang='ar' is enough. Caught in a real browser - Arabic text without an ar-* class was falling back to Helvetica, which has poor Arabic coverage. Reference numbers stay mono inside Arabic."
+    "note": "Messages and documents: Report with validated categorical chart tokens, Notification, EmailTemplate, and the section governing email, receipts, statements and reports. The app's own invoice templates have NOT been read and are recorded as an open gap."
   },
   "layout": "files",
   "libraries": [],

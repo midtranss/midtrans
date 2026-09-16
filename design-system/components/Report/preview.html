@@ -1,0 +1,31 @@
+<!-- @dsCard group="Documents" height=420 subtitle="Operational report: stat tiles and a validated bar figure" -->
+<style>body { margin: 0; padding: 24px; background: var(--surface-page); font-family: var(--font-sans); }
+ .wrap { display: grid; gap: 24px; max-width: 720px; }</style>
+<div class="wrap">
+  <div class="mt-stats">
+    <div class="mt-stat"><span class="mt-stat__label">Shipments open</span><span class="mt-stat__value">48</span><span class="mt-stat__note">Week 38</span></div>
+    <div class="mt-stat"><span class="mt-stat__label">Awaiting documents</span><span class="mt-stat__value">7</span><span class="mt-stat__note">Blocking clearance</span></div>
+    <div class="mt-stat"><span class="mt-stat__label">Delivered this week</span><span class="mt-stat__value">12</span><span class="mt-stat__note">Closed as intended</span></div>
+    <div class="mt-stat"><span class="mt-stat__label">Revenue</span><span class="mt-stat__value" data-pending>From accounting only</span></div>
+  </div>
+
+  <figure class="mt-figure" style="margin:0">
+    <figcaption>
+      <p class="mt-figure__title">Open shipments by mode</p>
+      <p class="mt-figure__sub">48 shipments · week 38 · count, not value</p>
+    </figcaption>
+    <div class="mt-figure__rows">
+      <div class="mt-figure__row"><span class="mt-figure__name">Sea FCL</span><div class="mt-figure__track"><div class="mt-figure__bar mt-c1" style="width:100%"></div></div><span class="mt-figure__value">21</span></div>
+      <div class="mt-figure__row"><span class="mt-figure__name">Sea LCL</span><div class="mt-figure__track"><div class="mt-figure__bar mt-c1" style="width:57%"></div></div><span class="mt-figure__value">12</span></div>
+      <div class="mt-figure__row"><span class="mt-figure__name">Air</span><div class="mt-figure__track"><div class="mt-figure__bar mt-c2" style="width:43%"></div></div><span class="mt-figure__value">9</span></div>
+      <div class="mt-figure__row"><span class="mt-figure__name">Road</span><div class="mt-figure__track"><div class="mt-figure__bar mt-c3" style="width:24%"></div></div><span class="mt-figure__value">5</span></div>
+      <div class="mt-figure__row"><span class="mt-figure__name">Multimodal</span><div class="mt-figure__track"><div class="mt-figure__bar mt-c4" style="width:5%"></div></div><span class="mt-figure__value">1</span></div>
+    </div>
+    <div class="mt-figure__legend">
+      <span class="mt-figure__key"><span class="mt-figure__swatch mt-sw1"></span>Sea</span>
+      <span class="mt-figure__key"><span class="mt-figure__swatch mt-sw2"></span>Air</span>
+      <span class="mt-figure__key"><span class="mt-figure__swatch mt-sw3"></span>Road</span>
+      <span class="mt-figure__key"><span class="mt-figure__swatch mt-sw4"></span>Multimodal</span>
+    </div>
+  </figure>
+</div>

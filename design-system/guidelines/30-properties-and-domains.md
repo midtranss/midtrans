@@ -7,7 +7,7 @@ MIDTRANS runs one design system across several web properties. This section reco
 | Property | Status | Role | Surface set |
 | --- | --- | --- | --- |
 | `midtrans.org` | Live | The corporate website | Hero, ServiceCard, TradeLaneCard, CTABlock, Footer |
-| `mid-trans.com` | Live, **same server as `midtrans.org`** | Second corporate domain | Must not serve duplicate content — see below |
+| `mid-trans.com` | Live, **same server as `midtrans.org`** | **The canonical host.** The live site declares `<link rel="canonical" href="https://www.mid-trans.com/">` | Hero, ServiceCard, TradeLaneCard, CTABlock, Footer, Contact |
 | `midtrans.net` | Live | Platform root | Footer, and the platform shell |
 | `app.midtrans.net` | Live | ERP, CRM, operations | DataTable, KeyValue, Field, StatusBadge, Milestone, Document, Alert |
 | `chat.midtrans.org` | **No DNS record** | Planned: logistics chatbot | Chat surfaces, not yet designed |
@@ -34,7 +34,21 @@ What differs is which components a property uses, not what they look like. A but
 
 `midtrans.org` and `mid-trans.com` resolve to the same IP. If both serve the same pages, search engines see duplicate content and neither ranks properly.
 
-Pick one canonical host and keep it. The other either 301-redirects to it, or serves its own distinct content. Every page carries a `<link rel="canonical">` to the canonical host, and the `hreflang` alternates for all seven locales point at that host only. This is decided once, at the server, not per page.
+**The choice is already made in the code:** the live `index.html` declares `https://www.mid-trans.com/` as canonical, and its `hreflang` alternates point there. So `mid-trans.com` is the canonical host, and `midtrans.org` must 301-redirect to it or serve its own distinct content — it cannot serve the same pages.
+
+Every page carries `<link rel="canonical">` to `www.mid-trans.com`, and the `hreflang` alternates for all seven locales point at that host only. This is set once, at the server, not per page. Today only `en` and `x-default` are declared; the other six locales are not yet published.
+
+## Offices
+
+Both offices appear in the live site's structured data and are reproduced here so no surface invents one. **Dubai is the head office**; the company was founded in Damascus in 1998.
+
+| Office | Address | Telephone |
+| --- | --- | --- |
+| **Head Office — Dubai, AE** | Deira, Port Saeed, Al Makateb Building, Office No 611 | +971 4 271 4480 / 1 · mobile +971 55 292 8560 |
+| **Syrian Office — Damascus, SY** | Halponi, Mouslam Al Baroudi Street, 2nd Floor | +963 11 9067 · mobile +963 933 383 858 |
+| WhatsApp | — | +963 944 334 338 |
+
+A footer, a letterhead or a contact page that names only one city is wrong. Print both. Telephone numbers are links (`tel:`) on every surface, and stay in Western digits in Arabic.
 
 ## The browser icon
 

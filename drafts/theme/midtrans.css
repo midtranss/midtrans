@@ -790,3 +790,183 @@
 [lang="ar"] address {
   line-height: 1.8;
 }
+
+/* ==========================================================================
+   Report: stat tiles and the bar figure
+   The categorical colours are validated, not chosen by eye: worst adjacent
+   CVD separation is ΔE 16.2 in light and 13.6 in dark, against a target of 8.
+   The order is FIXED and never cycled — a fifth mode folds into "Other".
+   ========================================================================== */
+
+.mt-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-4); }
+.mt-stat {
+  display: flex; flex-direction: column; gap: var(--space-1);
+  padding: var(--space-4);
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+}
+.mt-stat__label { font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-muted); }
+.mt-stat__value { font-family: var(--font-mono); font-size: 32px; line-height: 38px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--ink-strong); }
+.mt-stat__value[data-pending] { font-family: var(--font-sans); font-size: 15px; line-height: 23px; font-weight: 400; color: var(--ink-muted); }
+.mt-stat__note { font-size: 12px; line-height: 18px; color: var(--ink-muted); }
+
+/* The figure: horizontal bars. Magnitude is length; colour only carries identity. */
+.mt-figure { font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-3); }
+.mt-figure__title { margin: 0; font-size: 17px; line-height: 24px; font-weight: 600; color: var(--ink-strong); }
+.mt-figure__sub { margin: 0; font-size: 12px; line-height: 18px; color: var(--ink-muted); }
+.mt-figure__rows { display: flex; flex-direction: column; gap: var(--space-2); }
+.mt-figure__row { display: grid; grid-template-columns: 96px 1fr max-content; gap: var(--space-3); align-items: center; }
+.mt-figure__name { font-size: 13px; line-height: 20px; color: var(--ink-body); }
+.mt-figure__track { height: 20px; background: var(--surface-sunken); border-radius: 2px; overflow: hidden; }
+.mt-figure__bar {
+  height: 100%;
+  /* 4px rounded data-end, square against the baseline. */
+  border-start-end-radius: 4px; border-end-end-radius: 4px;
+  /* a 2px surface gap keeps adjacent fills from reading as one mark */
+  box-shadow: 0 0 0 2px var(--surface-card);
+}
+.mt-figure__value { font-family: var(--font-mono); font-size: 12px; line-height: 18px; font-variant-numeric: tabular-nums; color: var(--ink-body); }
+.mt-figure__legend { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+.mt-figure__key { display: inline-flex; align-items: center; gap: var(--space-2); font-size: 12px; line-height: 18px; color: var(--ink-muted); }
+.mt-figure__swatch { width: 10px; height: 10px; border-radius: 2px; flex: none; }
+/* Identity is never colour alone: each row is named, and the legend repeats it. */
+.mt-figure__row:focus-visible, .mt-figure__row:hover .mt-figure__track { outline: none; }
+.mt-figure__row:hover .mt-figure__value { color: var(--ink-strong); font-weight: 600; }
+
+.mt-c1 { background: var(--chart-1); } .mt-sw1 { background: var(--chart-1); }
+.mt-c2 { background: var(--chart-2); } .mt-sw2 { background: var(--chart-2); }
+.mt-c3 { background: var(--chart-3); } .mt-sw3 { background: var(--chart-3); }
+.mt-c4 { background: var(--chart-4); } .mt-sw4 { background: var(--chart-4); }
+
+@media print {
+  .mt-stat, .mt-figure__track { border: 1px solid #7c8b99; }
+  .mt-figure__bar { box-shadow: none; }
+}
+
+/* ---------- Notification ---------- */
+.mt-notes { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; font-family: var(--font-sans); }
+.mt-note {
+  display: grid; grid-template-columns: max-content 1fr max-content;
+  gap: var(--space-3); align-items: start;
+  padding: var(--space-4) var(--space-3);
+  border-block-end: 1px solid var(--border-subtle);
+  background: var(--surface-card);
+}
+.mt-note[data-unread="true"] { background: var(--brand-soft); }
+.mt-note__icon { width: 32px; height: 32px; border-radius: var(--radius-sm); display: grid; place-items: center; }
+.mt-note__icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.mt-note--info    .mt-note__icon { background: var(--status-info-soft);    color: var(--status-info); }
+.mt-note--success .mt-note__icon { background: var(--status-success-soft); color: var(--status-success); }
+.mt-note--warning .mt-note__icon { background: var(--status-warning-soft); color: var(--status-warning); }
+.mt-note--danger  .mt-note__icon { background: var(--status-danger-soft);  color: var(--status-danger); }
+.mt-note__body { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.mt-note__title { margin: 0; font-size: 15px; line-height: 23px; font-weight: 600; color: var(--ink-strong); }
+.mt-note__text { margin: 0; font-size: 13px; line-height: 20px; color: var(--ink-body); }
+.mt-note__ref { font-family: var(--font-mono); font-size: 12px; font-variant-numeric: tabular-nums; color: var(--ink-muted); }
+.mt-note__time { font-size: 12px; line-height: 18px; color: var(--ink-muted); white-space: nowrap; }
+
+/* ---------- Contact ---------- */
+.mt-offices { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-4); font-family: var(--font-sans); }
+.mt-office {
+  display: flex; flex-direction: column; gap: var(--space-3);
+  padding: var(--space-5);
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+.mt-office__label { margin: 0; font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--brand-link); }
+.mt-office__city { margin: 0; font-size: 21px; line-height: 28px; font-weight: 600; color: var(--ink-strong); }
+.mt-office address { font-style: normal; font-size: 13px; line-height: 20px; color: var(--ink-body); }
+.mt-office__lines { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+.mt-office__line { display: flex; gap: var(--space-2); align-items: baseline; font-size: 13px; line-height: 20px; }
+.mt-office__kind { color: var(--ink-muted); min-width: 44px; }
+.mt-office__line a { font-family: var(--font-mono); font-size: 13px; font-variant-numeric: tabular-nums; color: var(--brand-link); text-decoration: none; }
+.mt-office__line a:hover { text-decoration: underline; }
+.mt-office__line a:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+
+/* The floating contact rail: the persistent actions on the website's edge. */
+.mt-rail {
+  position: fixed;
+  inset-inline-end: 0;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: flex; flex-direction: column; gap: 1px;
+  border-start-start-radius: var(--radius-md);
+  border-end-start-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+.mt-rail__item {
+  display: flex; align-items: center; justify-content: center;
+  min-width: var(--mt-tap); min-height: var(--mt-tap);
+  background: var(--surface-inverse);
+  color: var(--ink-inverse);
+  text-decoration: none;
+}
+.mt-rail__item:hover { background: var(--brand-primary); color: var(--ink-on-brand); }
+.mt-rail__item:focus-visible { outline: 2px solid var(--border-focus); outline-offset: -2px; }
+.mt-rail__item svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+/* On a phone the rail moves to the bottom edge, clear of the home indicator,
+   and never sits over the bottom navigation. */
+@media (max-width: 767px) {
+  .mt-rail {
+    inset-block-start: auto;
+    inset-block-end: calc(var(--space-4) + var(--mt-safe-bottom));
+    inset-inline-end: var(--space-4);
+    transform: none;
+    flex-direction: row;
+    border-radius: var(--radius-md);
+    gap: 1px;
+  }
+}
+
+/* ---------- FAQ ---------- */
+.mt-faq { font-family: var(--font-sans); border-block-start: 1px solid var(--border-subtle); }
+.mt-faq__item { border-block-end: 1px solid var(--border-subtle); }
+.mt-faq__q {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
+  width: 100%; min-height: var(--mt-tap);
+  padding: var(--space-4) 0;
+  background: none; border: none; cursor: pointer;
+  text-align: start;
+  font-size: 17px; line-height: 24px; font-weight: 600; color: var(--ink-strong);
+  font-family: inherit;
+}
+.mt-faq__q:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+.mt-faq__sign { flex: none; width: 20px; height: 20px; position: relative; }
+.mt-faq__sign::before, .mt-faq__sign::after {
+  content: ""; position: absolute; inset-inline-start: 2px; inset-block-start: 9px;
+  width: 16px; height: 2px; border-radius: 1px; background: var(--brand-link);
+  transition: transform 160ms ease;
+}
+.mt-faq__sign::after { transform: rotate(90deg); }
+.mt-faq__q[aria-expanded="true"] .mt-faq__sign::after { transform: rotate(0deg); }
+.mt-faq__a { padding-block-end: var(--space-4); max-width: 68ch; }
+.mt-faq__a p { margin: 0 0 var(--space-3); font-size: 15px; line-height: 23px; color: var(--ink-body); }
+.mt-faq__a p:last-child { margin: 0; }
+.mt-faq__q[aria-expanded="false"] + .mt-faq__a { display: none; }
+
+/* ---------- HS code share card ---------- */
+.mt-hscard {
+  display: flex; flex-direction: column; gap: var(--space-3);
+  max-width: 420px;
+  padding: var(--space-5);
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-sans);
+}
+.mt-hscard__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+.mt-hscard__brand { font-size: 13px; line-height: 16px; font-weight: 700; letter-spacing: 0.06em; color: var(--ink-strong); }
+.mt-hscard__kind { font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-muted); }
+.mt-hscard__code {
+  font-family: var(--font-mono); font-size: 32px; line-height: 38px; font-weight: 700;
+  font-variant-numeric: tabular-nums; letter-spacing: 0.02em; color: var(--brand-accent);
+}
+.mt-hscard__desc { margin: 0; font-size: 15px; line-height: 23px; color: var(--ink-body); }
+.mt-hscard__foot { padding-block-start: var(--space-3); border-block-start: 1px solid var(--border-subtle); }
+.mt-hscard__foot p { margin: 0; font-size: 12px; line-height: 18px; color: var(--ink-muted); }
+.mt-hscard__actions { display: flex; gap: var(--space-2); }
