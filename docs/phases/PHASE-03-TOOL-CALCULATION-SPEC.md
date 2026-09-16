@@ -241,3 +241,63 @@ skipped safety test is not a safety test.
 - [ ] Validation messages surfaced to the user, naming the field and the unit
 - [ ] Arabic interface: numeric input accepts Arabic-Indic digits and renders RTL correctly
 - [ ] Level 1 and Level 2 checklists in `../standards/DEFINITION-OF-DONE.md` passed
+
+---
+
+## Addendum — an absent weight is not a wrong weight (2026-09-16)
+
+The calculator was run against a real enquiry for the first time: `2026-09-16-sprinters`, six
+Mercedes Sprinters from Gdańsk, the most completely specified enquiry in the register.
+
+**It raised `CalcError` and produced nothing.** The enquirer gave exact dimensions per vehicle
+for all six and **no weight at all** — which is the shape roughly half of what arrives takes,
+because dimensions come off a spec sheet and gross weight does not.
+
+### Why that was a defect and not caution
+
+Volume, piece count and longest dimension need no weight, and they answer a question the desk
+genuinely has: *can six of these physically go in a box, or is RoRo the only route?* Refusing the
+whole calculation to protect one output withholds three that were available.
+
+Worse, the error read `weight_kg must be greater than zero` — which points the reader at one
+remedy: **put a number in.** A tool that will not run without a figure teaches the desk to invent
+the figure, and an invented weight is worse than a missing one. It is the same failure mode as a
+guardrail so aggressive that somebody switches it off.
+
+### What changed
+
+`Line.weight_kg` now accepts `None`, meaning **not supplied yet**. Zero remains an error, because
+zero is a wrong number while `None` is an absent one, and the distinction is the whole point.
+
+- `Totals.total_gross_kg`, `heaviest_piece_kg` and `density_kg_per_m3` become `None`, never `0`.
+  A zero total reads as complete; `None` cannot be mistaken for one.
+- **One line without a weight makes the whole weight total unknown.** Summing the rest would
+  report a figure that looks final.
+- `Totals.weight_known` says which case you are in, in one boolean.
+
+### The property that had to hold
+
+> **An unsupplied weight can never produce `LIKELY_FITS`.**
+
+A container is bounded by payload as much as by volume. Reporting a comfortable verdict while
+half the constraint is unmeasured would be a yes the data does not support. With the weight
+missing, `REVIEW` is the most the tool will say, and it names what is missing:
+
+> *"Gross weight was not supplied, so the payload limit could not be checked. This verdict covers
+> volume and dimensions only."*
+
+Nine test cases hold that property — three containers × three assertions — and two more confirm
+`LIKELY_FITS` is still reachable when a weight is given, so the change stays narrow.
+
+### What it said about the Sprinters
+
+| | |
+|---|---|
+| Six vehicles | **210.32 CBM** — exceeds every container type several times over |
+| One L3H2 alone | 36.89 CBM; **697 cm is longer than a 20GP interior**, and wider than a 40GP or 40HC door aperture |
+
+So the draft reply's offer to *"also price a container alternative"* now has arithmetic behind it:
+containerising these is not a simple substitution, and RoRo is the mode the cargo actually
+suggests. **That is an internal working note, not something to send** — `WRITING-STANDARDS.md` §4
+still forbids telling the customer which routing is better before operations says so.
+

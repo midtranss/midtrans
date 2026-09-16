@@ -98,6 +98,65 @@ except fm.CalcError:
     check("totals: empty consignment refused", True)
 
 # --------------------------------------------------------------------------------------
+print("\n=== weight not supplied — the shape half the register arrives in ===")
+
+# 2026-09-16-sprinters gives dimensions per vehicle for six vehicles and no weight at all.
+# Before this, the calculator raised CalcError and produced nothing — which teaches the desk
+# to type a weight in to make the tool run, and an invented weight is worse than a missing one.
+noweight = fm.consignment_totals([
+    fm.Line(697, 202, 262, weight_kg=None, quantity=4, description="Sprinter L3H2"),
+    fm.Line(593, 202, 262, weight_kg=None, quantity=2, description="Sprinter L2H2"),
+])
+check("no weight: volume still computed", close(noweight.total_cbm, 210.319976, 1e-5),
+      noweight.total_cbm)
+check("no weight: pieces still counted", noweight.pieces == 6, noweight.pieces)
+check("no weight: longest dimension still reported",
+      close(noweight.longest_dimension_cm, 697.0))
+check("no weight: weight_known is False", noweight.weight_known is False)
+check("no weight: gross is None, NOT zero", noweight.total_gross_kg is None,
+      noweight.total_gross_kg)
+check("no weight: heaviest piece is None", noweight.heaviest_piece_kg is None)
+check("no weight: density is None, not a number computed from nothing",
+      noweight.density_kg_per_m3 is None, noweight.density_kg_per_m3)
+
+# One missing weight makes the whole total unknown. Summing the rest would report a number
+# that reads as complete.
+mixed = fm.consignment_totals([
+    fm.Line(100, 100, 100, weight_kg=200, quantity=1),
+    fm.Line(100, 100, 100, weight_kg=None, quantity=1),
+])
+check("no weight: one missing line makes the total unknown",
+      mixed.total_gross_kg is None, mixed.total_gross_kg)
+check("no weight: but volume is still whole", close(mixed.total_cbm, 2.0))
+
+# None means "not supplied". Zero means "wrong", and stays an error.
+for bad, label in ((0, "zero"), (-5, "negative")):
+    try:
+        fm.consignment_totals([fm.Line(100, 100, 100, weight_kg=bad)])
+        check(f"no weight: {label} weight still refused", False)
+    except fm.CalcError:
+        check(f"no weight: {label} weight still refused", True)
+
+# The property that matters most: an unmeasured payload can never read as comfortable.
+small_unweighed = fm.consignment_totals([fm.Line(100, 100, 100, weight_kg=None, quantity=2)])
+for name, spec in fm.containers().items():
+    f = fm.container_feasibility(small_unweighed, spec)
+    check(f"no weight: {name} never says LIKELY_FITS",
+          f.verdict is not fm.Fit.LIKELY_FITS, f.verdict.name)
+    check(f"no weight: {name} payload utilisation is None",
+          f.payload_utilisation is None, f.payload_utilisation)
+    check(f"no weight: {name} says why",
+          any("payload limit could not be checked" in r for r in f.reasons), f.reasons)
+
+# And a supplied weight is untouched by any of it.
+weighed = fm.consignment_totals([fm.Line(100, 100, 100, weight_kg=200, quantity=2)])
+fw = fm.container_feasibility(weighed, fm.containers()["40HC"])
+check("weight supplied: LIKELY_FITS is still reachable",
+      fw.verdict is fm.Fit.LIKELY_FITS, fw.verdict.name)
+check("weight supplied: payload utilisation is a number",
+      isinstance(fw.payload_utilisation, float), fw.payload_utilisation)
+
+# --------------------------------------------------------------------------------------
 print("\n=== inputs that would produce a plausible wrong answer ===")
 
 for bad, label in [

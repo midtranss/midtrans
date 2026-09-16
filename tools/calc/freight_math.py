@@ -149,7 +149,13 @@ class Line:
     length_cm: float
     width_cm: float
     height_cm: float
-    weight_kg: float          # per piece
+    # Per piece. `None` means NOT SUPPLIED YET — which is different from wrong, and the
+    # distinction is the point. Zero is still an error: zero is a wrong number, None is an
+    # absent one. Half the enquiries in the register arrive with dimensions and no weight
+    # (2026-09-16-sprinters gives dimensions per vehicle for six vehicles and no weight at
+    # all), and a tool that refuses to compute anything without it teaches the desk to type a
+    # weight in to make the tool run. An invented weight is worse than a missing one.
+    weight_kg: float | None
     quantity: int = 1
     description: str = ""
 
@@ -158,10 +164,14 @@ class Line:
 class Totals:
     pieces: int
     total_cbm: float
-    total_gross_kg: float
-    heaviest_piece_kg: float
+    total_gross_kg: float | None       # None when any line's weight was not supplied
+    heaviest_piece_kg: float | None
     longest_dimension_cm: float
-    density_kg_per_m3: float
+    density_kg_per_m3: float | None
+
+    @property
+    def weight_known(self) -> bool:
+        return self.total_gross_kg is not None
 
 
 def consignment_totals(lines) -> Totals:
@@ -179,23 +189,30 @@ def consignment_totals(lines) -> Totals:
     weight = 0.0
     heaviest = 0.0
     longest = 0.0
+    # One line without a weight makes every weight-derived total unknown. It is not summed as
+    # zero and it is not skipped: either would report a total that reads as complete.
+    any_weight_missing = False
 
     for index, line in enumerate(lines, start=1):
         quantity = _count(line.quantity, f"line {index} quantity")
-        per_piece_kg = _positive(line.weight_kg, f"line {index} weight_kg", _MAX_WEIGHT_KG)
         volume += cbm(line.length_cm, line.width_cm, line.height_cm, quantity)
-        weight += per_piece_kg * quantity
         pieces += quantity
-        heaviest = max(heaviest, per_piece_kg)
         longest = max(longest, line.length_cm, line.width_cm, line.height_cm)
+
+        if line.weight_kg is None:
+            any_weight_missing = True
+            continue
+        per_piece_kg = _positive(line.weight_kg, f"line {index} weight_kg", _MAX_WEIGHT_KG)
+        weight += per_piece_kg * quantity
+        heaviest = max(heaviest, per_piece_kg)
 
     return Totals(
         pieces=pieces,
         total_cbm=volume,
-        total_gross_kg=weight,
-        heaviest_piece_kg=heaviest,
+        total_gross_kg=None if any_weight_missing else weight,
+        heaviest_piece_kg=None if any_weight_missing else heaviest,
         longest_dimension_cm=float(longest),
-        density_kg_per_m3=weight / volume if volume else 0.0,
+        density_kg_per_m3=None if (any_weight_missing or not volume) else weight / volume,
     )
 
 
@@ -220,7 +237,7 @@ class Feasibility:
     verdict: Fit
     container: str
     volume_utilisation: float        # of usable volume, not nominal
-    payload_utilisation: float
+    payload_utilisation: float | None   # None when the gross weight was not supplied
     reasons: list = field(default_factory=list)
     data_status: str = "unconfirmed"
 
@@ -241,7 +258,8 @@ def container_feasibility(totals: Totals, container: dict,
     payload = float(container["max_payload_kg"])
 
     volume_use = totals.total_cbm / usable_volume if usable_volume else float("inf")
-    payload_use = totals.total_gross_kg / payload if payload else float("inf")
+    payload_use = (None if not totals.weight_known
+                   else (totals.total_gross_kg / payload if payload else float("inf")))
 
     reasons = []
     verdict = Fit.LIKELY_FITS
@@ -252,7 +270,7 @@ def container_feasibility(totals: Totals, container: dict,
             f"Volume {totals.total_cbm:.2f} m³ exceeds the usable "
             f"{usable_volume:.2f} m³ ({fraction:.0%} of nominal)."
         )
-    if totals.total_gross_kg > payload:
+    if totals.weight_known and totals.total_gross_kg > payload:
         verdict = Fit.EXCEEDS
         reasons.append(
             f"Weight {totals.total_gross_kg:,.0f} kg exceeds the payload {payload:,.0f} kg."
@@ -273,10 +291,22 @@ def container_feasibility(totals: Totals, container: dict,
             "in that orientation."
         )
 
-    if verdict is Fit.LIKELY_FITS and (volume_use > 0.9 or payload_use > 0.9):
+    if verdict is Fit.LIKELY_FITS and (volume_use > 0.9 or (payload_use or 0) > 0.9):
         verdict = Fit.REVIEW
         reasons.append(
             "Above 90% of usable capacity. At this level stowage, not arithmetic, decides."
+        )
+
+    # An unsupplied weight can never produce a comfortable verdict. Volume alone is a real and
+    # useful answer — "will six vehicles physically go in one box" is decided by dimensions —
+    # but a container is limited by payload as well, and reporting LIKELY_FITS while half the
+    # constraint is unmeasured would be a yes the data does not support. REVIEW is the most
+    # this can say, and the reason names exactly what is missing.
+    if not totals.weight_known:
+        verdict = Fit.EXCEEDS if verdict is Fit.EXCEEDS else Fit.REVIEW
+        reasons.append(
+            "Gross weight was not supplied, so the payload limit could not be checked. This "
+            "verdict covers volume and dimensions only."
         )
 
     if container.get("status") != "confirmed":
