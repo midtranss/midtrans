@@ -241,6 +241,35 @@ MIRA must stop self-serving and route to a human when any of these appear:
 
 ---
 
+### 6a. What the live mailbox added to `legal_exposure` — 2026-09-16
+
+The seven triggers were written from the enquiry analysis. They were then run against the real
+mailbox, and one shape got through that should not have:
+
+> *"Can you ship to a consignee in Syria under current restrictions?"*
+
+No pattern fired. `sanction`, `embargo`, `export control` and `compliance` were all covered; the
+word an actual customer reaches for is **"restrictions"**, and one enquiry in the register asks
+it almost verbatim — *"whether there are any restrictions I should be aware of"*
+(`2026-08-10-galvanic-eu`). For a forwarder whose lane is Syria, this is the commonest possible
+form of the one question MIRA must never answer.
+
+**Why it was not fixed by matching the word.** "Restriction" is also the word for an axle-load
+limit, a height limit, a container size limit. A check that escalates *"what are the weight
+restrictions?"* is a check a colleague switches off within a week, and a switched-off check
+protects nothing — §8a records the same lesson from the output guardrail. So the trade senses
+are enumerated instead, and a physical qualifier between "any" and "restrictions" means nothing
+fires. Six such phrasings are now permanent negative test cases.
+
+**One over-trigger is accepted and left in.** *"Is the vessel allowed to berth at night?"*
+escalates, and that is a port-hours question. It stands, because **escalation and blocking fail
+in opposite directions**: an over-escalation costs a colleague a glance, while an over-block gags
+a legitimate answer. The precision bar for a trigger is therefore deliberately lower than for the
+output check. And the near-identical *"is the vessel allowed to call at Latakia?"* genuinely is a
+sanctions question — the ambiguity is in the trade, not in the pattern.
+
+Suite: 25 → 32 must-escalate, 12 → 18 must-continue.
+
 ## 7. Logging, review, and enforcement
 
 ### Logged for every conversation

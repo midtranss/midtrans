@@ -49,7 +49,38 @@ TRIGGERS = {
         r"\bsanction(?:s|ed|ing)?\b|\bembargo\b|\bofac\b|\brestricted part|\bdenied part|"
         r"\bexport control\b|\bdual[- ]use\b|\bcomplian(?:ce|t)\b|\blawyer\b|\battorney\b|"
         r"\blegal action\b|\bcourt\b|\blitigat|\barbitrat|\bsue\b|\bsuing\b|\bprosecut|"
-        r"عقوبات|حظر|امتثال|محام|قضائ|محكمة|تحكيم|مقاضاة"
+        # "Is this allowed?" — the question a customer actually asks a Syria forwarder, and a
+        # determination MIRA must never make. Found by testing this module against live traffic:
+        # "can you ship to a consignee in Syria under current restrictions?" escaped every
+        # other pattern here, and one enquiry in the register asks it almost word for word
+        # ("whether there are any restrictions I should be aware of" — 2026-08-10-galvanic-eu).
+        #
+        # "Restriction" is also the word for an axle-load limit. A check that escalates "what
+        # are the weight restrictions?" is a check somebody switches off, and a switched-off
+        # check protects nothing — MIRA-GUARDRAILS §8a, learned the same way. So the trade
+        # senses are enumerated rather than matching the bare word: a physical qualifier sits
+        # between "any" and "restrictions" and no alternative fires.
+        r"\b(?:trade|import|export|shipping|shipment|customs|banking|payment|current|any)\s+"
+        r"restrictions?\b|"
+        r"\brestrictions?\s+(?:on|for)\s+(?:ship|import|export|send|cargo|goods|brand|"
+        r"product|commodit)|"
+        # Known and accepted over-trigger: "is the vessel allowed to berth at night?" escalates,
+        # and that is a port-hours question, not a legal one. It stands, because escalation and
+        # blocking fail in opposite directions. An over-escalation costs a colleague a glance;
+        # an over-block gags a legitimate answer, and MIRA-GUARDRAILS §8a records what that
+        # leads to — a check somebody switches off, protecting nothing. The precision bar here
+        # is therefore lower than the output guardrail's, deliberately. Note also that the
+        # near-identical "is the vessel allowed to call at Latakia?" IS a sanctions question,
+        # so the ambiguity is in the trade, not in the pattern.
+        #
+        # Up to two words may sit between the subject and the verb — "are these goods
+        # permitted", "is this commodity allowed" — which is how the question is actually put.
+        r"\b(?:is|are)\s+(?:it|this|these|they|there|the)\s+(?:\w+\s+){0,2}"
+        r"(?:prohibited|banned|forbidden|permitted|allowed)\b|"
+        r"\b(?:prohibited|banned|forbidden)\s+(?:goods|items|products|cargo|to\s+\w+)\b|"
+        r"عقوبات|حظر|امتثال|محام|قضائ|محكمة|تحكيم|مقاضاة|"
+        r"قيود\s*(?:على|تجاري|الاستيراد|التصدير|الشحن)|"
+        r"(?:ممنوع|محظور|مسموح)\s*(?:استيراد|تصدير|شحن|إدخال|إرسال)"
     ),
     # "Named dispute, complaint, or dissatisfaction with MIDTRANS."
     "dispute": (

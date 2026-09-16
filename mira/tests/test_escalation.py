@@ -52,6 +52,18 @@ MUST_ESCALATE = [
     ("legal_exposure", "This is going to arbitration."),
     ("legal_exposure", "هل هذه البضاعة خاضعة للعقوبات؟"),
 
+    # "Is this allowed?" — added 2026-09-16 after testing this module against live mailbox
+    # traffic. Every one of these escaped the original patterns, and the second is quoted from
+    # a real enquiry in the register (2026-08-10-galvanic-eu). For a forwarder whose lane is
+    # Syria, this is the commonest shape of the one question MIRA must never answer.
+    ("legal_exposure", "Can you ship to a consignee in Syria under current restrictions?"),
+    ("legal_exposure", "Please confirm whether there are any restrictions I should be aware of."),
+    ("legal_exposure", "Any restrictions on specific brands or products?"),
+    ("legal_exposure", "Are these goods permitted?"),
+    ("legal_exposure", "Is it prohibited to ship this to Syria?"),
+    ("legal_exposure", "هل هناك قيود على الاستيراد من الصين؟"),
+    ("legal_exposure", "هل ممنوع استيراد هذه البضاعة؟"),
+
     ("dispute", "I am not happy with how MIDTRANS handled my last shipment."),
     ("dispute", "I want to speak to a manager about this."),
     ("dispute", "We expect compensation for the delay."),
@@ -116,6 +128,16 @@ MUST_CONTINUE = [
     "هل لديكم مكتب في دمشق؟",
     "أريد شحن أثاث من دبي، ما الذي تحتاجونه منّي؟",
     "كيف أحسب حجم البضاعة بالمتر المكعب؟",
+
+    # The other half of the "is this allowed?" work. "Restriction" is also the word for an axle
+    # limit, and a check that escalates these is a check somebody switches off — at which point
+    # it protects nothing. Each of these is one word away from a case above.
+    "What are the weight restrictions for a full truck?",
+    "Are there any height restrictions on the road route?",
+    "Please advise the axle load restrictions in Turkey.",
+    "What are the size restrictions for a 20ft container?",
+    "Any volume restrictions for LCL?",
+    "ما هي قيود الوزن على الشاحنة؟",
 ]
 
 for text in MUST_CONTINUE:
