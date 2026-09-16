@@ -20,6 +20,28 @@
 
 ---
 
+## 0. Correction — this replaces a live page (2026-09-16)
+
+This spec was first written as a new build. Repository evidence says otherwise:
+`config/protected-pages.json` on `midtranss/midtrans` lists **`/get-quote/`** among
+the pages that must not be lost, so a quote page is already live and ranking.
+See `../baseline/D1-technical-audit.md` § repository findings.
+
+Three consequences, all binding:
+
+1. **Measure before touching.** Record the current `/get-quote/` sessions, submissions
+   and submission rate for a full 28 days first. Without that number there is no way to
+   prove the wizard helped, and Phase 01's exit gate is a comparison.
+2. **Keep the URL.** The new wizard ships *at* `/get-quote/`. No new slug, no redirect
+   chain, no `/request-a-quote/`. The page's existing authority is an asset.
+3. **Rollback is restoration, not removal.** Keep a byte-exact copy of the current page
+   and its server config before deployment. The rollback step is "put the old page back",
+   and it must be tested once on staging before launch — not discovered under pressure.
+
+Nothing else in this spec changes. The field set below is still derived from D3.
+
+---
+
 ## 1. The rule that governs every field
 
 > **A field exists only if a row in `D3-rfq-analysis.md` §5 shows the pricing desk had to chase it

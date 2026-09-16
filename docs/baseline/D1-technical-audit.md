@@ -185,3 +185,115 @@ grep -rni "conversation\|transcript\|chat_log" /path/to/mira
 
 Question 2 is the highest-priority open item in the entire programme — see
 `D4-feature-inventory.md` § MIRA status.
+
+---
+
+## Partial findings — repository, 2026-09-16
+
+Read access to `midtranss/midtrans` became available through the GitHub API
+this session. Everything below is verified from the repository itself, not
+inferred. Write access is still refused — see § Access status.
+
+### What the repository actually contains
+
+`master` holds a single commit, `5cf2d98 Initialize repository`, whose tree is
+one file: `.gitkeep`. **The default branch is empty.**
+
+All the real content sits on one unmerged branch,
+`cursor/update-office-contact-details-8c7b` (8 commits, head `716ab64`), opened
+as **draft PR #1** on 2026-06-23 and untouched since. 23 files:
+
+| Area | Files |
+|---|---|
+| Generator | `src/build-site.js`, `package.json` |
+| Config | `config/page-registry.json`, `language-map.json`, `protected-pages.json`, `internal-links.json`, `company-profile.json` |
+| Content | `content/en/pages/home.json`, `contact-us.json`, `strings/en.json` |
+| Output | `index.html`, `contact-us/index.html`, `assets/styles.css` |
+| Verification | `scripts/check-static-site.py` |
+| Design notes | 7 `MIDTRANS_*.md` files, `design-mockups/` |
+
+### ❗ This is a greenfield prototype, not the live site
+
+The live `www.mid-trans.com` codebase is **not** in this repository. What is
+here is a from-scratch static generator covering two pages. Correcting the
+assumption carried earlier in this programme: there is no repository access
+path to the live site's source, and D1's remaining questions — MIRA's
+implementation, the retired model reference, i18n at the edge — are **not**
+answerable from here. They still need the VPS.
+
+### ✅ Verified: the prototype builds and its checks pass
+
+Run from a clean export of `716ab64`, Node v22.22.2:
+
+```
+node src/build-site.js        → Generated 2 page(s).
+python3 scripts/check-static-site.py → Static site checks passed.
+```
+
+Both generated files are **byte-identical to the committed output**, so the
+build is reproducible and the committed HTML is not hand-edited. The checker
+verifies a visible `<h1>`, `rel=canonical`, `hreflang` alternates, parseable
+JSON-LD with a non-empty `@graph`, resolvable stylesheet paths, and the five
+required contact numbers. That is a real gate, not a placeholder.
+
+Content scan against `../standards/WRITING-STANDARDS.md` § forbidden words
+(`best`, `largest`, `number one`, `world class`, `guaranteed`, `seamless`,
+`leading`, `fastest`, `cheapest`, `unmatched`, `premier`): **zero hits** across
+`content/`, `strings/`, `config/`. No invented rates, transit times or
+capacity claims. The homepage copy is factual and within our standards.
+
+### ⚠️ Highest-value find: the live page inventory
+
+`config/protected-pages.json` names 11 pages that must not be lost. This is the
+first hard evidence of the live site's URL surface obtained in this programme —
+every HTTP route to `mid-trans.com` was blocked from this environment:
+
+```
+/   /about-us/   /contact-us/   /get-quote/   /trade-lanes/   /faq/
+/jebel-ali-customs-clearance/   /shipping-from-china-to-syria/
+/dubai-to-syria/   /land-freight-dubai-to-syria/   /customs-clearance/
+```
+
+`config/page-registry.json` implements **2 of those 11**. Deploying this
+prototype over the live site as it stands would remove nine pages, including
+four commercial lane and customs pages. That is both an SEO loss and a direct
+breach of the standing rule against removing pages. Recorded in the master plan
+risk register.
+
+### ⚠️ Plan correction: `/get-quote/` already exists
+
+`PHASE-01-RFQ-WIZARD-SPEC.md` was written as a new build. It is a **replacement
+of a live page**, which changes three things: the existing page's traffic and
+rankings must be measured before it is touched, its URL must be preserved, and
+the rollback path is "restore the current page", not "remove the new one".
+Corrected in the spec.
+
+### Internationalisation, as configured
+
+`config/language-map.json`: `en` is the only `available` language. `ar`, `fr`,
+`de`, `tr`, `zh`, `sv` are all listed as `plannedLanguages` with `dir` set
+correctly (`rtl` for Arabic). No AR content, no AR strings file, no RTL
+stylesheet. Multilingual parity does not exist in this codebase yet —
+`../standards/LANGUAGE-SCOPE.md` tiering applies from a standing start.
+
+### Canonical host
+
+`company-profile.json` sets `primaryDomain` to `https://www.mid-trans.com` and
+every canonical in the registry uses the `www.` host. Any redirect, sitemap or
+hreflang work must treat `www.mid-trans.com` as canonical.
+
+### Access status — verified 2026-09-16
+
+| Path | Result |
+|---|---|
+| `git push` over HTTPS | **403** — refused by the session egress proxy before reaching GitHub |
+| GitHub API read (`list_branches`, `get_file_contents`, `list_pull_requests`) | ✅ works |
+| GitHub API write (`create_branch`) | **403 `Resource not accessible by integration`** |
+| `git fetch origin <branch>` | ✅ works |
+
+Read and write are decided separately, and write is refused at **two
+independent layers**. The GitHub App installation's `Contents` permission is
+still read-only. Adding the repository to the app's repository list does not
+grant write; the app's **permission request must be approved** by an
+organisation owner at `github.com/settings/installations/129299878`. A pending
+approval banner leaves the old read-only permission in force.

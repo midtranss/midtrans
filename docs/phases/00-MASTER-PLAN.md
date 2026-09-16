@@ -241,6 +241,8 @@ A phase without a named owner does not start.
 | Regression in existing working features | Loss of current conversions | No removal without explicit approval; rollback path per deliverable |
 | Personal data handling (EU markets targeted) | Regulatory exposure | Consent and retention policy in Phase 01 |
 | Key-person dependency on MIDTRANS operational knowledge | Content moat cannot be built | Structured knowledge capture sessions scheduled in Phase 04 |
+| **A partial rebuild is deployed over the live site and drops pages — ACTIVE** | Nine live pages lost, four of them commercial lane/customs pages; ranking and lead loss | PR #1's generator covers 2 of the 11 pages in `config/protected-pages.json`. No deployment until the registry covers all 11, verified by a check that fails when it does not |
+| Draft PR #1 is merged or deployed without review after 3 months idle | Untested change to a live commercial site | Treat PR #1 as a design reference, not a release candidate; re-verify against the live site before any merge |
 
 ---
 
@@ -248,8 +250,10 @@ A phase without a named owner does not start.
 
 These must be closed at the Phase 00 gate:
 
-1. **Where does the production website codebase live?** Not yet identified. Phase 00 cannot start
-   without it.
+1. **Where does the production website codebase live?** Still not identified — but one
+   candidate is now **excluded**. `midtranss/midtrans` holds a greenfield static-site prototype
+   (draft PR #1, two pages), not the live `www.mid-trans.com` source. The live codebase is on the
+   VPS. See `../baseline/D1-technical-audit.md` § repository findings.
 2. **Current stack, CMS, and i18n implementation** — unknown until Phase 00.
 3. **Which tools already exist and work** — partially answered. **MIRA is confirmed live** at
    `mira.midtrans.org`, and the RFQ wizard launched 11 Sep 2026. Calculator and Invoice Builder
@@ -259,3 +263,6 @@ These must be closed at the Phase 00 gate:
 4. **Team capacity and budget** — determines whether the estimates in §3 hold.
 5. **Analytics and consent tooling currently in place.**
 6. **URL scheme for languages** — to be decided once, against the existing codebase, then frozen.
+7. **What is the relationship between PR #1 and the live site?** The prototype targets
+   `www.mid-trans.com` canonicals but implements two pages. Is it a replacement, a redesign
+   pilot, or abandoned work? This decides whether Phase 01 builds on it or beside it.
