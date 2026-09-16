@@ -89,6 +89,39 @@ msgs, _ = audit_logs.to_messages(audit_logs.load(path, "csv"), Args())
 check("csv: role value 'MIRA' recognised", len(msgs) == 1, f"got {len(msgs)}")
 check("csv: transit claim blocked", len(audit_logs.scan(msgs).blocked) == 1)
 
+# The check above passes "csv" explicitly, and that is how a real bug survived it: --format
+# defaults to "auto", so nobody running this tool passes the flag. In auto mode a CSV went to
+# the JSON parser and died with "Expecting value: line 1 column 1" — a message that tells the
+# reader nothing, about a file that was never JSON. CSV is what an export button usually
+# produces, and the documented example passes no --format at all.
+#
+# So these exercise the DEFAULT path. A test that only covers the flag covers the case nobody
+# hits.
+msgs, _ = audit_logs.to_messages(audit_logs.load(path, "auto"), Args())
+check("auto: a .csv file is read as csv", len(msgs) == 1, f"got {len(msgs)}")
+
+# An export saved under a name that does not say csv — .log, .txt — still has to work.
+mislabelled = write(".log", "sid,sender,body\nc8,mira,\"Rate is 950 USD.\"\n")
+msgs, _ = audit_logs.to_messages(audit_logs.load(mislabelled, "auto"), Args())
+check("auto: a mislabelled csv is still read", len(msgs) == 1, f"got {len(msgs)}")
+check("auto: and its content is still scanned",
+      len(audit_logs.scan(msgs).blocked) == 1)
+
+# The fallback must not swallow a genuinely unreadable file into silence — a tool that reports
+# zero findings on a file it could not parse is the dangerous outcome this module exists to
+# avoid, which is why an unscannable input exits 2 rather than 0.
+junk = write(".txt", "this is not a log at all\njust prose\n")
+try:
+    audit_logs.load(junk, "auto")
+    check("auto: junk still raises", False, "no exception")
+except Exception:
+    check("auto: junk still raises", True)
+
+# JSONL is unaffected by any of it.
+jl = write(".jsonl", '{"role":"assistant","content":"We guarantee space."}\n')
+msgs, _ = audit_logs.to_messages(audit_logs.load(jl, "auto"), Args())
+check("auto: jsonl still works", len(msgs) == 1, f"got {len(msgs)}")
+
 # 4. Explicit field overrides win over auto-detection.
 path = write(".jsonl", json.dumps({"who": "bot-reply", "said": VIOLATION_EN}) + "\n")
 msgs, _ = audit_logs.to_messages(audit_logs.load(path, "auto"),

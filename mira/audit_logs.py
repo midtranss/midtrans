@@ -127,20 +127,49 @@ def _records_from_json(obj) -> list[dict]:
     return out
 
 
+def _looks_delimited(raw: str) -> bool:
+    """A header row of comma- or tab-separated names, and no JSON punctuation opening it."""
+    first = raw.splitlines()[0].lstrip() if raw.splitlines() else ""
+    return bool(first) and ("," in first or "\t" in first) and not first.startswith(("{", "["))
+
+
+def _read_csv(path: str) -> list[dict]:
+    with open(path, encoding="utf-8", newline="") as fh:
+        return list(csv.DictReader(fh))
+
+
 def load(path: str, fmt: str) -> list[dict]:
+    if fmt == "csv":
+        return _read_csv(path)
+
+    # A CSV reaching "auto" used to be handed to the JSON parser, which failed with
+    # "Expecting value: line 1 column 1" — an error that says nothing to the person running
+    # this. It matters because CSV is what a chat platform's export button usually produces,
+    # and because the documented example (`audit_logs.py export.csv --role-field sender`)
+    # passes no --format at all, so the documented invocation was the broken one.
+    if fmt == "auto" and os.path.splitext(path)[1].lower() in (".csv", ".tsv"):
+        return _read_csv(path)
+
     with open(path, encoding="utf-8") as fh:
-        if fmt == "csv":
-            return list(csv.DictReader(fh))
         raw = fh.read().strip()
 
     if not raw:
         return []
     if fmt == "jsonl" or (fmt == "auto" and not raw.startswith(("[", "{"))):
         records = []
-        for line in raw.splitlines():
-            line = line.strip()
-            if line:
-                records.append(json.loads(line))
+        try:
+            for line in raw.splitlines():
+                line = line.strip()
+                if line:
+                    records.append(json.loads(line))
+        except json.JSONDecodeError:
+            # In auto mode a failure here usually means the file is a CSV under a name that
+            # does not say so — an export saved as .log or .txt. Trying the delimited reader
+            # costs nothing, and the alternative is a JSON error about a file that was never
+            # JSON, which tells the reader nothing about what to do next.
+            if fmt == "auto" and _looks_delimited(raw):
+                return _read_csv(path)
+            raise
         return _records_from_json(records)
 
     if fmt == "auto" and raw.startswith("{") and "\n{" in raw:
@@ -149,6 +178,17 @@ def load(path: str, fmt: str) -> list[dict]:
             return _records_from_json([json.loads(l) for l in raw.splitlines() if l.strip()])
         except json.JSONDecodeError:
             pass
+
+    if fmt == "auto":
+        # Last resort before giving up: content that is neither JSON nor JSONL but has a
+        # delimited first row is a CSV saved under another name. Trying it costs nothing and
+        # saves the reader from a JSON error about a file that was never JSON.
+        try:
+            return _records_from_json(json.loads(raw))
+        except json.JSONDecodeError:
+            if _looks_delimited(raw):
+                return _read_csv(path)
+            raise
 
     return _records_from_json(json.loads(raw))
 
