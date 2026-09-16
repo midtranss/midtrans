@@ -4,6 +4,20 @@ MIDTRANS is an international freight forwarding and logistics company operating 
 
 Write in the operator's voice: calm, precise, and accountable for what it states.
 
+### The company name
+
+Three forms, reproduced exactly — the letters, the capitals and the spacing are all part of the name.
+
+| Form | Where |
+| --- | --- |
+| `MIDTRANS SHIPPING AND SERVICES` | Legal and commercial documents, letterhead, contracts, the footer's legal line, and the wordmark set in plain type. |
+| `Midtrans Shipping And Services` | Running text, page titles, email signatures, metadata. Note the capital **A** in "And" — it is part of the name, not ordinary title case. |
+| `المتوسط للشحن و الخدمات - ميدترانس` | All Arabic content, in full, including the hyphen and the transliteration after it. |
+
+**It is "AND", never "&".** The ampersand appears in the drawn logo artwork, which is historic and stays as it is; written text never copies it.
+
+Short references: **MIDTRANS** in capitals, or **ميدترانس** in Arabic. Never "Midtrans Shipping", never "MTS", never an invented abbreviation, and never the name translated into French, German, Turkish, Chinese or Swedish — the Arabic form is the only translated form there is.
+
 - **Be specific or be silent.** Never publish a price, transit time, customs cost, route, capacity, acceptance or delivery commitment that has not been confirmed operationally. Where a figure is not yet known, write "Confirmed on booking" and set it in `ink-muted`, not a placeholder number.
 - **No superlatives.** "Best", "largest", "fastest", "guaranteed", "world-leading" and unsupported market-leadership claims do not appear in any locale. Replace the claim with the fact behind it: "Operating from Damascus since 1998", "Sea, air and land freight with in-house customs clearance".
 - **Sentence case for everything a person reads** — headings, buttons, table headers, notification titles. Uppercase belongs only to the `label` style, which the component applies with `text-transform`.
@@ -49,7 +63,7 @@ Photography shows real freight operations — vessels, aircraft cargo holds, con
 
 ### Logo and marks
 
-The mark is a ship's wheel with wings, above the "Midtrans" wordmark and the line "Shipping & Services". Four files sit in the **MIDTRANS LOGO** asset group, and each has one job — pick by the ground, never recolour a file to fit:
+The mark is a ship's wheel with wings, above the "Midtrans" wordmark and a secondary line. That line reads "Shipping & Services" **in the artwork only** — written text uses the official forms above, with "and" spelled out. Four files sit in the **MIDTRANS LOGO** asset group, and each has one job — pick by the ground, never recolour a file to fit:
 
 - `midtrans-logo-blue.png` — blue on transparency, for light grounds: `surface-page`, `surface-card`, `surface-sunken`.
 - `midtrans-logo-white.png` — white on transparency, for dark grounds: `surface-inverse`, a `brand-accent` or `brand-primary` field, and photography.
@@ -57,7 +71,7 @@ The mark is a ship's wheel with wings, above the "Midtrans" wordmark and the lin
 
 In a dark theme, swap the file rather than filtering or inverting the blue one; drive the swap from the same `data-theme` attribute the tokens use so the mark follows the interface.
 
-- The artwork is flat and carries its own ink, so it does not inherit `currentColor` and CSS must not recolour it. Three blues are measurable across the set — the stated brand `#007DC5`, the lock-up's ink `#007DC6`, the icon field's `#027AC8`; none is visibly different, but re-cut artwork should settle all three on `#007DC5`. The "Shipping & Services" line is near-black `#050708`.
+- The artwork is flat and carries its own ink, so it does not inherit `currentColor` and CSS must not recolour it. Three blues are measurable across the set — the stated brand `#007DC5`, the lock-up's ink `#007DC6`, the icon field's `#027AC8`; none is visibly different, but re-cut artwork should settle all three on `#007DC5`. The secondary line is near-black `#050708`.
 - Clear space around the lock-up is `space-4` on all four sides, from the widest point of the wings. Minimum width for the lock-up is 120px; below that use the icon. The icon files carry their own padding — do not add to it or crop it.
 - Never recolour, rotate, stretch, outline or shadow the mark. The wordmark is part of the artwork in its own script face: never re-set "Midtrans" in `sans` and never uppercase it. Where only text is possible, set MIDTRANS in `display-2` `ink-strong`, full capitals, no letter-spacing change.
 - The mark is non-directional: it does not mirror on Arabic RTL pages.
@@ -65,7 +79,11 @@ In a dark theme, swap the file rather than filtering or inverting the blue one; 
 
 ### Iconography
 
-No MIDTRANS icon set was available either. Until one is chosen, use a single open outline set at 24px on a 24px box with a 1.5px stroke, drawn in `currentColor` so it inherits the text token beside it, and record the choice here. Do not mix two icon sets, and do not use emoji as icons. Icons that carry meaning on their own need 3:1 against their ground, which `ink-body`, `ink-muted`, `brand-link` and the `status-*` colours all hold.
+The MIDTRANS set is sixteen line marks at 24×24 on a 1.5px stroke, shipped as an SVG sprite in the **Icons** asset group: the three modes, cargo and facilities, documents and customs, and the operational marks. Inline the sprite and reference a symbol with `<use href="#mt-ship">`, so each icon strokes in `currentColor` and follows the text beside it. An `<img>` cannot inherit colour and renders black.
+
+24px in the interface, 20px in a table row or small button, 32–40px at stroke 2 for a card or empty state; nothing below 20px. Do not mix in a second icon set, and never use emoji as icons. An icon that carries meaning on its own needs 3:1 against its ground, which `ink-body`, `ink-muted`, `brand-link` and every `status-*` colour hold. An icon that repeats its label is decoration: mark it `aria-hidden="true"`.
+
+No licensed library was in use, so this set was drawn for the system. If one is adopted later, replace the sprite and keep the ids.
 
 ## Layout
 

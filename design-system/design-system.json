@@ -69,10 +69,10 @@
     "Icons"
   ],
   "lastChange": {
-    "at": "2026-09-16T22:02:01Z",
+    "at": "2026-09-16T22:37:33Z",
     "by": "Khaldoun",
     "via": "Claude Code",
-    "note": "Phase 7: motion layer - alert flash at 1.67Hz (half the WCAG seizure threshold, once, never looping), status and milestone transitions, Toast, loading skeletons, capped row entrance. All of it switched off by prefers-reduced-motion."
+    "note": "Arabic now binds to Cairo by language, not by a remembered class: lang='ar' is enough. Caught in a real browser - Arabic text without an ar-* class was falling back to Helvetica, which has poor Arabic coverage. Reference numbers stay mono inside Arabic."
   },
   "layout": "files",
   "libraries": [],

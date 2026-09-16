@@ -534,6 +534,7 @@
   font-family: var(--font-sans);
 }
 .mt-shell__header {
+  grid-row: 1;
   position: sticky;
   inset-block-start: 0;
   z-index: 20;
@@ -570,6 +571,7 @@
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .mt-shell__main {
+  grid-row: 2;
   padding-inline: var(--mt-gutter);
   padding-block: var(--space-5);
   /* Clear the bottom bar and the home indicator together. */
@@ -577,6 +579,7 @@
   min-width: 0;
 }
 .mt-shell__nav {
+  grid-row: 3;
   position: sticky;
   inset-block-end: 0;
   z-index: 20;
@@ -635,6 +638,8 @@
     border-block-end: 1px solid var(--border-subtle);
   }
   .mt-table--stack td { display: contents; }
+  /* td is display:contents, so its child IS the grid item: keep it its own size. */
+  .mt-table--stack td > * { justify-self: start; }
   .mt-table--stack td::before {
     content: attr(data-label);
     font-size: 13px; line-height: 16px; font-weight: 600;
@@ -756,3 +761,32 @@
 .mt-table--enter tbody tr:nth-child(6) { animation-delay: 125ms; }
 .mt-table--enter tbody tr:nth-child(7) { animation-delay: 150ms; }
 .mt-table--enter tbody tr:nth-child(8) { animation-delay: 175ms; }
+
+/* ==========================================================================
+   Arabic binding
+   Cairo must follow the language, not a class someone remembered to add.
+   Marking an element lang="ar" is enough; the ar-* type styles are still
+   what give Arabic its taller leading where the text is a block of copy.
+   ========================================================================== */
+[lang="ar"],
+[lang^="ar-"] {
+  font-family: var(--font-arabic);
+}
+/* Reference numbers stay in the mono face inside Arabic too: a booking or
+   AWB number is checked character by character against a document, and it
+   is written in Western digits in every locale. */
+[lang="ar"] .mt-table__ref,
+[lang="ar"] .mt-doc__no,
+[lang="ar"] .data,
+[lang="ar"] .data-sm,
+[lang="ar"] [data-mono] {
+  font-family: var(--font-mono);
+}
+/* Arabic block copy needs the leading Cairo was drawn for. Components that
+   already carry an ar-* style keep theirs; this catches everything else. */
+[lang="ar"] p,
+[lang="ar"] li,
+[lang="ar"] dd,
+[lang="ar"] address {
+  line-height: 1.8;
+}
