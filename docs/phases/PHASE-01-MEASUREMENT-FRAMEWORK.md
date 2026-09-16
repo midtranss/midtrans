@@ -260,18 +260,76 @@ that collects what the desk needs, first time. And it maps directly to money, be
 round trip is desk hours saved and, per `D3` §8, one fewer chance to lose a lead that was chased
 twice and never answered.
 
+### ⚠️ 7a. Correction — the binding constraint is upstream of this (2026-09-16)
+
+Everything in §7 is arithmetically sound and its premise is wrong.
+
+The follow-up rate was chosen because §6 showed the count metric cannot carry the gate at this
+volume, and because `D3` §5 showed information was missing from nearly every enquiry. While
+reconstructing the baseline from the mailbox, thirty quote-subject threads to the public
+addresses between 1 March and 11 September 2026 were sampled: **two had any reply.** Fourteen of
+the rest were checked by a separate sent-mail search against the recipients themselves — the test
+that does not depend on threading — and **no message had been sent to any of them.**
+
+Four end-customer enquiries were read in full. All four are unanswered, and all four are
+well-specified: three carry commodity, origin, destination, weight or volume and an Incoterm, so
+they would score **actionable** under §2 without a single follow-up. The most recent — a
+Managing Director proposing one to ten trucks a month, with HS code, packaging and pallet weight
+— was still unread a week later.
+
+`D3` §8b has the detail.
+
+**The consequence for this framework:** a better intake form cannot raise a number that is being
+lost after intake. Improving specification quality on enquiries nobody answers produces
+better-specified unanswered enquiries — and the wizard's sequential references make that more
+visible, not less.
+
+### The metric that now comes first
+
+**Reply rate: of enquiries received, the share that received any human reply, and the time to it.**
+
+It sits above the follow-up rate because it is upstream of it. An enquiry that is never answered
+has no follow-up round to count, so it silently leaves the denominator of §7's metric — which
+means the follow-up rate can *improve* while the business loses more customers. That is the worst
+property a gate metric can have.
+
+| | Reply rate | Follow-up rate (§7) |
+|---|---|---|
+| Measures | Whether anyone responded | Whether the form collected enough |
+| Owner | Operations — inbox ownership and routing | Phase 01 — the wizard's field set |
+| Sample needed | Every enquiry is an observation; the effect is large | ~10 submissions per period |
+| Fixed by | A person and a process | A better form |
+
+Both are tracked. The **reply rate gates Phase 01**, and the follow-up rate measures whether the
+wizard did its own job. A wizard that halves the follow-up rate while the reply rate stays where
+it is has not moved the business, and the gate should say so.
+
+**Baseline to establish first, before any wizard work:** of enquiries arriving in the 90 days
+before 11 September 2026, how many received a reply, and how long did it take? The §8b sample is
+a starting point and explicitly not a rate.
+
+**Before drawing any conclusion from it:** confirm whether these enquirers were answered by
+WhatsApp or phone. Email is the only channel visible from here, and `D3` §2 records both other
+channels as UNKNOWN. If they were answered elsewhere, this correction narrows to a measurement
+problem rather than a lost-lead one — which is still worth knowing, and is a different problem.
+
+---
+
 ### The revised exit gate
 
 Replace the current gate with this. All four conditions, none optional:
 
-1. **Follow-up rate on wizard submissions is significantly lower than the pre-wizard baseline**,
+1. **Reply rate is at or above the target agreed at phase start**, and no enquiry in the period
+   went unanswered beyond the agreed window. **This is now the first condition** — see §7a.
+   Until the reply rate is known, nothing below is meaningful.
+2. **Follow-up rate on wizard submissions is significantly lower than the pre-wizard baseline**,
    over at least 4 weeks of clean data (§5) and at least the sample size the table above requires
-   for the observed effect. This is the decision condition.
-2. **Actionable RFQ per 4 weeks is not lower than baseline.** Directional, not significance-tested
+   for the observed effect. This measures whether the wizard did its own job.
+3. **Actionable RFQ per 4 weeks is not lower than baseline.** Directional, not significance-tested
    — §6 says it cannot be. It is a floor, not a target.
-3. **Zero enquiries lost during cutover**, evidenced by the §4 weekly reconciliation matching every
+4. **Zero enquiries lost during cutover**, evidenced by the §4 weekly reconciliation matching every
    week, with no unexplained gap.
-4. **No guardrail in §8 has breached its threshold.**
+5. **No guardrail in §8 has breached its threshold.**
 
 ### Pre-registration
 
@@ -295,6 +353,7 @@ exist because every one of them can be traded away to improve the headline numbe
 | Wizard completion rate | Not more than 5 points below baseline | Adding fields until only the most determined finish |
 | `rfq_submit_failed` rate | < 1% of attempts | A lead dropped by a backend error is invisible in every other metric |
 | Total enquiries across **all** routes (wizard + email + WhatsApp + phone) | Not below baseline | Moving volume between channels and calling it growth |
+| **Reply rate** | 100% of genuine enquiries answered within the agreed window | §7a. Measured as a guardrail as well as the primary gate, because it is the one number that can fail silently |
 | Median desk response time | Not worse than baseline | Volume arriving faster than the desk can absorb it. `PHASE-01` names this risk; this is how it is detected |
 | Spam / non-genuine share of submissions | Not materially above baseline | Inflating counts with junk. `D3` §3 found the public inbox ~85% noise — the risk is real and precedented |
 

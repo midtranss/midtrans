@@ -319,6 +319,79 @@ fastest way to establish whether the exposure has already materialised.
 
 ---
 
+## 8b. ⚠️ Website enquiries are going unanswered — measured 2026-09-16
+
+This was found while reconstructing the Phase 01 baseline. It is the most consequential finding
+in this file, and it **inverts the assumption the Phase 01 gate was built on.**
+
+### What was measured
+
+All threads reaching `info@mid-trans.com` or `info@midtrans.org` with a quote, quotation, RFQ,
+inquiry or enquiry subject, between **1 March and 11 September 2026** — the window ending the day
+the RFQ wizard went live. Thirty threads returned.
+
+| | |
+|---|---|
+| Threads sampled | 30 |
+| Threads with any reply in-thread | **2** |
+| Non-replied threads verified by a **separate sent-mail search** | 14 |
+| Replies found by that search | **zero** |
+
+The sent-mail search is the part that makes this solid. A missing reply inside a thread could be
+a threading artefact — a reply sent as a new message would not appear. So the recipients were
+searched directly across the whole mailbox, sent folder included: four free-mail addresses and
+ten company domains. **No message has been sent to any of them.**
+
+### The four end-customer enquiries, read in full
+
+Each was opened and read. All four are unanswered, and none is a thin enquiry:
+
+| Date | Enquirer | Enquiry | Detail supplied |
+|---|---|---|---|
+| 27 Jul | Italy-based, pilot shipment | LCL porcelain, Chaozhou → Latakia | Origin, destination, mode, commodity, HS heading 6911, quantity, **1.0–1.5 CBM, 150–220 kg**, Incoterm question |
+| 10 Aug | Damascus engineer | EXW Germany → Damascus, beauty products | Origin, destination, route, commodity, Incoterm, full service list, three phone numbers |
+| 11 Aug | Maron LLC | 300 kg anise seed, Syria → Los Angeles | Commodity, **weight**, origin, destination, service scope, phytosanitary and FDA Prior Notice named |
+| 9 Sep | Managing Director, Turkey | FTL Trabzon → Dubai, hookah charcoal | Origin, destination, **DAP**, mode, commodity, **HS 4402.20.00**, packaging, 910 kg/pallet, MSDS offered, **1–10 trucks/month**, asks for a meeting |
+
+The 9 September one is still marked **unread** as of 16 September.
+
+### Why this changes the Phase 01 gate
+
+`PHASE-01-MEASUREMENT-FRAMEWORK.md` chose the **follow-up rate** — the share of submissions where
+the desk had to chase missing information — as the metric that could carry the gate. The reasoning
+was sound and the arithmetic still holds. The premise does not.
+
+**These enquiries did not fail for want of information.** Three of the four carry commodity,
+origin, destination, weight or volume, and an Incoterm — they would score *actionable* under
+§2 of that framework without a single follow-up. They failed because nobody replied.
+
+A better intake form does not fix an unanswered inbox. It produces better-specified enquiries
+that also go unanswered, and the wizard's own reference numbers would make that more visible, not
+less.
+
+### What this does not establish
+
+- **Whether these customers were answered another way.** WhatsApp, phone, or a mailbox outside
+  this account are all invisible here. This is the single most important thing to check, and only
+  MIDTRANS can check it.
+- **That every unanswered thread deserved a reply.** Much of the sample is forwarder and carrier
+  marketing, where no reply is the correct answer. The four read in full are not.
+- **A rate.** Thirty threads, one window, one method. It establishes that the pattern exists and
+  is not a single incident — not its size.
+- **Why.** Volume, ownership of the inbox, filtering, or routing. That is an operational question
+  for MIDTRANS, not an analytical one.
+
+### What follows
+
+1. **Answer the four.** They are named, dated and specific, and the 9 September one is a
+   recurring-volume lane with a Managing Director asking for a meeting. Nothing else in this
+   programme returns value as fast.
+2. **Establish who owns `info@`** and what happens to a message that arrives there.
+3. **Measure the reply rate before anything else.** It is now the Phase 01 baseline metric —
+   see `../phases/PHASE-01-MEASUREMENT-FRAMEWORK.md` §7a.
+
+---
+
 ## 9. What this analysis does NOT establish
 
 Recorded honestly rather than estimated, per `README.md`:

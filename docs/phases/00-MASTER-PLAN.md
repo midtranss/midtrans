@@ -158,6 +158,13 @@ documented direction of both search ranking systems and AI citation behaviour.
 
 ## 6. Measurement
 
+> **⚠️ Precedence, added 2026-09-16.** Before any of the metrics below mean anything, the
+> **reply rate** must be known and fixed: a sample of thirty quote-subject threads from the six
+> months before the wizard launched found two with any reply, and four well-specified end-customer
+> enquiries unanswered. A funnel that fills faster changes nothing while its output is not
+> answered. See `../baseline/D3-rfq-analysis.md` §8b and
+> `PHASE-01-MEASUREMENT-FRAMEWORK.md` §7a.
+
 ### Primary metric
 
 **Qualified RFQ submissions per month.**
@@ -231,6 +238,7 @@ A phase without a named owner does not start.
 
 | Risk | Impact | Mitigation |
 |---|---|---|
+| **Website enquiries go unanswered — ACTIVE and measured** | Every lead the programme generates is lost after arrival. The whole funnel is downstream of this | 2 of 30 quote threads replied, 1 Mar – 11 Sep 2026; 14 non-replies confirmed against the sent folder. Establish inbox ownership and routing **before** building intake. `../baseline/D3-rfq-analysis.md` §8b |
 | **MIRA invents a rate or transit time — ACTIVE, not hypothetical: MIRA is already live** | Commercial and legal exposure; loss of trust | **Audit live conversation logs now**; treat as unguarded until proven otherwise; then guardrails, independent output check, stop-the-line |
 | A MIRA model call fails silently in production | Broken behaviour nobody sees | Pin model IDs, never use `-latest`; alert on failed model calls |
 | Thin or templated content triggers site-level suppression | Loss of ranking across the whole domain | Uniqueness test mandatory per page; US location pages removed |
