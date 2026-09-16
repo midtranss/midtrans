@@ -179,6 +179,59 @@ MUST_BLOCK += [
 
 # Cases where the subject of the reply lives in the user's question, not the reply itself.
 # check_response takes the preceding user turn as `context`; it is never scanned itself.
+# --------------------------------------------------------------------------------------
+# 2026-09-16 — the word lists matched inside longer words
+#
+# Found by running the content gate over the real MIDTRANS homepage, not by review. The lists
+# were plain alternations with no boundaries, so:
+#
+#   "United Arab Emi-RATE-s"      a cost word — THE COMPANY'S OWN ADDRESS, on every page
+#   "600 porcelain cof-FEE cups"  a cost word — an enquiry already in the register
+#   "the deta-ETA-ils"            a transit word — in nearly every freight email written
+#   "needed to-DAY-"              a time unit — in the Sprinters enquiry, verbatim
+#   "beurteilen" / "importeur"    EUR, a currency — ordinary German, and one enquiry is German
+#
+# A rule that blocks a company's own address is not strict, it is broken, and §8a records where
+# that leads: the check gets switched off and then protects nothing.
+#
+# Two further shapes came out of the same pass. A number carrying a PHYSICAL unit is a quantity,
+# not a price — cargo is always described in approximations, and every one of these is quoted
+# from a real enquiry. And the hedge window at 40 characters reached past its own figure to an
+# unrelated one.
+
+MUST_PASS += [
+    # The company's own contact details.
+    ("en", "Our Dubai office is in Deira, Port Saeed, United Arab Emirates, office 611."),
+    ("en", "Tel: +97142714480/1  Mob: +971552928560"),
+    # Ordinary English that happens to contain a cost or transit word.
+    ("en", "We operate 3 weekly departures."),
+    ("en", "Please send 4 separate packing lists."),
+    ("en", "Please confirm the 2 details below and the 3 retail SKUs."),
+    ("en", "Accurate figures for 2 pallets, please."),
+    ("en", "The quote is needed today for 6 vehicles."),
+    # Cargo described the way cargo is always described — hedged measurements.
+    ("en", "600 porcelain Turkish coffee cups, approximately 1.0-1.5 CBM."),
+    ("en", "Approx. dimensions per vehicle: 6.97 m x 2.02 m x 2.62 m"),
+    ("en", "150-220 kg gross, roughly 1200 kg in total."),
+    ("en", "Estimated cargo: approximately 1.0-1.5 CBM and 150-220 kg gross"),
+    ("ar", "الكمية حوالي 5 أمتار مكعبة و 200 كغ."),
+    # Arabic: رسم is a fee, رسمي is "official". The drafts and this suite both contain it.
+    ("ar", "أرسلوا لنا كتاباً رسمياً بهذا خلال 3 أيام."),
+    # German — one enquiry in the register is in German, and "eur" sits inside both of these.
+    ("en", "Wir bitten um Ihre Beurteilung als Importeur von 2 Fahrzeugen."),
+]
+
+MUST_BLOCK += [
+    # Everything above had to stop working WITHOUT any of these starting to leak.
+    ("en", "It is roughly 4500 all in."),
+    ("en", "The all-in is approximately 3,800."),
+    ("en", "The clearance fee is about 300."),
+    ("en", "Storage is about 25 per day after free time."),
+    ("en", "Approximately 950 USD per CBM."),
+    ("en", "It usually takes around 15 days to arrive."),
+    ("en", "Transit time is approximately 18 days."),
+]
+
 MUST_BLOCK_IN_CONTEXT = [
     ("en", "We can definitely handle that.", "Can you ship chemicals to Syria?"),
     ("en", "Yes, we can. No problem at all.", "Do you move pallets from Jebel Ali?"),

@@ -360,6 +360,59 @@ rule entirely.
 
 ---
 
+
+### 8b. The word lists matched inside longer words — 2026-09-16
+
+The most consequential false-positive class found so far, and it was found by running the
+content gate over **the real MIDTRANS homepage** rather than over test strings.
+
+The lists were plain alternations interpolated straight into the rules, with no word boundaries:
+
+| Text | Matched | Where that text lives |
+|---|---|---|
+| United Arab Emi**rate**s | a cost word | **The company's own address**, on every page |
+| 600 porcelain cof**fee** cups | a cost word | An enquiry already in the register |
+| the d**eta**ils | a transit word | Nearly every freight email written |
+| needed to**day** | a time unit | The Sprinters enquiry, verbatim |
+| b**eur**teilen · import**eur** | EUR, a currency | Ordinary German — one enquiry is in German |
+
+**A rule that blocks a company's own address is not a strict rule, it is a broken one.** §8a
+already records where that leads: the check gets switched off, and then protects nothing.
+
+**The fix, and why it is asymmetric.** Latin terms are now bounded at both ends, which forces
+every inflection to be listed explicitly — a longer list, and an inspectable one. Arabic is
+deliberately *not* bounded the same way: clitics attach directly to the word (بسعر، الأسعار،
+للرسوم) and a leading boundary would lose real matches. Arabic suffixes are the opposite case —
+they change the word — so `رسم` (fee) now excludes `رسمي` (official), which was being read as a
+cost word in the reply drafts and in this module's own test corpus.
+
+**Known residual, stated rather than hidden:** أشهر is both "months" and "most famous", spelled
+identically. No pattern separates them. It is a time unit, so it only fires with a transit word
+nearby, and the exposure is small.
+
+### 8c. A hedged measurement is not a hedged price
+
+Two more shapes fell out of the same pass, and they share one cause: **cargo is always described
+in approximations.** Every example below is quoted from a real enquiry.
+
+> *"Approx. dimensions per vehicle: 6.97 m × 2.02 m × 2.62 m"*
+> *"approximately 1.0–1.5 CBM and 150–220 kg gross"*
+
+A number carrying a **physical unit** is a quantity, not a price, and is now excluded from the
+cost-context and hedged-figure rules. Currencies and time units are deliberately *not* excluded:
+"approximately 950 USD" is a price and "approximately 18 days" is a transit claim, and both must
+keep firing. Nor does it touch the rate-unit rule — "950 per CBM" carries *per*, which is what
+makes it a rate rather than a measurement.
+
+**The hedge window was also too wide.** At 40 characters it reached past the hedge's own figure
+to an unrelated one: *"600 porcelain coffee cups, approximately 1.0–1.5 CBM"* was blocked on the
+**600**, which counts cups and has nothing to do with the hedge. A hedged price sits against its
+number — "roughly 4500", "about 300" — so 20 characters covers the real shape.
+
+Suite: 82 → **103** cases (52 must-block, 44 must-pass, 7 with context). Ten phrasings that were
+wrongly blocked now pass; not one of the fourteen true positives leaked. And the homepage that
+started this now returns **zero findings**.
+
 ## 9. Definition of Done for this file
 
 - [ ] Guardrails implemented in the MIRA system prompt **and** enforced by an output check

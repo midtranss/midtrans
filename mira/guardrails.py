@@ -58,9 +58,48 @@ def normalize(text: str) -> str:
 # Context vocabulary
 # --------------------------------------------------------------------------------------
 
-_MONEY_WORDS = (
-    r"usd|u\.s\.d|aed|eur|gbp|sar|syp|dollar|dollars|euro|euros|dirham|dirhams|"
-    r"دولار|درهم|يورو|ليرة|ريال"
+
+# --------------------------------------------------------------------------------------
+# Word lists — why they are built rather than written out
+# --------------------------------------------------------------------------------------
+#
+# These lists were plain alternations, interpolated straight into the rules. They therefore
+# matched INSIDE longer words, and the consequences were not theoretical. Found 2026-09-16 by
+# running the content gate over the real MIDTRANS homepage:
+#
+#   "United Arab Emi-RATE-s"   -> a cost word. THE COMPANY'S OWN ADDRESS, on every page.
+#   "600 porcelain cof-FEE cups" -> a cost word. An enquiry already in the register.
+#   "the deta-ETA-ils"           -> a transit word. In nearly every freight email written.
+#   "needed to-DAY-"             -> a time unit. In the Sprinters enquiry, verbatim.
+#   "beurteilen", "importeur"    -> EUR, a currency. Ordinary German, and one enquiry is German.
+#
+# A rule that blocks a company's own address is not a strict rule, it is a broken one, and
+# §8a already records where that leads: somebody switches the check off, and then it protects
+# nothing at all.
+#
+# Latin terms are bounded on both sides, so every inflection that matters has to be listed
+# explicitly — which is the point, because the list is then inspectable.
+#
+# Arabic is NOT bounded the same way. Arabic clitics attach directly to the word — بسعر،
+# الأسعار، للرسوم — so a leading boundary would lose real matches. Suffixes are the opposite:
+# they change the word (رسم fee -> رسمي official), so those are excluded individually where
+# evidence showed a collision.
+#
+# Residual, known and accepted: أشهر is both "months" and "most famous", spelled identically.
+# No pattern separates them. It is a time unit, which only fires with a transit word nearby,
+# so the exposure is small and stated rather than hidden.
+
+def _terms(latin: str, arabic: str = "") -> str:
+    """Bound the Latin alternatives at both ends; leave the Arabic ones prefix-friendly."""
+    parts = [rf"\b(?:{latin})\b"] if latin else []
+    if arabic:
+        parts.append(arabic)
+    return "(?:" + "|".join(parts) + ")"
+
+
+_MONEY_WORDS = _terms(
+    r"usd|u\.s\.d|aed|eur|gbp|sar|syp|dollar|dollars|euro|euros|dirham|dirhams",
+    r"دولار|درهم|يورو|ليرة|ريال",
 )
 _MONEY_SYMBOL = r"[$€£]|\bد\.إ|\bل\.س"
 
@@ -71,28 +110,62 @@ _RATE_UNITS = (
     r"للحاوية|للكيلو|للطن|للمتر"
 )
 
-_COST_WORDS = (
-    r"cost|costs|price|prices|rate|rates|quote|quotation|charge|charges|fee|fees|"
-    r"freight|duty|duties|tax|taxes|tariff|surcharge|demurrage|storage|"
-    r"تكلفة|تكاليف|سعر|أسعار|السعر|الأسعار|عرض سعر|رسوم|رسم|أجرة|ضريبة|ضرائب|تعرفة|غرامة|أرضيات"
+_COST_WORDS = _terms(
+    # Every inflection spelled out, because the boundaries mean "costs" no longer rides in
+    # on "cost". That is the trade: a longer list, and no "accurate" or "coffee".
+    r"cost|costs|costing|price|prices|priced|pricing|rate|rates|rated|"
+    r"quote|quotes|quoted|quotation|quotations|charge|charges|charged|fee|fees|"
+    r"freight|duty|duties|tax|taxes|tariff|tariffs|surcharge|surcharges|"
+    r"demurrage|storage",
+    # رسم(?!ي) — the fee, not رسمي "official". "كتاباً رسمياً" appears in the reply drafts and
+    # in this module's own test corpus, and it was being read as a cost word.
+    r"تكلفة|تكاليف|سعر|أسعار|السعر|الأسعار|عرض سعر|رسوم|رسم(?!ي)|أجرة|ضريبة|ضرائب|"
+    r"تعرفة|غرامة|أرضيات",
 )
 
-_TIME_UNITS = (
-    r"days?|weeks?|months?|hours?|"
-    r"يوم|يوما|أيام|يومين|اسبوع|أسبوع|اسابيع|أسابيع|أسبوعين|شهر|شهور|أشهر|شهرين|ساعة|ساعات"
+_TIME_UNITS = _terms(
+    r"days?|weeks?|months?|hours?",
+    r"يوم|يوما|أيام|يومين|اسبوع|أسبوع|اسابيع|أسابيع|أسبوعين|شهر|شهور|أشهر|شهرين|ساعة|ساعات",
 )
 
-_TRANSIT_WORDS = (
-    r"transit|transit time|eta|e\.t\.a|arrive|arrival|delivery time|lead time|sailing|"
-    r"takes about|takes around|takes approximately|it takes|duration|"
-    r"ترانزيت|مدة|المدة|يستغرق|تستغرق|وصول|الوصول|تسليم|التسليم|مده"
+_TRANSIT_WORDS = _terms(
+    # "eta" unbounded was matching "details" and "retail" — words in almost every freight email.
+    r"transit|transit time|eta|e\.t\.a|arrive|arrives|arrival|delivery time|lead time|"
+    r"sailing|takes about|takes around|takes approximately|it takes|duration",
+    r"ترانزيت|مدة|المدة|يستغرق|تستغرق|وصول|الوصول|تسليم|التسليم|مده",
 )
+
+# A number carrying a PHYSICAL unit is a quantity, not a price. Cargo is always described in
+# approximations — "approx. dimensions per vehicle", "approximately 1.0-1.5 CBM", "150-220 kg
+# gross", "about 1200 kg" — and every one of those is quoted from a real enquiry in the
+# register. Blocking a hedged measurement blocks the ordinary language of the trade, and a rule
+# that does that is a rule somebody turns off.
+#
+# Deliberately NOT here: currencies, and time units. "approximately 950 usd" is a price and
+# "approximately 18 days" is a transit claim, and both must keep firing. Nor does this touch
+# the rate-unit rule: "950 per cbm" carries "per", which is what makes it a rate rather than a
+# measurement, and that rule is checked before this exclusion applies.
+_QUANTITY_UNIT = (
+    r"\s*(?:cbm|m3|m³|cubic\s*met(?:er|re)s?|kgs?|kilos?|kilograms?|tons?|tonnes?|mts?|"
+    r"lbs?|cms?|mms?|mtr?s?|m\b|met(?:er|re)s?|ft|feet|inch(?:es)?|"
+    r"pallets?|cartons?|boxes|cases|pieces?|pcs|units?|bags?|drums?|rolls?|"
+    r"containers?|vehicles?|cars?|trucks?|sets?|litres?|liters?|l\b|"
+    r"متر|أمتار|مكعب|كغ|كجم|كيلو|طن|أطنان|طبلية|طبليات|منصة|منصات|كرتون|كراتين|"
+    r"صندوق|صناديق|قطعة|قطع|حاوية|حاويات|مركبة|مركبات|شاحنة|شاحنات|لتر)"
+)
+
+
+def _is_quantity(text: str, end: int) -> bool:
+    """Is the number ending at `end` immediately followed by a physical unit?"""
+    return bool(re.match(_QUANTITY_UNIT, text[end:end + 24]))
+
 
 # Hedges do not make a figure safe — they are the most common wrapper around one.
-_HEDGES = (
-    r"approximately|approx|around|about|roughly|typically|usually|generally|estimate|estimated|"
-    r"ballpark|in the region of|more or less|give or take|starting from|as low as|"
-    r"تقريبا|تقريبي|حوالي|حوالى|نحو|عادة|غالبا|بحدود|يتراوح|تتراوح|ابتداء من|في حدود|تقدير"
+_HEDGES = _terms(
+    r"approximately|approximate|approx|around|about|roughly|typically|usually|generally|"
+    r"estimate|estimates|estimated|ballpark|in the region of|more or less|give or take|"
+    r"starting from|as low as",
+    r"تقريبا|تقريبي|حوالي|حوالى|نحو|عادة|غالبا|بحدود|يتراوح|تتراوح|ابتداء من|في حدود|تقدير",
 )
 
 # An adverb between the modal and the verb is the natural way a model phrases this
@@ -239,7 +312,7 @@ def check_response(text: str, lang: str = "en", context: str = "") -> Verdict:
             continue
         if re.match(rf"\s*(?:{_RATE_UNITS})", norm[m.end():m.end() + 30]):
             record("rate_unit", m.start())
-        elif _near(norm, m.start(), _COST_WORDS):
+        elif _near(norm, m.start(), _COST_WORDS) and not _is_quantity(norm, m.end()):
             record("number_in_cost_context", m.start())
 
     # Rule 3 — a duration in a transit context.
@@ -252,12 +325,24 @@ def check_response(text: str, lang: str = "en", context: str = "") -> Verdict:
     # Rule 4 — a hedge next to a figure. "roughly 4500" is the classic break.
     # Every number in the window is examined, not just the first: an allowlisted list marker
     # sitting before a real figure would otherwise mask it.
+    # The window is deliberately tight. At 40 characters it reached past the hedge's own figure
+    # to an unrelated one — "600 porcelain coffee cups, approximately 1.0-1.5 CBM" was blocked
+    # on the 600, which counts cups and is nothing to do with the hedge. A hedged price sits
+    # right against its number ("roughly 4500", "about 300"), so 20 characters covers the real
+    # shape and stops reaching into the rest of the sentence.
     for m in re.finditer(_HEDGES, norm):
-        lo, hi = max(0, m.start() - 40), min(len(norm), m.end() + 40)
+        lo, hi = max(0, m.start() - 20), min(len(norm), m.end() + 20)
         for num in re.finditer(_NUMBER, norm[lo:hi]):
-            if not _in_allowlist(lo + num.start(), allowed):
-                record("hedged_figure", m.start())
-                break
+            if _in_allowlist(lo + num.start(), allowed):
+                continue
+            # A unit after the figure, or after the far end of a range it opens ("150-220 kg"),
+            # makes it a measurement rather than a price.
+            after = norm[lo + num.end():]
+            if _is_quantity(norm, lo + num.end()) or re.match(
+                    rf"\s*[-–]\s*{_NUMBER}{_QUANTITY_UNIT}", after):
+                continue
+            record("hedged_figure", m.start())
+            break
 
     # Rule 5 — an acceptance commitment, where the exchange is about a shipment.
     # The subject may be established by the response itself or by what the user just asked.
