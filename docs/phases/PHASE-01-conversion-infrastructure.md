@@ -209,12 +209,24 @@ restoring a backup.
 
 ## Exit gate
 
-> **Qualified RFQ submissions per month measurably higher than the Phase 00 baseline, over a
-> minimum of four weeks of clean data.**
+**Defined in full in `PHASE-01-MEASUREMENT-FRAMEWORK.md` §7.** Read it before the phase starts, not
+at the end — it requires a field on the submission record and a baseline reconstruction that must
+begin now.
 
-Also required:
-- Zero enquiries lost during cutover
-- Funnel measurement trustworthy enough to evaluate Phases 02–06 against
+The gate was originally written as *"qualified RFQ submissions per month measurably higher than the
+Phase 00 baseline."* That is retained as a **floor** (volume must not fall), but it cannot carry the
+decision: at the observed enquiry volume the funnel would have to more than double before an
+increase could be told apart from ordinary variation. The framework works this out and replaces the
+decision condition with one that is detectable at this volume — **the share of submissions that
+forced the pricing desk to chase missing information.**
+
+All four conditions must hold:
+- Follow-up rate significantly below the pre-wizard baseline, over ≥ 4 weeks of clean data
+- Actionable RFQ per 4 weeks not below baseline
+- Zero enquiries lost during cutover, evidenced by weekly reconciliation
+- No guardrail breached
+
+And: funnel measurement trustworthy enough to evaluate Phases 02–06 against.
 
 **If qualified RFQ volume did not move:** stop. Do not start Phase 02. Re-diagnose — the problem
 is upstream of the funnel (traffic quality, audience, or offer), and building MIRA on top of a
