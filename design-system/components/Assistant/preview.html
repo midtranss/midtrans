@@ -1,0 +1,38 @@
+<!-- @dsCard group="Site" height=420 subtitle="Mira: the portrait, the label, and the boundary" -->
+<style>
+  body { margin: 0; padding: 24px; background: var(--surface-page); }
+  .wrap { max-width: 620px; }
+  .ph { display: grid; place-items: center; text-align: center; font-size: 9px; line-height: 12px;
+        color: var(--ink-muted); background: var(--surface-sunken); border: 1px dashed var(--border-strong); }
+</style>
+<div class="wrap">
+  <div class="mt-assistant__id" style="margin-block-end:20px">
+    <div class="mt-avatar mt-avatar--lg ph">photo<br>goes<br>here</div>
+    <div>
+      <p class="mt-assistant__name">Mira</p>
+      <p class="mt-assistant__role">MIDTRANS logistics assistant</p>
+    </div>
+  </div>
+
+  <div class="mt-chat">
+    <div class="mt-msg mt-msg--you">
+      <span class="mt-msg__who">You</span>
+      <div class="mt-msg__body"><p>18 pallets of olive oil, Lattakia to Hamburg. How much and how long?</p></div>
+    </div>
+    <div class="mt-msg mt-msg--bot">
+      <div class="mt-avatar ph">photo</div>
+      <div class="mt-msg__body">
+        <p>I can't give you a rate or a transit time — those depend on the sailing and the carrier's space, and they're confirmed by our operations team, not by me.</p>
+        <p>What I can tell you: 18 pallets at 120 × 80 × 145 cm is 25.06 CBM, which is 37% of a 40HC. Olive oil classifies under 1509.20, subject to the import authority's determination.</p>
+        <div class="mt-handoff">
+          <span class="mt-handoff__note">Ready date and incoterm still needed.</span>
+          <button class="mt-btn mt-btn--primary mt-btn--sm" type="button">Send to the team</button>
+        </div>
+      </div>
+    </div>
+    <div class="mt-msg mt-msg--bot">
+      <div class="mt-avatar ph">photo</div>
+      <div class="mt-msg__body"><span class="mt-typing" aria-label="Mira is typing"><i></i><i></i><i></i></span></div>
+    </div>
+  </div>
+</div>

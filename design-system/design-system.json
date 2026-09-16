@@ -69,10 +69,10 @@
     "Icons"
   ],
   "lastChange": {
-    "at": "2026-09-16T22:42:59Z",
+    "at": "2026-09-16T23:10:56Z",
     "by": "Khaldoun",
     "via": "Claude Code",
-    "note": "Messages and documents: Report with validated categorical chart tokens, Notification, EmailTemplate, and the section governing email, receipts, statements and reports. The app's own invoice templates have NOT been read and are recorded as an open gap."
+    "note": "Reconciled with the running app: Document rebuilt element for element on the official template anatomy; brand-primary is now the app's own #0074B7 (5.02:1 on white); the dark surfaces are the app's #050D1A / #0E1B2E / #22334C / #F0F5FB. Adds Assistant (Mira), Contact with the office rail, FAQ and HSCodeCard."
   },
   "layout": "files",
   "libraries": [],

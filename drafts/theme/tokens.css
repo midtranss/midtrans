@@ -1,4 +1,4 @@
-/* MIDTRANS theme — generated from the design system. Do not edit by hand. */
+/* MIDTRANS theme — generated. Do not edit by hand. */
 :root, [data-theme="light"] {
   --surface-page: #ffffff;
   --surface-card: #ffffff;
@@ -10,9 +10,9 @@
   --ink-inverse: #ffffff;
   --ink-inverse-muted: #a8bccd;
   --ink-on-brand: #ffffff;
-  --brand-primary: #0069a8;
+  --brand-primary: #0074b7;
   --brand-accent: #007dc5;
-  --brand-link: #0069a8;
+  --brand-link: #0074b7;
   --brand-soft: #e6f2f9;
   --border-subtle: #dde4ea;
   --border-strong: #7c8b99;
@@ -23,20 +23,24 @@
   --status-warning-soft: #fbf0e0;
   --status-danger: #b3261e;
   --status-danger-soft: #fbe9e7;
-  --status-info: #0069a8;
+  --status-info: #0074b7;
   --status-info-soft: #e6f2f9;
   --status-neutral: #52657a;
   --status-neutral-soft: #eef2f6;
+  --chart-1: #007dc5;
+  --chart-2: #c2255c;
+  --chart-3: #6a4bbc;
+  --chart-4: #8a6d00;
   --shadow-sm: 0 1px 2px rgba(10, 36, 64, 0.08);
   --shadow-md: 0 2px 8px rgba(10, 36, 64, 0.10);
   --shadow-lg: 0 12px 32px rgba(10, 36, 64, 0.14);
 }
 [data-theme="dark"] {
-  --surface-page: #071320;
-  --surface-card: #0e2135;
-  --surface-sunken: #0b1b2b;
+  --surface-page: #050d1a;
+  --surface-card: #0e1b2e;
+  --surface-sunken: #0a1524;
   --surface-inverse: #e8eef4;
-  --ink-strong: #f2f7fb;
+  --ink-strong: #f0f5fb;
   --ink-body: #dbe6f0;
   --ink-muted: #9fb3c4;
   --ink-inverse: #0a2440;
@@ -46,7 +50,7 @@
   --brand-accent: #007dc5;
   --brand-link: #67c0f2;
   --brand-soft: #10334c;
-  --border-subtle: #1b364e;
+  --border-subtle: #22334c;
   --border-strong: #74909f;
   --border-focus: #67c0f2;
   --status-success: #4cc38a;
@@ -59,17 +63,21 @@
   --status-info-soft: #10334c;
   --status-neutral: #9fb3c4;
   --status-neutral-soft: #16293b;
+  --chart-1: #2e96d6;
+  --chart-2: #dd5c83;
+  --chart-3: #8d74da;
+  --chart-4: #b88c10;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
   --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.55);
   --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --surface-page: #071320;
-    --surface-card: #0e2135;
-    --surface-sunken: #0b1b2b;
+    --surface-page: #050d1a;
+    --surface-card: #0e1b2e;
+    --surface-sunken: #0a1524;
     --surface-inverse: #e8eef4;
-    --ink-strong: #f2f7fb;
+    --ink-strong: #f0f5fb;
     --ink-body: #dbe6f0;
     --ink-muted: #9fb3c4;
     --ink-inverse: #0a2440;
@@ -79,7 +87,7 @@
     --brand-accent: #007dc5;
     --brand-link: #67c0f2;
     --brand-soft: #10334c;
-    --border-subtle: #1b364e;
+    --border-subtle: #22334c;
     --border-strong: #74909f;
     --border-focus: #67c0f2;
     --status-success: #4cc38a;
@@ -92,6 +100,10 @@
     --status-info-soft: #10334c;
     --status-neutral: #9fb3c4;
     --status-neutral-soft: #16293b;
+    --chart-1: #2e96d6;
+    --chart-2: #dd5c83;
+    --chart-3: #8d74da;
+    --chart-4: #b88c10;
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
     --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.55);
     --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);

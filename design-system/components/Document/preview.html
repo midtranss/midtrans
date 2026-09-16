@@ -1,57 +1,71 @@
-<!-- @dsCard group="Documents" height=560 subtitle="Quotation and invoice document, print-ready" -->
-<style>body { margin: 0; padding: 24px; background: var(--surface-sunken); }</style>
+<!-- @dsCard group="Documents" height=560 subtitle="The official template anatomy, wired to the design system" -->
+<style>body { margin: 0; padding: 20px; background: var(--surface-sunken); }
+ .qr { width:72px; height:72px; background:
+   radial-gradient(circle, var(--brand-accent) 1.6px, transparent 1.7px) 0 0/12px 12px; }</style>
 <article class="mt-doc">
-  <div class="mt-doc__head">
-    <div>
-      <strong style="font-family:var(--font-sans);font-size:26px;line-height:32px;font-weight:700;color:var(--ink-strong);">MIDTRANS</strong>
-      <p class="mt-doc__note" style="margin-top:4px;">Shipping And Services · Damascus</p>
+  <div class="mt-doc__top">
+    <div class="mt-doc__brand">
+      <p class="mt-doc__company">MIDTRANS SHIPPING AND SERVICES</p>
+      <p>Deira, Port Saeed, Al Maktoum Road</p>
+      <p>Street No. 19a, Al Makateb Building</p>
+      <p>Office No. 611, Dubai - UAE</p>
+      <p>TEL: +971 4 2714480 · CELL: +971 55 2928560</p>
     </div>
-    <div class="mt-doc__ident">
-      <h3 class="mt-doc__kind">Quotation</h3>
-      <span class="mt-doc__no">MDT-Q-2026-0418</span>
-      <span class="mt-doc__note">Issued 16 Sep 2026 · valid to 30 Sep 2026</span>
+    <div class="mt-doc__box">
+      <h2 class="mt-doc__kind">Quotation</h2>
+      <div class="mt-doc__meta">
+        <div class="mt-doc__meta-row"><span>No</span><span>QT-2026-2210</span></div>
+        <div class="mt-doc__meta-row"><span>Job No</span><span>SHP-2026-1258</span></div>
+        <div class="mt-doc__meta-row"><span>Valid</span><span>10 Jul 2026</span></div>
+      </div>
+      <span class="mt-doc__badge">Verified issuer</span>
     </div>
+    <div class="mt-doc__logo"><strong style="font-size:15px;color:var(--ink-strong);letter-spacing:.06em">MIDTRANS</strong></div>
   </div>
 
-  <div class="mt-doc__parties">
-    <div class="mt-doc__party">
-      <h4>Issued by</h4>
-      <address>MIDTRANS SHIPPING AND SERVICES<br />Damascus, Syrian Arab Republic</address>
+  <div class="mt-doc__content">
+    <div class="mt-doc__side">
+      <div class="mt-doc__card">
+        <h4>Customer</h4>
+        <strong>ABC Trading Co.</strong>
+        <p>+963 11 555 0101</p>
+        <p>procurement@abctrading.example</p>
+        <p>Damascus, Syria</p>
+      </div>
+      <div class="mt-doc__card mt-doc__qr">
+        <div class="qr" role="img" aria-label="Verification QR code"></div>
+        <span>QR verification</span>
+      </div>
+      <div class="mt-doc__card">
+        <h4>Route</h4>
+        <p>Dubai, UAE to Damascus, Syria</p>
+        <p>Service: Door to door</p>
+        <p>Mode: Sea freight</p>
+      </div>
     </div>
-    <div class="mt-doc__party">
-      <h4>Issued to</h4>
-      <address>Specimen document<br />Customer name and address</address>
+
+    <div class="mt-doc__main">
+      <table class="mt-doc__table">
+        <thead><tr><th>Description</th><th class="num">Qty</th><th class="num">Unit</th><th class="num">Amount</th></tr></thead>
+        <tbody>
+          <tr><td>Freight charge — Dubai to Damascus</td><td class="num">1</td><td class="num"><span class="mt-doc__money"><span>USD</span><span>1,250.00</span></span></td><td class="num"><span class="mt-doc__money"><span>USD</span><span>1,250.00</span></span></td></tr>
+          <tr><td>Border handling</td><td class="num">1</td><td class="num"><span class="mt-doc__money"><span>USD</span><span>180.00</span></span></td><td class="num"><span class="mt-doc__money"><span>USD</span><span>180.00</span></span></td></tr>
+          <tr><td>Delivery order</td><td class="num">1</td><td class="num"><span class="mt-doc__money"><span>USD</span><span>75.00</span></span></td><td class="num"><span class="mt-doc__money"><span>USD</span><span>75.00</span></span></td></tr>
+        </tbody>
+      </table>
+
+      <div class="mt-doc__close">
+        <div class="mt-doc__card">
+          <h4>Terms</h4>
+          <p>This quotation is subject to carrier space, final cargo details, and operational review before booking.</p>
+        </div>
+        <div class="mt-doc__totals">
+          <div class="mt-doc__total-row"><span>Subtotal</span><span class="mt-doc__money"><span>USD</span><span>1,505.00</span></span></div>
+          <div class="mt-doc__total-row mt-doc__total-row--grand"><span>Quotation total</span><span class="mt-doc__money"><span>USD</span><span>1,505.00</span></span></div>
+        </div>
+      </div>
+      <p class="mt-doc__note"><strong>Excluded:</strong> import duties and taxes, destination storage and demurrage, inspection fees.</p>
     </div>
   </div>
-
-  <dl class="mt-kv">
-    <dt>Route</dt><dd>Lattakia, SY → Hamburg, DE</dd>
-    <dt>Incoterm</dt><dd>FOB Lattakia</dd>
-    <dt>Equipment</dt><dd>1 × 40HC, general cargo</dd>
-  </dl>
-
-  <table class="mt-table">
-    <thead>
-      <tr>
-        <th scope="col">Charge</th>
-        <th scope="col">Basis</th>
-        <th scope="col" class="mt-table__num">Qty</th>
-        <th scope="col" class="mt-table__num">Amount</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>Ocean freight</td><td>Per container</td><td class="mt-table__num">1</td><td class="mt-table__num">USD 0 000.00</td></tr>
-      <tr><td>Terminal handling, origin</td><td>Per container</td><td class="mt-table__num">1</td><td class="mt-table__num">USD 000.00</td></tr>
-      <tr><td>Documentation</td><td>Per shipment</td><td class="mt-table__num">1</td><td class="mt-table__num">USD 00.00</td></tr>
-      <tr><td>Import duties</td><td>Per assessment</td><td class="mt-table__num">—</td><td class="mt-table__num" style="font-family:var(--font-sans);color:var(--ink-muted);">Excluded</td></tr>
-    </tbody>
-  </table>
-
-  <div class="mt-doc__total">
-    <span class="mt-doc__total-label">Total, USD</span>
-    <span class="mt-doc__total-value">0 000.00</span>
-  </div>
-
-  <p class="mt-doc__note"><strong>Excluded:</strong> import duties and taxes, destination storage and demurrage, inspection fees. <strong>Validity:</strong> rates hold to the date above and are subject to carrier space and schedule at booking.</p>
-  <p class="mt-doc__note">Specimen layout. Figures are masked placeholders, not quoted rates.</p>
+  <p class="mt-doc__foot">Quotation</p>
 </article>
