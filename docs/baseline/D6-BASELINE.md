@@ -44,7 +44,7 @@
 
 | What could not be established | Why | How it will be established |
 |---|---|---|
-| Whether the unanswered enquirers were answered by WhatsApp or phone | Neither channel is visible in email; both are UNKNOWN in `D3` §2 | **MIDTRANS checks directly.** This decides whether §8b is a lost-lead problem or a measurement one |
+| Whether the unanswered enquirers were answered by WhatsApp or phone | Neither channel is visible in email. `D3` §8c shows WhatsApp **is** in active use — two answered enquiries move to it deliberately — so an email-only reply rate under-reports by an unknown amount | **MIDTRANS checks directly** for the named enquiries. Then make the email handover mandatory, so the reply becomes countable — `PHASE-01-MEASUREMENT-FRAMEWORK.md` §7a |
 | Who owns `info@mid-trans.com` and `info@midtrans.org` | Not visible from the mailbox | Ask operations |
 | Pre-wizard follow-up rate | Requires reading each answered thread; the sample shows almost none were answered, so the denominator is too small to compute one | Re-derive once the reply rate is fixed |
 | Pre-wizard `/get-quote/` sessions and submissions | Analytics history; retention may have expired | Check the analytics tool now |
@@ -53,6 +53,7 @@
 
 | # | Finding | Change required | Approved by |
 |---|---|---|---|
+| 1b | **The failure is coverage, not capability.** In the five days after launch several enquiries were answered, one in 20 minutes — while four of six unanswered ones in the same window were never opened | Establish who owns `info@` and what routes a message there. `D3` §8c | |
 | 1 | **Website enquiries are going unanswered.** 2 of 30 quote threads replied; 14 non-replies confirmed against the sent folder; 4 well-specified end-customer enquiries read in full, all unanswered, one still unread after a week | The Phase 01 gate metric changes from follow-up rate to **reply rate** — a better form cannot raise a number lost after intake. `PHASE-01-MEASUREMENT-FRAMEWORK.md` §7a | |
 | 2 | MIRA is live and its guardrail status is unestablished | Phase 02 D0 audit becomes immediate, ahead of Phase 01's gate | |
 | 3 | `/get-quote/` already exists and ranks | The RFQ wizard is a replacement, not a new build | |

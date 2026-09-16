@@ -392,6 +392,81 @@ less.
 
 ---
 
+## 8c. Six-month sweep — and a correction to §8b
+
+`§8b` sampled quote-subject threads to 11 September. A wider sweep was then run: **everything
+inbound** to the public addresses, 16 March – 16 September 2026, without subject filtering,
+because customers do not use our vocabulary. It found more unanswered enquiries **and** something
+that qualifies the earlier reading.
+
+### ⚠️ The correction first
+
+**§8b described the pre-wizard window and should not be read as describing today.** In the five
+days since the wizard launched, enquiries are being answered, some fast:
+
+| Date | Enquiry | Response |
+|---|---|---|
+| 15 Sep | PU chemical samples, Shandong → Aleppo | **Replied in 20 minutes** |
+| 15 Sep | Arabic — shoes from an Alibaba supplier, China → Syria | Replied same day, routed to the Damascus office with a WhatsApp number |
+| 15–16 Sep | "china to lattakia rates" | Faten asked for a WhatsApp number to speed it up |
+| 11, 16 Sep | `QREQ-2026-00001`, `QREQ-2026-00003` | Acknowledged internally — "noted, will follow" |
+| 14 Sep | Website chat enquiry | Answered on-thread |
+
+**The capability is there and it is fast.** That changes the diagnosis: the problem is not that
+MIDTRANS cannot respond. It is that whether an enquiry gets picked up appears to be chance.
+
+### The six that were not
+
+All verified the same way — a sent-mail search against each address across the whole mailbox.
+**No message has been sent to any of them.**
+
+| Date | From | Enquiry | State |
+|---|---|---|---|
+| **16 Sep** | Minibus manufacturer, Gdańsk, Poland | RFQ, **6 new Mercedes-Benz Sprinters** → Latakia/Tartous | **unread** |
+| 15 Sep | Abdulaziz | Launching a retail confectionery and snacks business in **Latakia**; looking for an import partner | **unread** |
+| 14 Sep | Wael | Lörrach, Germany → Damascus, 47.5 L galvanic chemicals | **unread** |
+| 13 Sep | Arabic, subject «عرض سعر» | LCL trial shipment, clothing and shoes, China → Syria | **unread** |
+| 12 Sep | — | USA (New Jersey) → Turkey transit → Syria, LCL pallets | sent to **5 forwarders at once** |
+| 12 Sep | German | Ford Transit 2017 — import and customs clearance in Syria | sent to **3 forwarders at once** |
+
+### What the pattern actually looks like
+
+1. **Four of six are unread.** Not read and deprioritised — not seen. That points at inbox
+   ownership and routing, not at workload or judgement.
+2. **Two were sent to several forwarders simultaneously.** In that race a reply measured in days
+   is a loss by default, and the enquirer never tells you that you lost.
+3. **The mix matches the programme's premises.** Syria-bound in every case; Arabic and German
+   among them, which is `§7`'s language tiering showing up in live demand; and a vehicle import,
+   which is `kb-008` in the knowledge base — still an unanswered question.
+4. **The manufacturer enquiry is the kind Phase 05 is built for** — a company, a repeatable
+   requirement, a named contact. It is sitting unread.
+
+### A note for the guardrail work, not a criticism
+
+Two of the recent enquiries are dangerous-goods adjacent: polymeric MDI samples and galvanic
+chemicals. The MDI one was answered within twenty minutes, and the reply states that MIDTRANS can
+assist with pickup and delivery — before an MSDS or UN class was seen.
+
+A person is entitled to make commercial commitments; MIRA is not, and this is exactly the case
+`../standards/MIRA-GUARDRAILS.md` §2 and `escalation.py`'s `special_cargo` trigger exist for. It
+is recorded here as evidence that the trigger vocabulary matches real traffic — DG enquiries
+arrive, they arrive often enough to matter, and they get fast answers.
+
+### What this still does not establish
+
+Unchanged from `§8b`, and it remains the first thing to check: **whether any of these six were
+answered by WhatsApp or phone.** Two of the answered threads above move the conversation to
+WhatsApp explicitly, which shows the channel is in active use — and therefore that email alone
+cannot measure response. That is a measurement gap in its own right, and it is why the reply-rate
+baseline in `../phases/PHASE-01-MEASUREMENT-FRAMEWORK.md` §7a cannot be built from email alone.
+
+### The immediate list
+
+Six named enquiries, dated, with the cargo and route already stated. Four unread. The oldest is
+four days old; the newest arrived today.
+
+---
+
 ## 9. What this analysis does NOT establish
 
 Recorded honestly rather than estimated, per `README.md`:

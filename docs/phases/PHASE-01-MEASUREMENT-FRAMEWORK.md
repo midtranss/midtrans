@@ -313,6 +313,28 @@ WhatsApp or phone. Email is the only channel visible from here, and `D3` §2 rec
 channels as UNKNOWN. If they were answered elsewhere, this correction narrows to a measurement
 problem rather than a lost-lead one — which is still worth knowing, and is a different problem.
 
+**And it is now known that WhatsApp is in active use for exactly this.** `D3` §8c records two
+answered enquiries where the reply moves the conversation to WhatsApp by design. So the reply
+rate **cannot be measured from email alone** — an email-only measurement will under-report it,
+and by an unknown amount.
+
+Measuring it therefore needs one of:
+
+| Option | What it costs |
+|---|---|
+| A shared WhatsApp Business inbox with exportable history | Setup, and a policy decision about where customer conversation lives |
+| A logged handover — the email reply that moves a conversation to WhatsApp is itself the record | Nothing, if the handover always goes out by email first. That is already the current practice in the two observed cases |
+| Reply logged per enquiry by the person who handles it | Discipline, and it decays |
+
+The second is the cheapest and is already half in place. **Make the email handover mandatory**:
+whatever happens on WhatsApp afterwards, the enquiry was answered in a place that can be counted.
+That single rule turns the reply rate from unmeasurable into measurable, at no operational cost.
+
+`D3` §8c also qualifies the size of the problem: in the five days after the wizard launched,
+several enquiries were answered, one within twenty minutes. The failure is not capability. It is
+that **four of six unanswered enquiries in that same window were never opened** — which points at
+inbox ownership and routing, not at workload.
+
 ---
 
 ### The revised exit gate
