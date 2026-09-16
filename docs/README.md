@@ -44,6 +44,7 @@ writer, or a coding agent — without further briefing.
 | `standards/LANGUAGE-SCOPE.md` | Which content gets which of the 7 languages, and why |
 | `standards/SEO-STANDARDS.md` | Technical SEO, structured data, internal linking, thin-content rules |
 | `standards/DEFINITION-OF-DONE.md` | The checklist every page and every phase must pass |
+| `standards/ENQUIRY-INTAKE.md` | Who owns each channel, and that every enquiry is logged and acknowledged |
 
 ### Phases
 

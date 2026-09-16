@@ -13,8 +13,20 @@ python3 tools/ops/tests/test_ops.py
 | `markets.yaml` | The market expansion register — one record per market, four gate tests each |
 | `market_gate.py` | Refuses a market open on an incomplete record, and two open at once |
 | `health_check.py` | Expired content, ownerless pages, unconfirmed data, register state, every suite |
+| `enquiries.csv` | The enquiry register — one row per enquiry, logged on arrival |
+| `enquiry_log.py` | Reports genuine enquiries past the acknowledgement window, oldest first |
 
-Full process: `../../docs/phases/PHASE-07-OPERATING-CHECKS.md`.
+Full process: `../../docs/phases/PHASE-07-OPERATING-CHECKS.md` and, for the enquiry
+register, `../../docs/standards/ENQUIRY-INTAKE.md`.
+
+```bash
+python3 tools/ops/enquiry_log.py --window 24
+```
+
+`--window` is required and has no default. A response time nobody chose, silently
+inherited, is worse than none — the same rule the volumetric divisor follows. The register
+ships loaded with the ten unanswered enquiries found in `D3` §8b–§8c, so it starts from
+the real backlog rather than from zero.
 
 **The rule that does the work:** demand evidence must contain a number. "There is clear demand
 from Turkey" is an opinion. "9 RFQs and 14 MIRA conversations originated in Turkey between January

@@ -14,5 +14,8 @@ echo
 echo "=== operating checks ==="
 python3 tools/ops/tests/test_ops.py
 echo
+echo "=== enquiry register ==="
+python3 tools/ops/tests/test_enquiry_log.py
+echo
 echo "=== measurement tables reproduce ==="
 python3 tools/measurement/sample_size.py > /dev/null && echo "sample_size.py: ok"

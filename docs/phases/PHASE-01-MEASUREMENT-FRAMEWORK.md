@@ -326,6 +326,11 @@ Measuring it therefore needs one of:
 | A logged handover — the email reply that moves a conversation to WhatsApp is itself the record | Nothing, if the handover always goes out by email first. That is already the current practice in the two observed cases |
 | Reply logged per enquiry by the person who handles it | Discipline, and it decays |
 
+**All three are now specified in `../standards/ENQUIRY-INTAKE.md`**, with the register at
+`../../tools/ops/enquiries.csv` and the check at `../../tools/ops/enquiry_log.py`. The register
+ships loaded with the ten unanswered enquiries, so the reply-rate baseline starts from what was
+actually found rather than from an empty file.
+
 The second is the cheapest and is already half in place. **Make the email handover mandatory**:
 whatever happens on WhatsApp afterwards, the enquiry was answered in a place that can be counted.
 That single rule turns the reply rate from unmeasurable into measurable, at no operational cost.

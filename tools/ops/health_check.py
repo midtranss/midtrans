@@ -108,6 +108,53 @@ def content_freshness(root: str, horizon_days: int) -> Section:
     return section
 
 
+def enquiry_register(window_hours, path=None) -> Section:
+    """ENQUIRY-INTAKE.md §6 — is anything genuine sitting past the acknowledgement window?"""
+    section = Section("Enquiry register")
+    try:
+        import enquiry_log
+    except Exception as exc:  # noqa: BLE001
+        section.add(FAIL, f"tools/ops/enquiry_log.py could not be imported: {exc}")
+        return section
+
+    if not window_hours:
+        section.add(WARN,
+                    "No acknowledgement window given, so nothing can be judged overdue. "
+                    "Management sets it (ENQUIRY-INTAKE.md §5), then pass --enquiry-window N.")
+        # The register is still worth reporting on, even without a window.
+        window_hours = None
+
+    try:
+        enquiries = enquiry_log.load(path or enquiry_log.DEFAULT_FILE)
+    except enquiry_log.RegisterError as exc:
+        section.add(FAIL, f"register is not usable — {exc}")
+        section.add(FAIL, "A register that cannot be parsed reads exactly like a clean one.")
+        return section
+    except OSError as exc:
+        section.add(FAIL, f"register could not be read: {exc}")
+        return section
+
+    report = enquiry_log.analyse(enquiries, window_hours or float("inf"), dt.datetime.now())
+    section.add(OK, f"{len(report.genuine)} genuine · {len(report.acknowledged)} acknowledged")
+    if report.reply_rate is not None:
+        section.add(OK if report.reply_rate > 0 else WARN,
+                    f"reply rate {report.reply_rate:.0%}")
+    for e in report.overdue:
+        owner = e.owner or "NO OWNER"
+        section.add(FAIL,
+                    f"{_age(e.waiting_hours(dt.datetime.now()))} overdue — {e.id} ({owner})")
+    if report.ownerless:
+        section.add(FAIL,
+                    f"{len(report.ownerless)} enquiry(ies) with no named owner — §2")
+    if not report.genuine:
+        section.add(WARN, "Nothing logged. If that is not true, the register is not in use.")
+    return section
+
+
+def _age(hours: float) -> str:
+    return f"{hours:.0f}h" if hours < 48 else f"{hours / 24:.0f}d"
+
+
 def knowledge_base() -> Section:
     """MIRA knowledge base: how much of it MIDTRANS has actually confirmed."""
     section = Section("MIRA knowledge base")
@@ -195,6 +242,8 @@ def guardrail_suites() -> Section:
         ("Freight calculations", "tools/calc/tests/test_freight_math.py"),
         ("Content gate", "tools/content/tests/test_check_page.py"),
         ("Cluster duplication", "tools/content/tests/test_check_cluster.py"),
+        ("Operating checks", "tools/ops/tests/test_ops.py"),
+        ("Enquiry register", "tools/ops/tests/test_enquiry_log.py"),
     ]
     for label, path in suites:
         full = os.path.join(ROOT, path)
@@ -218,6 +267,11 @@ def main() -> int:
                         help="Directory of published or draft pages with front matter")
     parser.add_argument("--days", type=int, default=90,
                         help="Warn on content expiring within this many days (default 90)")
+    parser.add_argument("--enquiry-window", type=float, default=None,
+                        help="Acknowledgement window in hours (ENQUIRY-INTAKE.md §5). "
+                             "No default — management sets it")
+    parser.add_argument("--enquiry-file", default=None,
+                        help="Enquiry register to read (default: tools/ops/enquiries.csv)")
     parser.add_argument("--skip-suites", action="store_true",
                         help="Skip running the test suites (faster, less useful)")
     args = parser.parse_args()
@@ -227,6 +281,7 @@ def main() -> int:
     print("=" * 72)
 
     sections = [
+        enquiry_register(args.enquiry_window, args.enquiry_file),
         content_freshness(args.content_root, args.days),
         knowledge_base(),
         reference_data(),

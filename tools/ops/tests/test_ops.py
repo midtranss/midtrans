@@ -238,19 +238,38 @@ except ImportError:
 print("\n=== health check ===")
 
 HC = os.path.join(os.path.dirname(HERE), "health_check.py")
-result = subprocess.run([sys.executable, HC, "--skip-suites"], capture_output=True, text=True)
+
+# The shipped register holds ten real overdue enquiries, so the health check fails on it by
+# design. These cases are about the OTHER sections, so they run against an empty register.
+EMPTY_REGISTER = tempfile.mkstemp(suffix=".csv")[1]
+with open(EMPTY_REGISTER, "w", encoding="utf-8") as fh:
+    fh.write("id,received_at,channel,owner,genuine,acknowledged_at,closed_at,note\n")
+
+BASE = [sys.executable, HC, "--skip-suites", "--enquiry-file", EMPTY_REGISTER]
+
+result = subprocess.run(BASE, capture_output=True, text=True)
 check("health check runs", result.returncode in (0, 1), result.stderr[-200:])
 check("reports the knowledge base", "MIRA knowledge base" in result.stdout)
 check("reports unconfirmed calculator data", "unconfirmed" in result.stdout)
 check("reports the market register", "Market expansion register" in result.stdout)
 check("refuses to overclaim", "whether a page is still TRUE" in result.stdout)
 
+# And the real register must make the check fail, because it currently should.
+real = subprocess.run([sys.executable, HC, "--skip-suites", "--enquiry-window", "24"],
+                      capture_output=True, text=True)
+check("the shipped register fails the check", real.returncode == 1, real.stdout[-200:])
+check("and names an overdue enquiry", "overdue —" in real.stdout)
+check("a register with no window warns rather than passing silently",
+      "No acknowledgement window given" in
+      subprocess.run([sys.executable, HC, "--skip-suites"],
+                     capture_output=True, text=True).stdout)
+
 # Expired content is a failure, not a note.
 content = tempfile.mkdtemp()
 with open(os.path.join(content, "stale.md"), "w", encoding="utf-8") as fh:
     fh.write("---\ntitle: Old\nlanguage: en\nowner: Khaldoun Alhaj\n"
              "reviewed_at: 2024-01-01\nexpires_at: 2025-01-01\n---\n\n# Old\n\nText.\n")
-result = subprocess.run([sys.executable, HC, "--skip-suites", "--content-root", content],
+result = subprocess.run([*BASE, "--content-root", content],
                         capture_output=True, text=True)
 check("expired content exits non-zero", result.returncode == 1, result.stdout[-300:])
 check("expired content named", "EXPIRED 2025-01-01" in result.stdout)
@@ -258,13 +277,13 @@ check("expired content named", "EXPIRED 2025-01-01" in result.stdout)
 with open(os.path.join(content, "stale.md"), "w", encoding="utf-8") as fh:
     fh.write("---\ntitle: Fresh\nlanguage: en\nowner: Khaldoun Alhaj\n"
              "reviewed_at: 2026-09-01\nexpires_at: 2099-01-01\n---\n\n# Fresh\n\nText.\n")
-result = subprocess.run([sys.executable, HC, "--skip-suites", "--content-root", content],
+result = subprocess.run([*BASE, "--content-root", content],
                         capture_output=True, text=True)
 check("fresh content exits zero", result.returncode == 0, result.stdout[-300:])
 
 with open(os.path.join(content, "noowner.md"), "w", encoding="utf-8") as fh:
     fh.write("---\ntitle: Orphan\nlanguage: en\nexpires_at: 2099-01-01\n---\n\n# Orphan\n\nText.\n")
-result = subprocess.run([sys.executable, HC, "--skip-suites", "--content-root", content],
+result = subprocess.run([*BASE, "--content-root", content],
                         capture_output=True, text=True)
 check("a page with no owner fails", result.returncode == 1 and "no owner" in result.stdout)
 
