@@ -362,6 +362,15 @@ be imported, or any fee.
 
 ---
 
+## Status — 2026-09-16
+
+**Management decided not to pursue the backlog.** These six stay here as the worked examples
+behind `../standards/REPLY-PATTERNS.md`, which turns them into five patterns for what arrives
+next. A letter is used once; a pattern works every time.
+
+The one worth a second look before the file is closed: **#1 arrived the same day it was found**,
+from a manufacturer, and was still unread. Its age was hours, not months.
+
 ## Before sending
 
 - [ ] Fill `[Name]`, `[phone / WhatsApp]`, `[الاسم]`, `[الرقم]` — and check the WhatsApp number is

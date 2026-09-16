@@ -131,7 +131,9 @@ Two rules follow from `WRITING-STANDARDS.md` §4:
   is prohibited, and `PHASE-06` D6 says the same about the incident contact route.
 - **Acknowledging is not quoting.** An acknowledgement says the enquiry arrived, names who has
   it, and asks for what is missing. It does not need a price to be sent, and waiting for one is
-  how four days pass.
+  how four days pass. **`REPLY-PATTERNS.md` is what goes inside the window** — five patterns
+  covering what actually arrives, and the rule that comes before all of them: the acknowledgement
+  does not wait for the price.
 
 ---
 
