@@ -110,6 +110,40 @@ AI_TELLS = [
     (r"\bdelve into\b", "stock phrase"),
 ]
 
+# PHASE-05 D1: "any market-condition or opportunity statement must be sourced and cited, or it
+# is not published." A market size is not a freight rate, and Phase 05 explicitly allows one when
+# it carries a source — so these spans are recognised separately, and a cited figure inside one is
+# exempted from the rate rule rather than blocked as a quote.
+MARKET_CLAIM = (
+    r"(?:market|sector|industry|imports?|exports?|demand|trade)\s+(?:is\s+)?"
+    r"(?:worth|valued at|estimated at|expected to reach|projected to reach|size)"
+    r"|(?:worth|valued at|estimated at)\s+(?:about\s+|around\s+)?[$€£]?\s*\d"
+    r"|\d[\d,.]*\s*(?:billion|million|bn\b|trillion)"
+    r"|[$€£]\s*\d[\d,.]*\s*(?:billion|million|bn\b|trillion)"
+    r"|\d+(?:\.\d+)?\s*%\s*(?:growth|increase|decline|cagr|annually|per year|a year|year on year)"
+    r"|(?:grow(?:ing|th)|expand(?:ing)?|rising|declining)\s+(?:at|by)\s+\d"
+    r"|fastest[- ]growing"
+    r"|(?:سوق|قطاع|واردات|صادرات)\s+(?:بقيمة|تقدر|يقدر|بحجم)"
+    r"|\d[\d,.]*\s*(?:مليار|مليون)"
+    r"|نمو\s+بنسبة\s*\d"
+    r"|الأسرع\s+نموا"
+)
+
+# A citation near the claim: a link, a footnote marker, a named source, or a parenthetical
+# attribution. Deliberately generous — the reviewer judges whether the source is any good.
+CITATION = (
+    r"\[[^\]]+\]\([^)]+\)"
+    r"|\[\^?\d+\]"
+    r"|(?:source|according to|per the|published by|cited in|figures? from)\s*:?\s*\S"
+    r"|\([A-Z][^)]{3,60}(?:19|20)\d{2}\)"
+    r"|(?:المصدر|وفقا ل|بحسب|استنادا إلى)"
+)
+
+# A citation attaches to a claim when it is in the SAME PARAGRAPH. A character window is too
+# generous: an uncited growth figure sitting two paragraphs below a cited market size would
+# inherit that citation and pass. The paragraph is the unit a reader treats as one statement.
+
+
 REQUIRED_FRONT_MATTER = {
     "title": "the page's own title",
     "language": "en or ar — the language this file is written in, not translated into",
@@ -191,7 +225,62 @@ def check_front_matter(report: PageReport, fields: dict) -> None:
             "competitor could not have written, specifically. See the gate doc §4."))
 
 
-def check_prohibited(report: PageReport, prose: str, offset: int) -> None:
+def paragraph_around(text: str, position: int) -> str:
+    start = text.rfind("\n\n", 0, position)
+    start = 0 if start < 0 else start + 2
+    end = text.find("\n\n", position)
+    end = len(text) if end < 0 else end
+    return text[start:end]
+
+
+def market_claim_spans(prose: str) -> list:
+    """(start, end, is_cited) per market claim, overlapping matches merged.
+
+    Several patterns fire on one sentence — "valued at", "$4.2 billion" and the currency form
+    all match the same clause. Reporting it three times trains the reviewer to skim.
+    """
+    raw = []
+    for match in re.finditer(MARKET_CLAIM, prose, re.I):
+        cited = bool(re.search(CITATION, paragraph_around(prose, match.start()), re.I))
+        raw.append((match.start(), match.end(), cited))
+
+    # A small gap still means one claim: "$4.2 billion" is matched as "$4" and "2 billion"
+    # because the number pattern stops at the decimal point.
+    GAP = 5
+
+    merged = []
+    for start, end, cited in sorted(raw):
+        if merged and start <= merged[-1][1] + GAP:
+            previous = merged[-1]
+            merged[-1] = (previous[0], max(previous[1], end), previous[2] or cited)
+        else:
+            merged.append((start, end, cited))
+    return merged
+
+
+def check_market_claims(report: PageReport, prose: str, offset: int) -> list:
+    """Enforce PHASE-05 D1's sourcing rule. Returns the cited spans, which are rate-exempt."""
+    cited = []
+    for start, end, is_cited in market_claim_spans(prose):
+        if is_cited:
+            cited.append((start, end))
+            report.findings.append(Finding(
+                NOTE, "market_claim_cited",
+                "A market claim with a source attached. The reviewer still judges whether the "
+                "source supports the claim — the check only sees that one is present.",
+                line=line_of(prose, start, offset),
+                excerpt=excerpt_at(prose, start)))
+        else:
+            report.findings.append(Finding(
+                BLOCKER, "market_claim_unsourced",
+                "A market size, growth or opportunity claim with no source nearby. "
+                "PHASE-05 D1: cited, or not published.",
+                line=line_of(prose, start, offset),
+                excerpt=excerpt_at(prose, start)))
+    return cited
+
+
+def check_prohibited(report: PageReport, prose: str, offset: int, exempt=()) -> None:
     if guardrails is None:
         report.findings.append(Finding(
             BLOCKER, "tooling",
@@ -201,6 +290,17 @@ def check_prohibited(report: PageReport, prose: str, offset: int) -> None:
 
     verdict = guardrails.check_response(prose)
     for finding in verdict.findings:
+        # A figure inside a *cited* market claim is not MIDTRANS quoting a rate. Without this,
+        # PHASE-05 D1 would be unsatisfiable: it requires sourced market figures, and the rate
+        # rule would block every one of them.
+        if any(start - 40 <= finding.position <= end + 40 for start, end in exempt):
+            report.findings.append(Finding(
+                NOTE, "rate_rule_exempted",
+                "A figure inside a cited market claim — exempted from the rate rule. "
+                "Confirm in review that it is a market statistic and not a price.",
+                line=line_of(prose, finding.position, offset),
+                excerpt=finding.excerpt))
+            continue
         report.findings.append(Finding(
             BLOCKER, f"prohibited:{finding.rule}",
             "A rate, figure in a cost context, duration, or commitment. "
@@ -327,7 +427,8 @@ def check_page(path: str) -> PageReport:
     report = PageReport(path=path, front_matter=fields, words=len(prose.split()))
 
     check_front_matter(report, fields)
-    check_prohibited(report, prose, offset)
+    exempt = check_market_claims(report, prose, offset)
+    check_prohibited(report, prose, offset, exempt=exempt)
     check_language(report, prose, offset)
     check_structure(report, body, prose, offset)
     check_arabic(report, fields, prose)

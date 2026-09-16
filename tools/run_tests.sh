@@ -8,5 +8,8 @@ echo
 echo "=== content gate ==="
 python3 tools/content/tests/test_check_page.py
 echo
+echo "=== cluster duplication ==="
+python3 tools/content/tests/test_check_cluster.py
+echo
 echo "=== measurement tables reproduce ==="
 python3 tools/measurement/sample_size.py > /dev/null && echo "sample_size.py: ok"

@@ -115,6 +115,11 @@ presents only upside is dismissed by the exact reader it needs.
 **Sourcing rule:** any market-condition or opportunity statement must be sourced and cited, or it
 is not published. No invented market sizes, growth figures, or opportunity values.
 
+**Enforced:** `../../tools/content/check_page.py` blocks any market size, valuation or growth
+figure without a citation **in the same paragraph**. A cited figure is exempted from the rate rule
+and recorded for review — without that exemption this rule and Phase 04's gate contradicted each
+other, and D1 was unsatisfiable. See `PHASE-05-CLAIMS-AND-DUPLICATION.md` §2.
+
 ### D2 — Business Representation hub
 
 - Business representation — what the service actually covers
@@ -128,6 +133,18 @@ is not published. No invented market sizes, growth figures, or opportunity value
 Each page answers the three questions this buyer actually has: **what MIDTRANS does, how the
 engagement works, and what the client is responsible for.** Scope clarity is the selling point —
 this is a service category where vagueness reads as inexperience.
+
+> **⚠️ This hub carries the same doorway risk as the US pages this phase removed.**
+> *Business*, *commercial* and *local* representation are not obviously different services to a
+> reader, and a page each is one template with a substituted noun — the pattern this phase
+> rejects, wearing a name that does not look like it. Nothing in a per-page review would notice:
+> each page has a title, an owner and real sentences.
+>
+> Before drafting, answer in one sentence per page: **what does a client get here that they do
+> not get from the page next to it?** If the answer needs the page's own name to make sense, the
+> pages are one page — merge and write once. Then run
+> `../../tools/content/check_cluster.py` over the hub.
+> See `PHASE-05-CLAIMS-AND-DUPLICATION.md` §3.
 
 ### D3 — US companies entering Syria
 
@@ -207,7 +224,8 @@ review cycles with MIDTRANS senior management, and schedule for them.
 |---|---|
 | **Pressure to reinstate US city pages** | Reopening condition documented above; decision sits with the programme owner, on evidence |
 | Overselling the opportunity | Candour requirement; senior management editorial review |
-| Unsourced market claims | Sourcing rule: cited or not published |
+| Unsourced market claims | Sourcing rule: cited or not published, **blocked mechanically** by `check_page.py` |
+| **Representation pages become a template of each other** | `check_cluster.py` over the hub, and the differentiation question answered before drafting. The risk the removed US pages made obvious, in a form that does not look like it |
 | Straying into legal, tax or compliance advice | Explicit boundary statement on relevant pages; route to specialists |
 | Consultation requests with no capacity to service them | Confirm senior availability with management before launch |
 | Content thin because the service is not yet fully defined | Define the service scope first. Do not publish a page describing a service MIDTRANS cannot yet deliver consistently. |
@@ -222,7 +240,8 @@ Consultation funnel changes are feature-flagged and revert to the Phase 01 confi
 
 - [ ] Every page passes the uniqueness test, recorded
 - [ ] No templated location or industry page published
-- [ ] Every market claim sourced and cited
+- [ ] `check_cluster.py` clean across the representation hub and the market-entry hub
+- [ ] Every market claim sourced and cited, **and every cited source followed by a named reviewer**
 - [ ] No legal, tax, sanctions or compliance determination
 - [ ] Service scope statements reviewed and confirmed deliverable by operations
 - [ ] Consultation booking tested end to end; confirmed reaching a real person
