@@ -52,10 +52,10 @@
     "MIDTRANS~20LOGO"
   ],
   "lastChange": {
-    "at": "2026-09-16T21:19:50Z",
+    "at": "2026-09-16T21:21:40Z",
     "by": "Khaldoun",
     "via": "Claude Code",
-    "note": "Arabic set to Cairo exclusively, with the variable font shipped at fonts/Cairo-Variable.ttf; logo guidance rewritten from the uploaded MIDTRANS LOGO artwork."
+    "note": "Logo usage corrected to the owner's rules: blue for light grounds, white for dark, the blue-field icon for the browser and app icon."
   },
   "layout": "files",
   "libraries": [],

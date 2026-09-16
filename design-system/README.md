@@ -49,14 +49,19 @@ Photography shows real freight operations — vessels, aircraft cargo holds, con
 
 ### Logo and marks
 
-The mark is a ship's wheel with wings, above the "Midtrans" wordmark and the line "Shipping & Services". Four files sit in the **MIDTRANS LOGO** asset group: `midtrans-logo-blue.png`, `midtrans-logo-white.png`, and the app icon at 1024px and 512px.
+The mark is a ship's wheel with wings, above the "Midtrans" wordmark and the line "Shipping & Services". Four files sit in the **MIDTRANS LOGO** asset group, and each has one job — pick by the ground, never recolour a file to fit:
 
-- Place `midtrans-logo-blue.png` on `surface-page`, `surface-card` and `surface-sunken`. Place `midtrans-logo-white.png` on `surface-inverse`, on a `brand-accent` field, and over photography.
-- The artwork is flat single-ink on transparency and carries its own ink, so it does not inherit `currentColor` and must not be recoloured with CSS. The blue file measures `#007DC6` — one step off the stated brand `#007DC5`, indistinguishable in use but worth knowing before anyone re-cuts the artwork. The "Shipping & Services" line is near-black `#050708` in that file.
-- Clear space on all four sides is `space-4`, measured from the widest point of the wings. Minimum width for the full lock-up is 120px; below that use the app icon alone.
-- Never recolour, rotate, outline, add a shadow to, stretch, or place the mark on a busy field.
-- The wordmark is part of the artwork, set in its own script face: never re-set "Midtrans" in `sans`, and never uppercase it. Where a text-only treatment is needed — a plain-text email signature, a system that cannot carry the image — set MIDTRANS in `display-2` `ink-strong`, full capitals, with no letter-spacing change.
-- Only PNG raster is available. Obtain vector artwork before any print, large-format or favicon work, and record it here when it arrives.
+- `midtrans-logo-blue.png` — blue on transparency, for light grounds: `surface-page`, `surface-card`, `surface-sunken`.
+- `midtrans-logo-white.png` — white on transparency, for dark grounds: `surface-inverse`, a `brand-accent` or `brand-primary` field, and photography.
+- `midtrans-app-icon-512.png` and `midtrans-app-icon-1024.png` — the white mark on a solid blue field, used as the browser and app icon: favicon, tab icon, PWA and touch icon, social profile. Never placed inside a page as a logo.
+
+In a dark theme, swap the file rather than filtering or inverting the blue one; drive the swap from the same `data-theme` attribute the tokens use so the mark follows the interface.
+
+- The artwork is flat and carries its own ink, so it does not inherit `currentColor` and CSS must not recolour it. Three blues are measurable across the set — the stated brand `#007DC5`, the lock-up's ink `#007DC6`, the icon field's `#027AC8`; none is visibly different, but re-cut artwork should settle all three on `#007DC5`. The "Shipping & Services" line is near-black `#050708`.
+- Clear space around the lock-up is `space-4` on all four sides, from the widest point of the wings. Minimum width for the lock-up is 120px; below that use the icon. The icon files carry their own padding — do not add to it or crop it.
+- Never recolour, rotate, stretch, outline or shadow the mark. The wordmark is part of the artwork in its own script face: never re-set "Midtrans" in `sans` and never uppercase it. Where only text is possible, set MIDTRANS in `display-2` `ink-strong`, full capitals, no letter-spacing change.
+- The mark is non-directional: it does not mirror on Arabic RTL pages.
+- Only PNG raster is available; obtain vector artwork before print, large-format or crisp favicon work.
 
 ### Iconography
 
