@@ -11,5 +11,8 @@ echo
 echo "=== cluster duplication ==="
 python3 tools/content/tests/test_check_cluster.py
 echo
+echo "=== operating checks ==="
+python3 tools/ops/tests/test_ops.py
+echo
 echo "=== measurement tables reproduce ==="
 python3 tools/measurement/sample_size.py > /dev/null && echo "sample_size.py: ok"

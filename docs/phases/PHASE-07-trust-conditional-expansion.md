@@ -126,6 +126,16 @@ Per `../standards/SEO-STANDARDS.md` §§4 and 6, run as an ongoing discipline ra
 
 ### The gate
 
+**Recorded in `../../tools/ops/markets.yaml` and enforced by
+`../../tools/ops/market_gate.py`.** The mitigation below originally read "decision recorded in
+writing"; writing is where the rule leaks, because a paragraph cannot refuse anything. The register
+refuses a market marked open on an incomplete record, and refuses two open at once.
+
+**The rule that does the work: demand evidence must contain a number.** "There is clear demand
+from Turkey" is an opinion; "9 RFQs and 14 MIRA conversations originated in Turkey between January
+and June 2026" is evidence. Test 1's own sources — search demand, inbound RFQs, MIRA conversations
+— are all countable. See `PHASE-07-OPERATING-CHECKS.md` §2.
+
 **No market opens until it passes all four tests:**
 
 | # | Test |
@@ -174,6 +184,11 @@ prohibited on the same basis.
 
 ## Ongoing operations (permanent)
 
+Run `../../tools/ops/health_check.py` at each review: it reports expired and expiring content,
+pages with no owner, unconfirmed calculator data, knowledge-base state, register consistency, and
+every test suite. It tells you which pages to read first — it cannot tell you whether a page is
+still true. See `PHASE-07-OPERATING-CHECKS.md` §4.
+
 | Cadence | Activity |
 |---|---|
 | Weekly | Metric review against the current focus |
@@ -209,7 +224,9 @@ available capacity at that time — not against a figure written in advance in t
 
 | Risk | Mitigation |
 |---|---|
-| **Market gates bypassed under commercial pressure** | Four-test gate; decision recorded in writing by the programme owner |
+| **Market gates bypassed under commercial pressure** | Four-test gate, **recorded in a structured register and enforced by `tools/ops/market_gate.py`** — a market open on an incomplete record fails the check, whatever its status says |
+| Parallel expansion resumes because nobody notices | The register refuses two markets `open` at once |
+| A target is agreed after the market opened, to fit the result | `target` is a required field on the record, dated alongside the decision |
 | Case studies embellished or invented | Written client permission; no unmeasured figures; factual review |
 | Stock imagery undermines credibility | Authentic operations imagery required wherever possible |
 | Visual programme degrades mobile performance | Performance budget enforced; decorative imagery dropped on mobile |
@@ -231,8 +248,10 @@ Per item, continuously:
 - [ ] Trust Center: every claim verified
 - [ ] Images: authentic, optimised, meaningful alt text, no misrepresentation
 - [ ] Mobile performance budget held after every visual addition
-- [ ] Market expansions: all four gate tests documented as passed before work started
-- [ ] No market opened while another is still in progress
+- [ ] `market_gate.py` exits 0 — all four tests recorded with evidence, owner, target and signature
+- [ ] Demand evidence for every open market carries a real count and period, not an assertion
+- [ ] No market opened while another is still in progress — the register enforces it
+- [ ] `health_check.py` run at each quarterly review, output kept
 - [ ] Quarterly reviews actually run, with written outcomes
 - [ ] No contradiction introduced between pages
 - [ ] Level 1 and Level 2 checklists passed per item

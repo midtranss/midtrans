@@ -65,6 +65,7 @@ writer, or a coding agent — without further briefing.
 | 06 | `PHASE-06-maritime-pi.md` | 6 weeks | Maritime and P&I hubs live, qualified enquiries received |
 | 06 | `PHASE-06-BOUNDARY-AND-ESCALATION.md` | — | The liability boundary, and the escalation §6 lacked |
 | 07 | `PHASE-07-trust-conditional-expansion.md` | Continuous | Per-market gates, opened one at a time |
+| 07 | `PHASE-07-OPERATING-CHECKS.md` | — | The market gate as a register, and the recurring health check |
 
 ### Baseline workspace
 

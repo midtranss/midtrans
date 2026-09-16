@@ -108,8 +108,14 @@ def compare(a: Page, b: Page, k: int = SHINGLE) -> tuple[float, list]:
 
     common = sa & sb
     similarity = len(common) / len(sa | sb)
-    examples = [" ".join(s).replace("·", "___") for s in list(common)[:3]]
-    return similarity, examples
+
+    # Set iteration order is not stable between runs, so slicing a set gave a different three
+    # examples each time — a report that changes when nothing changed is a report nobody trusts.
+    # Order deterministically, and put the shingles containing a masked subject term first:
+    # those are the ones that show the template.
+    shared = sorted((" ".join(s).replace("·", "___") for s in common),
+                    key=lambda text: ("___" not in text, text))
+    return similarity, shared[:3]
 
 
 def analyse(paths: list, block_at: float, warn_at: float, k: int = SHINGLE) -> list:

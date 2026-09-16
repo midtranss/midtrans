@@ -129,6 +129,14 @@ check("shared text is reported", all(p.shared for p in pairs))
 check("masked subject shown as a blank", any("___" in s for p in pairs for s in p.shared),
       str(pairs[0].shared))
 
+# Shared examples must be the same on every run. They were sliced from a set, so they were not:
+# the suite failed on roughly half of all hash seeds before this was fixed.
+first = [tuple(p.shared) for p in cc.analyse(paths, cc.BLOCK_AT, cc.WARN_AT)]
+second = [tuple(p.shared) for p in cc.analyse(paths, cc.BLOCK_AT, cc.WARN_AT)]
+check("examples are deterministic within a run", first == second)
+check("masked examples come first",
+      all("___" in p.shared[0] for p in pairs if p.shared), str([p.shared[0] for p in pairs]))
+
 # --------------------------------------------------------------------------------------
 print("\n=== genuinely distinct pages are not ===")
 
