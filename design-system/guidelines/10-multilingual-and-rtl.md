@@ -12,7 +12,7 @@ MIDTRANS publishes in seven languages: English, Arabic, French, German, Turkish,
 ## Arabic and direction
 
 - Arabic pages set `dir="rtl"` on `<html>`, not on a wrapper. Everything below inherits it.
-- Set Arabic text in the `arabic` family through `ar-heading-1`, `ar-body` and `ar-body-sm`. These carry taller leading than the Latin styles because Cairo's ascenders and descenders need it; using `body` for Arabic produces crowded lines.
+- Set Arabic text in the `arabic` family through `ar-heading-1`, `ar-body` and `ar-body-sm`. The family is Cairo exclusively, with no fallback declared and the font file shipped in this system, so Arabic never renders in a substitute face. These carry taller leading than the Latin styles because Cairo's ascenders and descenders need it; using `body` for Arabic produces crowded lines.
 - Write every layout with logical CSS properties — `margin-inline-start`, `padding-inline-end`, `inset-inline-start`, `border-inline-start`, `text-align: start` — so that one stylesheet serves both directions. Never write a separate RTL stylesheet and never mirror with `transform: scaleX(-1)`.
 - Directional icons mirror: back and forward arrows, breadcrumb chevrons, progress and shipment-timeline direction. Non-directional icons do not: clocks, checkmarks, warnings, the vessel, aircraft and truck marks, and any logo.
 - Tables in RTL keep the reference column first in reading order, which places it at the right edge. Numeric columns stay aligned on the digit, which means `text-align: end` in both directions.

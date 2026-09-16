@@ -1,19 +1,65 @@
 {
   "v": 3,
-  "layout": "files",
-  "createdOnFiles": { "v": 1, "at": "2026-09-16T20:32:57Z" },
-  "title": "MIDTRANS",
-  "namespace": "MIDTRANS",
-  "libraries": [],
-  "sections": {},
-  "groups": [],
-  "assetGroups": {},
+  "assetGroups": {
+    "MIDTRANS~20LOGO": {
+      "files": {
+        "midtrans-app-icon-1024.png": {
+          "blob": "d28a22ca71f3244caeb312efb1322718",
+          "name": "midtrans-app-icon-1024.png",
+          "sha256": "299f493766d431effe7c98a5d7df34d9a26b6079f05dbee061fb261461025a62",
+          "size": 314352,
+          "type": "image/png"
+        },
+        "midtrans-app-icon-512.png": {
+          "blob": "d7102057ff13c28649cdbbd45fb16c76",
+          "name": "midtrans-app-icon-512.png",
+          "sha256": "45d331ebd6060c5ed33dfece155cbdaff8ffcd2da8ab7a9254c8261c8721502e",
+          "size": 124304,
+          "type": "image/png"
+        },
+        "midtrans-logo-blue.png": {
+          "blob": "ece8303dfbace56590521c4a62e115a5",
+          "name": "midtrans-logo-blue.png",
+          "sha256": "920f743dd1ead24c5056a8c1d7433163ccb06827e4d44a289bb7c3a4c38f41e0",
+          "size": 131454,
+          "type": "image/png"
+        },
+        "midtrans-logo-white.png": {
+          "blob": "068ffef6b0a639c70a66d72d10e246a1",
+          "name": "midtrans-logo-white.png",
+          "sha256": "78b443c3db5762c4bc500f7060d371f5671863d842b9c21c275b9e3058b62fc6",
+          "size": 161602,
+          "type": "image/png"
+        }
+      },
+      "name": "MIDTRANS LOGO",
+      "order": []
+    }
+  },
   "blobs": {},
-  "docs": { "readme": "project/README.md", "sections": [] },
-  "lastChange": {
-    "by": "Khaldoun",
+  "createdOnFiles": {
     "at": "2026-09-16T20:32:57Z",
+    "v": 1
+  },
+  "docs": {
+    "readme": "project/README.md",
+    "sections": [
+      "project/guidelines/10-multilingual-and-rtl.md",
+      "project/guidelines/20-claims-and-figures.md"
+    ]
+  },
+  "groups": [
+    "MIDTRANS~20LOGO"
+  ],
+  "lastChange": {
+    "at": "2026-09-16T21:19:50Z",
+    "by": "Khaldoun",
     "via": "Claude Code",
-    "note": "First build. Foundations from the stated MIDTRANS brand identity; no code, logo or icon set was available to extract from."
-  }
+    "note": "Arabic set to Cairo exclusively, with the variable font shipped at fonts/Cairo-Variable.ttf; logo guidance rewritten from the uploaded MIDTRANS LOGO artwork."
+  },
+  "layout": "files",
+  "libraries": [],
+  "namespace": "MIDTRANS",
+  "sections": {},
+  "title": "MIDTRANS"
 }

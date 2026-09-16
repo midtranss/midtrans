@@ -26,7 +26,7 @@ Write in the operator's voice: calm, precise, and accountable for what it states
 ### Type
 
 - Latin copy is set in the `sans` family — Helvetica first, with Arial and Liberation Sans behind it. No webfont is loaded for Latin text: the stack is resident on every platform MIDTRANS serves, which is what keeps the first paint fast on mobile.
-- Arabic copy is set in the `arabic` family, Cairo first. Use the `ar-*` styles rather than the Latin ones: they carry the taller leading Cairo needs.
+- Arabic copy is set in the `arabic` family, which is **Cairo and nothing else** — no system fallback is declared. The variable font ships with this system at `fonts/Cairo-Variable.ttf` (weights 200–1000, SIL Open Font License, licence beside it), so Arabic renders in Cairo on every device without a call to a font CDN. Use the `ar-*` styles rather than the Latin ones: they carry the taller leading Cairo needs.
 - Reference numbers and aligned figures use the `mono` family through `data` and `data-sm`.
 - One `display-1` per page at most. Inside the platform, start pages at `heading-1`.
 
@@ -49,7 +49,14 @@ Photography shows real freight operations — vessels, aircraft cargo holds, con
 
 ### Logo and marks
 
-No MIDTRANS logo file was available when this system was built, so none is included here and none has been drawn. Until the real artwork is added under an `assets/Logos` group, set the company name as plain type: `display-2` in `ink-strong`, or `ink-inverse` on `surface-inverse`, with the word MIDTRANS in full capitals and no letter-spacing change.
+The mark is a ship's wheel with wings, above the "Midtrans" wordmark and the line "Shipping & Services". Four files sit in the **MIDTRANS LOGO** asset group: `midtrans-logo-blue.png`, `midtrans-logo-white.png`, and the app icon at 1024px and 512px.
+
+- Place `midtrans-logo-blue.png` on `surface-page`, `surface-card` and `surface-sunken`. Place `midtrans-logo-white.png` on `surface-inverse`, on a `brand-accent` field, and over photography.
+- The artwork is flat single-ink on transparency and carries its own ink, so it does not inherit `currentColor` and must not be recoloured with CSS. The blue file measures `#007DC6` — one step off the stated brand `#007DC5`, indistinguishable in use but worth knowing before anyone re-cuts the artwork. The "Shipping & Services" line is near-black `#050708` in that file.
+- Clear space on all four sides is `space-4`, measured from the widest point of the wings. Minimum width for the full lock-up is 120px; below that use the app icon alone.
+- Never recolour, rotate, outline, add a shadow to, stretch, or place the mark on a busy field.
+- The wordmark is part of the artwork, set in its own script face: never re-set "Midtrans" in `sans`, and never uppercase it. Where a text-only treatment is needed — a plain-text email signature, a system that cannot carry the image — set MIDTRANS in `display-2` `ink-strong`, full capitals, with no letter-spacing change.
+- Only PNG raster is available. Obtain vector artwork before any print, large-format or favicon work, and record it here when it arrives.
 
 ### Iconography
 
