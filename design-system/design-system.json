@@ -34,6 +34,22 @@
       },
       "name": "MIDTRANS LOGO",
       "order": []
+    },
+    "Icons": {
+      "files": {
+        "midtrans-icons.svg": {
+          "blob": "a43fb04580c44fd1a3c46635c71e71de",
+          "name": "midtrans-icons.svg",
+          "sha256": "ca373e928abd63a525807f1eee8e25023ef2caeaea6fd3232ccc0e25a4f4bbb4",
+          "size": 4506,
+          "type": "image/svg+xml"
+        }
+      },
+      "name": "Icons",
+      "tile": "s",
+      "order": [
+        "midtrans-icons.svg"
+      ]
     }
   },
   "blobs": {},
@@ -49,13 +65,14 @@
     ]
   },
   "groups": [
-    "MIDTRANS~20LOGO"
+    "MIDTRANS~20LOGO",
+    "Icons"
   ],
   "lastChange": {
-    "at": "2026-09-16T21:35:12Z",
+    "at": "2026-09-16T21:48:18Z",
     "by": "Khaldoun",
     "via": "Claude Code",
-    "note": "#007DC5 confirmed official; radii moved to the international enterprise band 4/8/12; added Footer, Document, Calculator and HSCodeLookup, and the ink-inverse-muted token."
+    "note": "Phases 1-4: verified the domain estate from DNS; added the 16-icon logistics set; added Hero, ServiceCard, TradeLaneCard, CTABlock, Milestone and Icon; added the properties-and-domains section."
   },
   "layout": "files",
   "libraries": [],

@@ -304,3 +304,108 @@
 .mt-hs__desc { flex: 1 1 240px; font-size: 13px; line-height: 20px; color: var(--ink-body); }
 .mt-hs__duty { font-size: 12px; line-height: 18px; color: var(--ink-muted); white-space: nowrap; }
 .mt-hs__foot { margin: 0; font-size: 12px; line-height: 18px; color: var(--ink-muted); }
+
+/* ---------- Icon ---------- */
+.mt-icon { width: 24px; height: 24px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.mt-icon--sm { width: 20px; height: 20px; }
+.mt-icon--lg { width: 32px; height: 32px; stroke-width: 2; }
+[dir="rtl"] .mt-icon--flip { transform: scaleX(-1); }
+
+/* ---------- Hero ---------- */
+.mt-hero {
+  display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--space-8); align-items: center;
+  max-width: 1200px; margin-inline: auto;
+  padding-block: var(--space-10); padding-inline: var(--space-8);
+  font-family: var(--font-sans);
+}
+.mt-hero__copy { display: flex; flex-direction: column; }
+.mt-hero__eyebrow {
+  margin: 0 0 var(--space-3); font-size: 13px; line-height: 16px; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase; color: var(--brand-link);
+}
+.mt-hero__title { margin: 0; font-size: 40px; line-height: 44px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink-strong); }
+.mt-hero__lede { margin: var(--space-4) 0 0; max-width: 56ch; font-size: 17px; line-height: 27px; color: var(--ink-body); }
+.mt-hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-block-start: var(--space-6); }
+.mt-hero__aside {
+  background: var(--surface-sunken); border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg); padding: var(--space-5);
+}
+@media (max-width: 899px) {
+  .mt-hero { grid-template-columns: 1fr; gap: var(--space-5); padding-block: var(--space-8); padding-inline: var(--space-4); }
+  .mt-hero__title { font-size: 32px; line-height: 38px; }
+  .mt-hero__aside { display: none; }
+}
+
+/* ---------- ServiceCard ---------- */
+.mt-service {
+  display: flex; flex-direction: column; gap: var(--space-2);
+  padding: var(--space-5);
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--brand-link);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  transition: border-color 120ms linear, background-color 120ms linear;
+}
+.mt-service:hover { border-color: var(--border-strong); background: var(--surface-sunken); }
+.mt-service:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+.mt-service__icon { display: inline-flex; margin-block-end: var(--space-2); }
+.mt-service__icon svg { width: 32px; height: 32px; stroke-width: 1.5; }
+.mt-service__title { margin: 0; font-size: 17px; line-height: 24px; font-weight: 600; color: var(--ink-strong); }
+.mt-service__text { margin: 0; font-size: 13px; line-height: 20px; color: var(--ink-body); }
+
+/* ---------- TradeLaneCard ---------- */
+.mt-lane {
+  display: flex; flex-direction: column; gap: var(--space-3);
+  padding: var(--space-5);
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+}
+.mt-lane__route { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+.mt-lane__place { font-size: 17px; line-height: 24px; font-weight: 600; color: var(--ink-strong); }
+.mt-lane__arrow { width: 20px; height: 20px; flex: none; fill: none; stroke: var(--brand-link); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+[dir="rtl"] .mt-lane__arrow { transform: scaleX(-1); }
+.mt-lane__modes { margin: 0; font-size: 13px; line-height: 20px; color: var(--ink-muted); }
+
+/* ---------- CTABlock ---------- */
+.mt-cta {
+  display: flex; flex-wrap: wrap; gap: var(--space-6); align-items: center; justify-content: space-between;
+  background: var(--surface-inverse);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  margin-block-end: var(--space-10);
+  font-family: var(--font-sans);
+}
+.mt-cta__copy { max-width: 56ch; }
+.mt-cta__title { margin: 0; font-size: 26px; line-height: 32px; font-weight: 600; color: var(--ink-inverse); }
+.mt-cta__text { margin: var(--space-3) 0 0; font-size: 15px; line-height: 23px; color: var(--ink-inverse-muted); }
+.mt-cta__actions { display: flex; flex-direction: column; gap: var(--space-2); align-items: flex-start; }
+.mt-cta__alt { font-size: 13px; line-height: 20px; color: var(--ink-inverse-muted); text-decoration: underline; }
+.mt-cta__alt:hover { color: var(--ink-inverse); }
+.mt-cta__alt:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+@media (max-width: 767px) { .mt-cta { padding: var(--space-5); } }
+
+/* ---------- Milestone ---------- */
+.mt-timeline { list-style: none; margin: 0; padding: 0; font-family: var(--font-sans); }
+.mt-timeline__step { position: relative; padding-inline-start: var(--space-6); padding-block-end: var(--space-5); }
+.mt-timeline__step::before {
+  content: ""; position: absolute; inset-inline-start: 0; inset-block-start: 4px;
+  width: 12px; height: 12px; border-radius: var(--radius-pill);
+  border: 2px solid var(--border-strong); background: var(--surface-card); box-sizing: border-box;
+}
+.mt-timeline__step::after {
+  content: ""; position: absolute; inset-inline-start: 5px; inset-block-start: 18px; bottom: 0;
+  width: 2px; background: var(--border-subtle);
+}
+.mt-timeline__step:last-child { padding-block-end: 0; }
+.mt-timeline__step:last-child::after { display: none; }
+.mt-timeline__step[data-state="done"]::before { background: var(--status-success); border-color: var(--status-success); }
+.mt-timeline__step[data-state="current"]::before { background: var(--brand-primary); border-color: var(--brand-primary); }
+.mt-timeline__title { margin: 0; font-size: 15px; line-height: 23px; color: var(--ink-body); }
+.mt-timeline__step[data-state="current"] .mt-timeline__title { font-weight: 600; color: var(--ink-strong); }
+.mt-timeline__step[data-state="pending"] .mt-timeline__title { color: var(--ink-muted); }
+.mt-timeline__meta { margin: 0; font-size: 12px; line-height: 18px; color: var(--ink-muted); }

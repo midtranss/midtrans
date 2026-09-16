@@ -1,0 +1,34 @@
+<!-- @dsCard group="Data display" height=320 subtitle="Shipment timeline: done, current, and not yet reached" -->
+<style>body { margin: 0; padding: 24px; background: var(--surface-card); }</style>
+<ol class="mt-timeline">
+  <li class="mt-timeline__step" data-state="done">
+    <div class="mt-timeline__body">
+      <p class="mt-timeline__title">Booking confirmed</p>
+      <p class="mt-timeline__meta">02 Sep 2026 · Lattakia</p>
+    </div>
+  </li>
+  <li class="mt-timeline__step" data-state="done">
+    <div class="mt-timeline__body">
+      <p class="mt-timeline__title">Loaded on vessel</p>
+      <p class="mt-timeline__meta">08 Sep 2026 · MSC specimen voyage</p>
+    </div>
+  </li>
+  <li class="mt-timeline__step" data-state="current">
+    <div class="mt-timeline__body">
+      <p class="mt-timeline__title">In transit</p>
+      <p class="mt-timeline__meta">Departed 09 Sep 2026</p>
+    </div>
+  </li>
+  <li class="mt-timeline__step" data-state="pending">
+    <div class="mt-timeline__body">
+      <p class="mt-timeline__title">Arrival at destination port</p>
+      <p class="mt-timeline__meta">Per carrier schedule</p>
+    </div>
+  </li>
+  <li class="mt-timeline__step" data-state="pending">
+    <div class="mt-timeline__body">
+      <p class="mt-timeline__title">Customs clearance</p>
+      <p class="mt-timeline__meta">Pending arrival</p>
+    </div>
+  </li>
+</ol>
