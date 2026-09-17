@@ -61,7 +61,10 @@ The values are the app's own where the app had them: `#007DC5` brand, `#0074B7` 
 
 - **The dashboard changes in three ways only: colour, type, size.** Structure, order, elements and behaviour stay exactly as they are.
 - **No rate, transit time, duty or acceptance is ever displayed unless operations confirmed it.** Render the condition instead — "Confirmed on booking", "Per carrier schedule".
-- **Mira always carries her label**: "Mira · MIDTRANS logistics assistant". The stylesheet prints a visible error if it is missing.
+- **Mira is synthetic**, and the illustrated mark is her image — never a
+  photograph, and never presented as an employee. She always carries her label:
+  "Mira · MIDTRANS logistics assistant". The stylesheet prints a visible error
+  if it is missing.
 - **Arabic is Cairo, bound by `lang="ar"`**, and RTL is handled by logical properties. Never add a second stylesheet for RTL.
 
 Full documentation: https://claude.ai/artifact/G8bBKTVonv2Z4Xca7xN9fe

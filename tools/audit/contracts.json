@@ -1,203 +1,212 @@
 {
-  "note": "Each claim binds a sentence in a component card to a test of the built system. `quote` must still appear in `card` verbatim: edit the card and the claim fails until it is updated with it, so the prose and the code cannot drift apart silently. `test` is evaluated in the loaded preview and returns true, or a string saying what it found.",
-  "claims": [
-    {
-      "id": "servicecard-one-column-on-phone",
-      "card": "components/ServiceCard/README.md",
-      "quote": "**Three per row on desktop, one below 768px.**",
-      "mount": "ServiceCard",
-      "width": 360,
-      "expect": "the service grid is a single column",
-      "test": "const n = getComputedStyle(document.querySelector('.grid')).gridTemplateColumns.split(' ').length; return n === 1 || `${n} columns`;"
-    },
-    {
-      "id": "servicecard-three-on-desktop",
-      "card": "components/ServiceCard/README.md",
-      "quote": "**Three per row on desktop, one below 768px.**",
-      "mount": "ServiceCard",
-      "width": 1100,
-      "expect": "three per row on desktop",
-      "test": "const n = getComputedStyle(document.querySelector('.grid')).gridTemplateColumns.split(' ').length; return n === 3 || `${n} columns`;"
-    },
-    {
-      "id": "appshell-back-gives-way",
-      "card": "components/AppShell/README.md",
-      "quote": "**From 900px up the back button gives way to the side rail**",
-      "mount": "AppShell",
-      "width": 1000,
-      "expect": ".mt-shell__back is not displayed",
-      "test": "const e = document.querySelector('.mt-shell__back'); if (!e) return 'no back control in the preview'; const d = getComputedStyle(e).display; return d === 'none' || `display: ${d}`;"
-    },
-    {
-      "id": "appshell-back-present-on-phone",
-      "card": "components/AppShell/README.md",
-      "quote": "**From 900px up the back button gives way to the side rail**",
-      "mount": "AppShell",
-      "width": 400,
-      "expect": "below 900px the back control is there",
-      "test": "const e = document.querySelector('.mt-shell__back'); if (!e) return 'no back control in the preview'; const d = getComputedStyle(e).display; return d !== 'none' || 'hidden below 900px too';"
-    },
-    {
-      "id": "datatable-header-frozen",
-      "card": "components/DataTable/README.md",
-      "quote": "Freeze the header with `shadow-sm` once the body scrolls.",
-      "mount": "DataTable",
-      "width": 1100,
-      "expect": "the header cell is sticky and carries a shadow",
-      "test": "const cs = getComputedStyle(document.querySelector('.mt-table th')); if (cs.position !== 'sticky') return `position: ${cs.position}`; return /rgb/.test(cs.boxShadow) || `box-shadow: ${cs.boxShadow}`;"
-    },
-    {
-      "id": "datatable-stack-opt-in-carried",
-      "card": "components/DataTable/README.md",
-      "quote": "The preview beside this card carries both.",
-      "mount": "DataTable",
-      "width": 360,
-      "expect": "the canonical table has mt-table--stack and every cell a data-label",
-      "test": "const t = document.querySelector('.mt-table'); if (!t.classList.contains('mt-table--stack')) return 'no mt-table--stack'; const bare = [...t.querySelectorAll('tbody td')].filter(td => !td.hasAttribute('data-label')); return bare.length === 0 || `${bare.length} cells without data-label`;"
-    },
-    {
-      "id": "hero-aside-dropped-on-phone",
-      "card": "components/Hero/README.md",
-      "quote": "`mt-hero__aside` is `display: none` there",
-      "mount": "Hero",
-      "width": 360,
-      "expect": "the hero aside is not rendered on a phone",
-      "test": "const e = document.querySelector('.mt-hero__aside'); if (!e) return true; const d = getComputedStyle(e).display; return d === 'none' || `display: ${d}`;"
-    },
-    {
-      "id": "card-padding-steps-down",
-      "card": "components/Card/README.md",
-      "quote": "Padding is `space-5`, dropping to `space-4` below 768px.",
-      "mount": "Card",
-      "width": 360,
-      "expect": "card padding is 16px below 768px",
-      "test": "const p = getComputedStyle(document.querySelector('.mt-card')).paddingTop; return p === '16px' || p;"
-    },
-    {
-      "id": "contact-every-number-dials",
-      "card": "components/Contact/README.md",
-      "quote": "**Every number is a `tel:` link**",
-      "mount": "Contact",
-      "width": 1100,
-      "expect": "every telephone number sits inside a tel: anchor",
-      "test": "const tel = [...document.querySelectorAll('a[href^=\"tel:\"]')]; const inside = new Set(tel.map(a => a.textContent.replace(/\\D/g,''))); const loose = []; document.querySelectorAll('.mt-office__line').forEach(li => { const txt = li.textContent; const m = txt.match(/\\+\\d[\\d\\s]{6,}/g) || []; m.forEach(x => { const d = x.replace(/\\D/g,''); if (![...inside].some(i => i.includes(d) || d.includes(i))) loose.push(x.trim()); }); }); return loose.length === 0 || `not dialable: ${loose.join(', ')}`;"
-    },
-    {
-      "id": "assistant-role-never-dropped",
-      "card": "components/Assistant/README.md",
-      "quote": "**never drop the role**",
-      "mount": "Assistant",
-      "width": 1100,
-      "expect": "every identity block carries the role line",
-      "test": "const ids = [...document.querySelectorAll('.mt-assistant__id')]; if (!ids.length) return 'no identity block in the preview'; const bad = ids.filter(i => !i.querySelector('.mt-assistant__role')); return bad.length === 0 || `${bad.length} identity block(s) without a role`;"
-    },
-    {
-      "id": "notification-names-its-record",
-      "card": "components/Notification/README.md",
-      "quote": "**Every notification names its record.**",
-      "mount": "Notification",
-      "width": 1100,
-      "expect": "every notification carries a reference",
-      "test": "const n = [...document.querySelectorAll('.mt-note')]; if (!n.length) return 'no notifications in the preview'; const bad = n.filter(x => !x.querySelector('.mt-note__ref')); return bad.length === 0 || `${bad.length} notification(s) without a reference`;"
-    },
-    {
-      "id": "report-bars-directly-labelled",
-      "card": "components/Report/README.md",
-      "quote": "**Every bar is directly labelled with its value.**",
-      "mount": "Report",
-      "width": 1100,
-      "expect": "every bar row shows its value",
-      "test": "const r = [...document.querySelectorAll('.mt-figure__row')]; if (!r.length) return 'no figure rows in the preview'; const bad = r.filter(x => !x.querySelector('.mt-figure__value')); return bad.length === 0 || `${bad.length} bar(s) without a value`;"
-    },
-    {
-      "id": "faq-ships-structured-data",
-      "card": "components/FAQ/README.md",
-      "quote": "Every FAQ block ships a matching `FAQPage` JSON-LD with one `Question` per item, the answer text identical to what is rendered.",
-      "mount": "FAQ",
-      "width": 1100,
-      "expect": "a FAQPage block whose questions match the rendered ones",
-      "test": "const s = document.querySelector('script[type=\"application/ld+json\"]'); if (!s) return 'no JSON-LD in the preview'; let d; try { d = JSON.parse(s.textContent); } catch (e) { return 'JSON-LD does not parse'; } if (d['@type'] !== 'FAQPage') return `@type is ${d['@type']}`; const asked = [...document.querySelectorAll('.mt-faq__q span:first-child')].map(x => x.textContent.trim()); const marked = (d.mainEntity || []).map(q => q.name.trim()); const missing = asked.filter(q => !marked.includes(q)); return missing.length === 0 || `not marked up: ${missing.join(' | ')}`;"
-    },
-    {
-      "id": "faq-never-all-open",
-      "card": "components/FAQ/README.md",
-      "quote": "Never open all of them",
-      "mount": "FAQ",
-      "width": 1100,
-      "expect": "opening every question in turn cannot leave them all open",
-      "test": "const qs = [...document.querySelectorAll('.mt-faq__q')]; qs.forEach(q => q.click()); const open = qs.filter(q => q.getAttribute('aria-expanded') === 'true').length; return open < qs.length || `all ${qs.length} are open`;"
-    },
-    {
-      "id": "badge-never-colour-alone",
-      "card": "components/StatusBadge/README.md",
-      "quote": "colour",
-      "mount": "StatusBadge",
-      "width": 1100,
-      "expect": "every badge carries a word, not only a colour",
-      "test": "const b = [...document.querySelectorAll('.mt-badge')]; if (!b.length) return 'no badges in the preview'; const bad = b.filter(x => !x.textContent.trim()); return bad.length === 0 || `${bad.length} badge(s) with no text`;"
-    },
-    {
-      "id": "document-no-em-dash-for-a-figure",
-      "card": "components/Document/README.md",
-      "quote": "Never `0`, never `—`.",
-      "mount": "DocumentStatement",
-      "width": 1100,
-      "expect": "no cell stands in for a figure with a dash (the statement has the most empty cells)",
-      "test": "const bad = [...document.querySelectorAll('.mt-doc__table td')].filter(td => /^[—–-]$/.test(td.textContent.trim())); return bad.length === 0 || `${bad.length} cell(s) hold only a dash`;"
-    },
-    {
-      "id": "tradelane-one-column-on-phone",
-      "card": "components/TradeLaneCard/README.md",
-      "quote": "lane",
-      "mount": "TradeLaneCard",
-      "width": 360,
-      "expect": "trade lanes stack to one column on a phone",
-      "test": "const g = document.querySelector('.g2'); if (!g) return true; const n = getComputedStyle(g).gridTemplateColumns.split(' ').length; return n === 1 || `${n} columns`;"
-    },
-    {
-      "id": "delivery-advice-carries-no-money",
-      "card": "components/DocumentDeliveryAdvice/README.md",
-      "quote": "No amount appears here.",
-      "mount": "DocumentDeliveryAdvice",
-      "width": 1100,
-      "expect": "no currency and no money column anywhere in the document",
-      "test": "const money = document.querySelectorAll('.mt-doc__money').length; if (money) return `${money} money cell(s)`; const cur = /\\b(USD|EUR|AED|SYP)\\b/.test(document.querySelector('.mt-doc').textContent); return !cur || 'a currency code appears in the text';"
-    },
-    {
-      "id": "delivery-advice-status-per-line",
-      "card": "components/DocumentDeliveryAdvice/README.md",
-      "quote": "The status column is a StatusBadge per row",
-      "mount": "DocumentDeliveryAdvice",
-      "width": 1100,
-      "expect": "every line carries its own status badge",
-      "test": "const rows = [...document.querySelectorAll('.mt-doc__table tbody tr')]; if (!rows.length) return 'no lines'; const bad = rows.filter(r => !r.querySelector('.mt-badge')); return bad.length === 0 || `${bad.length} line(s) without a status`;"
-    },
-    {
-      "id": "delivery-advice-signature-scope",
-      "card": "components/DocumentDeliveryAdvice/README.md",
-      "quote": "**The driver signs for the count and the condition of the packages, not for their contents.**",
-      "mount": "DocumentDeliveryAdvice",
-      "width": 1100,
-      "expect": "the document says what the signature does not cover",
-      "test": "const t = document.querySelector('.mt-doc').textContent.replace(/\\s+/g,' '); return /signs for the count and the condition of the packages, not for their contents/.test(t) || 'the sentence is not on the document';"
-    },
-    {
-      "id": "statement-period-not-a-date",
-      "card": "components/DocumentStatement/README.md",
-      "quote": "a statement covers a span, not a date",
-      "mount": "DocumentStatement",
-      "width": 1100,
-      "expect": "the meta rows name a period",
-      "test": "const rows = [...document.querySelectorAll('.mt-doc__meta-row')].map(r => r.firstElementChild.textContent.trim()); return rows.includes('Period') || `meta rows are ${rows.join(', ')}`;"
-    },
-    {
-      "id": "statement-running-balance",
-      "card": "components/DocumentStatement/README.md",
-      "quote": "Each row shows the balance **after** that movement",
-      "mount": "DocumentStatement",
-      "width": 1100,
-      "expect": "every movement carries a balance",
-      "test": "const heads = [...document.querySelectorAll('.mt-doc__table thead th')].map(h => h.textContent.trim()); const i = heads.indexOf('Balance'); if (i < 0) return `no Balance column (${heads.join(', ')})`; const rows = [...document.querySelectorAll('.mt-doc__table tbody tr')]; const bad = rows.filter(r => !(r.children[i] && r.children[i].textContent.trim())); return bad.length === 0 || `${bad.length} movement(s) without a balance`;"
-    }
-  ]
+ "note": "Each claim binds a sentence in a component card to a test of the built system. `quote` must still appear in `card` verbatim: edit the card and the claim fails until it is updated with it, so the prose and the code cannot drift apart silently. `test` is evaluated in the loaded preview and returns true, or a string saying what it found.",
+ "claims": [
+  {
+   "id": "servicecard-one-column-on-phone",
+   "card": "components/ServiceCard/README.md",
+   "quote": "**Three per row on desktop, one below 768px.**",
+   "mount": "ServiceCard",
+   "width": 360,
+   "expect": "the service grid is a single column",
+   "test": "const n = getComputedStyle(document.querySelector('.grid')).gridTemplateColumns.split(' ').length; return n === 1 || `${n} columns`;"
+  },
+  {
+   "id": "servicecard-three-on-desktop",
+   "card": "components/ServiceCard/README.md",
+   "quote": "**Three per row on desktop, one below 768px.**",
+   "mount": "ServiceCard",
+   "width": 1100,
+   "expect": "three per row on desktop",
+   "test": "const n = getComputedStyle(document.querySelector('.grid')).gridTemplateColumns.split(' ').length; return n === 3 || `${n} columns`;"
+  },
+  {
+   "id": "appshell-back-gives-way",
+   "card": "components/AppShell/README.md",
+   "quote": "**From 900px up the back button gives way to the side rail**",
+   "mount": "AppShell",
+   "width": 1000,
+   "expect": ".mt-shell__back is not displayed",
+   "test": "const e = document.querySelector('.mt-shell__back'); if (!e) return 'no back control in the preview'; const d = getComputedStyle(e).display; return d === 'none' || `display: ${d}`;"
+  },
+  {
+   "id": "appshell-back-present-on-phone",
+   "card": "components/AppShell/README.md",
+   "quote": "**From 900px up the back button gives way to the side rail**",
+   "mount": "AppShell",
+   "width": 400,
+   "expect": "below 900px the back control is there",
+   "test": "const e = document.querySelector('.mt-shell__back'); if (!e) return 'no back control in the preview'; const d = getComputedStyle(e).display; return d !== 'none' || 'hidden below 900px too';"
+  },
+  {
+   "id": "datatable-header-frozen",
+   "card": "components/DataTable/README.md",
+   "quote": "Freeze the header with `shadow-sm` once the body scrolls.",
+   "mount": "DataTable",
+   "width": 1100,
+   "expect": "the header cell is sticky and carries a shadow",
+   "test": "const cs = getComputedStyle(document.querySelector('.mt-table th')); if (cs.position !== 'sticky') return `position: ${cs.position}`; return /rgb/.test(cs.boxShadow) || `box-shadow: ${cs.boxShadow}`;"
+  },
+  {
+   "id": "datatable-stack-opt-in-carried",
+   "card": "components/DataTable/README.md",
+   "quote": "The preview beside this card carries both.",
+   "mount": "DataTable",
+   "width": 360,
+   "expect": "the canonical table has mt-table--stack and every cell a data-label",
+   "test": "const t = document.querySelector('.mt-table'); if (!t.classList.contains('mt-table--stack')) return 'no mt-table--stack'; const bare = [...t.querySelectorAll('tbody td')].filter(td => !td.hasAttribute('data-label')); return bare.length === 0 || `${bare.length} cells without data-label`;"
+  },
+  {
+   "id": "hero-aside-dropped-on-phone",
+   "card": "components/Hero/README.md",
+   "quote": "`mt-hero__aside` is `display: none` there",
+   "mount": "Hero",
+   "width": 360,
+   "expect": "the hero aside is not rendered on a phone",
+   "test": "const e = document.querySelector('.mt-hero__aside'); if (!e) return true; const d = getComputedStyle(e).display; return d === 'none' || `display: ${d}`;"
+  },
+  {
+   "id": "card-padding-steps-down",
+   "card": "components/Card/README.md",
+   "quote": "Padding is `space-5`, dropping to `space-4` below 768px.",
+   "mount": "Card",
+   "width": 360,
+   "expect": "card padding is 16px below 768px",
+   "test": "const p = getComputedStyle(document.querySelector('.mt-card')).paddingTop; return p === '16px' || p;"
+  },
+  {
+   "id": "contact-every-number-dials",
+   "card": "components/Contact/README.md",
+   "quote": "**Every number is a `tel:` link**",
+   "mount": "Contact",
+   "width": 1100,
+   "expect": "every telephone number sits inside a tel: anchor",
+   "test": "const tel = [...document.querySelectorAll('a[href^=\"tel:\"]')]; const inside = new Set(tel.map(a => a.textContent.replace(/\\D/g,''))); const loose = []; document.querySelectorAll('.mt-office__line').forEach(li => { const txt = li.textContent; const m = txt.match(/\\+\\d[\\d\\s]{6,}/g) || []; m.forEach(x => { const d = x.replace(/\\D/g,''); if (![...inside].some(i => i.includes(d) || d.includes(i))) loose.push(x.trim()); }); }); return loose.length === 0 || `not dialable: ${loose.join(', ')}`;"
+  },
+  {
+   "id": "assistant-role-never-dropped",
+   "card": "components/Assistant/README.md",
+   "quote": "**never drop the role**",
+   "mount": "Assistant",
+   "width": 1100,
+   "expect": "every identity block carries the role line",
+   "test": "const ids = [...document.querySelectorAll('.mt-assistant__id')]; if (!ids.length) return 'no identity block in the preview'; const bad = ids.filter(i => !i.querySelector('.mt-assistant__role')); return bad.length === 0 || `${bad.length} identity block(s) without a role`;"
+  },
+  {
+   "id": "notification-names-its-record",
+   "card": "components/Notification/README.md",
+   "quote": "**Every notification names its record.**",
+   "mount": "Notification",
+   "width": 1100,
+   "expect": "every notification carries a reference",
+   "test": "const n = [...document.querySelectorAll('.mt-note')]; if (!n.length) return 'no notifications in the preview'; const bad = n.filter(x => !x.querySelector('.mt-note__ref')); return bad.length === 0 || `${bad.length} notification(s) without a reference`;"
+  },
+  {
+   "id": "report-bars-directly-labelled",
+   "card": "components/Report/README.md",
+   "quote": "**Every bar is directly labelled with its value.**",
+   "mount": "Report",
+   "width": 1100,
+   "expect": "every bar row shows its value",
+   "test": "const r = [...document.querySelectorAll('.mt-figure__row')]; if (!r.length) return 'no figure rows in the preview'; const bad = r.filter(x => !x.querySelector('.mt-figure__value')); return bad.length === 0 || `${bad.length} bar(s) without a value`;"
+  },
+  {
+   "id": "faq-ships-structured-data",
+   "card": "components/FAQ/README.md",
+   "quote": "Every FAQ block ships a matching `FAQPage` JSON-LD with one `Question` per item, the answer text identical to what is rendered.",
+   "mount": "FAQ",
+   "width": 1100,
+   "expect": "a FAQPage block whose questions match the rendered ones",
+   "test": "const s = document.querySelector('script[type=\"application/ld+json\"]'); if (!s) return 'no JSON-LD in the preview'; let d; try { d = JSON.parse(s.textContent); } catch (e) { return 'JSON-LD does not parse'; } if (d['@type'] !== 'FAQPage') return `@type is ${d['@type']}`; const asked = [...document.querySelectorAll('.mt-faq__q span:first-child')].map(x => x.textContent.trim()); const marked = (d.mainEntity || []).map(q => q.name.trim()); const missing = asked.filter(q => !marked.includes(q)); return missing.length === 0 || `not marked up: ${missing.join(' | ')}`;"
+  },
+  {
+   "id": "faq-never-all-open",
+   "card": "components/FAQ/README.md",
+   "quote": "Never open all of them",
+   "mount": "FAQ",
+   "width": 1100,
+   "expect": "opening every question in turn cannot leave them all open",
+   "test": "const qs = [...document.querySelectorAll('.mt-faq__q')]; qs.forEach(q => q.click()); const open = qs.filter(q => q.getAttribute('aria-expanded') === 'true').length; return open < qs.length || `all ${qs.length} are open`;"
+  },
+  {
+   "id": "badge-never-colour-alone",
+   "card": "components/StatusBadge/README.md",
+   "quote": "colour",
+   "mount": "StatusBadge",
+   "width": 1100,
+   "expect": "every badge carries a word, not only a colour",
+   "test": "const b = [...document.querySelectorAll('.mt-badge')]; if (!b.length) return 'no badges in the preview'; const bad = b.filter(x => !x.textContent.trim()); return bad.length === 0 || `${bad.length} badge(s) with no text`;"
+  },
+  {
+   "id": "document-no-em-dash-for-a-figure",
+   "card": "components/Document/README.md",
+   "quote": "Never `0`, never `—`.",
+   "mount": "DocumentStatement",
+   "width": 1100,
+   "expect": "no cell stands in for a figure with a dash (the statement has the most empty cells)",
+   "test": "const bad = [...document.querySelectorAll('.mt-doc__table td')].filter(td => /^[—–-]$/.test(td.textContent.trim())); return bad.length === 0 || `${bad.length} cell(s) hold only a dash`;"
+  },
+  {
+   "id": "tradelane-one-column-on-phone",
+   "card": "components/TradeLaneCard/README.md",
+   "quote": "lane",
+   "mount": "TradeLaneCard",
+   "width": 360,
+   "expect": "trade lanes stack to one column on a phone",
+   "test": "const g = document.querySelector('.g2'); if (!g) return true; const n = getComputedStyle(g).gridTemplateColumns.split(' ').length; return n === 1 || `${n} columns`;"
+  },
+  {
+   "id": "delivery-advice-carries-no-money",
+   "card": "components/DocumentDeliveryAdvice/README.md",
+   "quote": "No amount appears here.",
+   "mount": "DocumentDeliveryAdvice",
+   "width": 1100,
+   "expect": "no currency and no money column anywhere in the document",
+   "test": "const money = document.querySelectorAll('.mt-doc__money').length; if (money) return `${money} money cell(s)`; const cur = /\\b(USD|EUR|AED|SYP)\\b/.test(document.querySelector('.mt-doc').textContent); return !cur || 'a currency code appears in the text';"
+  },
+  {
+   "id": "delivery-advice-status-per-line",
+   "card": "components/DocumentDeliveryAdvice/README.md",
+   "quote": "The status column is a StatusBadge per row",
+   "mount": "DocumentDeliveryAdvice",
+   "width": 1100,
+   "expect": "every line carries its own status badge",
+   "test": "const rows = [...document.querySelectorAll('.mt-doc__table tbody tr')]; if (!rows.length) return 'no lines'; const bad = rows.filter(r => !r.querySelector('.mt-badge')); return bad.length === 0 || `${bad.length} line(s) without a status`;"
+  },
+  {
+   "id": "delivery-advice-signature-scope",
+   "card": "components/DocumentDeliveryAdvice/README.md",
+   "quote": "**The driver signs for the count and the condition of the packages, not for their contents.**",
+   "mount": "DocumentDeliveryAdvice",
+   "width": 1100,
+   "expect": "the document says what the signature does not cover",
+   "test": "const t = document.querySelector('.mt-doc').textContent.replace(/\\s+/g,' '); return /signs for the count and the condition of the packages, not for their contents/.test(t) || 'the sentence is not on the document';"
+  },
+  {
+   "id": "statement-period-not-a-date",
+   "card": "components/DocumentStatement/README.md",
+   "quote": "a statement covers a span, not a date",
+   "mount": "DocumentStatement",
+   "width": 1100,
+   "expect": "the meta rows name a period",
+   "test": "const rows = [...document.querySelectorAll('.mt-doc__meta-row')].map(r => r.firstElementChild.textContent.trim()); return rows.includes('Period') || `meta rows are ${rows.join(', ')}`;"
+  },
+  {
+   "id": "statement-running-balance",
+   "card": "components/DocumentStatement/README.md",
+   "quote": "Each row shows the balance **after** that movement",
+   "mount": "DocumentStatement",
+   "width": 1100,
+   "expect": "every movement carries a balance",
+   "test": "const heads = [...document.querySelectorAll('.mt-doc__table thead th')].map(h => h.textContent.trim()); const i = heads.indexOf('Balance'); if (i < 0) return `no Balance column (${heads.join(', ')})`; const rows = [...document.querySelectorAll('.mt-doc__table tbody tr')]; const bad = rows.filter(r => !(r.children[i] && r.children[i].textContent.trim())); return bad.length === 0 || `${bad.length} movement(s) without a balance`;"
+  },
+  {
+   "id": "mira-mark-draws-no-second-ring",
+   "card": "components/Assistant/README.md",
+   "quote": "**no border and no fill**",
+   "mount": "Assistant",
+   "width": 1100,
+   "expect": "mt-avatar has no border, no painted background, and is centred - the mark is already a disc",
+   "test": "const a = [...document.querySelectorAll('.mt-avatar')]; if (!a.length) return 'no avatar in the preview'; const bad = []; for (const el of a) { const cs = getComputedStyle(el); const bw = ['Top','Right','Bottom','Left'].map(s => parseFloat(cs['border'+s+'Width'])||0); if (bw.some(w => w > 0)) bad.push('border '+bw.join('/')); const bg = cs.backgroundColor.replace(/\\s/g,''); if (!(bg === 'rgba(0,0,0,0)' || bg === 'transparent')) bad.push('background '+cs.backgroundColor); const op = cs.objectPosition.replace(/\\s+/g,' ').trim(); if (!(op === '50% 50%' || op === 'center' || op === 'center center')) bad.push('object-position '+op); } return bad.length === 0 || bad.join('; ');"
+  }
+ ]
 }

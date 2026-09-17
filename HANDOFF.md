@@ -167,7 +167,15 @@ CHROME=/opt/pw-browsers/chromium-1194/chrome-linux/chrome
   `TBD` or a greyed sample figure.
 - **No superlatives** in any locale: best, largest, cheapest, fastest,
   guaranteed, number one.
+- **Mira is synthetic, and the illustrated mark is her image.** The
+  photographic portrait is retired: a human face beside a reply presents a
+  synthetic persona as a member of staff. `mira-avatar.svg` is the `mt-avatar`
+  source everywhere; `mt-avatar` carries no border, no fill and
+  `object-position: center`, because the mark is already a disc. She is
+  **never presented as an employee** — no team page, no staff directory, no
+  signature, no named contact.
 - **Mira always carries her label**: "Mira · MIDTRANS logistics assistant".
+  The mark makes her nature legible; the label states it. Both, not either.
 - Locales in parity: EN, AR, FR, DE, TR, ZH, SV.
 - `trustbycompass.com` is a different project and out of scope.
 
@@ -190,11 +198,10 @@ next session is likelier to repeat them than to invent new ones.
 | `.mt-doc__main` became focusable with no focus ring | Adding `tabindex` adds a focus obligation |
 | The README claimed 72 KB / 12 KB | It was 87 KB / 17 KB. Measure, do not estimate |
 | An install guide told readers to clone a branch | The merge made it false. Instructions about the repo go stale when the repo changes |
+| Mira shipped with a photographic portrait | She is synthetic. A human face beside a reply presents her as staff, whatever the label says. Reversed to the illustrated mark, which also removed the resolution limit and reads better at 32px |
 
 ## 8 · Not yet decided
 
-- A larger Mira portrait (>256px) for profile, press and print.
-- The provenance of that portrait — a real employee with consent, or synthetic.
 - Dashboard chrome from the reference pack: header row, top nav, More menu,
   Quick Action, sidebar, notifications, chat dock, mobile bottom nav, KPI grid,
   needs-now, freight cycle. All under "colour, type, size only".

@@ -1365,9 +1365,7 @@
 [data-skin="meridian"] .mt-launcher__avatar {
   width: 44px; height: 44px; flex: none;
   border-radius: var(--radius-pill);
-  object-fit: cover; object-position: center 22%;
-  border: 2px solid var(--surface-card);
-  background: var(--surface-sunken);
+  object-fit: contain; object-position: center;
 }
 [data-skin="meridian"] .mt-launcher__text { display: flex; flex-direction: column; line-height: 1.2; }
 [data-skin="meridian"] .mt-launcher__name { font-size: 15px; font-weight: 700; }
@@ -1445,10 +1443,10 @@
 [data-skin="meridian"] .mt-avatar {
   width: 40px; height: 40px; flex: none;
   border-radius: var(--radius-pill);
-  object-fit: cover;
-  object-position: center 22%;   /* the portrait's head sits above centre */
-  background: var(--surface-sunken);
-  border: 1px solid var(--border-subtle);
+  object-fit: contain;
+  object-position: center;
+  /* Mira's mark is a disc drawn on a transparent ground. It needs no border and
+     no fill: either one draws a second ring around the disc she already has. */
 }
 [data-skin="meridian"] .mt-avatar--sm { width: 32px; height: 32px; }
 [data-skin="meridian"] .mt-avatar--lg { width: 64px; height: 64px; }
