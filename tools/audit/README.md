@@ -13,6 +13,7 @@ several of the defects they caught were invisible in the source.
     python3 tools/audit/gen_mounts.py         # previews -> loadable pages
     python3 tools/audit/static.py             # the source text
     python3 tools/audit/doc_totals.py         # document totals against their rows
+    node    tools/audit/contract_check.js     # the cards against the built system
     node    tools/audit/live.js            # what the browser computes
     node    tools/audit/meridian_proof.js  # the skin's isolation
 
@@ -64,6 +65,29 @@ sum. A packing list shipped with totals of 12,026 kg over rows summing to
 it is the number a warehouse and a customs officer check piece by piece.
 Reading the preview did not catch it; adding it up did.
 
+## contract_check.js — the cards against the code
+
+The other checks test the code against itself, so none of them can see a card
+that promises one thing while the CSS does another. More than half the findings
+of four review rounds were exactly that: headers the register contract says to
+freeze and the stylesheet never froze, a back control the AppShell card retires
+at 900px and the CSS kept, a FAQ that ships no structured data its own card
+requires.
+
+Prose cannot be parsed reliably, so this does not try. `contracts.json` holds
+one entry per claim: a **sentence quoted from a card**, the preview to load, a
+width, and a test evaluated in the page.
+
+The quote is what binds the two. It must still appear in that card verbatim, so
+rewriting the card fails the claim until it is rewritten with it — the prose and
+the code cannot drift apart without someone being told. Both directions are
+covered: change the CSS and the test fails naming what it found; change the
+card and the claim fails naming the sentence that vanished.
+
+Seventeen claims at present, across breakpoints, required markup, and rules
+stated absolutely ("every notification names its record", "never drop the
+role"). Adding one is an entry in the JSON, not code.
+
 ## meridian_proof.js — the skin
 
 Snapshots a legacy component's computed style with the skin off, on, and on in
@@ -102,6 +126,6 @@ At-rules are handled by kind, never by string prefixing: `[data-skin="meridian"]
 
 ## Exit codes
 
-`static.py`, `live.js` and `meridian_proof.js` all exit non-zero when a check
-fails. They used to print their counts and exit 0, which let a regression
+`static.py`, `doc_totals.py`, `live.js`, `contract_check.js` and
+`meridian_proof.js` all exit non-zero when a check fails. They used to print their counts and exit 0, which let a regression
 through whatever the log said.
