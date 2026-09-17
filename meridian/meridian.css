@@ -418,8 +418,11 @@
   padding: var(--space-4) var(--space-6) var(--space-3);
   border-block-end: 1px solid var(--border-subtle);
 }
-[data-skin="meridian"] .mt-doc__company { margin: 0 0 var(--space-2); font-size: 18px; line-height: 24px; font-weight: 700; letter-spacing: 0.01em; color: var(--brand-accent); }
-[data-skin="meridian"] .mt-doc__brand p { margin: 2px 0; font-size: 12px; line-height: 18px; color: var(--ink-muted); }
+[data-skin="meridian"] .mt-doc__company { margin: 0 0 var(--space-2); font-size: 18px; line-height: 24px; font-weight: 700; letter-spacing: 0.01em; color: var(--brand-primary); }
+/* The address lines only. Without the :not(), this selector (0,1,1) outranks
+   .mt-doc__company (0,1,0) and prints the company name as a 12px grey address
+   line - the most prominent line on a commercial document, demoted. */
+[data-skin="meridian"] .mt-doc__brand p:not(.mt-doc__company) { margin: 2px 0; font-size: 12px; line-height: 18px; color: var(--ink-muted); }
 [data-skin="meridian"] .mt-doc__kind { margin: 0; font-size: 31px; line-height: 36px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink-strong); text-transform: uppercase; }
 [data-skin="meridian"] .mt-doc__meta {
   display: grid; gap: 4px;
@@ -464,6 +467,19 @@
 [data-skin="meridian"] .mt-doc__table td.num { text-align: end; }
 /* Currency and amount are two aligned columns, as the app sets them, so a
    column of money lines up on the digit and the currency never drifts. */
+/* An unconfirmed figure prints its condition, never 0 and never an em-dash:
+   "Assessed on the declaration", "Confirmed on booking". It is prose, so it
+   drops out of the mono/tabular treatment the money columns use and sits in
+   ink-muted at the smaller size - readable, and visibly not a number. */
+[data-skin="meridian"] .mt-doc__table [data-unset] {
+  font-family: var(--font-sans);
+  font-variant-numeric: normal;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
+  color: var(--ink-muted);
+  white-space: normal;
+}
 [data-skin="meridian"] .mt-doc__money { display: inline-grid; grid-template-columns: 42px 86px; gap: var(--space-2); font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 [data-skin="meridian"] .mt-doc__money span:first-child { color: var(--ink-muted); font-size: 12px; }
 [data-skin="meridian"] .mt-doc__money span:last-child { text-align: end; font-weight: 600; color: var(--ink-strong); }

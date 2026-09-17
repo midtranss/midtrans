@@ -27,6 +27,8 @@ mt-doc                                  6px brand-accent rule on top
 
 One component, one `mt-doc__kind` line, one footer label. A receipt is not a different layout from a quotation.
 
+Three kinds have their own card, because each one carries a rule the others do not: **DocumentProforma** (the notice that it is not a tax invoice), **DocumentPackingList** (no money column at all), and **DocumentReceipt** (it confirms, it never demands). Read the card for the kind you are building; the anatomy above still governs all of them.
+
 | Kind | Meta rows | Totals label | Notes |
 | --- | --- | --- | --- |
 | Quotation | No · Job No · Valid | Quotation total | Terms card states it is subject to space and review |
@@ -47,7 +49,7 @@ One component, one `mt-doc__kind` line, one footer label. A receipt is not a dif
 
 **The QR card verifies the document**, and stays even when the value is long. It is `brand-accent` on the page and pure black when printed.
 
-**Every unconfirmed figure renders as its condition**, in `ink-muted`: "Confirmed on booking", "Pending customs assessment", "Assessed on the declaration". Never `0`, never `—`.
+**Every unconfirmed figure renders as its condition**, in `ink-muted`: "Confirmed on booking", "Pending customs assessment", "Assessed on the declaration". Never `0`, never `—`. Mark the cell `data-unset` and the component does the rest: it drops out of the mono tabular treatment into `ink-muted` prose, so it reads as a condition and never as a number.
 
 **Nothing is recomputed after issue.** An expired quotation keeps its figures and gains a `neutral` StatusBadge reading "Expired".
 

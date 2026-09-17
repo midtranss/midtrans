@@ -1,0 +1,79 @@
+<!-- @dsCard group="Documents" height=600 subtitle="Proforma: the same template, marked as not a tax invoice" -->
+<style>body { margin: 0; padding: 20px; background: var(--surface-sunken); }
+ .qr { width:72px; height:72px; background:
+   radial-gradient(circle, var(--brand-accent) 1.6px, transparent 1.7px) 0 0/12px 12px; }</style>
+<article class="mt-doc">
+  <div class="mt-doc__top">
+    <div class="mt-doc__brand">
+      <p class="mt-doc__company">MIDTRANS SHIPPING AND SERVICES</p>
+      <p>Deira, Port Saeed, Al Maktoum Road</p>
+      <p>Street No. 19a, Al Makateb Building</p>
+      <p>Office No. 611, Dubai - UAE</p>
+      <p>TEL: +971 4 2714480 · CELL: +971 55 2928560</p>
+    </div>
+    <div class="mt-doc__box">
+      <h2 class="mt-doc__kind">Proforma invoice</h2>
+      <div class="mt-doc__meta">
+        <div class="mt-doc__meta-row"><span>No</span><span>PI-2026-0417</span></div>
+        <div class="mt-doc__meta-row"><span>Job No</span><span>SHP-2026-1258</span></div>
+        <div class="mt-doc__meta-row"><span>Valid</span><span>10 Jul 2026</span></div>
+      </div>
+      <span class="mt-doc__badge">Verified issuer</span>
+    </div>
+    <div class="mt-doc__logo"><strong style="font-size:15px;color:var(--ink-strong);letter-spacing:.06em">MIDTRANS</strong></div>
+  </div>
+
+  <div class="mt-doc__content">
+    <div class="mt-doc__side">
+      <div class="mt-doc__card">
+        <h4>Consignee</h4>
+        <strong>ABC Trading Co.</strong>
+        <p>+963 11 555 0101</p>
+        <p>procurement@abctrading.example</p>
+        <p>Damascus, Syria</p>
+      </div>
+      <div class="mt-doc__card mt-doc__qr">
+        <div class="qr" role="img" aria-label="Verification QR code"></div>
+        <span>QR verification</span>
+      </div>
+      <div class="mt-doc__card">
+        <h4>Route</h4>
+        <p>Dubai, UAE to Damascus, Syria</p>
+        <p>Service: Door to door</p>
+        <p>Mode: Sea freight</p>
+      </div>
+    </div>
+
+    <div class="mt-doc__main">
+      <div class="mt-alert mt-alert--info" role="note" style="margin-block-end:var(--space-4)">
+        <div class="mt-alert__body">
+          <p class="mt-alert__title">This is not a tax invoice and not a demand for payment</p>
+          <p class="mt-alert__text">It is issued for customs pre-clearance, letter-of-credit opening and internal approval. A tax invoice follows once the shipment is booked and the final charges are known.</p>
+        </div>
+      </div>
+
+      <table class="mt-doc__table">
+        <thead><tr><th>Description</th><th class="num">Qty</th><th class="num">Unit</th><th class="num">Amount</th></tr></thead>
+        <tbody>
+          <tr><td>Freight charge — Dubai to Damascus</td><td class="num">1</td><td class="num"><span class="mt-doc__money"><span>USD</span><span>1,250.00</span></span></td><td class="num"><span class="mt-doc__money"><span>USD</span><span>1,250.00</span></span></td></tr>
+          <tr><td>Border handling</td><td class="num">1</td><td class="num"><span class="mt-doc__money"><span>USD</span><span>180.00</span></span></td><td class="num"><span class="mt-doc__money"><span>USD</span><span>180.00</span></span></td></tr>
+          <tr><td>Delivery order</td><td class="num">1</td><td class="num"><span class="mt-doc__money"><span>USD</span><span>75.00</span></span></td><td class="num"><span class="mt-doc__money"><span>USD</span><span>75.00</span></span></td></tr>
+          <tr><td>Import duties and taxes</td><td class="num">1</td><td class="num" data-unset>Assessed on the declaration</td><td class="num" data-unset>Assessed on the declaration</td></tr>
+        </tbody>
+      </table>
+
+      <div class="mt-doc__close">
+        <div class="mt-doc__card">
+          <h4>Terms</h4>
+          <p>Figures are indicative and subject to carrier space, final cargo details and operational review. Duties and taxes are assessed by customs on the declaration and are not included above.</p>
+        </div>
+        <div class="mt-doc__totals">
+          <div class="mt-doc__total-row"><span>Charges shown</span><span class="mt-doc__money"><span>USD</span><span>1,505.00</span></span></div>
+          <div class="mt-doc__total-row mt-doc__total-row--grand"><span>Proforma total</span><span class="mt-doc__money"><span>USD</span><span>1,505.00</span></span></div>
+        </div>
+      </div>
+      <p class="mt-doc__note"><strong>Excluded:</strong> import duties and taxes, destination storage and demurrage, inspection fees.</p>
+    </div>
+  </div>
+  <p class="mt-doc__foot">Proforma invoice</p>
+</article>
