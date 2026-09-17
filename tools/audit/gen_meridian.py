@@ -52,6 +52,15 @@ def split_rules(css):
         i += 1
 
 def scope_selector(sel):
+    """Prefix each comma-separated part with the skin scope.
+
+    A part that STARTS with an attribute selector is a state that can sit on the
+    root element - [lang="ar"], [dir="rtl"], [data-theme="dark"] - and the
+    documented install puts data-skin on that same <html>. A descendant form
+    alone therefore never matches: Arabic keeps the Latin font and direction
+    states never flip. Such parts get BOTH the self form and the descendant
+    form, so the rule holds whether the state is on the skin element or inside
+    it."""
     out = []
     for part in sel.split(','):
         p = part.strip()
@@ -59,6 +68,9 @@ def scope_selector(sel):
         if p in (':root', 'html', ':root, html'): out.append(SCOPE)
         elif p == 'body':                         out.append(f'{SCOPE} body')
         elif p.startswith(':root'):               out.append(SCOPE + p[len(':root'):])
+        elif p.startswith('['):
+            out.append(f'{SCOPE}{p}')      # the state is on the skin element
+            out.append(f'{SCOPE} {p}')     # the state is inside it
         else:                                     out.append(f'{SCOPE} {p}')
     return ',\n'.join(out)
 

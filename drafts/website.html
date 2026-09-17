@@ -3,7 +3,7 @@
 .hdr{position:sticky;inset-block-start:0;z-index:30;display:flex;align-items:center;gap:var(--space-4);padding:var(--space-3) var(--mt-gutter);padding-block-start:calc(var(--space-3) + var(--mt-safe-top));background:var(--surface-card);border-block-end:1px solid var(--border-subtle)}
 .hdr strong{font:var(--text-heading-3);color:var(--ink-strong);letter-spacing:.06em;flex:1}
 .hdr nav{display:none;gap:var(--space-4)}.hdr nav a{font:var(--text-body-sm);color:var(--ink-body);text-decoration:none}
-\@media(min-width:768px){.hdr nav{display:flex}}
+@media(min-width:768px){.hdr nav{display:flex}}
 .sec{max-width:1200px;margin-inline:auto;padding-inline:var(--mt-gutter);margin-block-end:var(--space-10)}
 .sec > h2{font:var(--text-heading-1);color:var(--ink-strong);margin:0 0 var(--space-5)}
 .g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--space-4)}
@@ -53,6 +53,11 @@
   <div class="mt-footer__legal"><p>© 1998–2026 MIDTRANS SHIPPING AND SERVICES</p>
     <p lang="ar" dir="rtl">المتوسط للشحن و الخدمات - ميدترانس</p><p>Damascus, Syrian Arab Republic</p></div>
 </div></footer>
-<script>function tg(){const h=document.documentElement;h.setAttribute('data-theme',h.getAttribute('data-theme')==='dark'?'light':'dark')}
+<script>function tg(){const h=document.documentElement;
+  // With no attribute yet the page already follows the system, so reading the
+  // attribute alone sets 'dark' on a dark system and nothing visibly changes -
+  // the first click is wasted. Fall back to what is actually in effect.
+  const now=h.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+  h.setAttribute('data-theme',now==='dark'?'light':'dark')}
 function dr(){const h=document.documentElement;const r=h.getAttribute('dir')==='rtl';h.setAttribute('dir',r?'ltr':'rtl');h.setAttribute('lang',r?'en':'ar')}</script>
 </body></html>

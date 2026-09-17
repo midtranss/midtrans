@@ -41,6 +41,19 @@ for g in t['type']['groups']:
         L += [f".{st['name']} {{", f"  font-family: var({v});", f"  font-size: {st['fontSize']};",
               f"  line-height: {st['lineHeight']};", f"  font-weight: {st['fontWeight']};",
               f"  letter-spacing: {st.get('letterSpacing') or '0'};", '}']
+# Paper is white and ink is dark, whatever the screen was set to. Without this,
+# an official quotation printed from a dark session comes out either ink-heavy
+# or as light text the browser drops the background behind - unreadable either
+# way. The light values are re-declared at print, so every component follows
+# with no per-component print rules.
+L.append('@media print {')
+L.append('  :root, [data-theme="light"], [data-theme="dark"] {')
+for c in t['color']['tokens']:
+    L.append(f"    --{c['name']}: {c['value']['light']};")
+for s_ in t['shadow']['tokens']:
+    L.append(f"    --{s_['name']}: none;")
+L.append('  }')
+L.append('}')
 for f in t['type']['fonts']:
     L += ['@font-face {', f"  font-family: \"{f['family']}\";",
           f"  src: url(\"{f['file']}\") format(\"truetype\");",

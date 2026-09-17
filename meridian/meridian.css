@@ -195,6 +195,11 @@
   opacity: 0.55;
   cursor: not-allowed;
 }
+/* ARIA describes, it does not disable. On an <a href> aria-disabled changes
+   nothing about activation: the link still follows on click and on Enter. This
+   stops the pointer, but the keyboard still reaches it, so the markup has to
+   carry the rest - see the Button card. */
+[data-skin="meridian"] a.mt-btn[aria-disabled="true"] { pointer-events: none; }
 [data-skin="meridian"] .mt-btn--primary {
   background: var(--brand-primary);
   color: var(--ink-on-brand);
@@ -297,6 +302,15 @@
 [data-skin="meridian"] .mt-table { width: 100%; border-collapse: collapse; font-family: var(--font-sans); }
 [data-skin="meridian"] .mt-table caption { text-align: start; padding-block-end: var(--space-3); font-size: 13px; line-height: 20px; color: var(--ink-muted); }
 [data-skin="meridian"] .mt-table th {
+  /* Frozen, as the register contract requires: on a long shipment or invoice
+     list the operator loses column context the moment the header scrolls away.
+     The rule is drawn with box-shadow, not border-block-end - under
+     border-collapse a sticky cell leaves its borders behind and the line
+     detaches from the header as it moves. shadow-sm lands once the body
+     scrolls under it, which is what marks the header as floating. */
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 1;
   background: var(--surface-sunken);
   color: var(--ink-strong);
   font-size: 13px;
@@ -306,7 +320,7 @@
   text-transform: uppercase;
   text-align: start;
   padding: var(--space-3);
-  border-block-end: 1px solid var(--border-subtle);
+  box-shadow: inset 0 -1px 0 var(--border-subtle), var(--shadow-sm);
   white-space: nowrap;
 }
 [data-skin="meridian"] .mt-table td {
@@ -547,6 +561,7 @@
 [data-skin="meridian"] .mt-icon { width: 24px; height: 24px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 [data-skin="meridian"] .mt-icon--sm { width: 20px; height: 20px; }
 [data-skin="meridian"] .mt-icon--lg { width: 32px; height: 32px; stroke-width: 2; }
+[data-skin="meridian"][dir="rtl"] .mt-icon--flip,
 [data-skin="meridian"] [dir="rtl"] .mt-icon--flip { transform: scaleX(-1); }
 /* ---------- Hero ---------- */
 [data-skin="meridian"] .mt-hero {
@@ -603,6 +618,7 @@
 [data-skin="meridian"] .mt-lane__route { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
 [data-skin="meridian"] .mt-lane__place { font-size: 17px; line-height: 24px; font-weight: 600; color: var(--ink-strong); }
 [data-skin="meridian"] .mt-lane__arrow { width: 20px; height: 20px; flex: none; fill: none; stroke: var(--brand-link); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+[data-skin="meridian"][dir="rtl"] .mt-lane__arrow,
 [data-skin="meridian"] [dir="rtl"] .mt-lane__arrow { transform: scaleX(-1); }
 [data-skin="meridian"] .mt-lane__modes { margin: 0; font-size: 13px; line-height: 20px; color: var(--ink-muted); }
 /* ---------- CTABlock ---------- */
@@ -657,6 +673,9 @@
   /* Icon-only controls are 32px under a mouse and grow to the 44px floor on
      touch. Held as a token so the size does not depend on rule order. */
   --mt-target-icon: 32px;
+  /* The launcher's height on a phone; the rail clears it. Set again in the
+     phone block beside the launcher's own sizing. */
+  --mt-launcher-block: 60px;
   --mt-safe-top: env(safe-area-inset-top, 0px);
   --mt-safe-bottom: env(safe-area-inset-bottom, 0px);
   --mt-safe-start: env(safe-area-inset-left, 0px);
@@ -815,6 +834,7 @@
 [data-skin="meridian"] .mt-shell__back:hover { background: var(--brand-soft); }
 [data-skin="meridian"] .mt-shell__back:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
 [data-skin="meridian"] .mt-shell__back svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+[data-skin="meridian"][dir="rtl"] .mt-shell__back svg,
 [data-skin="meridian"] [dir="rtl"] .mt-shell__back svg { transform: scaleX(-1); }
 [data-skin="meridian"] .mt-shell__title {
   margin: 0; flex: 1; min-width: 0;
@@ -860,6 +880,9 @@
    gives way to the browser's own back, which is reliable with a mouse. */
 @media (min-width: 900px) {
   [data-skin="meridian"] .mt-shell { grid-template-rows: auto 1fr; grid-template-columns: 240px 1fr; }
+  /* The side rail is the way back from here, and the browser's own back
+     is visible with a mouse. A second back control is noise. */
+  [data-skin="meridian"] .mt-shell__back { display: none; }
   [data-skin="meridian"] .mt-shell__header { grid-column: 1 / -1; }
   [data-skin="meridian"] .mt-shell__nav {
     position: static;
@@ -1011,7 +1034,9 @@
    Marking an element lang="ar" is enough; the ar-* type styles are still
    what give Arabic its taller leading where the text is a block of copy.
    ========================================================================== */
+[data-skin="meridian"][lang="ar"],
 [data-skin="meridian"] [lang="ar"],
+[data-skin="meridian"][lang^="ar-"],
 [data-skin="meridian"] [lang^="ar-"] {
   /* Rebinding the variable, not just the property, is what makes "Cairo only"
      true. Every component sets font-family: var(--font-sans) on itself, and a
@@ -1026,18 +1051,27 @@
 /* Reference numbers stay in the mono face inside Arabic too: a booking or
    AWB number is checked character by character against a document, and it
    is written in Western digits in every locale. */
+[data-skin="meridian"][lang="ar"] .mt-table__ref,
 [data-skin="meridian"] [lang="ar"] .mt-table__ref,
+[data-skin="meridian"][lang="ar"] .mt-doc__no,
 [data-skin="meridian"] [lang="ar"] .mt-doc__no,
+[data-skin="meridian"][lang="ar"] .data,
 [data-skin="meridian"] [lang="ar"] .data,
+[data-skin="meridian"][lang="ar"] .data-sm,
 [data-skin="meridian"] [lang="ar"] .data-sm,
+[data-skin="meridian"][lang="ar"] [data-mono],
 [data-skin="meridian"] [lang="ar"] [data-mono] {
   font-family: var(--font-mono);
 }
 /* Arabic block copy needs the leading Cairo was drawn for. Components that
    already carry an ar-* style keep theirs; this catches everything else. */
+[data-skin="meridian"][lang="ar"] p,
 [data-skin="meridian"] [lang="ar"] p,
+[data-skin="meridian"][lang="ar"] li,
 [data-skin="meridian"] [lang="ar"] li,
+[data-skin="meridian"][lang="ar"] dd,
 [data-skin="meridian"] [lang="ar"] dd,
+[data-skin="meridian"][lang="ar"] address,
 [data-skin="meridian"] [lang="ar"] address {
   line-height: 1.8;
 }
@@ -1177,7 +1211,14 @@
 @media (max-width: 767px) {
   [data-skin="meridian"] .mt-rail {
     inset-block-start: auto;
-    inset-block-end: calc(var(--space-3) + var(--mt-safe-bottom));
+    /* Above the launcher, not beside it. As a row the four 44px controls are
+       about 212px wide and the labelled launcher about 224px; on a 360px phone
+       they cannot share the bottom edge, and the rail was landing on top of
+       Mira. The offset is the launcher's own inset (space-5), plus its height,
+       plus a space-3 gap: two touch targets that merely touch get mis-tapped
+       at the boundary. --mt-launcher-block keeps the two in step. */
+    inset-block-end: calc(var(--space-5) + var(--mt-safe-bottom)
+                          + var(--mt-launcher-block) + var(--space-3));
     inset-inline-end: var(--space-3);
     transform: none;
     flex-direction: row;
@@ -1227,6 +1268,10 @@
   font-size: 12px; font-weight: 600; white-space: nowrap;
 }
 @media (max-width: 767px) {
+  /* The launcher's measured height at this width, which the rail's offset is
+     written against. It is asserted in tools/audit/meridian_proof.js rather
+     than trusted: an estimate of 52px left the rail 8px on top of Mira. */
+  [data-skin="meridian"] { --mt-launcher-block: 60px; }
   [data-skin="meridian"] .mt-launcher { padding-inline-end: var(--space-4); }
   [data-skin="meridian"] .mt-launcher__avatar { width: 36px; height: 36px; }
   [data-skin="meridian"] .mt-launcher__name { font-size: 13px; }

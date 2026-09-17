@@ -7,7 +7,8 @@ const PROPS = ['backgroundColor','color','borderRadius','fontFamily','fontSize',
 
 (async () => {
   const b = await chromium.launch({ executablePath: process.env.CHROME || undefined });
-  const p = await b.newPage();
+  const ctx0 = await b.newContext();
+  const p = await ctx0.newPage();
   await p.goto('http://localhost:8000/drafts/skin-proof.html', { waitUntil: 'networkidle' });
 
   const snap = () => p.evaluate(({LEGACY, PROPS}) => {
@@ -61,5 +62,30 @@ const PROPS = ['backgroundColor','color','borderRadius','fontFamily','fontSize',
     return r;
   });
   console.log('ALERT FLASH     :', JSON.stringify(flash));
+
+  // --- Arabic with the skin on the SAME element, as the install documents ---
+  // [data-skin="meridian"] [lang="ar"] is a descendant selector; with both on
+  // <html> it never matched, and Arabic fell back to Helvetica and to the
+  // browser's serif. The generator now emits the self form too.
+  const arPage = await ctx0.newPage();
+  await arPage.setContent(`<!doctype html><html lang="ar" dir="rtl" data-skin="meridian">
+    <head><meta charset="utf-8"><link rel="stylesheet" href="http://localhost:8000/meridian/meridian.css"></head>
+    <body><div class="mt-card"><h2 class="mt-card__title">الشحنات</h2></div>
+    <button class="mt-btn mt-btn--primary">طلب</button></body></html>`,
+    { waitUntil: 'networkidle' });
+  await arPage.evaluate(() => document.fonts.ready);
+  const ar = await arPage.evaluate(() =>
+    ['.mt-card__title', '.mt-btn--primary'].map(s => getComputedStyle(document.querySelector(s)).fontFamily));
+  const arBad = ar.filter(f => !/Cairo/i.test(f));
+  console.log('ARABIC ON SKIN  :', arBad.length === 0 ? 'Cairo ✓' : `NOT Cairo: ${arBad.join(' | ')}`);
+  await arPage.close();
+
+  const failures =
+    leaks +
+    (styled === 'MISSING' || styled.radius === '0px' ? 1 : 0) +
+    (flash.running && flash.running.length ? 0 : 1) +
+    arBad.length;
+  console.log('FAILURES        :', failures);
   await b.close();
+  if (failures) process.exitCode = 1;   // a check that cannot fail is not a check
 })();

@@ -1,5 +1,5 @@
 <!doctype html><html lang="en" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#007DC5"><link rel="icon" href="theme/midtrans-app-icon-512.png"><link rel="stylesheet" href="theme/tokens.css"><link rel="stylesheet" href="theme/midtrans.css"><title>MDT-2026-004182 — MIDTRANS platform (draft)</title>
-<style>body{margin:0}.cols{display:grid;gap:var(--space-5)}\@media(min-width:900px){.cols{grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr)}}
+<style>body{margin:0}.cols{display:grid;gap:var(--space-5)}@media(min-width:900px){.cols{grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr)}}
 h2{font:var(--text-heading-2);color:var(--ink-strong);margin:0 0 var(--space-3)}</style></head><body>
 <div class="mt-shell">
   <header class="mt-shell__header">
@@ -47,5 +47,10 @@ h2{font:var(--text-heading-2);color:var(--ink-strong);margin:0 0 var(--space-3)}
   </main>
   <nav class="mt-shell__nav"><a class="mt-shell__nav-item" href="app-shipments.html" aria-current="page"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="9" rx="0.5"/><path d="M7 8v9M11 8v9M15 8v9"/></svg>Shipments</a><a class="mt-shell__nav-item" href="quotation.html"><svg viewBox="0 0 24 24"><path d="M6.5 3H13l5 5v13H6.5z"/><path d="M13 3v5h5"/></svg>Quotations</a><a class="mt-shell__nav-item" href="tools.html"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M8 6.5h8v3.2H8z"/></svg>Tools</a><a class="mt-shell__nav-item" href="mira.html"><svg viewBox="0 0 24 24"><path d="M4.5 17a7.5 7.5 0 1 1 15 0"/><path d="M12 17 15.6 11.6"/><circle cx="12" cy="17" r="1.1"/></svg>Mira</a></nav>
 </div>
-<script>function tg(){const h=document.documentElement;h.setAttribute('data-theme',h.getAttribute('data-theme')==='dark'?'light':'dark')}</script>
+<script>function tg(){const h=document.documentElement;
+  // With no attribute yet the page already follows the system, so reading the
+  // attribute alone sets 'dark' on a dark system and nothing visibly changes -
+  // the first click is wasted. Fall back to what is actually in effect.
+  const now=h.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+  h.setAttribute('data-theme',now==='dark'?'light':'dark')}</script>
 </body></html>

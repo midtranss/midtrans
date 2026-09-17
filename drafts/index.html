@@ -41,7 +41,7 @@
   </div>
 </div>
 <script>
-function tog(){const h=document.documentElement;h.setAttribute('data-theme',h.getAttribute('data-theme')==='dark'?'light':'dark')}
+function tog(){const h=document.documentElement;h.setAttribute('data-theme',(h.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))==='dark'?'light':'dark')}
 function dir(){const h=document.documentElement;const r=h.getAttribute('dir')==='rtl';h.setAttribute('dir',r?'ltr':'rtl');h.setAttribute('lang',r?'en':'ar')}
 </script>
 </body>

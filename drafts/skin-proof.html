@@ -47,7 +47,7 @@ body{margin:0;padding:24px;background:#f4f8fb;color:var(--ink);font-family:Arial
 const h=document.documentElement;
 function show(){state.textContent='data-skin="'+(h.getAttribute('data-skin')||'—')+'"  data-theme="'+(h.getAttribute('data-theme')||'—')+'"'}
 function skin(){h.getAttribute('data-skin')==='meridian'?h.removeAttribute('data-skin'):h.setAttribute('data-skin','meridian');show()}
-function mode(){h.setAttribute('data-theme',h.getAttribute('data-theme')==='dark'?'light':'dark');show()}
+function mode(){h.setAttribute('data-theme',(h.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))==='dark'?'light':'dark');show()}
 show();
 </script>
 </body></html>

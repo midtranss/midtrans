@@ -52,11 +52,26 @@ section{margin-block-end:var(--space-10)}</style></head><body>
 </div>
 <div class="mt-toast-region" id="toasts"></div>
 <script>
-function tg(){const h=document.documentElement;h.setAttribute('data-theme',h.getAttribute('data-theme')==='dark'?'light':'dark')}
+function tg(){const h=document.documentElement;
+  // With no attribute yet the page already follows the system, so reading the
+  // attribute alone sets 'dark' on a dark system and nothing visibly changes -
+  // the first click is wasted. Fall back to what is actually in effect.
+  const now=h.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+  h.setAttribute('data-theme',now==='dark'?'light':'dark')}
 const $=id=>document.getElementById(id);
 function calc(){
   const l=+$('L').value,w=+$('W').value,h=+$('H').value,q=+$('Q').value,cap=+$('E').value;
-  if(!(l>0&&w>0&&h>0&&q>0)){$('vol').textContent='—';$('sub').textContent='Enter all dimensions';return}
+  if(!(l>0&&w>0&&h>0&&q>0)){
+    // Clear the METER too. Resetting only the figure left the previous fill,
+    // percentage and over-capacity state on screen, so the panel said the
+    // dimensions were missing while still showing a capacity result.
+    $('vol').textContent='Not entered';
+    $('sub').textContent='Enter all dimensions';
+    $('fill').style.width='0%';
+    $('meter').classList.remove('mt-calc__meter--over');
+    $('mtext').textContent='Awaiting dimensions';
+    return;
+  }
   const each=(l*w*h)/1e6, tot=each*q, pct=tot/cap*100;
   $('vol').textContent=tot.toFixed(2);
   $('sub').textContent='CBM · '+q+' × '+each.toFixed(3)+' CBM';

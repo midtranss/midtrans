@@ -12,4 +12,6 @@ Focus draws a 2px `border-focus` ring at a 2px offset. Do not remove it. Hover o
 
 A disabled button never stands alone: put the reason beside it in `body-sm` `ink-muted` ("Attach the packing list to continue"). Do not disable a submit button to express a validation failure — show the Field error instead.
 
+**On a link, `aria-disabled` is not enough.** ARIA describes state; it does not suppress behaviour. An `<a href>` marked `aria-disabled="true"` still navigates on click and on Enter, so a control that looks unavailable stays fully operable. The stylesheet stops the pointer, which the keyboard walks straight past. Either **drop the `href`** — a link with nowhere to go is inert, and `role="link"` with `aria-disabled` keeps it in the reading order — or cancel activation in the handler. Prefer a `<button disabled>` wherever the action is not really navigation: the platform already does all of this.
+
 **Do not** put two primary buttons side by side, do not colour a button with `brand-accent` (white on it measures 4.43:1), and do not use a button where a link is meant.

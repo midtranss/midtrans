@@ -2,7 +2,7 @@
 <style>body{margin:0;background:var(--surface-sunken);font-family:var(--font-sans)}
 .wrap{max-width:900px;margin-inline:auto;padding:var(--space-6) var(--mt-gutter) var(--space-10)}
 .bar{display:flex;gap:var(--space-2);margin-block-end:var(--space-5);flex-wrap:wrap}
-\@media print{.bar,.mt-alert{display:none}body{background:#fff}.wrap{padding:0;max-width:none}}</style></head><body>
+@media print{.bar,.mt-alert{display:none}body{background:#fff}.wrap{padding:0;max-width:none}}</style></head><body>
 <div class="wrap">
   <div class="bar">
     <a class="mt-btn mt-btn--quiet mt-btn--sm" href="index.html">← All drafts</a>
@@ -14,31 +14,80 @@
     <div class="mt-alert__body"><p class="mt-alert__title">Specimen document</p><p class="mt-alert__text">Every amount below is a masked placeholder. No rate here came from an operational source.</p></div>
   </div>
   <article class="mt-doc">
-    <div class="mt-doc__head">
-      <div><strong style="font:var(--text-heading-1);color:var(--ink-strong);letter-spacing:.04em">MIDTRANS</strong><p class="mt-doc__note" style="margin-top:4px">SHIPPING AND SERVICES · Damascus</p><p class="mt-doc__note" lang="ar" dir="rtl">المتوسط للشحن و الخدمات - ميدترانس</p></div>
-      <div class="mt-doc__ident"><h3 class="mt-doc__kind">Quotation</h3><span class="mt-doc__no">MDT-Q-2026-0418</span><span class="mt-doc__note">Issued 16 Sep 2026 · valid to 30 Sep 2026</span></div>
+    <div class="mt-doc__top">
+      <div class="mt-doc__brand">
+        <p class="mt-doc__company">MIDTRANS SHIPPING AND SERVICES</p>
+        <p lang="ar" dir="rtl">المتوسط للشحن و الخدمات - ميدترانس</p>
+        <p>Halponi, Mouslam Al Baroudi Street, 2nd Floor</p>
+        <p>Damascus, Syrian Arab Republic</p>
+        <p>TEL: +963 11 231 6001</p>
+      </div>
+      <div class="mt-doc__box">
+        <h2 class="mt-doc__kind">Quotation</h2>
+        <div class="mt-doc__meta">
+          <div class="mt-doc__meta-row"><span>No</span><span>MDT-Q-2026-0418</span></div>
+          <div class="mt-doc__meta-row"><span>Issued</span><span>16 Sep 2026</span></div>
+          <div class="mt-doc__meta-row"><span>Valid</span><span>30 Sep 2026</span></div>
+        </div>
+        <span class="mt-doc__badge">Specimen</span>
+      </div>
+      <div class="mt-doc__logo"><strong style="font-size:15px;color:var(--ink-strong);letter-spacing:.06em">MIDTRANS</strong></div>
     </div>
-    <div class="mt-doc__parties">
-      <div class="mt-doc__party"><h4>Issued by</h4><address>MIDTRANS SHIPPING AND SERVICES<br>Damascus, Syrian Arab Republic</address></div>
-      <div class="mt-doc__party"><h4>Issued to</h4><address>Specimen customer<br>Address line</address></div>
+
+    <div class="mt-doc__content">
+      <div class="mt-doc__side">
+        <div class="mt-doc__card">
+          <h4>Issued to</h4>
+          <strong>Specimen customer</strong>
+          <p>Address line</p>
+        </div>
+        <div class="mt-doc__card">
+          <h4>Route</h4>
+          <p>Lattakia, SY to Hamburg, DE</p>
+          <p>Incoterm: FOB Lattakia</p>
+          <p>Mode: Sea freight</p>
+        </div>
+        <div class="mt-doc__card">
+          <h4>Cargo</h4>
+          <p>1 × 40HC, general cargo</p>
+          <p>Gross weight: <span data-mono>12 500 KG</span></p>
+        </div>
+      </div>
+
+      <div class="mt-doc__main">
+        <table class="mt-doc__table">
+          <thead><tr><th>Charge</th><th>Basis</th><th class="num">Qty</th><th class="num">Amount</th></tr></thead>
+          <tbody>
+            <tr><td>Ocean freight</td><td>Per container</td><td class="num">1</td><td class="num"><span class="mt-doc__money"><span>USD</span><span>0 000.00</span></span></td></tr>
+            <tr><td>Terminal handling, origin</td><td>Per container</td><td class="num">1</td><td class="num"><span class="mt-doc__money"><span>USD</span><span>000.00</span></span></td></tr>
+            <tr><td>Documentation</td><td>Per shipment</td><td class="num">1</td><td class="num"><span class="mt-doc__money"><span>USD</span><span>00.00</span></span></td></tr>
+            <tr><td>Import duties</td><td>Per assessment</td><td class="num" data-unset>Assessed on the declaration</td><td class="num" data-unset>Assessed on the declaration</td></tr>
+          </tbody>
+        </table>
+
+        <div class="mt-doc__close">
+          <div class="mt-doc__card">
+            <h4>Validity</h4>
+            <p>Rates hold to the date above and are subject to carrier space and schedule at booking.</p>
+          </div>
+          <div class="mt-doc__totals">
+            <div class="mt-doc__total-row mt-doc__total-row--grand"><span>Quotation total</span><span class="mt-doc__money"><span>USD</span><span>0 000.00</span></span></div>
+          </div>
+        </div>
+        <p class="mt-doc__note"><strong>Excluded:</strong> import duties and taxes, destination storage and demurrage, inspection fees.</p>
+      </div>
     </div>
-    <dl class="mt-kv"><dt>Route</dt><dd>Lattakia, SY → Hamburg, DE</dd><dt>Incoterm</dt><dd>FOB Lattakia</dd><dt>Equipment</dt><dd>1 × 40HC, general cargo</dd><dt>Gross weight</dt><dd data-mono>12 500 KG</dd></dl>
-    <table class="mt-table">
-      <thead><tr><th>Charge</th><th>Basis</th><th class="mt-table__num">Qty</th><th class="mt-table__num">Amount</th></tr></thead>
-      <tbody>
-        <tr><td>Ocean freight</td><td>Per container</td><td class="mt-table__num">1</td><td class="mt-table__num">USD 0 000.00</td></tr>
-        <tr><td>Terminal handling, origin</td><td>Per container</td><td class="mt-table__num">1</td><td class="mt-table__num">USD 000.00</td></tr>
-        <tr><td>Documentation</td><td>Per shipment</td><td class="mt-table__num">1</td><td class="mt-table__num">USD 00.00</td></tr>
-        <tr><td>Import duties</td><td>Per assessment</td><td class="mt-table__num">—</td><td class="mt-table__num" style="font-family:var(--font-sans);color:var(--ink-muted)">Excluded</td></tr>
-      </tbody>
-    </table>
-    <div class="mt-doc__total"><span class="mt-doc__total-label">Total, USD</span><span class="mt-doc__total-value">0 000.00</span></div>
-    <p class="mt-doc__note"><strong>Excluded:</strong> import duties and taxes, destination storage and demurrage, inspection fees. <strong>Validity:</strong> rates hold to the date above and are subject to carrier space and schedule at booking.</p>
+    <p class="mt-doc__foot">Quotation</p>
   </article>
 </div>
 <div class="mt-toast-region" id="toasts"></div>
 <script>
-function tg(){const h=document.documentElement;h.setAttribute('data-theme',h.getAttribute('data-theme')==='dark'?'light':'dark')}
+function tg(){const h=document.documentElement;
+  // With no attribute yet the page already follows the system, so reading the
+  // attribute alone sets 'dark' on a dark system and nothing visibly changes -
+  // the first click is wasted. Fall back to what is actually in effect.
+  const now=h.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+  h.setAttribute('data-theme',now==='dark'?'light':'dark')}
 function send(){
   const t=document.createElement('div');
   t.className='mt-toast mt-toast--success';t.setAttribute('role','status');

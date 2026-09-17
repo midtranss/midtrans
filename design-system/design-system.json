@@ -33,7 +33,13 @@
         }
       },
       "name": "MIDTRANS LOGO",
-      "order": []
+      "order": [
+        "midtrans-logo-blue.png",
+        "midtrans-logo-white.png",
+        "midtrans-app-icon-512.png",
+        "midtrans-app-icon-1024.png"
+      ],
+      "tile": "l"
     },
     "Icons": {
       "files": {

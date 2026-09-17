@@ -48,7 +48,12 @@ body{margin:0}
   </div>
 </div>
 <script>
-function tg(){const h=document.documentElement;h.setAttribute('data-theme',h.getAttribute('data-theme')==='dark'?'light':'dark')}
+function tg(){const h=document.documentElement;
+  // With no attribute yet the page already follows the system, so reading the
+  // attribute alone sets 'dark' on a dark system and nothing visibly changes -
+  // the first click is wasted. Fall back to what is actually in effect.
+  const now=h.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+  h.setAttribute('data-theme',now==='dark'?'light':'dark')}
 function dr(){const h=document.documentElement;const r=h.getAttribute('dir')==='rtl';h.setAttribute('dir',r?'ltr':'rtl');h.setAttribute('lang',r?'en':'ar')}
 function add(who,cls,html){const d=document.createElement('div');d.className='msg msg--'+cls;
  d.innerHTML='<div class="msg__who">'+who+'</div><div class="msg__body">'+html+'</div>';chat.appendChild(d);d.scrollIntoView({block:'end'});return d}

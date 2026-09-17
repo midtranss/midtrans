@@ -10,7 +10,7 @@ The built theme layer for every MIDTRANS property: the website, the platform, th
 | `midtrans.css` | 31 KB | The components, and the device and input foundations. |
 | `fonts/cairo.woff2` | 114 KB | Cairo, variable, weights 200–1000, subset to Arabic and Latin. SIL Open Font License. |
 | `midtrans-icons.svg` | 4 KB | The 16-mark logistics icon sprite. |
-| `index.html` | — | A verification harness. Not for production. |
+| `_harness.html` | — | A verification harness. Not for production. |
 
 ## Install
 
@@ -58,7 +58,7 @@ Loading the sprite through `<img>` renders it black and it cannot follow the the
 
 ## Verify
 
-Open `index.html` and check: both themes, both directions, tab focus rings, and the window at 280px, 402px, 768px, 984px and 1440px. The 984px width is a folding phone opened — it is the check most often skipped.
+Open `_harness.html` and check: both themes, both directions, tab focus rings, and the window at 280px, 402px, 768px, 984px and 1440px. The 984px width is a folding phone opened — it is the check most often skipped.
 
 ## Updating
 

@@ -3,7 +3,12 @@ const ROOT=path.resolve(__dirname,'..','..');
 const { chromium } = require(process.env.PW || 'playwright');
 const fs = require('fs');
 const BASE = 'http://localhost:8000';
-const names = JSON.parse(fs.readFileSync(ROOT + '/.audit-mounts/index.json','utf8'));
+const indexPath = path.join(ROOT, '.audit-mounts', 'index.json');
+if (!fs.existsSync(indexPath)) {
+  console.error(`No mounts at ${indexPath}.\nRun:  python3 tools/audit/gen_mounts.py`);
+  process.exit(1);
+}
+const names = JSON.parse(fs.readFileSync(indexPath, 'utf8'));
 
 const IN_PAGE = () => {
   const out = { fonts: [], contrast: [], taps: [], focus: [], arabic: [] };
@@ -120,7 +125,7 @@ const IN_PAGE = () => {
 
 (async () => {
   const browser = await chromium.launch({ executablePath: process.env.CHROME || undefined });
-  const report = { fonts: [], contrast: [], taps: [], focus: [], arabic: [] };
+  const report = { fonts: [], contrast: [], taps: [], focus: [], arabic: [], rail: [] };
   for (const theme of ['light','dark']) {
     for (const viewport of [{name:'desktop',width:1280,height:900,coarse:false},
                             {name:'phone',width:360,height:780,coarse:true}]) {
@@ -147,11 +152,45 @@ const IN_PAGE = () => {
       await ctx.close();
     }
   }
+  // --- the edge rail must never land on the assistant launcher ------------
+  // Below 768px the rail becomes a row of four 44px controls (~212px) and the
+  // labelled launcher is ~224px: on a 360px phone they cannot share the bottom
+  // edge. This asserts the stacking, and the --mt-launcher-block constant the
+  // rail's offset is written against, instead of trusting either.
+  const railPage = await (await browser.newContext({
+    viewport: { width: 360, height: 780 }, hasTouch: true, isMobile: true })).newPage();
+  await railPage.goto(`${BASE}/.audit-mounts/rail-real.html`, { waitUntil: 'networkidle' });
+  const rail = await railPage.evaluate(() => {
+    const a = document.querySelector('.mt-rail'), c = document.querySelector('.mt-launcher');
+    if (!a || !c) return { missing: true };
+    const r = a.getBoundingClientRect(), l = c.getBoundingClientRect();
+    return { overlap: !(r.right <= l.left || l.right <= r.left || r.bottom <= l.top || l.bottom <= r.top),
+             gap: Math.round(l.top - r.bottom), launcherHeight: Math.round(l.height) };
+  });
+  if (rail.missing) report.rail = [{ problem: 'rail-real.html has no rail or launcher' }];
+  else if (rail.overlap || rail.gap < 12)
+    report.rail = [{ problem: `rail and launcher gap is ${rail.gap}px at 360px (needs 12)`, ...rail }];
+  else if (rail.launcherHeight !== 60)
+    report.rail = [{ problem: `launcher is ${rail.launcherHeight}px but --mt-launcher-block says 60px`, ...rail }];
+  else report.rail = [];
+  console.log('RAIL/LAUNCHER:', report.rail.length ? JSON.stringify(report.rail[0]) : `gap ${rail.gap}px ✓`);
+
   await browser.close();
-  fs.writeFileSync('/tmp/claude-0/-home-user-midtrans/b6fd8a7d-89db-5cf7-9118-d06fe6209c6b/scratchpad/audit/live-report.json', JSON.stringify(report,null,1));
+  // Beside the checkout, not in one machine's scratchpad: a hardcoded path
+  // means the run dies with ENOENT after every browser has already done its
+  // work. AUDIT_OUT overrides it for CI.
+  const outDir = process.env.AUDIT_OUT || path.join(ROOT, '.audit-report');
+  fs.mkdirSync(outDir, { recursive: true });
+  const outFile = path.join(outDir, 'live-report.json');
+  fs.writeFileSync(outFile, JSON.stringify(report, null, 1));
   console.log('FONT FAILS   :', report.fonts.length);
   console.log('CONTRAST FAILS:', report.contrast.length);
   console.log('TAP FAILS    :', report.taps.length);
   console.log('FOCUS FAILS  :', report.focus.length);
   console.log('ARABIC FAILS :', report.arabic.length);
+  console.log('report       :', outFile);
+  // A check that always exits 0 lets a regression through whatever it printed.
+  const total = report.fonts.length + report.contrast.length + report.taps.length
+              + report.focus.length + report.arabic.length + report.rail.length;
+  if (total) { console.error(`\nFAILED: ${total} violation(s) - see ${outFile}`); process.exitCode = 1; }
 })();

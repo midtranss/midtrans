@@ -7,8 +7,10 @@ several of the defects they caught were invisible in the source.
 ## Running them
 
     python3 -m http.server 8000 &          # from the repository root
-    python3 tools/audit/gen_tokens_css.py  # tokens.json -> design-system/tokens.css
-    python3 tools/audit/gen_mounts.py      # previews -> loadable pages
+    python3 tools/audit/gen_tokens_css.py     # tokens.json -> design-system/tokens.css
+    python3 tools/audit/gen_theme_package.py  # sources -> drafts/theme/
+    python3 tools/audit/gen_meridian.py       # sources -> meridian/meridian.css
+    python3 tools/audit/gen_mounts.py         # previews -> loadable pages
     python3 tools/audit/static.py          # the source text
     node    tools/audit/live.js            # what the browser computes
     node    tools/audit/meridian_proof.js  # the skin's isolation
@@ -41,6 +43,7 @@ Every component preview, in both themes, at desktop and phone widths:
 - **taps** — 44px on a coarse pointer
 - **focus** — a 2px ring at 3:1 on every focusable element
 - **Arabic** — every element holding Arabic text resolves to Cairo
+- **rail/launcher** — the edge rail clears the assistant launcher on a phone
 
 Two things this harness got wrong at first, both worth knowing:
 
@@ -73,9 +76,23 @@ itself is opened or a token is edited there. The copy this script writes is for
 the local checks, so they measure the same values the artifact will serve once
 it has regenerated. Do not publish it.
 
+## gen_theme_package.py
+
+Rebuilds `drafts/theme/`, the installable package every draft page loads. It had
+drifted to `brand-link` #0074B7 (4.41:1 on brand-soft), `status-info` #0074B7,
+no Arabic `--font-sans` rebinding and no `--mt-target-icon`, so every draft was
+serving defects already fixed in the source. Run it after any change to
+`tokens.json` or `bundle.css`.
+
 ## gen_meridian.py
 
 Regenerates `meridian/meridian.css` from `tokens.json` and `bundle.css`. Run it
 after any change to either, or the skin will keep serving the old values.
 At-rules are handled by kind, never by string prefixing: `[data-skin="meridian"]
 @keyframes ...` is invalid CSS, and it cost six of the seven animations.
+
+## Exit codes
+
+`static.py`, `live.js` and `meridian_proof.js` all exit non-zero when a check
+fails. They used to print their counts and exit 0, which let a regression
+through whatever the log said.

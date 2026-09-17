@@ -209,6 +209,44 @@
   font-weight: 400;
   letter-spacing: 0;
 }
+@media print {
+  :root, [data-theme="light"], [data-theme="dark"] {
+    --surface-page: #ffffff;
+    --surface-card: #ffffff;
+    --surface-sunken: #f2f5f8;
+    --surface-inverse: #0a2440;
+    --ink-strong: #0a2440;
+    --ink-body: #1f3448;
+    --ink-muted: #52657a;
+    --ink-inverse: #ffffff;
+    --ink-inverse-muted: #a8bccd;
+    --ink-on-brand: #ffffff;
+    --brand-primary: #0074b7;
+    --brand-accent: #007dc5;
+    --brand-link: #0069a8;
+    --brand-soft: #e6f2f9;
+    --border-subtle: #dde4ea;
+    --border-strong: #7c8b99;
+    --border-focus: #007dc5;
+    --status-success: #0f7a4d;
+    --status-success-soft: #e4f4ec;
+    --status-warning: #9a5b00;
+    --status-warning-soft: #fbf0e0;
+    --status-danger: #b3261e;
+    --status-danger-soft: #fbe9e7;
+    --status-info: #0070b0;
+    --status-info-soft: #e6f2f9;
+    --status-neutral: #52657a;
+    --status-neutral-soft: #eef2f6;
+    --chart-1: #007dc5;
+    --chart-2: #c2255c;
+    --chart-3: #6a4bbc;
+    --chart-4: #8a6d00;
+    --shadow-sm: none;
+    --shadow-md: none;
+    --shadow-lg: none;
+  }
+}
 @font-face {
   font-family: "Cairo";
   src: url("fonts/Cairo-Variable.ttf") format("truetype");
