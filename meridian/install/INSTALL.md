@@ -8,6 +8,12 @@ render the theme, even by accident.
 This guide is deliberately stack-agnostic: it states the contract, not the
 framework. Every placeholder is written `«like this»`.
 
+If an agent is doing the wiring, copy `app-CLAUDE.md` (beside this file) into
+the platform repository root as `CLAUDE.md` first. It carries the rules below
+plus the standing ones — production safety, additive-only, Arabic, and the
+figures that are never generated — so they apply to every turn rather than
+only the first instruction.
+
 ---
 
 ## What decides the appearance
