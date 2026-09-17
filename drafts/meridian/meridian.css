@@ -44,7 +44,7 @@
   --ink-on-brand: #ffffff;
   --brand-primary: #0074b7;
   --brand-accent: #007dc5;
-  --brand-link: #0074b7;
+  --brand-link: #0069a8;
   --brand-soft: #e6f2f9;
   --border-subtle: #dde4ea;
   --border-strong: #7c8b99;
@@ -1127,45 +1127,93 @@
 [data-skin="meridian"] .mt-office__line a { font-family: var(--font-mono); font-size: 13px; font-variant-numeric: tabular-nums; color: var(--brand-link); text-decoration: none; }
 [data-skin="meridian"] .mt-office__line a:hover { text-decoration: underline; }
 [data-skin="meridian"] .mt-office__line a:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
-/* The floating contact rail: the persistent actions on the website's edge. */
+/* The site rail: the persistent stack of actions pinned to the page edge.
+   Four buttons in the live site, in this order: search, documents, the
+   assistant, offices. The order and the count are the site's, not ours. */
 [data-skin="meridian"] .mt-rail {
-  position: fixed;
-  /* Declared, not inherited: this is fixed/sticky chrome with no styled
-     ancestor, so on a host page it would otherwise take that page's body
-     font. This is the defect that put a serif face in the Mira box. */
   font-family: var(--font-sans);
-  inset-inline-end: 0;
+  position: fixed;
+  inset-inline-end: var(--space-3);
   inset-block-start: 50%;
   transform: translateY(-50%);
   z-index: 40;
-  display: flex; flex-direction: column; gap: 1px;
-  border-start-start-radius: var(--radius-md);
-  border-end-start-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
+  display: flex; flex-direction: column; gap: var(--space-3);
 }
 [data-skin="meridian"] .mt-rail__item {
   display: flex; align-items: center; justify-content: center;
-  min-width: var(--mt-tap); min-height: var(--mt-tap);
+  width: 56px; height: 56px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
   background: var(--surface-inverse);
   color: var(--ink-inverse);
   text-decoration: none;
+  box-shadow: var(--shadow-md);
+  transition: background-color 120ms linear, color 120ms linear;
 }
-[data-skin="meridian"] .mt-rail__item:hover { background: var(--brand-primary); color: var(--ink-on-brand); }
-[data-skin="meridian"] .mt-rail__item:focus-visible { outline: 2px solid var(--border-focus); outline-offset: -2px; }
-[data-skin="meridian"] .mt-rail__item svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-/* On a phone the rail moves to the bottom edge, clear of the home indicator,
-   and never sits over the bottom navigation. */
+[data-skin="meridian"] .mt-rail__item:hover { background: var(--brand-primary); color: var(--ink-on-brand); border-color: var(--brand-primary); }
+[data-skin="meridian"] .mt-rail__item:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+/* The assistant's button is the filled one, so the way to reach a person is
+   the one that reads first in the stack. */
+[data-skin="meridian"] .mt-rail__item--accent { background: var(--brand-primary); color: var(--ink-on-brand); border-color: var(--brand-primary); }
+[data-skin="meridian"] .mt-rail__item--accent:hover { background: var(--surface-inverse); color: var(--ink-inverse); border-color: var(--border-strong); }
+[data-skin="meridian"] .mt-rail__item svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+[data-skin="meridian"] .mt-rail__item img { width: 30px; height: 30px; }
 @media (max-width: 767px) {
   [data-skin="meridian"] .mt-rail {
     inset-block-start: auto;
-    inset-block-end: calc(var(--space-4) + var(--mt-safe-bottom));
-    inset-inline-end: var(--space-4);
+    inset-block-end: calc(var(--space-3) + var(--mt-safe-bottom));
+    inset-inline-end: var(--space-3);
     transform: none;
     flex-direction: row;
-    border-radius: var(--radius-md);
-    gap: 1px;
   }
+  [data-skin="meridian"] .mt-rail__item { width: var(--mt-tap); height: var(--mt-tap); border-radius: var(--radius-md); }
+  [data-skin="meridian"] .mt-rail__item svg { width: 22px; height: 22px; }
+}
+/* ---------- AssistantLauncher ---------- */
+/* The pill that opens Mira. It carries her portrait, so by the rule in the
+   Assistant card it also carries her name and role — never a job-title
+   alone, which would read as a human desk. */
+[data-skin="meridian"] .mt-launcher {
+  font-family: var(--font-sans);
+  position: fixed;
+  inset-inline-start: var(--space-5);
+  inset-block-end: calc(var(--space-5) + var(--mt-safe-bottom));
+  z-index: 40;
+  display: inline-flex; align-items: center; gap: var(--space-3);
+  padding: 6px var(--space-5) 6px 6px;
+  border: 2px solid var(--surface-card);
+  border-radius: var(--radius-pill);
+  background: var(--brand-primary);
+  color: var(--ink-on-brand);
+  text-decoration: none;
+  box-shadow: var(--shadow-lg);
+  min-height: var(--mt-tap);
+}
+[data-skin="meridian"] .mt-launcher:hover { background: var(--surface-inverse); color: var(--ink-inverse); }
+[data-skin="meridian"] .mt-launcher:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 3px; }
+[data-skin="meridian"] .mt-launcher__avatar {
+  width: 44px; height: 44px; flex: none;
+  border-radius: var(--radius-pill);
+  object-fit: cover; object-position: center 22%;
+  border: 2px solid var(--surface-card);
+  background: var(--surface-sunken);
+}
+[data-skin="meridian"] .mt-launcher__text { display: flex; flex-direction: column; line-height: 1.2; }
+[data-skin="meridian"] .mt-launcher__name { font-size: 15px; font-weight: 700; }
+[data-skin="meridian"] .mt-launcher__role { font-size: 11px; opacity: .9; }
+/* The role is not optional here either. */
+[data-skin="meridian"] .mt-launcher:not(:has(.mt-launcher__role))::after {
+  content: "Missing required label — Mira · MIDTRANS logistics assistant";
+  position: absolute; inset-inline-start: 0; inset-block-start: 100%;
+  margin-block-start: var(--space-1); padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--status-danger-soft); color: var(--status-danger);
+  font-size: 12px; font-weight: 600; white-space: nowrap;
+}
+@media (max-width: 767px) {
+  [data-skin="meridian"] .mt-launcher { padding-inline-end: var(--space-4); }
+  [data-skin="meridian"] .mt-launcher__avatar { width: 36px; height: 36px; }
+  [data-skin="meridian"] .mt-launcher__name { font-size: 13px; }
 }
 /* ---------- FAQ ---------- */
 [data-skin="meridian"] .mt-faq { font-family: var(--font-sans); border-block-start: 1px solid var(--border-subtle); }
@@ -1289,11 +1337,11 @@
 [data-skin="meridian"] .mt-typing i:nth-child(3) { animation-delay: .4s; }
 @keyframes meridian-mt-typing-blink { 0%, 60%, 100% { opacity: .25 } 30% { opacity: 1 } }
 [data-skin="meridian"] .mt-composer {
-  position: sticky; inset-block-end: 0;
-  /* Declared, not inherited: this is fixed/sticky chrome with no styled
-     ancestor, so on a host page it would otherwise take that page's body
-     font. This is the defect that put a serif face in the Mira box. */
+  /* Each component carries its own family rather than inheriting one. As an
+     additive skin this stylesheet is dropped into a host page that already
+     sets a body font, and an inherited family would lose to it. */
   font-family: var(--font-sans);
+  position: sticky; inset-block-end: 0;
   background: var(--surface-page);
   border-block-start: 1px solid var(--border-subtle);
   padding: var(--space-3) var(--mt-gutter);

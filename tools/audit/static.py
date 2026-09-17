@@ -92,6 +92,43 @@ for q in list(decl):
         fails.append(f"{q} holds text but never declares font-family - it would "
                      f"inherit the host page's font")
 
+# --- 8. every ink token holds its floor on the surfaces it claims -----------
+# A token's usage text names the surfaces it is for. Those pairs are checked
+# here, because a component preview only covers the pairings it happens to use:
+# brand-link failed on brand-soft for a while with every preview passing.
+def _lum(h):
+    h = h.lstrip('#'); r, g, b = [int(h[i:i+2], 16) / 255 for i in (0, 2, 4)]
+    f = lambda c: c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4
+    return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b)
+def _cr(a, b):
+    l1, l2 = _lum(a), _lum(b); hi, lo = max(l1, l2), min(l1, l2)
+    return (hi + 0.05) / (lo + 0.05)
+V = {c['name']: c['value'] for c in t['color']['tokens']}
+CONTRACT = [                      # (ink, surfaces, floor)
+    ('ink-body',      ['surface-page','surface-card','surface-sunken','brand-soft'], 4.5),
+    ('ink-strong',    ['surface-page','surface-card','surface-sunken'],              4.5),
+    ('ink-muted',     ['surface-page','surface-card','surface-sunken'],              4.5),
+    ('ink-inverse',   ['surface-inverse'],                                           4.5),
+    ('ink-on-brand',  ['brand-primary'],                                             4.5),
+    ('brand-link',    ['surface-page','surface-card','surface-sunken','brand-soft'], 4.5),
+    ('status-success',['status-success-soft','surface-card'],                        4.5),
+    ('status-warning',['status-warning-soft','surface-card'],                        4.5),
+    ('status-danger', ['status-danger-soft','surface-card'],                         4.5),
+    ('status-info',   ['status-info-soft','surface-card'],                           4.5),
+    ('status-neutral',['status-neutral-soft','surface-card'],                        4.5),
+    ('border-strong', ['surface-page','surface-card','surface-sunken'],              3.0),
+    ('border-focus',  ['surface-page','surface-card','surface-sunken','surface-inverse'], 3.0),
+]
+for ink, surfaces, floor in CONTRACT:
+    for surf in surfaces:
+        for theme in ('light', 'dark'):
+            if ink not in V or surf not in V: continue
+            r = _cr(V[ink]['value'][theme] if 'value' in V[ink] else V[ink][theme],
+                    V[surf]['value'][theme] if 'value' in V[surf] else V[surf][theme])
+            if r < floor - 0.005:
+                fails.append(f"{ink} on {surf} ({theme}) is {r:.2f}, its usage claims that "
+                             f"surface and the floor is {floor}")
+
 print("FAIL" if fails else "PASS", f"({len(fails)} fail, {len(warns)} warn)")
 for f in fails: print("  ✗", f)
 for w in warns[:12]: print("  ·", w)

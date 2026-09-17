@@ -7,7 +7,7 @@ several of the defects they caught were invisible in the source.
 ## Running them
 
     python3 -m http.server 8000 &          # from the repository root
-    python3 tools/audit/gen_tokens.py      # tokens.json -> audit-tokens.css
+    python3 tools/audit/gen_tokens_css.py  # tokens.json -> design-system/tokens.css
     python3 tools/audit/gen_mounts.py      # previews -> loadable pages
     python3 tools/audit/static.py          # the source text
     node    tools/audit/live.js            # what the browser computes
@@ -20,9 +20,9 @@ resolve. In this container:
     PW=/opt/node22/lib/node_modules/playwright \
     CHROME=/opt/pw-browsers/chromium-1194/chrome-linux/chrome node tools/audit/live.js
 
-`gen_tokens.py` writes `audit-tokens.css` at the repository root and `live.js`
-mounts each `components/*/preview.html` under `.audit-mounts/`. Both are
-throwaway harness files; delete them when you are done.
+`gen_mounts.py` mounts each `components/*/preview.html` under `.audit-mounts/`,
+linking the real `design-system/tokens.css` so the checks measure what the
+platform actually serves. The mounts are throwaway; delete them when done.
 
 ## static.py — the source
 
@@ -57,6 +57,13 @@ Two things this harness got wrong at first, both worth knowing:
 Snapshots a legacy component's computed style with the skin off, on, and on in
 dark, and fails on any difference; confirms the skin styles its own components
 and that `meridian-mt-flash` is actually running.
+
+## gen_tokens_css.py
+
+`tokens.css` is what components consume, and it had drifted from `tokens.json`:
+14 colours differed, all three radii were a step small (3/6/10 rather than
+4/8/12), and `ink-inverse-muted` and `chart-1..4` were missing. Run this after
+any edit to `tokens.json`.
 
 ## gen_meridian.py
 

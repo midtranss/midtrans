@@ -21,7 +21,7 @@ for c in sorted(p for p in (ROOT/'design-system/components').iterdir() if p.is_d
         (out/f'{c.name}.{theme}.html').write_text(
 f'''<!doctype html><html lang="en" data-theme="{theme}"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><title>{c.name} {theme}</title>
-<link rel="stylesheet" href="/audit-tokens.css">
+<link rel="stylesheet" href="/design-system/tokens.css">
 <link rel="stylesheet" href="/design-system/components/bundle.css">
 <style>*,*::before,*::after{{transition:none !important;animation:none !important;}}</style>
 </head><body data-component="{c.name}">
