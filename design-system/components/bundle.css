@@ -59,7 +59,7 @@
 .mt-btn--sm { padding-block: 5px; padding-inline: var(--space-3); font-size: 13px; line-height: 20px; }
 
 /* ---------- Field ---------- */
-.mt-field { display: flex; flex-direction: column; gap: var(--space-1); }
+.mt-field { font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1); }
 .mt-field__label {
   font-family: var(--font-sans);
   font-size: 13px;
@@ -114,6 +114,10 @@
 
 /* ---------- Card ---------- */
 .mt-card {
+  /* Each component carries its own family rather than inheriting one. As an
+     additive skin this stylesheet is dropped into a host page that already
+     sets a body font, and an inherited family would lose to it. */
+  font-family: var(--font-sans);
   background: var(--surface-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
@@ -176,7 +180,7 @@
 .mt-alert--danger  { background: var(--status-danger-soft);  color: var(--status-danger); }
 
 /* ---------- KeyValue ---------- */
-.mt-kv { margin: 0; display: grid; grid-template-columns: max-content 1fr; column-gap: var(--space-5); row-gap: var(--space-3); }
+.mt-kv { font-family: var(--font-sans); margin: 0; display: grid; grid-template-columns: max-content 1fr; column-gap: var(--space-5); row-gap: var(--space-3); }
 .mt-kv dt {
   font-family: var(--font-sans);
   font-size: 13px;
@@ -219,6 +223,7 @@
 .mt-footer__langs { display: flex; flex-wrap: wrap; gap: var(--space-3); }
 .mt-footer__lang { color: var(--ink-inverse-muted); font-size: 13px; text-decoration: none; }
 .mt-footer__lang[aria-current="true"] { color: var(--ink-inverse); font-weight: 600; }
+.mt-footer__lang:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
 .mt-footer__legal {
   display: flex; flex-wrap: wrap; gap: var(--space-4); justify-content: space-between;
   padding-block-start: var(--space-4);
@@ -281,7 +286,7 @@
 .mt-doc__content { display: grid; grid-template-columns: 250px 1fr; gap: var(--space-5); padding: var(--space-4) var(--space-6) var(--space-5); align-items: start; }
 .mt-doc__side, .mt-doc__main { display: grid; gap: var(--space-3); align-content: start; }
 .mt-doc__card { padding: var(--space-3); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); background: var(--surface-page); }
-.mt-doc__card h4 { margin: 0 0 var(--space-2); font-size: 11px; line-height: 16px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brand-accent); }
+.mt-doc__card h4 { margin: 0 0 var(--space-2); font-size: 11px; line-height: 16px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brand-primary); }
 .mt-doc__card p { margin: 2px 0; font-size: 12px; line-height: 18px; color: var(--ink-muted); }
 .mt-doc__card strong { display: block; font-size: 14px; line-height: 21px; color: var(--ink-strong); }
 .mt-doc__card address { font-style: normal; font-size: 12px; line-height: 18px; color: var(--ink-muted); }
@@ -328,7 +333,7 @@
 }
 
 /* ---------- Calculator ---------- */
-.mt-calc { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr); gap: var(--space-5); align-items: start; }
+.mt-calc { font-family: var(--font-sans); display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr); gap: var(--space-5); align-items: start; }
 .mt-calc__inputs { display: grid; gap: var(--space-4); }
 .mt-calc__row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
 .mt-calc__out {
@@ -483,6 +488,9 @@
   /* Minimum comfortable touch target. Not a design token: it is an input
      constant, and env() cannot live in tokens.json. */
   --mt-tap: 44px;
+  /* Icon-only controls are 32px under a mouse and grow to the 44px floor on
+     touch. Held as a token so the size does not depend on rule order. */
+  --mt-target-icon: 32px;
   --mt-safe-top: env(safe-area-inset-top, 0px);
   --mt-safe-bottom: env(safe-area-inset-bottom, 0px);
   --mt-safe-start: env(safe-area-inset-left, 0px);
@@ -493,6 +501,7 @@
 
 /* --- Touch: every interactive thing clears 44px on a coarse pointer ------ */
 @media (pointer: coarse) {
+  :root { --mt-target-icon: var(--mt-tap); }
   .mt-btn,
   .mt-field__control,
   .mt-footer__link,
@@ -504,6 +513,16 @@
   .mt-btn { padding-block: 10px; }
   .mt-btn--sm { min-height: var(--mt-tap); padding-block: 8px; }
   .mt-field__control { padding-block: 10px; }
+  /* A 44px floor needs a box: min-height is ignored on an inline element, so
+     each of these becomes inline-flex before it is given a size. */
+  .mt-footer__lang,
+  .mt-office__line a {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-inline-size: var(--mt-tap); min-block-size: var(--mt-tap);
+  }
+  /* The phone and mail links sit in a flex row, so the row must stop centring
+     on the baseline once its links are 44px tall. */
+  .mt-office__line { align-items: center; }
   /* Targets that cannot grow get their spacing instead, so neighbours are
      not mis-tapped. */
   .mt-footer__col { gap: var(--space-3); }
@@ -773,7 +792,10 @@
   background: var(--surface-inverse);
   color: var(--ink-inverse);
   box-shadow: var(--shadow-lg);
-  font: var(--text-body-sm);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 400;
   pointer-events: auto;
   animation: mt-toast-in 200ms ease-out 1;
 }
@@ -782,7 +804,7 @@
 .mt-toast--danger svg  { color: var(--status-danger); }
 .mt-toast__close {
   margin-inline-start: auto;
-  min-width: 32px; min-height: 32px;
+  min-inline-size: var(--mt-target-icon); min-block-size: var(--mt-target-icon);
   border: none; background: transparent; color: var(--ink-inverse-muted);
   border-radius: var(--radius-sm); cursor: pointer;
 }
@@ -832,6 +854,14 @@
    ========================================================================== */
 [lang="ar"],
 [lang^="ar-"] {
+  /* Rebinding the variable, not just the property, is what makes "Cairo only"
+     true. Every component sets font-family: var(--font-sans) on itself, and a
+     declaration on the component beats a family inherited from this element -
+     so a button, badge, table header or field label would keep rendering its
+     Arabic in Helvetica. Pointing --font-sans at the Arabic face inside this
+     subtree makes all of them resolve to Cairo, with no per-component rules.
+     --font-mono is deliberately left alone: reference numbers stay mono. */
+  --font-sans: var(--font-arabic);
   font-family: var(--font-arabic);
 }
 /* Reference numbers stay in the mono face inside Arabic too: a booking or
@@ -860,7 +890,7 @@
    The order is FIXED and never cycled — a fifth mode folds into "Other".
    ========================================================================== */
 
-.mt-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-4); }
+.mt-stats { font-family: var(--font-sans); display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-4); }
 .mt-stat {
   display: flex; flex-direction: column; gap: var(--space-1);
   padding: var(--space-4);
@@ -903,13 +933,17 @@
 .mt-c4 { background: var(--chart-4); } .mt-sw4 { background: var(--chart-4); }
 
 @media print {
-  .mt-stat, .mt-figure__track { border: 1px solid #7c8b99; }
+  .mt-stat, .mt-figure__track { border: 1px solid var(--border-strong); }
   .mt-figure__bar { box-shadow: none; }
 }
 
 /* ---------- Notification ---------- */
 .mt-notes { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; font-family: var(--font-sans); }
 .mt-note {
+  /* Each component carries its own family rather than inheriting one. As an
+     additive skin this stylesheet is dropped into a host page that already
+     sets a body font, and an inherited family would lose to it. */
+  font-family: var(--font-sans);
   display: grid; grid-template-columns: max-content 1fr max-content;
   gap: var(--space-3); align-items: start;
   padding: var(--space-4) var(--space-3);
@@ -932,6 +966,10 @@
 /* ---------- Contact ---------- */
 .mt-offices { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-4); font-family: var(--font-sans); }
 .mt-office {
+  /* Each component carries its own family rather than inheriting one. As an
+     additive skin this stylesheet is dropped into a host page that already
+     sets a body font, and an inherited family would lose to it. */
+  font-family: var(--font-sans);
   display: flex; flex-direction: column; gap: var(--space-3);
   padding: var(--space-5);
   background: var(--surface-card);
@@ -951,6 +989,10 @@
 /* The floating contact rail: the persistent actions on the website's edge. */
 .mt-rail {
   position: fixed;
+  /* Declared, not inherited: this is fixed/sticky chrome with no styled
+     ancestor, so on a host page it would otherwise take that page's body
+     font. This is the defect that put a serif face in the Mira box. */
+  font-family: var(--font-sans);
   inset-inline-end: 0;
   inset-block-start: 50%;
   transform: translateY(-50%);
@@ -1074,7 +1116,7 @@
 
 /* ---------- Chat ---------- */
 .mt-chat { display: flex; flex-direction: column; gap: var(--space-4); font-family: var(--font-sans); }
-.mt-msg { display: flex; gap: var(--space-3); align-items: flex-start; }
+.mt-msg { font-family: var(--font-sans); display: flex; gap: var(--space-3); align-items: flex-start; }
 .mt-msg__body {
   flex: 1; min-width: 0;
   padding: var(--space-3) var(--space-4);
@@ -1097,6 +1139,10 @@
 
 /* The handoff: where the assistant stops and a person takes over. */
 .mt-handoff {
+  /* Each component carries its own family rather than inheriting one. As an
+     additive skin this stylesheet is dropped into a host page that already
+     sets a body font, and an inherited family would lose to it. */
+  font-family: var(--font-sans);
   display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center;
   margin-block-start: var(--space-3); padding-block-start: var(--space-3);
   border-block-start: 1px solid var(--border-subtle);
@@ -1112,6 +1158,10 @@
 
 .mt-composer {
   position: sticky; inset-block-end: 0;
+  /* Declared, not inherited: this is fixed/sticky chrome with no styled
+     ancestor, so on a host page it would otherwise take that page's body
+     font. This is the defect that put a serif face in the Mira box. */
+  font-family: var(--font-sans);
   background: var(--surface-page);
   border-block-start: 1px solid var(--border-subtle);
   padding: var(--space-3) var(--mt-gutter);
