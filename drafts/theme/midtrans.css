@@ -215,8 +215,12 @@ a.mt-btn[aria-disabled="true"] { pointer-events: none; }
   background: var(--surface-inverse);
   color: var(--ink-inverse);
   font-family: var(--font-sans);
-  padding-block: var(--space-8) var(--space-5);
-  padding-inline: var(--space-5);
+  /* Full-bleed, so the gutter has to clear the cutout itself: in landscape on a
+     notched device with viewport-fit=cover a fixed inline padding puts the legal
+     line under the camera. --mt-gutter already takes the larger of the spacing
+     step and the safe-area inset. */
+  padding-block: var(--space-8) calc(var(--space-5) + var(--mt-safe-bottom));
+  padding-inline: var(--mt-gutter);
 }
 .mt-footer__inner { max-width: 1200px; margin-inline: auto; display: flex; flex-direction: column; gap: var(--space-6); }
 .mt-footer__top { display: flex; flex-wrap: wrap; gap: var(--space-8); justify-content: space-between; }
@@ -327,6 +331,15 @@ a.mt-btn[aria-disabled="true"] { pointer-events: none; }
    "Assessed on the declaration", "Confirmed on booking". It is prose, so it
    drops out of the mono/tabular treatment the money columns use and sits in
    ink-muted at the smaller size - readable, and visibly not a number. */
+/* A reference number is mono wherever it sits in a document, not only inside a
+   Field or a KeyValue. Marks, B/L, container and seal numbers are read and
+   copied character by character against paper; tabular figures keep a column of
+   weights aligned on the digit. */
+.mt-doc [data-mono] {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
 .mt-doc__table [data-unset] {
   font-family: var(--font-sans);
   font-variant-numeric: normal;
@@ -362,6 +375,17 @@ a.mt-btn[aria-disabled="true"] { pointer-events: none; }
   .mt-doc__total-row--grand { background: none; color: var(--ink-strong); border: 1px solid var(--border-strong); }
 }
 
+/* A document table is as wide as its columns need: the packing list is six of
+   them, about 508px, inside a 318px content area on a 360px phone. .mt-doc
+   clips (overflow: hidden), so the weight and volume columns were unreachable
+   rather than merely off-screen. The table scrolls on its own axis here.
+   Mark the region in the markup - tabindex="0" with role="region" and a label -
+   so it is reachable by keyboard too; CSS cannot do that part. */
+@media (max-width: 767px) {
+  .mt-doc__main { overflow-x: auto; overscroll-behavior-x: contain; }
+  .mt-doc__table { min-width: max-content; }
+}
+
 /* ---------- Calculator ---------- */
 .mt-calc { font-family: var(--font-sans); display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr); gap: var(--space-5); align-items: start; }
 .mt-calc__inputs { display: grid; gap: var(--space-4); }
@@ -389,14 +413,26 @@ a.mt-btn[aria-disabled="true"] { pointer-events: none; }
 /* ---------- HS code lookup ---------- */
 .mt-hs { display: flex; flex-direction: column; gap: var(--space-4); font-family: var(--font-sans); }
 .mt-hs__results { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+/* A candidate is a control, not a row of text. The stylesheet already gave it a
+   44px floor and a tap highlight, but as a bare <li> it could only ever be
+   picked with a pointer: no focus, no role, no selected state a screen reader
+   can read. It is a button now, so the keyboard reaches it and aria-pressed
+   carries the choice. */
 .mt-hs__item {
   display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: baseline;
+  inline-size: 100%;
+  text-align: start;
+  font-family: var(--font-sans);
   padding: var(--space-3);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   background: var(--surface-card);
+  cursor: pointer;
 }
-.mt-hs__item[data-selected="true"] { border-color: var(--brand-primary); background: var(--brand-soft); }
+.mt-hs__item[data-selected="true"],
+.mt-hs__item[aria-pressed="true"] { border-color: var(--brand-primary); background: var(--brand-soft); }
+.mt-hs__item:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+.mt-hs__results { list-style: none; margin: 0; padding: 0; }
 .mt-hs__code { font-family: var(--font-mono); font-size: 14px; line-height: 20px; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--ink-strong); white-space: nowrap; }
 .mt-hs__desc { flex: 1 1 240px; font-size: 13px; line-height: 20px; color: var(--ink-body); }
 .mt-hs__duty { font-size: 12px; line-height: 18px; color: var(--ink-muted); white-space: nowrap; }

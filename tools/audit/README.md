@@ -11,7 +11,8 @@ several of the defects they caught were invisible in the source.
     python3 tools/audit/gen_theme_package.py  # sources -> drafts/theme/
     python3 tools/audit/gen_meridian.py       # sources -> meridian/meridian.css
     python3 tools/audit/gen_mounts.py         # previews -> loadable pages
-    python3 tools/audit/static.py          # the source text
+    python3 tools/audit/static.py             # the source text
+    python3 tools/audit/doc_totals.py         # document totals against their rows
     node    tools/audit/live.js            # what the browser computes
     node    tools/audit/meridian_proof.js  # the skin's isolation
 
@@ -54,6 +55,14 @@ Two things this harness got wrong at first, both worth knowing:
    Arabic rendering in Helvetica inside buttons, badges, table headers and
    labels. It now walks the whole subtree. Removing the fix in `bundle.css`
    turns up 108 failures, which is how we know the check is not vacuous.
+
+## doc_totals.py — the arithmetic
+
+Adds up each document's line table and checks every total row against a column
+sum. A packing list shipped with totals of 12,026 kg over rows summing to
+7,026 kg is exactly what the claims-and-figures guideline exists to prevent, and
+it is the number a warehouse and a customs officer check piece by piece.
+Reading the preview did not catch it; adding it up did.
 
 ## meridian_proof.js — the skin
 

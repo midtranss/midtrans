@@ -99,7 +99,10 @@
     "readme": "project/README.md",
     "sections": [
       "project/guidelines/10-multilingual-and-rtl.md",
-      "project/guidelines/20-claims-and-figures.md"
+      "project/guidelines/20-claims-and-figures.md",
+      "project/guidelines/30-properties-and-domains.md",
+      "project/guidelines/40-devices-and-input.md",
+      "project/guidelines/50-messages-and-documents.md"
     ]
   },
   "groups": [

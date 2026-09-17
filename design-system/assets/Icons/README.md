@@ -11,3 +11,14 @@ The MIDTRANS logistics icon set: sixteen line marks at 24×24, `fill="none"`, 1.
 **Direction.** `mt-arrow-end` is the only directional mark and mirrors under `dir="rtl"`. The modes — ship, aircraft, truck — and every other icon are non-directional and must never be flipped, exactly like the logo.
 
 These were drawn for this system against the subjects MIDTRANS's own design direction names. No licensed icon library was in use. If one is adopted later, replace this sprite and keep the ids.
+
+## The checksum in the index is not the checksum of this file
+
+`design-system.json` records this sprite as 4,506 bytes with sha256 `ca373e92…`,
+while the file here is 4,241 bytes with `202346d3…`. They are the same sixteen
+symbols with the same geometry: the asset store serialises SVG on upload, so
+`<path … />` comes back as `<path …></path>`. Re-uploading this exact file
+returns that same 4,506-byte blob, which is how we know the pair is consistent
+rather than stale — the index describes what the store holds, and this file is
+the source before that normalisation. Nothing to reconcile; edit this file and
+re-upload if the set changes.
