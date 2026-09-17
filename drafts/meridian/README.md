@@ -8,7 +8,7 @@ Three files, and one `<link>` after your existing stylesheets:
 
 ```
 meridian/
-├── meridian.css          72 KB · 12 KB gzipped
+├── meridian.css          87 KB · 17 KB gzipped
 ├── fonts/cairo.woff2     114 KB · Cairo, subset to Arabic + Latin, SIL OFL
 └── midtrans-icons.svg    4 KB · the 16-mark logistics sprite
 ```

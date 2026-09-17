@@ -16,9 +16,10 @@ several of the defects they caught were invisible in the source.
     node    tools/audit/contract_check.js     # the cards against the built system
     node    tools/audit/live.js            # what the browser computes
     node    tools/audit/meridian_proof.js  # the skin's isolation
+    node    tools/audit/theme_switch.js    # the settings switch, end to end
 
-`live.js` and `meridian_proof.js` take `PW` (the Playwright module path) and
-`CHROME` (a browser binary) from the environment when the defaults do not
+`live.js`, `meridian_proof.js` and `theme_switch.js` take `PW` (the Playwright
+module path) and `CHROME` (a browser binary) from the environment when the defaults do not
 resolve. In this container:
 
     PW=/opt/node22/lib/node_modules/playwright \
@@ -93,6 +94,25 @@ role"). Adding one is an entry in the JSON, not code.
 Snapshots a legacy component's computed style with the skin off, on, and on in
 dark, and fails on any difference; confirms the skin styles its own components
 and that `meridian-mt-flash` is actually running.
+
+## theme_switch.js — the switch
+
+`meridian_proof.js` proves the skin does not leak when it is *off*. This proves
+the act of turning it on and off again is lossless, which is what the settings
+control actually does.
+
+It builds a page carrying a legacy component whose every property collides with
+one Meridian sets, then flips `MidtransTheme.preview()` on and off and compares
+the two off states. They must be identical, not similar.
+
+It also asserts the transition freeze — the `<style>` the controller injects for
+one frame — is applied during the flip and gone afterwards. That assertion earns
+its place: with the freeze removed, the check reads the button's background as
+the *legacy* colour while its radius and font have already changed, because
+`background-color` is transitioned and was caught mid-flight. Without the
+freeze the switch is a visible cross-fade of every colour on the page, and any
+measurement taken during it is wrong. This is the same mid-transition read that
+once produced 23 phantom contrast failures in `live.js`.
 
 ## gen_tokens_css.py
 
