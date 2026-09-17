@@ -65,6 +65,14 @@ and that `meridian-mt-flash` is actually running.
 4/8/12), and `ink-inverse-muted` and `chart-1..4` were missing. Run this after
 any edit to `tokens.json`.
 
+**On the published artifact this file belongs to the Design System page, not to
+us.** The type's instructions reserve `project/tokens.css`, `project/api/**` and
+`project/manifest.json` as generated, so we publish `tokens.json` and the page
+regenerates the rest — it does not do so on a file publish, only when the page
+itself is opened or a token is edited there. The copy this script writes is for
+the local checks, so they measure the same values the artifact will serve once
+it has regenerated. Do not publish it.
+
 ## gen_meridian.py
 
 Regenerates `meridian/meridian.css` from `tokens.json` and `bundle.css`. Run it
