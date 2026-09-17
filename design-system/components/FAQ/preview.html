@@ -24,8 +24,55 @@
     </div>
   </div>
 </div>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "en",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What do you need to quote a shipment?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Origin and destination, the commodity, gross weight and dimensions, the incoterm, and your ready date. For sea freight, whether the cargo is FCL or LCL. We reply with what we still need, and with a quotation once the carrier confirms space and rate."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does shipping take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Transit time depends on the sailing or flight, the season, and clearance at destination. We confirm it against the carrier's schedule at booking rather than publishing an average."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you handle customs clearance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, in-house. The same team that books the shipment prepares the declaration and the documents."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which HS code applies to my goods?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our lookup returns candidate classifications, and our team reviews them against your commercial invoice. The binding determination is made by the customs authority of the country of import."
+      }
+    }
+  ]
+}
+</script>
 <script>
-document.querySelectorAll('.mt-faq__q').forEach(q => q.addEventListener('click', () => {
-  q.setAttribute('aria-expanded', q.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
+// One panel at a time. The card says never open all of them: an accordion with
+// everything expanded is a page, and the reader loses the map. Toggling each
+// button independently let a reader reach exactly that state.
+const qs = [...document.querySelectorAll('.mt-faq__q')];
+qs.forEach(q => q.addEventListener('click', () => {
+  const opening = q.getAttribute('aria-expanded') !== 'true';
+  qs.forEach(other => other.setAttribute('aria-expanded', 'false'));
+  q.setAttribute('aria-expanded', opening ? 'true' : 'false');
 }));
 </script>

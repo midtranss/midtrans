@@ -16,4 +16,6 @@ Row hover tints to `surface-sunken`. Freeze the header with `shadow-sm` once the
 
 **Below 768px**, do not shrink the table: switch to a stacked list of KeyValue pairs per record, keeping the reference as the heading. A horizontally scrolling operational table is unusable on a phone.
 
+That switch is **opt-in, and it needs the labels**: add `mt-table--stack` to the table and give every `<td>` a `data-label` naming its column. Below 768px the header row is taken out of the flow and each cell restates its own label, so a record reads as term and value pairs. Without the modifier the wide table simply stays wide; without `data-label` the stacked cells lose the column they belong to. The preview beside this card carries both.
+
 **Do not** use a table for layout, and do not hide a column at narrow widths if it carries state or a figure the operator acts on.

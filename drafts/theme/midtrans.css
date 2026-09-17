@@ -613,6 +613,12 @@ a.mt-btn[aria-disabled="true"] { pointer-events: none; }
   .mt-footer__link:hover { color: var(--ink-inverse-muted); text-decoration: none; }
   .mt-cta__alt:hover { color: var(--ink-inverse-muted); }
   .mt-shell__back:hover { background: transparent; }
+  /* The rail and the launcher are fixed chrome that often opens a panel in
+     place rather than navigating away, so a latched hover stays on screen
+     until the next tap - the most visible case of all. */
+  .mt-rail__item:hover { background: var(--surface-card); color: var(--ink-body); border-color: var(--border-strong); }
+  .mt-rail__item--accent:hover { background: var(--brand-primary); color: var(--ink-on-brand); border-color: var(--brand-primary); }
+  .mt-launcher:hover { background: var(--brand-primary); color: var(--ink-on-brand); }
 }
 
 /* Touch ergonomics: no grey flash, no double-tap zoom delay, no scroll chaining */
@@ -1023,6 +1029,15 @@ a.mt-btn[aria-disabled="true"] { pointer-events: none; }
   background: var(--surface-card);
 }
 .mt-note[data-unread="true"] { background: var(--brand-soft); }
+/* The unread tint is colour alone, and a data attribute reaches no screen
+   reader. This says it in words, visually hidden but read aloud and found by
+   search - status never rides on colour by itself anywhere in this system. */
+.mt-note__unread {
+  position: absolute;
+  inline-size: 1px; block-size: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
 .mt-note__icon { width: 32px; height: 32px; border-radius: var(--radius-sm); display: grid; place-items: center; }
 .mt-note__icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .mt-note--info    .mt-note__icon { background: var(--status-info-soft);    color: var(--status-info); }

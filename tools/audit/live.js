@@ -45,6 +45,10 @@ const IN_PAGE = () => {
   for (const el of all) {
     const cs = getComputedStyle(el);
     if (cs.display==='none' || cs.visibility==='hidden' || parseFloat(cs.opacity)===0) continue;
+    // Visually hidden text - clipped to 1x1 for screen readers - has no contrast
+    // to measure: nothing sees it. Checking it reports the UA default against
+    // whatever is behind, which is noise, not a finding.
+    if (cs.clipPath === 'inset(50%)' || (el.offsetWidth <= 1 && el.offsetHeight <= 1)) continue;
     const r = el.getBoundingClientRect();
     const hasText = [...el.childNodes].some(n => n.nodeType===3 && n.textContent.trim().length>0);
 

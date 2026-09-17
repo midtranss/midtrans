@@ -1,7 +1,8 @@
 <!-- @dsCard group="Site" height=260 subtitle="Capability card with an icon from the set" -->
 <style>
   body { margin: 0; padding: 24px; background: var(--surface-sunken); }
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+  @media (min-width: 768px) { .grid { grid-template-columns: repeat(3, 1fr); } }
 </style>
 <div class="grid">
   <a class="mt-service" href="#">

@@ -164,6 +164,19 @@ L += token_lines('dark', '    ')
 L.append('  }')
 L.append('}')
 
+# Paper is white whatever the skin was set to. The documented install loads only
+# meridian.css - it does not import tokens.css - so the source's print reset
+# never reaches it, and an official quotation printed from a dark session came
+# out as light text the browser drops the background behind.
+L.append('@media print {')
+L.append(f'  {SCOPE}, {SCOPE}[data-theme="light"], {SCOPE}[data-theme="dark"] {{')
+for c in tokens['color']['tokens']:
+    L.append(f"    --{c['name']}: {c['value']['light']};")
+for s_ in tokens['shadow']['tokens']:
+    L.append(f"    --{s_['name']}: none;")
+L.append('  }')
+L.append('}')
+
 L += ['', '@font-face {', '  font-family: "Meridian Cairo";',
       '  src: url("fonts/cairo.woff2") format("woff2");',
       '  font-weight: 200 1000;', '  font-style: normal;',

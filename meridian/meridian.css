@@ -141,6 +141,44 @@
     --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
   }
 }
+@media print {
+  [data-skin="meridian"], [data-skin="meridian"][data-theme="light"], [data-skin="meridian"][data-theme="dark"] {
+    --surface-page: #ffffff;
+    --surface-card: #ffffff;
+    --surface-sunken: #f2f5f8;
+    --surface-inverse: #0a2440;
+    --ink-strong: #0a2440;
+    --ink-body: #1f3448;
+    --ink-muted: #52657a;
+    --ink-inverse: #ffffff;
+    --ink-inverse-muted: #a8bccd;
+    --ink-on-brand: #ffffff;
+    --brand-primary: #0074b7;
+    --brand-accent: #007dc5;
+    --brand-link: #0069a8;
+    --brand-soft: #e6f2f9;
+    --border-subtle: #dde4ea;
+    --border-strong: #7c8b99;
+    --border-focus: #007dc5;
+    --status-success: #0f7a4d;
+    --status-success-soft: #e4f4ec;
+    --status-warning: #9a5b00;
+    --status-warning-soft: #fbf0e0;
+    --status-danger: #b3261e;
+    --status-danger-soft: #fbe9e7;
+    --status-info: #0070b0;
+    --status-info-soft: #e6f2f9;
+    --status-neutral: #52657a;
+    --status-neutral-soft: #eef2f6;
+    --chart-1: #007dc5;
+    --chart-2: #c2255c;
+    --chart-3: #6a4bbc;
+    --chart-4: #8a6d00;
+    --shadow-sm: none;
+    --shadow-md: none;
+    --shadow-lg: none;
+  }
+}
 
 @font-face {
   font-family: "Meridian Cairo";
@@ -762,6 +800,12 @@
   [data-skin="meridian"] .mt-footer__link:hover { color: var(--ink-inverse-muted); text-decoration: none; }
   [data-skin="meridian"] .mt-cta__alt:hover { color: var(--ink-inverse-muted); }
   [data-skin="meridian"] .mt-shell__back:hover { background: transparent; }
+  /* The rail and the launcher are fixed chrome that often opens a panel in
+     place rather than navigating away, so a latched hover stays on screen
+     until the next tap - the most visible case of all. */
+  [data-skin="meridian"] .mt-rail__item:hover { background: var(--surface-card); color: var(--ink-body); border-color: var(--border-strong); }
+  [data-skin="meridian"] .mt-rail__item--accent:hover { background: var(--brand-primary); color: var(--ink-on-brand); border-color: var(--brand-primary); }
+  [data-skin="meridian"] .mt-launcher:hover { background: var(--brand-primary); color: var(--ink-on-brand); }
 }
 /* Touch ergonomics: no grey flash, no double-tap zoom delay, no scroll chaining */
 [data-skin="meridian"] .mt-btn,
@@ -1179,6 +1223,15 @@
   background: var(--surface-card);
 }
 [data-skin="meridian"] .mt-note[data-unread="true"] { background: var(--brand-soft); }
+/* The unread tint is colour alone, and a data attribute reaches no screen
+   reader. This says it in words, visually hidden but read aloud and found by
+   search - status never rides on colour by itself anywhere in this system. */
+[data-skin="meridian"] .mt-note__unread {
+  position: absolute;
+  inline-size: 1px; block-size: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
 [data-skin="meridian"] .mt-note__icon { width: 32px; height: 32px; border-radius: var(--radius-sm); display: grid; place-items: center; }
 [data-skin="meridian"] .mt-note__icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 [data-skin="meridian"] .mt-note--info    .mt-note__icon { background: var(--status-info-soft);    color: var(--status-info); }
