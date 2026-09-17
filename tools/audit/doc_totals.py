@@ -34,10 +34,22 @@ ALIAS = {
     'subtotal': 'amount', 'charges shown': 'amount',
     'quotation total': 'amount', 'proforma total': 'amount',
     'invoice total': 'amount', 'amount received': 'amount',
+    'total debits': 'debit', 'total credits': 'credit',
 }
 def key(s):
     s = s.lower().strip()
     return ALIAS.get(s, s)
+
+
+ROW = re.compile(r'<div class="mt-doc__total-row[^"]*">(.*?)</div>', re.S)
+LBL = re.compile(r'<span[^>]*>(.*?)</span>', re.S)
+
+def total_rows(html):
+    """(label, value) for each total row, with nested value spans kept whole."""
+    for inner in ROW.findall(html):
+        m = LBL.search(inner)
+        if not m: continue
+        yield text(m.group(1)), text(inner[m.end():])
 
 fails = []
 for pv in sorted((ROOT/'design-system/components').glob('Document*/preview.html')):
@@ -46,22 +58,28 @@ for pv in sorted((ROOT/'design-system/components').glob('Document*/preview.html'
     head = re.search(r'<thead>(.*?)</thead>', html, re.S)
     if not (body and head): continue
     heads = [key(text(h)) for h in re.findall(r'<th[^>]*>(.*?)</th>', head.group(1), re.S)]
-    rows  = [[text(c) for c in re.findall(r'<td[^>]*>(.*?)</td>', r, re.S)]
-             for r in re.findall(r'<tr>(.*?)</tr>', body.group(1), re.S)]
+    # A data-unset cell is deliberately not a number - it prints the condition a
+    # figure is waiting on. It is excluded from the sum rather than voiding the
+    # column: that is why the proforma's total is labelled "Charges shown".
+    rows = []
+    for r in re.findall(r'<tr>(.*?)</tr>', body.group(1), re.S):
+        cells = []
+        for attrs, inner in re.findall(r'<td([^>]*)>(.*?)</td>', r, re.S):
+            cells.append(None if 'data-unset' in attrs else text(inner))
+        rows.append(cells)
     if not rows: continue
 
     # sum each column that is numeric all the way down, by its header name
     col = {}
     for i, name in enumerate(heads):
-        vals = [num(r[i]) for r in rows if i < len(r) and r[i].strip()]
+        cells = [r[i] for r in rows if i < len(r) and r[i] is not None and r[i].strip()]
+        vals = [num(c) for c in cells]
         if vals and all(v is not None for v in vals):
             col[name] = round(sum(vals), 2)
 
-    for label, fig in re.findall(
-            r'<div class="mt-doc__total-row[^"]*">\s*<span>(.*?)</span>\s*<span[^>]*>(.*?)</span>',
-            html, re.S):
-        want = key(text(label))
-        v = num(text(fig))
+    for label, fig in total_rows(html):
+        want = key(label)
+        v = num(fig)
         if v is None: continue
         if want not in col:
             # a total the rows cannot speak to (a balance, a status) is not an error,
@@ -73,6 +91,24 @@ for pv in sorted((ROOT/'design-system/components').glob('Document*/preview.html'
         if abs(v - col[want]) >= 0.01:
             fails.append(f"{pv.parent.name}: '{text(label)}' is {v:,.2f}, "
                          f"but column '{want}' sums to {col[want]:,.2f}")
+
+# A statement's closing balance is a relation, not a column: opening plus what
+# was debited less what was credited. No column sum can say it, so it is stated
+# here - the one figure on the document that the rows cannot check on their own.
+st = ROOT/'design-system/components/DocumentStatement/preview.html'
+if st.exists():
+    html = st.read_text()
+    tot = {key(l): num(f) for l, f in total_rows(html)}
+    need = ('opening balance', 'debit', 'credit', 'closing balance')
+    if all(tot.get(k) is not None for k in need):
+        want = round(tot['opening balance'] + tot['debit'] - tot['credit'], 2)
+        if abs(want - tot['closing balance']) >= 0.01:
+            fails.append(f"DocumentStatement: closing balance is {tot['closing balance']:,.2f}, "
+                         f"but opening {tot['opening balance']:,.2f} + debits {tot['debit']:,.2f} "
+                         f"- credits {tot['credit']:,.2f} = {want:,.2f}")
+    else:
+        missing = [k for k in need if tot.get(k) is None]
+        fails.append(f"DocumentStatement: cannot check the closing balance, missing {missing}")
 
 print("FAIL" if fails else "PASS", f"({len(fails)} document total(s) do not add up)")
 for f in fails: print("  x", f)

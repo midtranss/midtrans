@@ -1,0 +1,84 @@
+<!-- @dsCard group="Documents" height=620 subtitle="Account statement: opening, what moved, closing" -->
+<style>body { margin: 0; padding: 20px; background: var(--surface-sunken); }
+ .qr { width:72px; height:72px; background:
+   radial-gradient(circle, var(--brand-accent) 1.6px, transparent 1.7px) 0 0/12px 12px; }</style>
+<article class="mt-doc">
+  <div class="mt-doc__top">
+    <div class="mt-doc__brand">
+      <p class="mt-doc__company">MIDTRANS SHIPPING AND SERVICES</p>
+      <p>Deira, Port Saeed, Al Maktoum Road</p>
+      <p>Street No. 19a, Al Makateb Building</p>
+      <p>Office No. 611, Dubai - UAE</p>
+      <p>TEL: +971 4 271 4480 · CELL: +971 55 292 8560</p>
+    </div>
+    <div class="mt-doc__box">
+      <h2 class="mt-doc__kind">Account statement</h2>
+      <div class="mt-doc__meta">
+        <div class="mt-doc__meta-row"><span>No</span><span>ST-2026-0091</span></div>
+        <div class="mt-doc__meta-row"><span>Period</span><span>01–17 Sep 2026</span></div>
+      </div>
+      <span class="mt-doc__badge">Verified issuer</span>
+    </div>
+    <div class="mt-doc__logo"><strong style="font-size:15px;color:var(--ink-strong);letter-spacing:.06em">MIDTRANS</strong></div>
+  </div>
+
+  <div class="mt-doc__content">
+    <div class="mt-doc__side">
+      <div class="mt-doc__card">
+        <h4>Account</h4>
+        <strong>ABC Trading Co.</strong>
+        <p>Account: <span data-mono>CU-004182</span></p>
+        <p>accounts@abctrading.example</p>
+        <p>Damascus, Syria</p>
+      </div>
+      <div class="mt-doc__card mt-doc__qr">
+        <div class="qr" role="img" aria-label="Verification QR code"></div>
+        <span>QR verification</span>
+      </div>
+      <div class="mt-doc__card">
+        <h4>Terms</h4>
+        <p>Currency: USD</p>
+        <p>Payment terms: Per agreement</p>
+        <p>Queries: quote the statement number</p>
+      </div>
+    </div>
+
+    <div class="mt-doc__main" tabindex="0" role="region" aria-label="Account statement movements, scrolls horizontally on a narrow screen">
+      <div class="mt-alert mt-alert--warning" role="status" style="margin-block-end:var(--space-4)">
+        <div class="mt-alert__body">
+          <p class="mt-alert__title">Specimen document</p>
+          <p class="mt-alert__text">Every amount below is a masked placeholder. No figure here came from an accounting record, and none may be read as a balance owed.</p>
+        </div>
+      </div>
+
+      <table class="mt-doc__table">
+        <thead><tr>
+          <th class="num">Date</th><th class="num">Reference</th><th>Description</th>
+          <th class="num">Debit</th><th class="num">Credit</th><th class="num">Balance</th>
+        </tr></thead>
+        <tbody>
+          <tr><td class="num" data-mono>03 Sep</td><td class="num" data-mono>IN-2026-0688</td><td>Freight and handling — Jebel Ali to Damascus</td><td class="num"><span class="mt-doc__money"><span>USD</span><span>0 000.00</span></span></td><td class="num"></td><td class="num"><span class="mt-doc__money"><span>USD</span><span>0 000.00</span></span></td></tr>
+          <tr><td class="num" data-mono>09 Sep</td><td class="num" data-mono>RC-2026-1179</td><td>Payment received, bank transfer</td><td class="num"></td><td class="num"><span class="mt-doc__money"><span>USD</span><span>0 000.00</span></span></td><td class="num"><span class="mt-doc__money"><span>USD</span><span>0 000.00</span></span></td></tr>
+          <tr><td class="num" data-mono>14 Sep</td><td class="num" data-mono>IN-2026-0691</td><td>Freight and handling — Dubai to Damascus</td><td class="num"><span class="mt-doc__money"><span>USD</span><span>0 000.00</span></span></td><td class="num"></td><td class="num"><span class="mt-doc__money"><span>USD</span><span>0 000.00</span></span></td></tr>
+          <tr><td class="num" data-mono>16 Sep</td><td class="num" data-mono>RC-2026-1183</td><td>Payment received, bank transfer</td><td class="num"></td><td class="num"><span class="mt-doc__money"><span>USD</span><span>0 000.00</span></span></td><td class="num"><span class="mt-doc__money"><span>USD</span><span>0 000.00</span></span></td></tr>
+        </tbody>
+      </table>
+
+      <div class="mt-doc__close">
+        <div class="mt-doc__card">
+          <h4>Reading this statement</h4>
+          <p>Movements are listed by value date, and the balance column carries the position after each one. An invoice appears here on issue, not on payment; a receipt appears on the value date its bank confirmed, which is why a payment made late in the period may fall into the next one.</p>
+          <p>Where a figure is disputed, quote the reference in its row. Nothing on this statement is recomputed after issue.</p>
+        </div>
+        <div class="mt-doc__totals">
+          <div class="mt-doc__total-row"><span>Opening balance</span><span class="mt-doc__money"><span>USD</span><span>0 000.00</span></span></div>
+          <div class="mt-doc__total-row"><span>Total debits</span><span class="mt-doc__money"><span>USD</span><span>0 000.00</span></span></div>
+          <div class="mt-doc__total-row"><span>Total credits</span><span class="mt-doc__money"><span>USD</span><span>0 000.00</span></span></div>
+          <div class="mt-doc__total-row mt-doc__total-row--grand"><span>Closing balance</span><span class="mt-doc__money"><span>USD</span><span>0 000.00</span></span></div>
+        </div>
+      </div>
+      <p class="mt-doc__note"><strong>A statement is a position, not a demand.</strong> It restates what the account already holds. Payment is requested on an invoice, and a receipt confirms one — this document does neither.</p>
+    </div>
+  </div>
+  <p class="mt-doc__foot">Account statement</p>
+</article>
