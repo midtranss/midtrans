@@ -1,0 +1,20 @@
+{
+  "home": [
+    {
+      "label": "Contact MIDTRANS",
+      "url": "/contact-us/",
+      "description": "Office and Whatsapp contact details for MIDTRANS.",
+      "relevanceReason": "The homepage introduces the main contact path.",
+      "language": "en"
+    }
+  ],
+  "contact": [
+    {
+      "label": "Home",
+      "url": "/",
+      "description": "Return to the MIDTRANS homepage.",
+      "relevanceReason": "The contact page should provide a simple route back to the main site entry.",
+      "language": "en"
+    }
+  ]
+}

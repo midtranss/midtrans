@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "/",
+    "/about-us/",
+    "/contact-us/",
+    "/get-quote/",
+    "/trade-lanes/",
+    "/faq/",
+    "/jebel-ali-customs-clearance/",
+    "/shipping-from-china-to-syria/",
+    "/dubai-to-syria/",
+    "/land-freight-dubai-to-syria/",
+    "/customs-clearance/"
+  ],
+  "rule": "Protected pages must remain flagged in the registry. Structural conversion or live replacement requires focused verification and rollback readiness."
+}

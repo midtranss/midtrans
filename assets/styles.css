@@ -1,0 +1,553 @@
+:root {
+  --ink: #102033;
+  --muted: #5c6f84;
+  --line: #dce7f0;
+  --surface: #ffffff;
+  --surface-soft: #f4f8fb;
+  --surface-blue: #e9f4fb;
+  --brand: #0a5a9c;
+  --brand-dark: #073f6e;
+  --brand-soft: #dff0fb;
+  --accent: #19a783;
+  --accent-soft: #e3f8f1;
+  --warning-soft: #fff4dd;
+  --shadow: 0 18px 45px rgba(22, 45, 71, 0.1);
+  --shadow-soft: 0 12px 30px rgba(22, 45, 71, 0.08);
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--ink);
+  background: var(--surface-soft);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(10, 90, 156, 0.12), transparent 28rem),
+    linear-gradient(180deg, #ffffff 0%, #f4f8fb 56%, #ffffff 100%);
+}
+
+a {
+  color: var(--brand);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  color: var(--brand-dark);
+  text-decoration: underline;
+}
+
+.site-header {
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.site-footer {
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  margin-top: 4rem;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.nav {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1180px;
+  padding: 1rem 1.5rem;
+}
+
+.brand {
+  align-items: center;
+  color: var(--ink);
+  display: inline-flex;
+  gap: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.brand-mark {
+  align-items: center;
+  background: var(--brand);
+  border-radius: 12px;
+  color: #ffffff;
+  display: inline-flex;
+  font-size: 0.78rem;
+  height: 38px;
+  justify-content: center;
+  width: 38px;
+}
+
+.nav-links {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-cta {
+  background: var(--brand);
+  border-radius: 999px;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0.7rem 1rem;
+}
+
+.nav-cta:hover,
+.nav-cta:focus {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+main {
+  margin: 0 auto;
+  max-width: 1180px;
+  padding: 0 1.5rem;
+}
+
+.breadcrumbs {
+  color: var(--muted);
+  font-size: 0.9rem;
+  padding-top: 1.5rem;
+}
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumbs li:not(:last-child)::after {
+  color: var(--muted);
+  content: "/";
+  margin-left: 0.5rem;
+}
+
+.hero,
+.page-heading {
+  align-items: center;
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
+  padding: 4.5rem 0 3rem;
+}
+
+.hero-copy {
+  max-width: 760px;
+}
+
+.eyebrow,
+.office-label {
+  color: var(--brand);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--ink);
+  line-height: 1.12;
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(2.4rem, 5.8vw, 4.7rem);
+  letter-spacing: -0.045em;
+}
+
+h2 {
+  font-size: clamp(1.45rem, 3vw, 2.25rem);
+  letter-spacing: -0.025em;
+}
+
+h3 {
+  font-size: 1.08rem;
+}
+
+.lede {
+  color: var(--muted);
+  font-size: clamp(1.05rem, 2vw, 1.28rem);
+  line-height: 1.68;
+  margin: 1.4rem 0 1.8rem;
+}
+
+.button {
+  background: var(--brand);
+  border-radius: 999px;
+  box-shadow: 0 14px 26px rgba(10, 90, 156, 0.18);
+  color: #ffffff;
+  display: inline-flex;
+  font-weight: 700;
+  padding: 0.9rem 1.25rem;
+}
+
+.button:hover,
+.button:focus {
+  background: var(--brand-dark);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.button.secondary {
+  background: var(--accent);
+}
+
+.hero-visual {
+  min-height: 410px;
+  position: relative;
+}
+
+.globe-card {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(244, 248, 251, 0.96)),
+    var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  box-shadow: var(--shadow);
+  min-height: 410px;
+  overflow: hidden;
+  padding: 1.5rem;
+  position: relative;
+}
+
+.globe-card::before {
+  background:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 34px 34px;
+  content: "";
+  inset: 0;
+  opacity: 0.36;
+  position: absolute;
+}
+
+.globe-card::after {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  bottom: 1.5rem;
+  content: "Send origin, destination, cargo details and documents before quotation.";
+  color: var(--muted);
+  font-size: 0.95rem;
+  left: 1.5rem;
+  line-height: 1.5;
+  padding: 1rem;
+  position: absolute;
+  right: 1.5rem;
+  z-index: 2;
+}
+
+.signal-dot {
+  background: var(--accent);
+  border: 6px solid var(--accent-soft);
+  border-radius: 999px;
+  height: 24px;
+  position: absolute;
+  width: 24px;
+  z-index: 2;
+}
+
+.signal-dot.dubai {
+  right: 23%;
+  top: 31%;
+}
+
+.signal-dot.damascus {
+  right: 39%;
+  top: 48%;
+}
+
+.signal-dot.corridor {
+  background: var(--brand);
+  border-color: var(--brand-soft);
+  left: 24%;
+  top: 29%;
+}
+
+.route-line {
+  background: linear-gradient(90deg, transparent, var(--brand), transparent);
+  height: 2px;
+  position: absolute;
+  z-index: 1;
+}
+
+.route-line-one {
+  left: 27%;
+  top: 34%;
+  transform: rotate(12deg);
+  width: 210px;
+}
+
+.route-line-two {
+  right: 30%;
+  top: 46%;
+  transform: rotate(132deg);
+  width: 130px;
+}
+
+.ai-chip,
+.metric-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow-soft);
+  color: var(--ink);
+  position: absolute;
+  z-index: 3;
+}
+
+.ai-chip {
+  font-size: 0.84rem;
+  font-weight: 800;
+  left: 1.5rem;
+  letter-spacing: 0.08em;
+  padding: 0.75rem 1rem;
+  text-transform: uppercase;
+  top: 1.5rem;
+}
+
+.metric-card {
+  display: grid;
+  gap: 0.25rem;
+  padding: 1rem;
+}
+
+.metric-card span {
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.metric-card strong {
+  font-size: 1rem;
+}
+
+.metric-card-primary {
+  left: 1.5rem;
+  top: 6rem;
+}
+
+.metric-card-secondary {
+  right: 1.5rem;
+  top: 11rem;
+}
+
+.section-block {
+  margin-top: 2.25rem;
+}
+
+.section-heading {
+  margin: 0 0 1.5rem;
+  max-width: 760px;
+}
+
+.capability-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.capability-card,
+.office-card,
+.whatsapp-panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: var(--shadow-soft);
+}
+
+.capability-card {
+  padding: 1.5rem;
+}
+
+.capability-icon {
+  background: var(--brand-soft);
+  border-radius: 14px;
+  display: inline-block;
+  height: 42px;
+  margin-bottom: 1.15rem;
+  position: relative;
+  width: 42px;
+}
+
+.capability-icon::after {
+  background: var(--brand);
+  border-radius: 999px;
+  content: "";
+  height: 10px;
+  left: 16px;
+  position: absolute;
+  top: 16px;
+  width: 10px;
+}
+
+.capability-card p {
+  color: var(--muted);
+  line-height: 1.65;
+  margin: 0.75rem 0 0;
+}
+
+.office-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.office-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  padding: 1.75rem;
+  position: relative;
+}
+
+.office-card::before {
+  background: var(--brand);
+  border-radius: 999px;
+  content: "";
+  height: 8px;
+  left: 1.75rem;
+  position: absolute;
+  top: 1.25rem;
+  width: 48px;
+}
+
+.office-card.full {
+  min-height: 100%;
+}
+
+.office-card .office-label {
+  margin-top: 1rem;
+}
+
+address {
+  color: var(--muted);
+  font-style: normal;
+  line-height: 1.7;
+}
+
+.contact-list,
+.detail-list {
+  margin: 0;
+  padding: 0;
+}
+
+.contact-list {
+  display: grid;
+  gap: 0.65rem;
+  list-style: none;
+}
+
+.contact-list a,
+.detail-list a {
+  font-weight: 800;
+}
+
+.detail-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.detail-list div {
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 0.25rem;
+  padding-top: 1rem;
+}
+
+.detail-list dt {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.detail-list dd {
+  margin: 0;
+}
+
+.whatsapp-panel {
+  align-items: center;
+  background: linear-gradient(135deg, var(--brand-soft), var(--accent-soft));
+  display: flex;
+  gap: 1.5rem;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  padding: 2rem;
+}
+
+.whatsapp-panel p:not(.office-label) {
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0.75rem 0 0;
+}
+
+@media (max-width: 980px) {
+  .hero,
+  .page-heading,
+  .capability-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-visual,
+  .globe-card {
+    min-height: 340px;
+  }
+}
+
+@media (max-width: 760px) {
+  .nav {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .nav-links {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .hero,
+  .page-heading {
+    padding: 3rem 0 2rem;
+  }
+
+  .office-grid,
+  .whatsapp-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .whatsapp-panel {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .hero-visual,
+  .globe-card {
+    min-height: 320px;
+  }
+
+  .metric-card-secondary {
+    left: 1.5rem;
+    right: auto;
+    top: 10.5rem;
+  }
+}

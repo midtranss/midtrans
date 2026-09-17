@@ -1,0 +1,52 @@
+{
+  "slug": "/",
+  "language": "en",
+  "pageType": "home",
+  "seo": {
+    "title": "MIDTRANS Shipping & Services | Freight Coordination and Contact",
+    "description": "Contact MIDTRANS Shipping & Services for freight coordination, shipment follow-up, documentation support, and office communication through Dubai and Damascus.",
+    "canonical": "https://www.mid-trans.com/",
+    "robots": "index,follow",
+    "openGraph": {
+      "title": "MIDTRANS Shipping & Services | Freight Coordination and Contact",
+      "description": "Freight coordination, office contact details, and shipment follow-up support from MIDTRANS Shipping & Services."
+    }
+  },
+  "hero": {
+    "eyebrow": "Freight Forwarding and Logistics",
+    "h1": "Let's plan your next shipment",
+    "summary": "MIDTRANS coordinates shipment requests through practical route review, document follow-up, customs-aware planning, and direct office communication.",
+    "cta": {
+      "labelKey": "viewContactDetails",
+      "url": "/contact-us/"
+    }
+  },
+  "sections": {
+    "capabilities": {
+      "eyebrow": "Operational scope",
+      "heading": "Freight coordination built around shipment facts",
+      "items": [
+        {
+          "title": "Route planning",
+          "body": "Review origin, destination, cargo details, available freight modes, and practical routing before quoting."
+        },
+        {
+          "title": "Document follow-up",
+          "body": "Coordinate invoices, packing lists, cargo descriptions, HS code direction, and customs-related notes."
+        },
+        {
+          "title": "Shipment follow-up",
+          "body": "Use structured communication and digital platform support to keep shipment facts, messages, and next steps clear."
+        }
+      ]
+    },
+    "offices": {
+      "eyebrow": "Office network",
+      "heading": "Contact MIDTRANS operations",
+      "ariaLabel": "MIDTRANS offices"
+    },
+    "whatsapp": {
+      "heading": "Message MIDTRANS directly"
+    }
+  }
+}

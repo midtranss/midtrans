@@ -1,0 +1,10 @@
+{
+  "name": "midtrans-website",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Template-driven static site source for MIDTRANS Shipping & Services.",
+  "scripts": {
+    "build": "node src/build-site.js",
+    "check": "npm run build && python3 scripts/check-static-site.py"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "language": "en",
+  "dir": "ltr",
+  "navigation": {
+    "home": "Home",
+    "contact": "Contact"
+  },
+  "actions": {
+    "viewContactDetails": "View full contact details",
+    "openWhatsapp": "Open Whatsapp"
+  },
+  "labels": {
+    "offices": "Offices",
+    "whatsapp": "Whatsapp",
+    "telephone": "Tel",
+    "mobile": "MOB"
+  },
+  "footer": {
+    "copyrightPrefix": "&copy;",
+    "companySuffix": "Shipping & Services"
+  },
+  "breadcrumbs": {
+    "home": "Home"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "name": "MIDTRANS Shipping & Services",
+  "brandName": "MIDTRANS",
+  "primaryDomain": "https://www.mid-trans.com",
+  "offices": [
+    {
+      "id": "head-office",
+      "label": "Head Office",
+      "name": "Dubai - United Arab Emirates",
+      "addressLines": [
+        "Deira, Port Saeed, Al Makateb Building",
+        "Office No 611",
+        "Dubai - United Arab Emirates"
+      ],
+      "schemaAddress": {
+        "streetAddress": "Deira, Port Saeed, Al Makateb Building, Office No 611",
+        "addressLocality": "Dubai",
+        "addressCountry": "AE"
+      },
+      "contacts": [
+        {
+          "label": "Tel",
+          "display": "+97142714480/1",
+          "href": "tel:+97142714480",
+          "schemaTelephone": "+97142714480"
+        },
+        {
+          "label": "MOB",
+          "display": "+971552928560",
+          "href": "tel:+971552928560",
+          "schemaTelephone": "+971552928560"
+        }
+      ]
+    },
+    {
+      "id": "syrian-office",
+      "label": "Syrian Office",
+      "name": "Damascus - Syria",
+      "addressLines": [
+        "Halponi, Mouslam Al Baroudi Street",
+        "2nd Floor",
+        "Damascus - Syria"
+      ],
+      "schemaAddress": {
+        "streetAddress": "Halponi, Mouslam Al Baroudi Street, 2nd Floor",
+        "addressLocality": "Damascus",
+        "addressCountry": "SY"
+      },
+      "contacts": [
+        {
+          "label": "Tel",
+          "display": "+963119067",
+          "href": "tel:+963119067",
+          "schemaTelephone": "+963119067"
+        },
+        {
+          "label": "MOB",
+          "display": "+963933383858",
+          "href": "tel:+963933383858",
+          "schemaTelephone": "+963933383858"
+        }
+      ]
+    }
+  ],
+  "whatsapp": {
+    "label": "Whatsapp",
+    "display": "+963944334338",
+    "url": "https://wa.me/963944334338",
+    "schemaTelephone": "+963944334338"
+  }
+}

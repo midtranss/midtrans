@@ -1,0 +1,28 @@
+[
+  {
+    "slug": "/",
+    "language": "en",
+    "pageType": "home",
+    "template": "HomePageTemplate",
+    "contentFile": "content/en/pages/home.json",
+    "canonical": "https://www.mid-trans.com/",
+    "hreflangGroup": "home",
+    "protected": true,
+    "schema": ["Organization", "WebSite", "WebPage"],
+    "ctaType": "contact",
+    "internalLinkGroup": "home"
+  },
+  {
+    "slug": "/contact-us/",
+    "language": "en",
+    "pageType": "contact",
+    "template": "ContactPageTemplate",
+    "contentFile": "content/en/pages/contact-us.json",
+    "canonical": "https://www.mid-trans.com/contact-us/",
+    "hreflangGroup": "contact",
+    "protected": true,
+    "schema": ["Organization", "ContactPage", "BreadcrumbList"],
+    "ctaType": "contact",
+    "internalLinkGroup": "contact"
+  }
+]
