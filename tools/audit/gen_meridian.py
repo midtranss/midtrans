@@ -196,6 +196,14 @@ for prelude, body in split_rules(bundle):
 
 out = '\n'.join(L) + '\n'
 (ROOT/'meridian/meridian.css').write_text(out)
+# The drafts load their own copy of the package; nothing else syncs it, so a
+# regeneration that stopped here left every draft on the previous skin.
+import shutil
+for extra in [ROOT/'drafts/meridian/meridian.css']:
+    if extra.parent.exists():
+        shutil.copyfile(ROOT/'meridian/meridian.css', extra)
+        print('synced', extra.relative_to(ROOT))
+
 print(f'wrote meridian.css: {len(out):,} bytes, {out.count(chr(10)):,} lines')
 code = COMMENT.sub('', out)   # self-checks must not read our own prose
 print('keyframes emitted:', sorted(re.findall(r'@keyframes\s+([\w-]+)', code)))

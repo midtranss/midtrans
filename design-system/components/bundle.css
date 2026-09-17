@@ -149,7 +149,11 @@ a.mt-btn[aria-disabled="true"] { pointer-events: none; }
      detaches from the header as it moves. shadow-sm lands once the body
      scrolls under it, which is what marks the header as floating. */
   position: sticky;
-  inset-block-start: 0;
+  /* Clear of the shell header, which is sticky at 0 with a higher z-index: a
+     table frozen at 0 too slides under it and the operator loses the columns
+     this rule exists to keep. --mt-shell-header is 0 outside the shell, so a
+     table on a plain page still freezes at the top. */
+  inset-block-start: var(--mt-shell-header, 0px);
   z-index: 1;
   background: var(--surface-sunken);
   color: var(--ink-strong);
@@ -381,6 +385,11 @@ a.mt-btn[aria-disabled="true"] { pointer-events: none; }
    rather than merely off-screen. The table scrolls on its own axis here.
    Mark the region in the markup - tabindex="0" with role="region" and a label -
    so it is reachable by keyboard too; CSS cannot do that part. */
+/* The scroll region carries tabindex so a keyboard can reach the columns that
+   scroll out of view; a focusable thing has to show where focus is. Inset so the
+   ring is not clipped by the document's own overflow. */
+.mt-doc__main:focus-visible { outline: 2px solid var(--border-focus); outline-offset: -2px; }
+
 @media (max-width: 767px) {
   .mt-doc__main { overflow-x: auto; overscroll-behavior-x: contain; }
   .mt-doc__table { min-width: max-content; }
@@ -613,12 +622,6 @@ a.mt-btn[aria-disabled="true"] { pointer-events: none; }
   .mt-footer__link:hover { color: var(--ink-inverse-muted); text-decoration: none; }
   .mt-cta__alt:hover { color: var(--ink-inverse-muted); }
   .mt-shell__back:hover { background: transparent; }
-  /* The rail and the launcher are fixed chrome that often opens a panel in
-     place rather than navigating away, so a latched hover stays on screen
-     until the next tap - the most visible case of all. */
-  .mt-rail__item:hover { background: var(--surface-card); color: var(--ink-body); border-color: var(--border-strong); }
-  .mt-rail__item--accent:hover { background: var(--brand-primary); color: var(--ink-on-brand); border-color: var(--brand-primary); }
-  .mt-launcher:hover { background: var(--brand-primary); color: var(--ink-on-brand); }
 }
 
 /* Touch ergonomics: no grey flash, no double-tap zoom delay, no scroll chaining */
@@ -681,6 +684,9 @@ a.mt-btn[aria-disabled="true"] { pointer-events: none; }
 
 /* ---------- AppShell ---------- */
 .mt-shell {
+  /* Published for anything sticky inside the shell - the register's table header
+     is the one that matters. Measured from the header's own padding and line box. */
+  --mt-shell-header: calc(var(--space-2) * 2 + var(--mt-safe-top) + 28px);
   display: grid;
   grid-template-rows: auto 1fr auto;
   /* Small viewport height: correct while a mobile browser's chrome is shown,
@@ -807,6 +813,14 @@ a.mt-btn[aria-disabled="true"] { pointer-events: none; }
   /* The reference leads the record as its heading, spanning both columns. */
   .mt-table--stack td.mt-table__ref { display: block; grid-column: 1 / -1; font-size: 15px; }
   .mt-table--stack td.mt-table__ref::before { content: none; }
+  /* The reference is the way into the record, and on a phone it was a ~20px
+     inline run inside a cell that had grown around it - the padding did not
+     activate anything. The link fills its cell and clears the 44px floor. */
+  .mt-table--stack td.mt-table__ref a {
+    display: flex; align-items: center;
+    min-block-size: var(--mt-tap);
+    inline-size: 100%;
+  }
   .mt-table--stack td.mt-table__num { text-align: start; }
 }
 
@@ -1080,7 +1094,7 @@ a.mt-btn[aria-disabled="true"] { pointer-events: none; }
 .mt-rail {
   font-family: var(--font-sans);
   position: fixed;
-  inset-inline-end: var(--space-3);
+  inset-inline-end: var(--mt-gutter);
   inset-block-start: 50%;
   transform: translateY(-50%);
   z-index: 40;
@@ -1097,12 +1111,20 @@ a.mt-btn[aria-disabled="true"] { pointer-events: none; }
   box-shadow: var(--shadow-md);
   transition: background-color 120ms linear, color 120ms linear;
 }
-.mt-rail__item:hover { background: var(--brand-primary); color: var(--ink-on-brand); border-color: var(--brand-primary); }
+/* Declared only for pointers that can hover. A reset in @media (hover: none)
+   earlier in the file ties with this on specificity and loses to it, so the tap
+   state stayed latched on the fixed chrome - the case where it shows longest,
+   because these controls open a panel in place rather than navigating away. */
+@media (hover: hover) {
+  .mt-rail__item:hover { background: var(--brand-primary); color: var(--ink-on-brand); border-color: var(--brand-primary); }
+}
 .mt-rail__item:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
 /* The assistant's button is the filled one, so the way to reach a person is
    the one that reads first in the stack. */
 .mt-rail__item--accent { background: var(--brand-primary); color: var(--ink-on-brand); border-color: var(--brand-primary); }
-.mt-rail__item--accent:hover { background: var(--surface-inverse); color: var(--ink-inverse); border-color: var(--border-strong); }
+@media (hover: hover) {
+  .mt-rail__item--accent:hover { background: var(--surface-inverse); color: var(--ink-inverse); border-color: var(--border-strong); }
+}
 .mt-rail__item svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .mt-rail__item img { width: 30px; height: 30px; }
 @media (max-width: 767px) {
@@ -1116,7 +1138,7 @@ a.mt-btn[aria-disabled="true"] { pointer-events: none; }
        at the boundary. --mt-launcher-block keeps the two in step. */
     inset-block-end: calc(var(--space-5) + var(--mt-safe-bottom)
                           + var(--mt-launcher-block) + var(--space-3));
-    inset-inline-end: var(--space-3);
+    inset-inline-end: var(--mt-gutter);
     transform: none;
     flex-direction: row;
   }
@@ -1131,7 +1153,9 @@ a.mt-btn[aria-disabled="true"] { pointer-events: none; }
 .mt-launcher {
   font-family: var(--font-sans);
   position: fixed;
-  inset-inline-start: var(--space-5);
+  /* --mt-gutter takes the larger of the spacing step and the safe-area inset,
+     so in landscape on a notched device this clears the cutout. */
+  inset-inline-start: var(--mt-gutter);
   inset-block-end: calc(var(--space-5) + var(--mt-safe-bottom));
   z-index: 40;
   display: inline-flex; align-items: center; gap: var(--space-3);
@@ -1144,7 +1168,9 @@ a.mt-btn[aria-disabled="true"] { pointer-events: none; }
   box-shadow: var(--shadow-lg);
   min-height: var(--mt-tap);
 }
-.mt-launcher:hover { background: var(--surface-inverse); color: var(--ink-inverse); }
+@media (hover: hover) {
+  .mt-launcher:hover { background: var(--surface-inverse); color: var(--ink-inverse); }
+}
 .mt-launcher:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 3px; }
 .mt-launcher__avatar {
   width: 44px; height: 44px; flex: none;

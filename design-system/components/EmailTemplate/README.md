@@ -26,7 +26,7 @@ So the rules invert:
 | Body | `#1f3448` | `ink-body` |
 | Secondary | `#52657a` | `ink-muted` |
 | Rules | `#dde4ea` | `border-subtle` |
-| Button fill | `#0069a8` | `brand-primary` |
+| Button fill | `#0074b7` | `brand-primary` |
 | Button label | `#ffffff` | `ink-on-brand` |
 
 **Dark mode is not controlled here.** Some clients auto-invert. Keep the design readable when inverted: do not rely on a white background for legibility, and never place dark text on a transparent image.

@@ -1,7 +1,8 @@
 <!-- @dsCard group="Site" height=300 subtitle="Trade lane: route, modes, and figures that stay unconfirmed" -->
 <style>
   body { margin: 0; padding: 24px; background: var(--surface-page); }
-  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 760px; }
+  .grid { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 760px; }
+  @media (min-width: 768px) { .g2 { grid-template-columns: repeat(2, 1fr); } }
 </style>
 <div class="grid">
   <article class="mt-lane">
