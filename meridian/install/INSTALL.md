@@ -32,6 +32,18 @@ nothing else in the app changes.
 
 ---
 
+## Step 0 — Get the package
+
+The design system lives on a branch, not on `master`. Clone that branch:
+
+```sh
+git clone -b claude/design-system-extraction-onzs1r \
+    https://github.com/midtranss/midtrans /tmp/mt-ds
+```
+
+Once the branch is merged, a plain `git clone` will do. Until then a plain
+clone gives an empty directory.
+
 ## Step 1 — Serve the files
 
 Copy `meridian/` into the app's public assets:
