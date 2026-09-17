@@ -1,0 +1,31 @@
+<!-- @dsCard group="Feedback" height=250 subtitle="Transient confirmation, and the alert flash" -->
+<style>
+  body { margin: 0; padding: 24px; background: var(--surface-page); font-family: var(--font-sans); }
+  .stack { display: grid; gap: 12px; max-width: 520px; }
+  .region { position: static; padding: 0; align-items: flex-start; }
+</style>
+<div class="stack">
+  <div class="mt-toast-region region">
+    <div class="mt-toast mt-toast--success" role="status">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 19.5 6v6c0 4-3.2 7.2-7.5 9-4.3-1.8-7.5-5-7.5-9V6L12 3Z"/><path d="m8.8 12 2.4 2.4 4.2-4.6"/></svg>
+      Quotation MDT-Q-2026-0418 sent to the customer.
+      <button class="mt-toast__close" type="button" aria-label="Dismiss">×</button>
+    </div>
+    <div class="mt-toast mt-toast--danger" role="alert">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v5.5M12 16.2h.01"/></svg>
+      Could not attach the document. Try again.
+      <button class="mt-toast__close" type="button" aria-label="Dismiss">×</button>
+    </div>
+  </div>
+  <div class="mt-alert mt-alert--warning" data-flash role="status">
+    <div class="mt-alert__body">
+      <p class="mt-alert__title">Customs hold on MDT-2026-004179</p>
+      <p class="mt-alert__text">This alert flashed twice on arrival — 1.67Hz, half the seizure threshold — then stopped.</p>
+    </div>
+  </div>
+  <div>
+    <div class="mt-skeleton mt-skeleton--title"></div>
+    <div class="mt-skeleton mt-skeleton--text"></div>
+    <div class="mt-skeleton mt-skeleton--text" style="width:80%"></div>
+  </div>
+</div>

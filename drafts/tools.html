@@ -1,0 +1,85 @@
+<!doctype html><html lang="en" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#007DC5"><link rel="icon" href="theme/midtrans-app-icon-512.png"><link rel="stylesheet" href="theme/tokens.css"><link rel="stylesheet" href="theme/midtrans.css"><title>Tools — MIDTRANS (draft)</title>
+<style>body{margin:0;background:var(--surface-page);font-family:var(--font-sans)}
+.wrap{max-width:1000px;margin-inline:auto;padding:var(--space-6) var(--mt-gutter) var(--space-10)}
+h1{font:var(--text-heading-1);color:var(--ink-strong);margin:0 0 var(--space-2)}
+h2{font:var(--text-heading-2);color:var(--ink-strong);margin:0 0 var(--space-4)}
+.hint{font:var(--text-body-sm);color:var(--ink-muted);margin:0 0 var(--space-5);max-width:62ch}
+section{margin-block-end:var(--space-10)}</style></head><body>
+<div class="wrap">
+<div style="display:flex;gap:var(--space-2);margin-block-end:var(--space-5)">
+  <a class="mt-btn mt-btn--quiet mt-btn--sm" href="index.html">← All drafts</a>
+  <button class="mt-btn mt-btn--secondary mt-btn--sm" onclick="tg()">Theme</button>
+</div>
+<h1>Tools</h1>
+<p class="hint">Draft. The calculator does real arithmetic; nothing here quotes a price, a duty or a transit time.</p>
+
+<section>
+  <h2>Loading calculator</h2>
+  <div class="mt-calc">
+    <div class="mt-calc__inputs">
+      <div class="mt-calc__row">
+        <div class="mt-field"><label class="mt-field__label" for="L">Length</label><input class="mt-field__control" id="L" data-mono value="120" inputmode="decimal"><span class="mt-field__help">Centimetres.</span></div>
+        <div class="mt-field"><label class="mt-field__label" for="W">Width</label><input class="mt-field__control" id="W" data-mono value="80" inputmode="decimal"><span class="mt-field__help">Centimetres.</span></div>
+      </div>
+      <div class="mt-calc__row">
+        <div class="mt-field"><label class="mt-field__label" for="H">Height</label><input class="mt-field__control" id="H" data-mono value="145" inputmode="decimal"></div>
+        <div class="mt-field"><label class="mt-field__label" for="Q">Packages</label><input class="mt-field__control" id="Q" data-mono value="18" inputmode="numeric"></div>
+      </div>
+      <div class="mt-field"><label class="mt-field__label" for="E">Equipment</label>
+        <select class="mt-field__control" id="E"><option value="67.7">40HC — 67.7 CBM</option><option value="76.4">40GP wide — 76.4 CBM</option><option value="33.2">20GP — 33.2 CBM</option></select></div>
+    </div>
+    <div class="mt-calc__out">
+      <div class="mt-calc__figure"><span class="mt-calc__figure-label">Total volume</span><span class="mt-calc__figure-value" id="vol">—</span><span class="mt-calc__figure-sub" id="sub">—</span></div>
+      <div class="mt-calc__meter" id="meter"><div class="mt-calc__meter-track"><div class="mt-calc__meter-fill" id="fill" style="width:0"></div></div><span class="mt-calc__meter-text" id="mtext">—</span></div>
+      <div class="mt-calc__figure"><span class="mt-calc__figure-label">Chargeable weight</span><span class="mt-calc__figure-value" data-pending>Confirmed on booking</span></div>
+      <div class="mt-calc__figure"><span class="mt-calc__figure-label">Freight cost</span><span class="mt-calc__figure-value" data-pending>Quoted after review</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>HS code lookup</h2>
+  <div class="mt-hs">
+    <div class="mt-field"><label class="mt-field__label" for="hs">Search by commodity or code</label><input class="mt-field__control" id="hs" value="olive oil"><span class="mt-field__help">Describe the goods as they appear on the commercial invoice.</span></div>
+    <ul class="mt-hs__results">
+      <li class="mt-hs__item" data-selected="true"><span class="mt-hs__code">1509.20</span><span class="mt-hs__desc">Virgin olive oil and its fractions, not chemically modified</span><span class="mt-hs__duty">Duty: on assessment</span></li>
+      <li class="mt-hs__item"><span class="mt-hs__code">1509.30</span><span class="mt-hs__desc">Lampante olive oil</span><span class="mt-hs__duty">Duty: on assessment</span></li>
+      <li class="mt-hs__item"><span class="mt-hs__code">1510.00</span><span class="mt-hs__desc">Other oils obtained solely from olives</span><span class="mt-hs__duty">Duty: on assessment</span></li>
+    </ul>
+    <p class="mt-hs__foot">Classification is indicative. The customs authority of the country of import makes the binding determination; duty and tax are assessed on the declaration.</p>
+  </div>
+</section>
+</div>
+<div class="mt-toast-region" id="toasts"></div>
+<script>
+function tg(){const h=document.documentElement;
+  // With no attribute yet the page already follows the system, so reading the
+  // attribute alone sets 'dark' on a dark system and nothing visibly changes -
+  // the first click is wasted. Fall back to what is actually in effect.
+  const now=h.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+  h.setAttribute('data-theme',now==='dark'?'light':'dark')}
+const $=id=>document.getElementById(id);
+function calc(){
+  const l=+$('L').value,w=+$('W').value,h=+$('H').value,q=+$('Q').value,cap=+$('E').value;
+  if(!(l>0&&w>0&&h>0&&q>0)){
+    // Clear the METER too. Resetting only the figure left the previous fill,
+    // percentage and over-capacity state on screen, so the panel said the
+    // dimensions were missing while still showing a capacity result.
+    $('vol').textContent='Not entered';
+    $('sub').textContent='Enter all dimensions';
+    $('fill').style.width='0%';
+    $('meter').classList.remove('mt-calc__meter--over');
+    $('mtext').textContent='Awaiting dimensions';
+    return;
+  }
+  const each=(l*w*h)/1e6, tot=each*q, pct=tot/cap*100;
+  $('vol').textContent=tot.toFixed(2);
+  $('sub').textContent='CBM · '+q+' × '+each.toFixed(3)+' CBM';
+  $('fill').style.width=Math.min(pct,100).toFixed(0)+'%';
+  const over=pct>100;
+  $('meter').classList.toggle('mt-calc__meter--over',over);
+  $('mtext').textContent=pct.toFixed(0)+'% of the selected equipment by volume'+(over?' — exceeds one unit':'');
+}
+['L','W','H','Q','E'].forEach(id=>$(id).addEventListener('input',calc));calc();
+</script>
+</body></html>

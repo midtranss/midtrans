@@ -1,0 +1,21 @@
+<!-- @dsCard group="Data display" height=170 subtitle="Shipment, quotation and invoice states" -->
+<style>
+  body { margin: 0; padding: 24px; background: var(--surface-page); }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; margin-block-end: 12px; }
+  .cap { font-family: var(--font-sans); font-size: 12px; line-height: 16px; color: var(--ink-muted); margin-block-end: 6px; }
+</style>
+<p class="cap">Shipment</p>
+<div class="row">
+  <span class="mt-badge mt-badge--neutral"><span class="mt-badge__dot"></span>Draft</span>
+  <span class="mt-badge mt-badge--info"><span class="mt-badge__dot"></span>In transit</span>
+  <span class="mt-badge mt-badge--warning"><span class="mt-badge__dot"></span>Customs hold</span>
+  <span class="mt-badge mt-badge--success"><span class="mt-badge__dot"></span>Delivered</span>
+  <span class="mt-badge mt-badge--danger"><span class="mt-badge__dot"></span>Cancelled</span>
+</div>
+<p class="cap">Quotation and invoice</p>
+<div class="row">
+  <span class="mt-badge mt-badge--info"><span class="mt-badge__dot"></span>Sent</span>
+  <span class="mt-badge mt-badge--warning"><span class="mt-badge__dot"></span>Payment due</span>
+  <span class="mt-badge mt-badge--success"><span class="mt-badge__dot"></span>Paid</span>
+  <span class="mt-badge mt-badge--neutral"><span class="mt-badge__dot"></span>Expired</span>
+</div>

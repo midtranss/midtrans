@@ -1,0 +1,53 @@
+<!doctype html><html lang="en" dir="ltr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Meridian — isolation proof</title>
+<style>
+/* ===== A STAND-IN FOR THE APP'S EXISTING THEME =====
+   Values lifted from the live mid-trans.com stylesheet, so this behaves
+   like the real legacy layer: its own :root, its own class names. */
+:root{--brand:#0a5a9c;--ink:#102033;--muted:#5c6f84;--line:#dce7f0;--panel:#fff;
+      --radius:999px;font-family:Arial,Helvetica,sans-serif}
+body{margin:0;padding:24px;background:#f4f8fb;color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+.legacy-card{background:var(--panel);border:1px solid var(--line);border-radius:24px;
+  box-shadow:0 12px 30px rgba(22,45,71,.08);padding:24px;max-width:520px;margin-block-end:20px}
+.legacy-card h3{margin:0 0 8px;font-size:1.08rem;color:var(--ink)}
+.legacy-card p{margin:0;color:var(--muted);line-height:1.65}
+.legacy-btn{display:inline-block;margin-block-start:16px;background:var(--brand);color:#fff;
+  border:0;border-radius:var(--radius);padding:.7rem 1.1rem;font-weight:700;cursor:pointer}
+.bar{display:flex;gap:10px;align-items:center;margin-block-end:20px;flex-wrap:wrap}
+.tag{font:12px/1.4 monospace;background:#fff;border:1px solid var(--line);border-radius:6px;padding:4px 8px}
+</style>
+<!-- The additive theme. Present on the page at all times. -->
+<link rel="stylesheet" href="meridian/meridian.css">
+</head>
+<body>
+<div class="bar">
+  <button class="legacy-btn" onclick="skin()">Toggle data-skin</button>
+  <button class="legacy-btn" onclick="mode()">Toggle data-theme</button>
+  <span class="tag" id="state"></span>
+</div>
+
+<!-- LEGACY markup: untouched classes, its own :root variables -->
+<div class="legacy-card">
+  <h3>Legacy component</h3>
+  <p>This card uses the app's own classes and its own :root variables. meridian.css is loaded on this page right now. Toggle the skin: this card must not move, recolour or change its corner radius — ever.</p>
+  <button class="legacy-btn">Legacy button</button>
+</div>
+
+<!-- MERIDIAN markup: only styled when the skin is on -->
+<div class="mt-card">
+  <div class="mt-card__head"><h3 class="mt-card__title">Meridian component</h3>
+    <span class="mt-badge mt-badge--info"><span class="mt-badge__dot"></span>In transit</span></div>
+  <p class="mt-card__body">This one uses the new system. With the skin off it falls back to plain unstyled markup, which is the proof that nothing leaks.</p>
+  <div class="mt-card__foot"><button class="mt-btn mt-btn--primary">Request a quotation</button>
+    <button class="mt-btn mt-btn--secondary">Save draft</button></div>
+</div>
+
+<script>
+const h=document.documentElement;
+function show(){state.textContent='data-skin="'+(h.getAttribute('data-skin')||'—')+'"  data-theme="'+(h.getAttribute('data-theme')||'—')+'"'}
+function skin(){h.getAttribute('data-skin')==='meridian'?h.removeAttribute('data-skin'):h.setAttribute('data-skin','meridian');show()}
+function mode(){h.setAttribute('data-theme',(h.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))==='dark'?'light':'dark');show()}
+show();
+</script>
+</body></html>

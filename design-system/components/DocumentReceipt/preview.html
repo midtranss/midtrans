@@ -1,0 +1,76 @@
+<!-- @dsCard group="Documents" height=560 subtitle="Payment receipt: confirms what was received, never demands" -->
+<style>body { margin: 0; padding: 20px; background: var(--surface-sunken); }
+ .qr { width:72px; height:72px; background:
+   radial-gradient(circle, var(--brand-accent) 1.6px, transparent 1.7px) 0 0/12px 12px; }</style>
+<article class="mt-doc">
+  <div class="mt-doc__top">
+    <div class="mt-doc__brand">
+      <p class="mt-doc__company">MIDTRANS SHIPPING AND SERVICES</p>
+      <p>Deira, Port Saeed, Al Maktoum Road</p>
+      <p>Street No. 19a, Al Makateb Building</p>
+      <p>Office No. 611, Dubai - UAE</p>
+      <p>TEL: +971 4 2714480 · CELL: +971 55 2928560</p>
+    </div>
+    <div class="mt-doc__box">
+      <h2 class="mt-doc__kind">Payment receipt</h2>
+      <div class="mt-doc__meta">
+        <div class="mt-doc__meta-row"><span>No</span><span>RC-2026-1183</span></div>
+        <div class="mt-doc__meta-row"><span>Invoice</span><span>IN-2026-0691</span></div>
+        <div class="mt-doc__meta-row"><span>Date</span><span>17 Sep 2026</span></div>
+      </div>
+      <span class="mt-doc__badge">Verified issuer</span>
+    </div>
+    <div class="mt-doc__logo"><strong style="font-size:15px;color:var(--ink-strong);letter-spacing:.06em">MIDTRANS</strong></div>
+  </div>
+
+  <div class="mt-doc__content">
+    <div class="mt-doc__side">
+      <div class="mt-doc__card">
+        <h4>Received from</h4>
+        <strong>ABC Trading Co.</strong>
+        <p>accounts@abctrading.example</p>
+        <p>Damascus, Syria</p>
+      </div>
+      <div class="mt-doc__card mt-doc__qr">
+        <div class="qr" role="img" aria-label="Verification QR code"></div>
+        <span>QR verification</span>
+      </div>
+      <div class="mt-doc__card">
+        <h4>Method</h4>
+        <p>Bank transfer</p>
+        <p>Ref: <span data-mono>TRF-88213004</span></p>
+        <p>Value date: 16 Sep 2026</p>
+      </div>
+    </div>
+
+    <div class="mt-doc__main" tabindex="0" role="region" aria-label="Payment receipt lines, scrolls horizontally on a narrow screen">
+      <div class="mt-alert mt-alert--success" role="status" style="margin-block-end:var(--space-4)">
+        <div class="mt-alert__body">
+          <p class="mt-alert__title">Payment received with thanks</p>
+          <p class="mt-alert__text">This document confirms receipt only. It is not an invoice and not a request for payment.</p>
+        </div>
+      </div>
+
+      <table class="mt-doc__table">
+        <thead><tr><th>Allocated to</th><th class="num">Invoice</th><th class="num">Amount</th></tr></thead>
+        <tbody>
+          <tr><td>Freight and handling — Dubai to Damascus</td><td class="num" data-mono>IN-2026-0691</td><td class="num"><span class="mt-doc__money"><span>USD</span><span>0 000.00</span></span></td></tr>
+        </tbody>
+      </table>
+
+      <div class="mt-doc__close">
+        <div class="mt-doc__card">
+          <h4>Settlement</h4>
+          <p>Allocation against the invoice above is subject to finance review and bank clearing. Where the amount received differs from the invoice, the balance is carried on the account statement, not adjusted here.</p>
+        </div>
+        <div class="mt-doc__totals">
+          <div class="mt-doc__total-row"><span>Invoice total</span><span class="mt-doc__money"><span>USD</span><span>0 000.00</span></span></div>
+          <div class="mt-doc__total-row"><span>Balance after this receipt</span><span class="mt-doc__money"><span>USD</span><span>0.00</span></span></div>
+          <div class="mt-doc__total-row mt-doc__total-row--grand"><span>Amount received</span><span class="mt-doc__money"><span>USD</span><span>0 000.00</span></span></div>
+        </div>
+      </div>
+      <p class="mt-doc__note">Retain this receipt for your records. Queries on allocation quote the receipt number above.</p>
+    </div>
+  </div>
+  <p class="mt-doc__foot">Payment receipt</p>
+</article>

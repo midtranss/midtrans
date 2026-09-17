@@ -1,0 +1,52 @@
+<!-- @dsCard group="Tools" height=430 subtitle="Loading calculator: inputs beside a live readout" -->
+<style>body { margin: 0; padding: 24px; background: var(--surface-page); }</style>
+<div class="mt-calc">
+  <div class="mt-calc__inputs">
+    <div class="mt-calc__row">
+      <div class="mt-field">
+        <label class="mt-field__label" for="c-len">Length</label>
+        <input class="mt-field__control" id="c-len" data-mono value="120" />
+        <span class="mt-field__help">Centimetres, per package.</span>
+      </div>
+      <div class="mt-field">
+        <label class="mt-field__label" for="c-wid">Width</label>
+        <input class="mt-field__control" id="c-wid" data-mono value="80" />
+        <span class="mt-field__help">Centimetres, per package.</span>
+      </div>
+    </div>
+    <div class="mt-calc__row">
+      <div class="mt-field">
+        <label class="mt-field__label" for="c-hgt">Height</label>
+        <input class="mt-field__control" id="c-hgt" data-mono value="145" />
+      </div>
+      <div class="mt-field">
+        <label class="mt-field__label" for="c-qty">Packages</label>
+        <input class="mt-field__control" id="c-qty" data-mono value="18" />
+      </div>
+    </div>
+    <div class="mt-field">
+      <label class="mt-field__label" for="c-eq">Equipment</label>
+      <select class="mt-field__control" id="c-eq"><option>40HC — 67.7 CBM</option><option>20GP — 33.2 CBM</option></select>
+    </div>
+  </div>
+
+  <div class="mt-calc__out">
+    <div class="mt-calc__figure">
+      <span class="mt-calc__figure-label">Total volume</span>
+      <span class="mt-calc__figure-value">25.06</span>
+      <span class="mt-calc__figure-sub">CBM · 18 × 1.392 CBM</span>
+    </div>
+    <div class="mt-calc__meter">
+      <div class="mt-calc__meter-track"><div class="mt-calc__meter-fill" style="width:37%"></div></div>
+      <span class="mt-calc__meter-text">37% of a 40HC by volume</span>
+    </div>
+    <div class="mt-calc__figure">
+      <span class="mt-calc__figure-label">Chargeable weight</span>
+      <span class="mt-calc__figure-value" data-pending>Confirmed on booking</span>
+    </div>
+    <div class="mt-calc__figure">
+      <span class="mt-calc__figure-label">Freight cost</span>
+      <span class="mt-calc__figure-value" data-pending>Quoted after review</span>
+    </div>
+  </div>
+</div>

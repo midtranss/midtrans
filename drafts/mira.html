@@ -1,0 +1,80 @@
+<!doctype html><html lang="en" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#007DC5"><link rel="icon" href="theme/midtrans-app-icon-512.png"><link rel="stylesheet" href="theme/tokens.css"><link rel="stylesheet" href="theme/midtrans.css"><title>Mira — MIDTRANS assistant (draft)</title>
+<style>
+body{margin:0}
+/* DRAFT-ONLY chat styles. Promote to a Chat component in the design system once approved. */
+.chat{display:flex;flex-direction:column;gap:var(--space-4);max-width:760px;margin-inline:auto}
+.msg{display:flex;gap:var(--space-3);align-items:flex-start}
+.msg__who{width:32px;height:32px;flex:none;border-radius:var(--radius-pill);display:grid;place-items:center;font:var(--text-caption);font-weight:700}
+.msg--bot .msg__who{background:var(--brand-soft);color:var(--brand-link)}
+.msg--you .msg__who{background:var(--surface-sunken);color:var(--ink-muted)}
+.msg__body{flex:1;min-width:0;padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);font:var(--text-body)}
+.msg--bot .msg__body{background:var(--surface-card);border:1px solid var(--border-subtle);color:var(--ink-body)}
+.msg--you .msg__body{background:var(--brand-soft);color:var(--ink-body)}
+.msg__body p{margin:0 0 var(--space-2)}.msg__body p:last-child{margin:0}
+.composer{position:sticky;inset-block-end:0;background:var(--surface-page);border-block-start:1px solid var(--border-subtle);padding:var(--space-3) var(--mt-gutter);padding-block-end:calc(var(--space-3) + var(--mt-safe-bottom))}
+.composer__in{display:flex;gap:var(--space-2);max-width:760px;margin-inline:auto}
+.typing{display:inline-flex;gap:4px}
+.typing i{width:6px;height:6px;border-radius:var(--radius-pill);background:var(--ink-muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,60%,100%{opacity:.25}30%{opacity:1}}
+</style></head><body>
+<div class="mt-shell">
+  <header class="mt-shell__header">
+    <a class="mt-shell__back" href="index.html" aria-label="Back to all drafts"><svg viewBox="0 0 24 24"><path d="M20 12H5"/><path d="m10.5 6.5-5.5 5.5 5.5 5.5"/></svg></a>
+    <h1 class="mt-shell__title">Mira — logistics assistant</h1>
+    <button class="mt-btn mt-btn--secondary mt-btn--sm" onclick="tg()">Theme</button>
+    <button class="mt-btn mt-btn--secondary mt-btn--sm" onclick="dr()">AR</button>
+  </header>
+  <main class="mt-shell__main">
+    <div class="mt-alert mt-alert--info" role="status" style="margin-block-end:var(--space-5)">
+      <div class="mt-alert__body"><p class="mt-alert__title">Draft — scripted conversation</p><p class="mt-alert__text">Nothing here is connected to a model or to shipment data. It shows the interface and, more importantly, the boundary Mira must not cross.</p></div>
+    </div>
+    <!-- The label is the condition that makes a photographic portrait safe: wherever
+         Mira is introduced, her name and her role appear with it. Never drop the role. -->
+    <div class="mt-assistant__id" style="margin-block-end:var(--space-5)">
+      <img class="mt-avatar mt-avatar--lg" src="theme/mira-portrait.jpg" alt="">
+      <div>
+        <p class="mt-assistant__name">Mira</p>
+        <p class="mt-assistant__role">MIDTRANS logistics assistant</p>
+      </div>
+    </div>
+    <div class="chat" id="chat">
+      <div class="msg msg--bot"><div class="msg__who"><img class="mt-avatar" src="theme/mira-portrait.jpg" alt="Mira, MIDTRANS logistics assistant"></div><div class="msg__body"><p>I can help with services, coverage, documents and process. What are you shipping, and where from and to?</p></div></div>
+      <div class="msg msg--you"><div class="msg__who">You</div><div class="msg__body"><p>18 pallets of olive oil, Lattakia to Hamburg. How much and how long?</p></div></div>
+      <div class="msg msg--bot"><div class="msg__who"><img class="mt-avatar" src="theme/mira-portrait.jpg" alt="Mira, MIDTRANS logistics assistant"></div><div class="msg__body">
+        <p>I can't give you a rate or a transit time — those depend on the sailing and the carrier's space, and they're confirmed by our operations team, not by me.</p>
+        <p>What I can tell you: 18 pallets at 120 × 80 × 145 cm is 25.06 CBM, which is 37% of a 40HC. For olive oil the closest heading is 1509.20, but that is a candidate, not a classification: the packing and the pressing decide it, and the binding determination is the import authority's. Our customs desk confirms it before anything goes on a declaration.</p>
+        <p>To get you a quotation I need the ready date and the incoterm. Shall I pass this to the team?</p>
+      </div></div>
+    </div>
+  </main>
+  <div class="composer">
+    <div class="composer__in">
+      <label class="mt-field__label" for="m" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)">Message Mira</label>
+      <input class="mt-field__control" id="m" placeholder="Ask about services, documents or process…">
+      <button class="mt-btn mt-btn--primary" onclick="ask()">Send</button>
+    </div>
+  </div>
+</div>
+<script>
+function tg(){const h=document.documentElement;
+  // With no attribute yet the page already follows the system, so reading the
+  // attribute alone sets 'dark' on a dark system and nothing visibly changes -
+  // the first click is wasted. Fall back to what is actually in effect.
+  const now=h.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+  h.setAttribute('data-theme',now==='dark'?'light':'dark')}
+function dr(){const h=document.documentElement;const r=h.getAttribute('dir')==='rtl';h.setAttribute('dir',r?'ltr':'rtl');h.setAttribute('lang',r?'en':'ar')}
+function add(who,cls,html){const d=document.createElement('div');d.className='msg msg--'+cls;
+ d.innerHTML='<div class="msg__who">'+who+'</div><div class="msg__body">'+html+'</div>';chat.appendChild(d);d.scrollIntoView({block:'end'});return d}
+function ask(){
+  const v=m.value.trim();if(!v)return;m.value='';
+  add('You','you','<p>'+v.replace(/[<>&]/g,'')+'</p>');
+  const t=add('<img class="mt-avatar" src="theme/mira-portrait.jpg" alt="Mira, MIDTRANS logistics assistant">','bot','<span class="typing"><i></i><i></i><i></i></span>');
+  setTimeout(()=>{
+    t.querySelector('.msg__body').innerHTML =
+      '<p>This draft only answers the scripted exchange above. In the real assistant, anything touching a rate, a transit time, a duty or acceptance is handed to the operations team rather than answered.</p>';
+  },900);
+}
+m?.addEventListener('keydown',e=>{if(e.key==='Enter')ask()});
+</script>
+</body></html>

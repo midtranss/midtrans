@@ -1,0 +1,23 @@
+<!-- @dsCard group="Site" height=260 subtitle="Capability card with an icon from the set" -->
+<style>
+  body { margin: 0; padding: 24px; background: var(--surface-sunken); }
+  .grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+  @media (min-width: 768px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+</style>
+<div class="grid">
+  <a class="mt-service" href="#">
+    <span class="mt-service__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 15h18l-2.1 4.2a1.5 1.5 0 0 1-1.35.8H6.45a1.5 1.5 0 0 1-1.35-.8L3 15Z"/><path d="M8 15v-5h6v5"/><path d="M11 10V6h4"/></svg></span>
+    <h3 class="mt-service__title">Sea freight</h3>
+    <p class="mt-service__text">FCL and LCL through Lattakia, Tartous and Jebel Ali, with consolidation and door delivery.</p>
+  </a>
+  <a class="mt-service" href="#">
+    <span class="mt-service__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5c.8 0 1.4.9 1.4 2v4.3l7.6 4.2v1.8l-7.6-2.3v4.2l2.2 1.6v1.4L12 18.9l-3.6.8v-1.4l2.2-1.6v-4.2L3 14.8V13l7.6-4.2V4.5c0-1.1.6-2 1.4-2Z"/></svg></span>
+    <h3 class="mt-service__title">Air freight</h3>
+    <p class="mt-service__text">General and time-critical cargo, with airport-to-airport and door options.</p>
+  </a>
+  <a class="mt-service" href="#">
+    <span class="mt-service__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="10" r="7"/><circle cx="12" cy="10" r="3.8"/><path d="M4 20.5h16"/></svg></span>
+    <h3 class="mt-service__title">Customs clearance</h3>
+    <p class="mt-service__text">Import and export declarations, HS classification and document control, handled in-house.</p>
+  </a>
+</div>

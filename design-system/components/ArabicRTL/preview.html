@@ -1,0 +1,73 @@
+<!-- @dsCard group="Foundations" height=820 subtitle="العربية: Cairo حصراً، واتجاه RTL في كل مكوّن" -->
+<style>
+  body { margin: 0; padding: 24px; background: var(--surface-page); }
+  .wrap { max-width: 760px; display: grid; gap: 24px; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+</style>
+<div class="wrap" lang="ar" dir="rtl">
+
+  <section class="mt-hero__copy">
+    <p class="mt-hero__eyebrow">وكيل شحن دولي</p>
+    <h1 class="mt-hero__title">ميدترانس للشحن والخدمات</h1>
+    <p class="mt-hero__lede">نعمل من دبي ودمشق. هذه الصفحة تُثبت أن كل نص عربي يُعرض بخط Cairo، وأن الاتجاه من اليمين إلى اليسار سليم في كل مكوّن.</p>
+  </section>
+
+  <section class="row">
+    <button class="mt-btn mt-btn--primary" type="button">طلب عرض سعر</button>
+    <button class="mt-btn mt-btn--secondary" type="button">تتبّع شحنة</button>
+    <button class="mt-btn mt-btn--quiet" type="button">التفاصيل</button>
+    <button class="mt-btn mt-btn--sm mt-btn--secondary" type="button">زر صغير</button>
+  </section>
+
+  <section class="row">
+    <span class="mt-badge mt-badge--info">قيد التنفيذ</span>
+    <span class="mt-badge mt-badge--success">تم التسليم</span>
+    <span class="mt-badge mt-badge--warning">بانتظار المستندات</span>
+    <span class="mt-badge mt-badge--danger">متأخرة</span>
+    <span class="mt-badge mt-badge--neutral">مسودة</span>
+  </section>
+
+  <div class="mt-alert mt-alert--warning" role="status">
+    <div class="mt-alert__body">
+      <p class="mt-alert__title">المستندات ناقصة</p>
+      <p class="mt-alert__text">لم تُرفع بوليصة الشحن بعد. لا يمكن إصدار الفاتورة قبل استلامها.</p>
+    </div>
+  </div>
+
+  <div class="mt-card">
+    <div class="mt-card__head"><h2 class="mt-card__title">الشحنات الجارية</h2><span class="mt-card__meta">٢ من ٧</span></div>
+    <div class="mt-card__body">
+      <table class="mt-table">
+        <thead>
+          <tr><th scope="col">المرجع</th><th scope="col">المسار</th><th scope="col">الحالة</th><th scope="col" class="mt-table__num">الطرود</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="mt-table__ref">MDT-2026-004182</td><td>اللاذقية ← هامبورغ</td><td><span class="mt-badge mt-badge--info">في البحر</span></td><td class="mt-table__num">18</td></tr>
+          <tr><td class="mt-table__ref">MDT-2026-004190</td><td>جبل علي ← دمشق</td><td><span class="mt-badge mt-badge--success">سُلّمت</span></td><td class="mt-table__num">6</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mt-field">
+    <label class="mt-field__label" for="ar-port">ميناء التحميل <span class="mt-field__req">مطلوب</span></label>
+    <input class="mt-field__control" id="ar-port" type="text" value="ميناء اللاذقية">
+    <p class="mt-field__help">اكتب اسم الميناء أو رمزه.</p>
+  </div>
+
+  <ol class="mt-timeline">
+    <li class="mt-timeline__step"><p class="mt-timeline__title">تم الحجز</p><p class="mt-timeline__meta">١٢ أيلول ٢٠٢٦</p></li>
+    <li class="mt-timeline__step"><p class="mt-timeline__title">غادرت ميناء التحميل</p><p class="mt-timeline__meta">١٥ أيلول ٢٠٢٦</p></li>
+  </ol>
+
+  <div class="mt-office">
+    <p class="mt-office__label">المكتب الرئيسي</p>
+    <p class="mt-office__city">دبي</p>
+    <ul class="mt-office__lines">
+      <li class="mt-office__line"><span class="mt-office__kind">هاتف</span><a href="tel:+97142714480" dir="ltr">+971 4 271 4480</a></li>
+    </ul>
+  </div>
+
+  <p class="mt-hero__lede">رقم الحجز <span data-mono>MDT-2026-004182</span> يبقى بالأرقام والحروف اللاتينية داخل نص عربي.</p>
+
+</div>

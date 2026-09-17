@@ -1,0 +1,27 @@
+<!-- @dsCard group="Tools" height=400 subtitle="HS code search: classification without duty figures" -->
+<style>body { margin: 0; padding: 24px; background: var(--surface-page); }</style>
+<div class="mt-hs">
+  <div class="mt-field">
+    <label class="mt-field__label" for="hs-q">Search by commodity or code</label>
+    <input class="mt-field__control" id="hs-q" value="olive oil" />
+    <span class="mt-field__help">Describe the goods as they appear on the commercial invoice.</span>
+  </div>
+  <ul class="mt-hs__results">
+    <li><button class="mt-hs__item" type="button" data-selected="true" aria-pressed="true">
+      <span class="mt-hs__code">1509.20</span>
+      <span class="mt-hs__desc">Virgin olive oil and its fractions, not chemically modified</span>
+      <span class="mt-hs__duty">Duty: on assessment</span>
+    </button></li>
+    <li><button class="mt-hs__item" type="button" aria-pressed="false">
+      <span class="mt-hs__code">1509.30</span>
+      <span class="mt-hs__desc">Lampante olive oil</span>
+      <span class="mt-hs__duty">Duty: on assessment</span>
+    </button></li>
+    <li><button class="mt-hs__item" type="button" aria-pressed="false">
+      <span class="mt-hs__code">1510.00</span>
+      <span class="mt-hs__desc">Other oils obtained solely from olives</span>
+      <span class="mt-hs__duty">Duty: on assessment</span>
+    </button></li>
+  </ul>
+  <p class="mt-hs__foot">Classification is indicative. The customs authority of the country of import makes the binding determination; duty and tax are assessed on the declaration.</p>
+</div>

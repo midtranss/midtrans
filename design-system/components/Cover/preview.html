@@ -1,0 +1,91 @@
+<!-- @dsCard height=300 -->
+<style>
+  .cover {
+    position: relative;
+    width: 960px;
+    height: 300px;
+    background: var(--surface-page);
+    overflow: hidden;
+    font-family: var(--font-sans);
+  }
+  .cover svg { position: absolute; inset-block-start: 0; inset-inline-start: 0; display: block; }
+  .cover .slab-accent { fill: var(--brand-accent); }
+  .cover .slab-navy   { fill: var(--surface-inverse); }
+  .cover .slab-tint   { fill: var(--brand-soft); }
+  .cover .t { rx: var(--radius-sm); }
+  .cover .t-a { fill: var(--brand-accent); }
+  .cover .t-g { fill: var(--surface-page); }
+  .cover .t-n { fill: var(--surface-inverse); }
+  .cover .name {
+    position: absolute;
+    inset-inline-start: 40px;
+    inset-block-start: 156px;
+    margin: 0;
+    font-size: 64px;
+    line-height: 0.95;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink-strong);
+  }
+  .cover .tagline {
+    position: absolute;
+    inset-inline-start: 40px;
+    inset-block-start: 236px;
+    margin: 0;
+    max-width: 440px;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--ink-muted);
+  }
+</style>
+<div class="cover">
+  <!-- Derivation
+       Blocks: brand-accent 192x300 bleeding top and bottom; surface-inverse 288x192 bleeding top and right; brand-soft 288x108 bleeding right — the identity blue, the deep navy and the tint, together half the cover.
+       Arrangement: one tall accent slab at the inner edge with a navy slab and a tint band stacked beside it, all bleeding off the top, bottom and right — the brand composes in vertical bands, not in a swatch row.
+       Pattern: geometric modular tiles, some merged two-wide — a container bay plan, 40ft slots beside 20ft slots, which is the one motif specific to a freight forwarder rather than to any enterprise blue.
+       Scales: tile 88px and 40px wide by 24px tall, gap space-2 8px, row pitch space-6 32px, inset space-5 24px, corners radius-sm 4px; slabs left square because they bleed off the frame.
+  -->
+  <svg width="960" height="300" viewBox="0 0 960 300" aria-hidden="true" focusable="false">
+    <g>
+      <rect class="slab-accent" x="480" y="0" width="192" height="300"/>
+      <rect class="slab-navy"   x="672" y="0" width="288" height="192"/>
+      <rect class="slab-tint"   x="672" y="192" width="288" height="108"/>
+    </g>
+    <g>
+      <rect class="t t-a" x="696" y="24" width="88" height="24"/>
+      <rect class="t t-g" x="792" y="24" width="40" height="24"/>
+      <rect class="t t-a" x="840" y="24" width="88" height="24"/>
+      <rect class="t t-g" x="936" y="24" width="40" height="24"/>
+      <rect class="t t-g" x="696" y="56" width="40" height="24"/>
+      <rect class="t t-a" x="744" y="56" width="88" height="24"/>
+      <rect class="t t-a" x="840" y="56" width="40" height="24"/>
+      <rect class="t t-g" x="888" y="56" width="88" height="24"/>
+      <rect class="t t-a" x="696" y="88" width="88" height="24"/>
+      <rect class="t t-g" x="792" y="88" width="88" height="24"/>
+      <rect class="t t-a" x="888" y="88" width="40" height="24"/>
+      <rect class="t t-a" x="936" y="88" width="40" height="24"/>
+      <rect class="t t-a" x="696" y="120" width="40" height="24"/>
+      <rect class="t t-g" x="744" y="120" width="40" height="24"/>
+      <rect class="t t-a" x="792" y="120" width="88" height="24"/>
+      <rect class="t t-a" x="888" y="120" width="88" height="24"/>
+      <rect class="t t-g" x="696" y="152" width="88" height="24"/>
+      <rect class="t t-a" x="792" y="152" width="40" height="24"/>
+      <rect class="t t-a" x="840" y="152" width="40" height="24"/>
+      <rect class="t t-a" x="888" y="152" width="88" height="24"/>
+      <rect class="t t-a" x="696" y="216" width="88" height="24"/>
+      <rect class="t t-n" x="792" y="216" width="40" height="24"/>
+      <rect class="t t-a" x="840" y="216" width="88" height="24"/>
+      <rect class="t t-n" x="936" y="216" width="40" height="24"/>
+      <rect class="t t-n" x="696" y="248" width="40" height="24"/>
+      <rect class="t t-a" x="744" y="248" width="88" height="24"/>
+      <rect class="t t-n" x="840" y="248" width="40" height="24"/>
+      <rect class="t t-a" x="888" y="248" width="88" height="24"/>
+      <rect class="t t-g" x="504" y="24" width="88" height="24"/>
+      <rect class="t t-g" x="600" y="24" width="40" height="24"/>
+      <rect class="t t-g" x="504" y="248" width="40" height="24"/>
+      <rect class="t t-g" x="552" y="248" width="88" height="24"/>
+    </g>
+  </svg>
+  <p class="name">MIDTRANS</p>
+  <p class="tagline">Freight forwarding and logistics, Damascus since 1998</p>
+</div>

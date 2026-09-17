@@ -1,0 +1,256 @@
+/* MIDTRANS — generated from tokens.json. Do not edit by hand:
+   run tools/audit/gen_tokens_css.py instead. */
+:root, [data-theme="light"] {
+  --surface-page: #ffffff; /* Page background for the website and the platform shell. Body copy on it uses ink-body. Dark value taken from the running app, not invented. */
+  --surface-card: #ffffff; /* Cards, panels, table bodies, modals. In light it matches surface-page, so cards are separated by border-subtle rather than by fill. Dark value taken from the running app, not invented. */
+  --surface-sunken: #f2f5f8; /* Recessed areas: table headers, form sections, page bands behind cards, sidebar rails. Dark value taken from the running app, not invented. */
+  --surface-inverse: #0a2440; /* Deep-navy blocks: site footer, hero bands, print letterhead. Text on it must be ink-inverse. */
+  --ink-strong: #0a2440; /* Headings and figures on surface-page, surface-card and surface-sunken. Dark value taken from the running app, not invented. */
+  --ink-body: #1f3448; /* Default body copy on surface-page, surface-card, surface-sunken and brand-soft. */
+  --ink-muted: #52657a; /* Secondary text: help text, timestamps, table meta, captions on surface-page, surface-card and surface-sunken. Never for body copy at 13px or below on brand-soft. */
+  --ink-inverse: #ffffff; /* Text and icons on surface-inverse. */
+  --ink-inverse-muted: #a8bccd; /* Secondary text on surface-inverse: footer link groups, legal lines, letterhead meta. Holds 8.0:1 in light and 6.3:1 in dark. Never use ink-muted on surface-inverse — it measures 2.6:1 and fails. */
+  --ink-on-brand: #ffffff; /* Text and icons on a brand-primary fill. It flips to near-black in dark because the dark brand fill is light. */
+  --brand-primary: #0074b7; /* Primary action fills, selected states and active nav. Pair only with ink-on-brand. #0074B7 is the app's own darker step for the brand blue, used wherever small white text sits on it: it measures 5.02:1 against white, while the exact brand #007DC5 measures 4.43:1 and fails the 4.5:1 floor. For the brand blue as colour rather than as a fill, use brand-accent. */
+  --brand-accent: #007dc5; /* The official MIDTRANS identity blue #007DC5, exact and unchanged in both themes. Use it for graphics, rules, chart marks, cover blocks, the focus ring and display type at 24px or larger. White on it measures 4.43:1, so it is not a fill for body-size text: use brand-primary there. */
+  --brand-link: #0069a8; /* Inline links and quiet button labels on surface-page, surface-card, surface-sunken and brand-soft. The light value is darker than brand-primary because brand-soft is the tightest of those four: a link at #0074B7 reaches only 4.41:1 there. #0069A8 holds 5.14:1 on brand-soft and 5.86:1 on white. */
+  --brand-soft: #e6f2f9; /* Tinted background for highlighted rows, info notices and selected list items. Carries ink-body and brand-link. */
+  --border-subtle: #dde4ea; /* Decorative separation only: card outlines, table rules, dividers. It does not carry meaning, so it is exempt from the 3:1 floor. Dark value taken from the running app, not invented. */
+  --border-strong: #7c8b99; /* Meaning-carrying borders: input outlines, checkbox and radio edges, secondary button outlines. Holds 3:1 on surface-page, surface-card and surface-sunken in both themes. */
+  --border-focus: #007dc5; /* The focus ring, drawn solid at 2px with a 2px offset. This one IS the exact brand #007DC5, and it is the same value in both themes: a ring needs 3:1, and #007DC5 is the only candidate that holds it on all four surfaces in both themes — worst case 3.54:1 on surface-inverse in light, 3.79:1 on surface-inverse in dark. A lighter dark-theme ring was tried and rejected: it reached only 1.73:1 on an inverse panel, which is light in the dark theme, so the ring disappeared exactly where it was needed. */
+  --status-success: #0f7a4d; /* Delivered, cleared, paid. Text and icon colour on status-success-soft and on surface-card. */
+  --status-success-soft: #e4f4ec; /* Badge and row background behind status-success. */
+  --status-warning: #9a5b00; /* Awaiting documents, customs hold, payment due. Text and icon colour on status-warning-soft and on surface-card. */
+  --status-warning-soft: #fbf0e0; /* Badge and row background behind status-warning. */
+  --status-danger: #b3261e; /* Failed, cancelled, rejected, overdue. Text and icon colour on status-danger-soft and on surface-card; also destructive button labels. */
+  --status-danger-soft: #fbe9e7; /* Badge and row background behind status-danger. */
+  --status-info: #0070b0; /* Informational badges, info alerts and neutral system notices. The light value is one step darker than brand-primary so it clears 4.5:1 on status-info-soft (4.67:1), matching the headroom the success and warning pairs already had. */
+  --status-info-soft: #e6f2f9; /* Badge and row background behind status-info. */
+  --status-neutral: #52657a; /* Draft, archived, closed. Text and icon colour on status-neutral-soft and on surface-card. */
+  --status-neutral-soft: #eef2f6; /* Badge and row background behind status-neutral. */
+  --chart-1: #007dc5; /* First categorical slot: sea freight. Series colours are assigned in this fixed order and NEVER cycled — a fifth category folds into Other. Validated with the palette checker, not chosen by eye: worst adjacent colour-blind separation is ΔE 16.2 in light and 13.6 in dark against a target of 8, every slot clears 3:1 on its surface, and none is a status colour. Re-run that validation before substituting any value. Identity is never carried by colour alone — every series is named in text beside its mark. */
+  --chart-2: #c2255c; /* Second categorical slot: air freight. Validated with the palette checker, not chosen by eye: worst adjacent colour-blind separation is ΔE 16.2 in light and 13.6 in dark against a target of 8, every slot clears 3:1 on its surface, and none is a status colour. Re-run that validation before substituting any value. Identity is never carried by colour alone — every series is named in text beside its mark. */
+  --chart-3: #6a4bbc; /* Third categorical slot: road freight. Validated with the palette checker, not chosen by eye: worst adjacent colour-blind separation is ΔE 16.2 in light and 13.6 in dark against a target of 8, every slot clears 3:1 on its surface, and none is a status colour. Re-run that validation before substituting any value. Identity is never carried by colour alone — every series is named in text beside its mark. */
+  --chart-4: #8a6d00; /* Fourth categorical slot: multimodal and consolidation. Validated with the palette checker, not chosen by eye: worst adjacent colour-blind separation is ΔE 16.2 in light and 13.6 in dark against a target of 8, every slot clears 3:1 on its surface, and none is a status colour. Re-run that validation before substituting any value. Identity is never carried by colour alone — every series is named in text beside its mark. */
+  --shadow-sm: 0 1px 2px rgba(10, 36, 64, 0.08); /* Sticky table headers and the site header once the page scrolls. */
+  --shadow-md: 0 2px 8px rgba(10, 36, 64, 0.10); /* Dropdowns, popovers and date pickers. */
+  --shadow-lg: 0 12px 32px rgba(10, 36, 64, 0.14); /* Modals and the mobile navigation sheet. */
+}
+[data-theme="dark"] {
+  --surface-page: #050d1a;
+  --surface-card: #0e1b2e;
+  --surface-sunken: #0a1524;
+  --surface-inverse: #e8eef4;
+  --ink-strong: #f0f5fb;
+  --ink-body: #dbe6f0;
+  --ink-muted: #9fb3c4;
+  --ink-inverse: #0a2440;
+  --ink-inverse-muted: #46586a;
+  --ink-on-brand: #04121e;
+  --brand-primary: #3ea7e4;
+  --brand-accent: #007dc5;
+  --brand-link: #67c0f2;
+  --brand-soft: #10334c;
+  --border-subtle: #22334c;
+  --border-strong: #74909f;
+  --border-focus: #007dc5;
+  --status-success: #4cc38a;
+  --status-success-soft: #0d2e22;
+  --status-warning: #e0a33a;
+  --status-warning-soft: #33240a;
+  --status-danger: #f0847c;
+  --status-danger-soft: #3a1412;
+  --status-info: #67c0f2;
+  --status-info-soft: #10334c;
+  --status-neutral: #9fb3c4;
+  --status-neutral-soft: #16293b;
+  --chart-1: #2e96d6;
+  --chart-2: #dd5c83;
+  --chart-3: #8d74da;
+  --chart-4: #b88c10;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
+}
+:root {
+  --space-1: 4px; /* Gap between a badge dot and its label; icon-to-text inside a control. */
+  --space-2: 8px; /* Gap between stacked form controls and between inline buttons. */
+  --space-3: 12px; /* Table cell padding; padding inside small controls. */
+  --space-4: 16px; /* Default padding inside a Card and between grouped fields. */
+  --space-5: 24px; /* Card padding on desktop; gap between cards in a grid. */
+  --space-6: 32px; /* Gap between sections inside a page. */
+  --space-8: 48px; /* Page gutter on desktop; space above a page heading. */
+  --space-10: 64px; /* Vertical rhythm between website page sections. */
+  --radius-sm: 4px; /* Inputs, selects, badges, checkboxes and table-embedded controls. */
+  --radius-md: 8px; /* Buttons, cards, panels, modals and result readouts. The default for anything a person clicks or a box that holds content. */
+  --radius-lg: 12px; /* Hero blocks, large media frames, document letterheads and the cover's colour blocks. */
+  --radius-pill: 999px; /* Status dots, progress meters and dismissible filter chips only. Never a button: a pill-shaped action reads as consumer marketing, not operations. */
+  --font-sans: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", system-ui, sans-serif;
+  --font-arabic: Cairo;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --text-display-1: 700 40px/44px var(--font-sans); /* One per page: the website hero headline. Set in ink-strong, or brand-accent when it sits alone on surface-page. */
+  --text-display-2: 700 32px/38px var(--font-sans); /* Section openers on marketing pages and the top line of a printed quotation. */
+  --text-heading-1: 600 26px/32px var(--font-sans); /* Page title inside the platform: a shipment, a quotation, an account. */
+  --text-heading-2: 600 21px/28px var(--font-sans); /* Section heading within a page, and the title line of a Card. */
+  --text-heading-3: 600 17px/24px var(--font-sans); /* Sub-section and grouped-field heading inside forms and panels. */
+  --text-body-lg: 400 17px/27px var(--font-sans); /* Lead paragraph under a display-1 or display-2 headline on the website. */
+  --text-body: 400 15px/23px var(--font-sans); /* Default paragraph and control text everywhere. Set in ink-body. */
+  --text-body-sm: 400 13px/20px var(--font-sans); /* Table cells, dense lists and field help text. Set in ink-body, or ink-muted when secondary. */
+  --text-label: 600 13px/16px var(--font-sans); /* Form labels, table column headers and KeyValue terms. Apply text-transform: uppercase in the component, not in the token. */
+  --text-caption: 400 12px/16px var(--font-sans); /* Timestamps, footnotes and badge text. Set in ink-muted. */
+  --text-data: 500 14px/20px var(--font-mono); /* Reference numbers that must be read and copied character by character: booking, AWB, B/L, container and invoice numbers. Add font-variant-numeric: tabular-nums. */
+  --text-data-sm: 500 12px/18px var(--font-mono); /* Amounts, weights, volumes and dates inside table cells, so columns align on the digit. */
+  --text-ar-heading-1: 700 26px/40px var(--font-arabic); /* Arabic page title. Leading runs taller than the Latin heading-1 because the shipped Cairo face sets deeper ascenders and descenders. */
+  --text-ar-body: 400 16px/30px var(--font-arabic); /* Arabic body copy. One step larger than body: Cairo reads smaller than Helvetica at the same size. */
+  --text-ar-body-sm: 400 14px/26px var(--font-arabic); /* Arabic table cells, help text and captions. */
+}
+.display-1 {
+  font-family: var(--font-sans);
+  font-size: 40px;
+  line-height: 44px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.display-2 {
+  font-family: var(--font-sans);
+  font-size: 32px;
+  line-height: 38px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.heading-1 {
+  font-family: var(--font-sans);
+  font-size: 26px;
+  line-height: 32px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.heading-2 {
+  font-family: var(--font-sans);
+  font-size: 21px;
+  line-height: 28px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.heading-3 {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 24px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.body-lg {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 27px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.body {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 23px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.body-sm {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.label {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.caption {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.data {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.data-sm {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.ar-heading-1 {
+  font-family: var(--font-arabic);
+  font-size: 26px;
+  line-height: 40px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.ar-body {
+  font-family: var(--font-arabic);
+  font-size: 16px;
+  line-height: 30px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.ar-body-sm {
+  font-family: var(--font-arabic);
+  font-size: 14px;
+  line-height: 26px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+@media print {
+  :root, [data-theme="light"], [data-theme="dark"] {
+    --surface-page: #ffffff;
+    --surface-card: #ffffff;
+    --surface-sunken: #f2f5f8;
+    --surface-inverse: #0a2440;
+    --ink-strong: #0a2440;
+    --ink-body: #1f3448;
+    --ink-muted: #52657a;
+    --ink-inverse: #ffffff;
+    --ink-inverse-muted: #a8bccd;
+    --ink-on-brand: #ffffff;
+    --brand-primary: #0074b7;
+    --brand-accent: #007dc5;
+    --brand-link: #0069a8;
+    --brand-soft: #e6f2f9;
+    --border-subtle: #dde4ea;
+    --border-strong: #7c8b99;
+    --border-focus: #007dc5;
+    --status-success: #0f7a4d;
+    --status-success-soft: #e4f4ec;
+    --status-warning: #9a5b00;
+    --status-warning-soft: #fbf0e0;
+    --status-danger: #b3261e;
+    --status-danger-soft: #fbe9e7;
+    --status-info: #0070b0;
+    --status-info-soft: #e6f2f9;
+    --status-neutral: #52657a;
+    --status-neutral-soft: #eef2f6;
+    --chart-1: #007dc5;
+    --chart-2: #c2255c;
+    --chart-3: #6a4bbc;
+    --chart-4: #8a6d00;
+    --shadow-sm: none;
+    --shadow-md: none;
+    --shadow-lg: none;
+  }
+}
+@font-face {
+  font-family: "Cairo";
+  src: url("fonts/Cairo-Variable.ttf") format("truetype");
+  font-weight: 200 1000;
+  font-style: normal;
+  font-display: swap;
+}

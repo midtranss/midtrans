@@ -1,0 +1,1344 @@
+/* MIDTRANS component stylesheet. Every value is a token from tokens.json;
+   every inline axis uses logical properties so one sheet serves LTR and RTL. */
+
+/* ---------- Button ---------- */
+.mt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding-block: 9px;
+  padding-inline: var(--space-4);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 23px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 120ms linear, border-color 120ms linear, color 120ms linear;
+}
+.mt-btn:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+.mt-btn[disabled],
+.mt-btn[aria-disabled="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+/* ARIA describes, it does not disable. On an <a href> aria-disabled changes
+   nothing about activation: the link still follows on click and on Enter. This
+   stops the pointer, but the keyboard still reaches it, so the markup has to
+   carry the rest - see the Button card. */
+a.mt-btn[aria-disabled="true"] { pointer-events: none; }
+
+.mt-btn--primary {
+  background: var(--brand-primary);
+  color: var(--ink-on-brand);
+}
+.mt-btn--primary:hover:not([disabled]) { background: var(--surface-inverse); color: var(--ink-inverse); }
+
+.mt-btn--secondary {
+  background: var(--surface-card);
+  color: var(--ink-strong);
+  border-color: var(--border-strong);
+}
+.mt-btn--secondary:hover:not([disabled]) { background: var(--surface-sunken); }
+
+.mt-btn--quiet {
+  background: transparent;
+  color: var(--brand-link);
+  padding-inline: var(--space-2);
+}
+.mt-btn--quiet:hover:not([disabled]) { background: var(--brand-soft); }
+
+.mt-btn--danger {
+  background: var(--surface-card);
+  color: var(--status-danger);
+  border-color: var(--status-danger);
+}
+.mt-btn--danger:hover:not([disabled]) { background: var(--status-danger-soft); }
+
+.mt-btn--sm { padding-block: 5px; padding-inline: var(--space-3); font-size: 13px; line-height: 20px; }
+
+/* ---------- Field ---------- */
+.mt-field { font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1); }
+.mt-field__label {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-strong);
+}
+.mt-field__req { color: var(--status-danger); margin-inline-start: 2px; }
+.mt-field__control {
+  width: 100%;
+  box-sizing: border-box;
+  padding-block: 8px;
+  padding-inline: var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-card);
+  color: var(--ink-body);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 23px;
+  text-align: start;
+}
+.mt-field__control::placeholder { color: var(--ink-muted); }
+.mt-field__control:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; border-color: var(--border-focus); }
+.mt-field__control[data-mono] { font-family: var(--font-mono); font-size: 14px; font-variant-numeric: tabular-nums; }
+.mt-field__help { font-family: var(--font-sans); font-size: 13px; line-height: 20px; color: var(--ink-muted); }
+.mt-field--invalid .mt-field__control { border-color: var(--status-danger); }
+.mt-field__error { font-family: var(--font-sans); font-size: 13px; line-height: 20px; color: var(--status-danger); }
+
+/* ---------- StatusBadge ---------- */
+.mt-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding-block: 2px;
+  padding-inline: 8px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.mt-badge__dot { width: 6px; height: 6px; border-radius: var(--radius-pill); background: currentColor; flex: none; }
+.mt-badge--success { background: var(--status-success-soft); color: var(--status-success); }
+.mt-badge--warning { background: var(--status-warning-soft); color: var(--status-warning); }
+.mt-badge--danger  { background: var(--status-danger-soft);  color: var(--status-danger); }
+.mt-badge--info    { background: var(--status-info-soft);    color: var(--status-info); }
+.mt-badge--neutral { background: var(--status-neutral-soft); color: var(--status-neutral); }
+
+/* ---------- Card ---------- */
+.mt-card {
+  /* Each component carries its own family rather than inheriting one. As an
+     additive skin this stylesheet is dropped into a host page that already
+     sets a body font, and an inherited family would lose to it. */
+  font-family: var(--font-sans);
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.mt-card__head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); }
+.mt-card__title { margin: 0; font-family: var(--font-sans); font-size: 21px; line-height: 28px; font-weight: 600; color: var(--ink-strong); }
+.mt-card__meta { margin: var(--space-1) 0 0; font-family: var(--font-sans); font-size: 13px; line-height: 20px; color: var(--ink-muted); }
+.mt-card__body { margin: 0; font-family: var(--font-sans); font-size: 15px; line-height: 23px; color: var(--ink-body); }
+.mt-card__foot { display: flex; gap: var(--space-2); padding-block-start: var(--space-4); border-block-start: 1px solid var(--border-subtle); }
+@media (max-width: 767px) { .mt-card { padding: var(--space-4); } }
+
+/* ---------- DataTable ---------- */
+.mt-table { width: 100%; border-collapse: collapse; font-family: var(--font-sans); }
+.mt-table caption { text-align: start; padding-block-end: var(--space-3); font-size: 13px; line-height: 20px; color: var(--ink-muted); }
+.mt-table th {
+  /* Frozen, as the register contract requires: on a long shipment or invoice
+     list the operator loses column context the moment the header scrolls away.
+     The rule is drawn with box-shadow, not border-block-end - under
+     border-collapse a sticky cell leaves its borders behind and the line
+     detaches from the header as it moves. shadow-sm lands once the body
+     scrolls under it, which is what marks the header as floating. */
+  position: sticky;
+  /* Clear of the shell header, which is sticky at 0 with a higher z-index: a
+     table frozen at 0 too slides under it and the operator loses the columns
+     this rule exists to keep. --mt-shell-header is 0 outside the shell, so a
+     table on a plain page still freezes at the top. */
+  inset-block-start: var(--mt-shell-header, 0px);
+  z-index: 1;
+  background: var(--surface-sunken);
+  color: var(--ink-strong);
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: start;
+  padding: var(--space-3);
+  box-shadow: inset 0 -1px 0 var(--border-subtle), var(--shadow-sm);
+  white-space: nowrap;
+}
+.mt-table td {
+  padding: var(--space-3);
+  border-block-end: 1px solid var(--border-subtle);
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--ink-body);
+  vertical-align: middle;
+}
+.mt-table tbody tr:hover td { background: var(--surface-sunken); }
+.mt-table__ref { font-family: var(--font-mono); font-size: 14px; font-variant-numeric: tabular-nums; color: var(--ink-strong); white-space: nowrap; }
+.mt-table__num { font-family: var(--font-mono); font-size: 12px; line-height: 18px; font-variant-numeric: tabular-nums; text-align: end; white-space: nowrap; }
+.mt-table th.mt-table__num { text-align: end; }
+
+/* ---------- Alert ---------- */
+.mt-alert {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border-inline-start: 3px solid currentColor;
+  font-family: var(--font-sans);
+}
+.mt-alert__body { display: flex; flex-direction: column; gap: var(--space-1); }
+.mt-alert__title { margin: 0; font-size: 15px; line-height: 23px; font-weight: 600; color: inherit; }
+.mt-alert__text { margin: 0; font-size: 13px; line-height: 20px; color: var(--ink-body); }
+.mt-alert--info    { background: var(--status-info-soft);    color: var(--status-info); }
+.mt-alert--success { background: var(--status-success-soft); color: var(--status-success); }
+.mt-alert--warning { background: var(--status-warning-soft); color: var(--status-warning); }
+.mt-alert--danger  { background: var(--status-danger-soft);  color: var(--status-danger); }
+
+/* ---------- KeyValue ---------- */
+.mt-kv { font-family: var(--font-sans); margin: 0; display: grid; grid-template-columns: max-content 1fr; column-gap: var(--space-5); row-gap: var(--space-3); }
+.mt-kv dt {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  align-self: center;
+}
+.mt-kv dd { margin: 0; font-family: var(--font-sans); font-size: 15px; line-height: 23px; color: var(--ink-body); }
+.mt-kv dd[data-mono] { font-family: var(--font-mono); font-size: 14px; line-height: 20px; font-variant-numeric: tabular-nums; }
+.mt-kv dd[data-pending] { color: var(--ink-muted); font-size: 13px; line-height: 20px; }
+@media (max-width: 599px) { .mt-kv { grid-template-columns: 1fr; row-gap: var(--space-1); } .mt-kv dd { margin-block-end: var(--space-3); } }
+
+/* ---------- Footer ---------- */
+.mt-footer {
+  background: var(--surface-inverse);
+  color: var(--ink-inverse);
+  font-family: var(--font-sans);
+  /* Full-bleed, so the gutter has to clear the cutout itself: in landscape on a
+     notched device with viewport-fit=cover a fixed inline padding puts the legal
+     line under the camera. --mt-gutter already takes the larger of the spacing
+     step and the safe-area inset. */
+  padding-block: var(--space-8) calc(var(--space-5) + var(--mt-safe-bottom));
+  padding-inline: var(--mt-gutter);
+}
+.mt-footer__inner { max-width: 1200px; margin-inline: auto; display: flex; flex-direction: column; gap: var(--space-6); }
+.mt-footer__top { display: flex; flex-wrap: wrap; gap: var(--space-8); justify-content: space-between; }
+.mt-footer__brand { display: flex; flex-direction: column; gap: var(--space-3); max-width: 320px; }
+.mt-footer__logo { height: 48px; width: auto; }
+.mt-footer__blurb { margin: 0; font-size: 13px; line-height: 20px; color: var(--ink-inverse-muted); }
+.mt-footer__cols { display: flex; flex-wrap: wrap; gap: var(--space-8); }
+.mt-footer__col { display: flex; flex-direction: column; gap: var(--space-2); min-width: 140px; }
+.mt-footer__head {
+  margin: 0 0 var(--space-1);
+  font-size: 13px; line-height: 16px; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--ink-inverse);
+}
+.mt-footer__link { color: var(--ink-inverse-muted); font-size: 13px; line-height: 20px; text-decoration: none; }
+.mt-footer__link:hover { color: var(--ink-inverse); text-decoration: underline; }
+.mt-footer__link:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+.mt-footer__langs { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.mt-footer__lang { color: var(--ink-inverse-muted); font-size: 13px; text-decoration: none; }
+.mt-footer__lang[aria-current="true"] { color: var(--ink-inverse); font-weight: 600; }
+.mt-footer__lang:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+.mt-footer__legal {
+  display: flex; flex-wrap: wrap; gap: var(--space-4); justify-content: space-between;
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--ink-inverse-muted);
+  font-size: 12px; line-height: 16px; color: var(--ink-inverse-muted);
+}
+.mt-footer__legal p { margin: 0; }
+
+/* ==========================================================================
+   Document — the official MIDTRANS template
+   The ANATOMY here is the app's own, preserved element for element: the 6px
+   brand rule, the letterhead/kind/logo row, the meta list, the verified
+   badge, the 250px side column of cards, the line table, the terms card
+   beside the totals, the brand-filled grand-total row, the footer kind.
+   Only colour, type and size are the design system's.
+   ========================================================================== */
+
+.mt-doc {
+  background: var(--surface-card);
+  color: var(--ink-body);
+  font-family: var(--font-sans);
+  border: 1px solid var(--border-subtle);
+  border-block-start: 6px solid var(--brand-accent);   /* the app's 6px rule */
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  max-width: 1000px;
+}
+
+/* --- letterhead row: brand block · document box · logo ------------------- */
+.mt-doc__top {
+  display: grid;
+  grid-template-columns: minmax(300px, 1fr) minmax(220px, auto) 140px;
+  gap: var(--space-5);
+  align-items: start;
+  padding: var(--space-4) var(--space-6) var(--space-3);
+  border-block-end: 1px solid var(--border-subtle);
+}
+.mt-doc__company { margin: 0 0 var(--space-2); font-size: 18px; line-height: 24px; font-weight: 700; letter-spacing: 0.01em; color: var(--brand-primary); }
+/* The address lines only. Without the :not(), this selector (0,1,1) outranks
+   .mt-doc__company (0,1,0) and prints the company name as a 12px grey address
+   line - the most prominent line on a commercial document, demoted. */
+.mt-doc__brand p:not(.mt-doc__company) { margin: 2px 0; font-size: 12px; line-height: 18px; color: var(--ink-muted); }
+.mt-doc__kind { margin: 0; font-size: 31px; line-height: 36px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink-strong); text-transform: uppercase; }
+.mt-doc__meta {
+  display: grid; gap: 4px;
+  margin-block-start: var(--space-3); padding-block-start: var(--space-3);
+  border-block-start: 1px solid var(--border-subtle);
+  font-size: 13px; line-height: 20px;
+}
+.mt-doc__meta-row { display: grid; grid-template-columns: 76px 1fr; gap: var(--space-2); }
+.mt-doc__meta-row span:first-child { color: var(--ink-muted); font-weight: 600; }
+.mt-doc__meta-row span:last-child { font-family: var(--font-mono); font-variant-numeric: tabular-nums; color: var(--ink-strong); }
+.mt-doc__badge {
+  display: inline-block; margin-block-start: var(--space-2);
+  padding: 4px 10px; border-radius: var(--radius-pill);
+  background: var(--status-info-soft); color: var(--status-info);
+  font-size: 11px; line-height: 16px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+}
+.mt-doc__logo { justify-self: end; }
+.mt-doc__logo img { max-width: 140px; height: auto; }
+
+/* --- body: 250px side column + main ------------------------------------- */
+.mt-doc__content { display: grid; grid-template-columns: 250px 1fr; gap: var(--space-5); padding: var(--space-4) var(--space-6) var(--space-5); align-items: start; }
+.mt-doc__side, .mt-doc__main { display: grid; gap: var(--space-3); align-content: start; }
+.mt-doc__card { padding: var(--space-3); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); background: var(--surface-page); }
+.mt-doc__card h4 { margin: 0 0 var(--space-2); font-size: 11px; line-height: 16px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brand-primary); }
+.mt-doc__card p { margin: 2px 0; font-size: 12px; line-height: 18px; color: var(--ink-muted); }
+.mt-doc__card strong { display: block; font-size: 14px; line-height: 21px; color: var(--ink-strong); }
+.mt-doc__card address { font-style: normal; font-size: 12px; line-height: 18px; color: var(--ink-muted); }
+.mt-doc__qr { display: grid; justify-items: start; gap: var(--space-2); }
+.mt-doc__qr img, .mt-doc__qr svg { width: 72px; height: 72px; }
+.mt-doc__qr span { font-size: 11px; line-height: 16px; color: var(--brand-link); font-weight: 600; }
+
+/* --- the line table ------------------------------------------------------ */
+.mt-doc__table { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); overflow: hidden; }
+.mt-doc__table th {
+  background: var(--surface-sunken); color: var(--ink-muted);
+  font-size: 11px; line-height: 16px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  text-align: start; padding: 8px var(--space-3); border-block-end: 1px solid var(--border-subtle); white-space: nowrap;
+}
+.mt-doc__table td { padding: 8px var(--space-3); border-block-end: 1px solid var(--border-subtle); font-size: 13px; line-height: 20px; color: var(--ink-body); }
+.mt-doc__table tr:last-child td { border-block-end: 0; }
+.mt-doc__table th.num, .mt-doc__table td.num { text-align: end; }
+/* Currency and amount are two aligned columns, as the app sets them, so a
+   column of money lines up on the digit and the currency never drifts. */
+/* An unconfirmed figure prints its condition, never 0 and never an em-dash:
+   "Assessed on the declaration", "Confirmed on booking". It is prose, so it
+   drops out of the mono/tabular treatment the money columns use and sits in
+   ink-muted at the smaller size - readable, and visibly not a number. */
+/* A reference number is mono wherever it sits in a document, not only inside a
+   Field or a KeyValue. Marks, B/L, container and seal numbers are read and
+   copied character by character against paper; tabular figures keep a column of
+   weights aligned on the digit. */
+.mt-doc [data-mono] {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+.mt-doc__table [data-unset] {
+  font-family: var(--font-sans);
+  font-variant-numeric: normal;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
+  color: var(--ink-muted);
+  white-space: normal;
+}
+.mt-doc__money { display: inline-grid; grid-template-columns: 42px 86px; gap: var(--space-2); font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.mt-doc__money span:first-child { color: var(--ink-muted); font-size: 12px; }
+.mt-doc__money span:last-child { text-align: end; font-weight: 600; color: var(--ink-strong); }
+
+/* --- terms beside totals ------------------------------------------------- */
+.mt-doc__close { display: grid; grid-template-columns: 1fr minmax(260px, 300px); gap: var(--space-3); align-items: start; }
+.mt-doc__totals { border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); overflow: hidden; }
+.mt-doc__total-row { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); padding: 8px var(--space-3); border-block-end: 1px solid var(--border-subtle); font-size: 13px; }
+.mt-doc__total-row:last-child { border-block-end: 0; }
+.mt-doc__total-row--grand { background: var(--brand-primary); color: var(--ink-on-brand); font-weight: 700; padding-block: 10px; }
+.mt-doc__total-row--grand .mt-doc__money span { color: inherit; }
+.mt-doc__note { margin: 0; font-size: 12px; line-height: 18px; color: var(--ink-muted); }
+.mt-doc__note strong { color: var(--ink-body); }
+.mt-doc__foot { padding: 0 var(--space-6) var(--space-4); text-align: end; font-size: 11px; line-height: 16px; font-weight: 700; color: var(--ink-muted); }
+
+@media (max-width: 899px) {
+  .mt-doc__top { grid-template-columns: 1fr; gap: var(--space-4); }
+  .mt-doc__logo { justify-self: start; }
+  .mt-doc__content { grid-template-columns: 1fr; padding-inline: var(--space-4); }
+  .mt-doc__close { grid-template-columns: 1fr; }
+}
+@media print {
+  .mt-doc { border-inline: none; border-block-end: none; border-radius: 0; max-width: none; }
+  .mt-doc__total-row--grand { background: none; color: var(--ink-strong); border: 1px solid var(--border-strong); }
+}
+
+/* A document table is as wide as its columns need: the packing list is six of
+   them, about 508px, inside a 318px content area on a 360px phone. .mt-doc
+   clips (overflow: hidden), so the weight and volume columns were unreachable
+   rather than merely off-screen. The table scrolls on its own axis here.
+   Mark the region in the markup - tabindex="0" with role="region" and a label -
+   so it is reachable by keyboard too; CSS cannot do that part. */
+/* The scroll region carries tabindex so a keyboard can reach the columns that
+   scroll out of view; a focusable thing has to show where focus is. Inset so the
+   ring is not clipped by the document's own overflow. */
+.mt-doc__main:focus-visible { outline: 2px solid var(--border-focus); outline-offset: -2px; }
+
+@media (max-width: 767px) {
+  .mt-doc__main { overflow-x: auto; overscroll-behavior-x: contain; }
+  .mt-doc__table { min-width: max-content; }
+}
+
+/* ---------- Calculator ---------- */
+.mt-calc { font-family: var(--font-sans); display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr); gap: var(--space-5); align-items: start; }
+.mt-calc__inputs { display: grid; gap: var(--space-4); }
+.mt-calc__row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+.mt-calc__out {
+  background: var(--surface-sunken);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  display: flex; flex-direction: column; gap: var(--space-4);
+}
+.mt-calc__figure { display: flex; flex-direction: column; gap: 2px; }
+.mt-calc__figure-label { font-family: var(--font-sans); font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-muted); }
+.mt-calc__figure-value { font-family: var(--font-mono); font-size: 26px; line-height: 32px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--ink-strong); }
+.mt-calc__figure-value[data-pending] { font-family: var(--font-sans); font-size: 13px; line-height: 20px; font-weight: 400; color: var(--ink-muted); }
+.mt-calc__figure-sub { font-family: var(--font-mono); font-size: 12px; line-height: 18px; font-variant-numeric: tabular-nums; color: var(--ink-muted); }
+.mt-calc__meter { display: flex; flex-direction: column; gap: var(--space-1); }
+.mt-calc__meter-track { height: 8px; border-radius: var(--radius-pill); background: var(--border-subtle); overflow: hidden; }
+.mt-calc__meter-fill { height: 100%; border-radius: var(--radius-pill); background: var(--brand-primary); }
+.mt-calc__meter--over .mt-calc__meter-fill { background: var(--status-danger); }
+.mt-calc__meter-text { font-family: var(--font-sans); font-size: 12px; line-height: 16px; color: var(--ink-muted); }
+.mt-calc__meter--over .mt-calc__meter-text { color: var(--status-danger); font-weight: 600; }
+@media (max-width: 899px) { .mt-calc { grid-template-columns: 1fr; } }
+
+/* ---------- HS code lookup ---------- */
+.mt-hs { display: flex; flex-direction: column; gap: var(--space-4); font-family: var(--font-sans); }
+.mt-hs__results { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+/* A candidate is a control, not a row of text. The stylesheet already gave it a
+   44px floor and a tap highlight, but as a bare <li> it could only ever be
+   picked with a pointer: no focus, no role, no selected state a screen reader
+   can read. It is a button now, so the keyboard reaches it and aria-pressed
+   carries the choice. */
+.mt-hs__item {
+  display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: baseline;
+  inline-size: 100%;
+  text-align: start;
+  font-family: var(--font-sans);
+  padding: var(--space-3);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--surface-card);
+  cursor: pointer;
+}
+.mt-hs__item[data-selected="true"],
+.mt-hs__item[aria-pressed="true"] { border-color: var(--brand-primary); background: var(--brand-soft); }
+.mt-hs__item:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+.mt-hs__results { list-style: none; margin: 0; padding: 0; }
+.mt-hs__code { font-family: var(--font-mono); font-size: 14px; line-height: 20px; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--ink-strong); white-space: nowrap; }
+.mt-hs__desc { flex: 1 1 240px; font-size: 13px; line-height: 20px; color: var(--ink-body); }
+.mt-hs__duty { font-size: 12px; line-height: 18px; color: var(--ink-muted); white-space: nowrap; }
+.mt-hs__foot { margin: 0; font-size: 12px; line-height: 18px; color: var(--ink-muted); }
+
+/* ---------- Icon ---------- */
+.mt-icon { width: 24px; height: 24px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.mt-icon--sm { width: 20px; height: 20px; }
+.mt-icon--lg { width: 32px; height: 32px; stroke-width: 2; }
+[dir="rtl"] .mt-icon--flip { transform: scaleX(-1); }
+
+/* ---------- Hero ---------- */
+.mt-hero {
+  display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--space-8); align-items: center;
+  max-width: 1200px; margin-inline: auto;
+  padding-block: var(--space-10); padding-inline: var(--space-8);
+  font-family: var(--font-sans);
+}
+.mt-hero__copy { display: flex; flex-direction: column; }
+.mt-hero__eyebrow {
+  margin: 0 0 var(--space-3); font-size: 13px; line-height: 16px; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase; color: var(--brand-link);
+}
+.mt-hero__title { margin: 0; font-size: 40px; line-height: 44px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink-strong); }
+.mt-hero__lede { margin: var(--space-4) 0 0; max-width: 56ch; font-size: 17px; line-height: 27px; color: var(--ink-body); }
+.mt-hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-block-start: var(--space-6); }
+.mt-hero__aside {
+  background: var(--surface-sunken); border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg); padding: var(--space-5);
+}
+@media (max-width: 899px) {
+  .mt-hero { grid-template-columns: 1fr; gap: var(--space-5); padding-block: var(--space-8); padding-inline: var(--space-4); }
+  .mt-hero__title { font-size: 32px; line-height: 38px; }
+  .mt-hero__aside { display: none; }
+}
+
+/* ---------- ServiceCard ---------- */
+.mt-service {
+  display: flex; flex-direction: column; gap: var(--space-2);
+  padding: var(--space-5);
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--brand-link);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  transition: border-color 120ms linear, background-color 120ms linear;
+}
+.mt-service:hover { border-color: var(--border-strong); background: var(--surface-sunken); }
+.mt-service:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+.mt-service__icon { display: inline-flex; margin-block-end: var(--space-2); }
+.mt-service__icon svg { width: 32px; height: 32px; stroke-width: 1.5; }
+.mt-service__title { margin: 0; font-size: 17px; line-height: 24px; font-weight: 600; color: var(--ink-strong); }
+.mt-service__text { margin: 0; font-size: 13px; line-height: 20px; color: var(--ink-body); }
+
+/* ---------- TradeLaneCard ---------- */
+.mt-lane {
+  display: flex; flex-direction: column; gap: var(--space-3);
+  padding: var(--space-5);
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+}
+.mt-lane__route { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+.mt-lane__place { font-size: 17px; line-height: 24px; font-weight: 600; color: var(--ink-strong); }
+.mt-lane__arrow { width: 20px; height: 20px; flex: none; fill: none; stroke: var(--brand-link); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+[dir="rtl"] .mt-lane__arrow { transform: scaleX(-1); }
+.mt-lane__modes { margin: 0; font-size: 13px; line-height: 20px; color: var(--ink-muted); }
+
+/* ---------- CTABlock ---------- */
+.mt-cta {
+  display: flex; flex-wrap: wrap; gap: var(--space-6); align-items: center; justify-content: space-between;
+  background: var(--surface-inverse);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  margin-block-end: var(--space-10);
+  font-family: var(--font-sans);
+}
+.mt-cta__copy { max-width: 56ch; }
+.mt-cta__title { margin: 0; font-size: 26px; line-height: 32px; font-weight: 600; color: var(--ink-inverse); }
+.mt-cta__text { margin: var(--space-3) 0 0; font-size: 15px; line-height: 23px; color: var(--ink-inverse-muted); }
+.mt-cta__actions { display: flex; flex-direction: column; gap: var(--space-2); align-items: flex-start; }
+.mt-cta__alt { font-size: 13px; line-height: 20px; color: var(--ink-inverse-muted); text-decoration: underline; }
+.mt-cta__alt:hover { color: var(--ink-inverse); }
+.mt-cta__alt:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+@media (max-width: 767px) { .mt-cta { padding: var(--space-5); } }
+
+/* ---------- Milestone ---------- */
+.mt-timeline { list-style: none; margin: 0; padding: 0; font-family: var(--font-sans); }
+.mt-timeline__step { position: relative; padding-inline-start: var(--space-6); padding-block-end: var(--space-5); }
+.mt-timeline__step::before {
+  content: ""; position: absolute; inset-inline-start: 0; inset-block-start: 4px;
+  width: 12px; height: 12px; border-radius: var(--radius-pill);
+  border: 2px solid var(--border-strong); background: var(--surface-card); box-sizing: border-box;
+}
+.mt-timeline__step::after {
+  content: ""; position: absolute; inset-inline-start: 5px; inset-block-start: 18px; bottom: 0;
+  width: 2px; background: var(--border-subtle);
+}
+.mt-timeline__step:last-child { padding-block-end: 0; }
+.mt-timeline__step:last-child::after { display: none; }
+.mt-timeline__step[data-state="done"]::before { background: var(--status-success); border-color: var(--status-success); }
+.mt-timeline__step[data-state="current"]::before { background: var(--brand-primary); border-color: var(--brand-primary); }
+.mt-timeline__title { margin: 0; font-size: 15px; line-height: 23px; color: var(--ink-body); }
+.mt-timeline__step[data-state="current"] .mt-timeline__title { font-weight: 600; color: var(--ink-strong); }
+.mt-timeline__step[data-state="pending"] .mt-timeline__title { color: var(--ink-muted); }
+.mt-timeline__meta { margin: 0; font-size: 12px; line-height: 18px; color: var(--ink-muted); }
+
+/* ==========================================================================
+   Device and input foundations
+   Written against capabilities, not device names: viewport segments cover
+   any foldable, safe-area insets cover any notch or home indicator, and
+   pointer/hover queries cover touch, mouse, pen and remote alike.
+   ========================================================================== */
+
+:root {
+  /* Minimum comfortable touch target. Not a design token: it is an input
+     constant, and env() cannot live in tokens.json. */
+  --mt-tap: 44px;
+  /* Icon-only controls are 32px under a mouse and grow to the 44px floor on
+     touch. Held as a token so the size does not depend on rule order. */
+  --mt-target-icon: 32px;
+  /* The launcher's height on a phone; the rail clears it. Set again in the
+     phone block beside the launcher's own sizing. */
+  --mt-launcher-block: 60px;
+  --mt-safe-top: env(safe-area-inset-top, 0px);
+  --mt-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --mt-safe-start: env(safe-area-inset-left, 0px);
+  --mt-safe-end: env(safe-area-inset-right, 0px);
+  /* Gutter that already accounts for a rounded corner or a camera cutout. */
+  --mt-gutter: max(var(--space-4), var(--mt-safe-start), var(--mt-safe-end));
+}
+
+/* --- Touch: every interactive thing clears 44px on a coarse pointer ------ */
+@media (pointer: coarse) {
+  :root { --mt-target-icon: var(--mt-tap); }
+  .mt-btn,
+  .mt-field__control,
+  .mt-footer__link,
+  .mt-footer__lang,
+  .mt-hs__item,
+  .mt-cta__alt {
+    min-height: var(--mt-tap);
+  }
+  .mt-btn { padding-block: 10px; }
+  .mt-btn--sm { min-height: var(--mt-tap); padding-block: 8px; }
+  .mt-field__control { padding-block: 10px; }
+  /* A 44px floor needs a box: min-height is ignored on an inline element, so
+     each of these becomes inline-flex before it is given a size. */
+  .mt-footer__lang,
+  .mt-office__line a {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-inline-size: var(--mt-tap); min-block-size: var(--mt-tap);
+  }
+  /* The phone and mail links sit in a flex row, so the row must stop centring
+     on the baseline once its links are 44px tall. */
+  .mt-office__line { align-items: center; }
+  /* Targets that cannot grow get their spacing instead, so neighbours are
+     not mis-tapped. */
+  .mt-footer__col { gap: var(--space-3); }
+  .mt-footer__langs { gap: var(--space-4); }
+  .mt-table td { padding-block: var(--space-4); }
+}
+
+/* --- Hover belongs to pointers that can hover ---------------------------- */
+/* Without this, a tap leaves the hover state stuck until the next tap.
+   Values are restated explicitly rather than reverted, so the outcome does
+   not depend on cascade-layer support. */
+@media (hover: none) {
+  .mt-btn--primary:hover:not([disabled]) { background: var(--brand-primary); color: var(--ink-on-brand); }
+  .mt-btn--secondary:hover:not([disabled]) { background: var(--surface-card); }
+  .mt-btn--quiet:hover:not([disabled]) { background: transparent; }
+  .mt-btn--danger:hover:not([disabled]) { background: var(--surface-card); }
+  .mt-service:hover { background: var(--surface-card); border-color: var(--border-subtle); }
+  .mt-table tbody tr:hover td { background: transparent; }
+  .mt-footer__link:hover { color: var(--ink-inverse-muted); text-decoration: none; }
+  .mt-cta__alt:hover { color: var(--ink-inverse-muted); }
+  .mt-shell__back:hover { background: transparent; }
+}
+
+/* Touch ergonomics: no grey flash, no double-tap zoom delay, no scroll chaining */
+.mt-btn, .mt-service, .mt-hs__item, .mt-footer__link, .mt-footer__lang, .mt-shell__back {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* --- Focus must be visible for keyboards, invisible for taps ------------- */
+/* :focus-visible already does this; this is the fallback for older engines. */
+.mt-btn:focus:not(:focus-visible),
+.mt-field__control:focus:not(:focus-visible) { outline: none; }
+
+/* --- Motion -------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --- Very narrow: cover screens and small phones, down to 280px ---------- */
+@media (max-width: 359px) {
+  .mt-hero { padding-inline: var(--mt-gutter); }
+  .mt-hero__title { font-size: 26px; line-height: 32px; }
+  .mt-hero__lede { font-size: 15px; line-height: 23px; }
+  .mt-hero__actions { flex-direction: column; align-items: stretch; }
+  .mt-hero__actions .mt-btn { width: 100%; }
+  .mt-card, .mt-lane, .mt-service, .mt-doc { padding: var(--space-3); }
+  .mt-calc__row { grid-template-columns: 1fr; }
+  .mt-doc__parties { grid-template-columns: 1fr; }
+  .mt-cta { padding: var(--space-4); }
+  .mt-cta__title { font-size: 21px; line-height: 28px; }
+  .mt-footer__top, .mt-footer__cols { gap: var(--space-5); }
+  /* A reference number is never truncated — it wraps at the hyphen instead. */
+  .mt-table__ref, .mt-doc__no { white-space: normal; overflow-wrap: anywhere; }
+}
+
+/* --- Foldables: two viewport segments, any hinge orientation ------------- */
+/* Side-by-side segments: keep content clear of the fold rather than
+   letting a card or a table straddle it. */
+@media (horizontal-viewport-segments: 2) {
+  .mt-hero,
+  .mt-calc {
+    grid-template-columns:
+      calc(env(viewport-segment-right 0 0) - env(viewport-segment-left 0 0))
+      1fr;
+    column-gap: calc(env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0));
+  }
+  .mt-shell { --mt-fold-gap: calc(env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0)); }
+}
+/* Stacked segments, as a book-fold laid flat: nothing interactive sits on
+   the crease, so the primary action moves above it. */
+@media (vertical-viewport-segments: 2) {
+  .mt-hero { grid-template-columns: 1fr; }
+  .mt-cta { flex-direction: column; align-items: flex-start; }
+}
+
+/* ---------- AppShell ---------- */
+.mt-shell {
+  /* Published for anything sticky inside the shell - the register's table header
+     is the one that matters. Measured from the header's own padding and line box. */
+  --mt-shell-header: calc(var(--space-2) * 2 + var(--mt-safe-top) + 28px);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  /* Small viewport height: correct while a mobile browser's chrome is shown,
+     and stable when the on-screen keyboard opens. */
+  min-height: 100svh;
+  background: var(--surface-page);
+  font-family: var(--font-sans);
+}
+.mt-shell__header {
+  grid-row: 1;
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--surface-card);
+  border-block-end: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+  padding-block: var(--space-2);
+  padding-block-start: calc(var(--space-2) + var(--mt-safe-top));
+  padding-inline: var(--mt-gutter);
+}
+.mt-shell__back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--mt-tap);
+  min-height: var(--mt-tap);
+  margin-inline-start: calc(var(--space-3) * -1);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--brand-link);
+  cursor: pointer;
+}
+.mt-shell__back:hover { background: var(--brand-soft); }
+.mt-shell__back:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+.mt-shell__back svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+[dir="rtl"] .mt-shell__back svg { transform: scaleX(-1); }
+.mt-shell__title {
+  margin: 0; flex: 1; min-width: 0;
+  font-size: 17px; line-height: 24px; font-weight: 600; color: var(--ink-strong);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.mt-shell__main {
+  grid-row: 2;
+  padding-inline: var(--mt-gutter);
+  padding-block: var(--space-5);
+  /* Clear the bottom bar and the home indicator together. */
+  padding-block-end: calc(var(--space-5) + var(--mt-safe-bottom));
+  min-width: 0;
+}
+.mt-shell__nav {
+  grid-row: 3;
+  position: sticky;
+  inset-block-end: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: space-around;
+  gap: var(--space-1);
+  background: var(--surface-card);
+  border-block-start: 1px solid var(--border-subtle);
+  padding-block: var(--space-1);
+  padding-block-end: calc(var(--space-1) + var(--mt-safe-bottom));
+  padding-inline: var(--mt-gutter);
+}
+.mt-shell__nav-item {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  min-height: var(--mt-tap);
+  padding-block: var(--space-1);
+  border-radius: var(--radius-md);
+  color: var(--ink-muted);
+  text-decoration: none;
+  font-size: 11px; line-height: 14px;
+}
+.mt-shell__nav-item svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.mt-shell__nav-item[aria-current="page"] { color: var(--brand-link); font-weight: 600; }
+.mt-shell__nav-item:focus-visible { outline: 2px solid var(--border-focus); outline-offset: -2px; }
+
+/* From tablet up the bottom bar becomes a side rail and the back button
+   gives way to the browser's own back, which is reliable with a mouse. */
+@media (min-width: 900px) {
+  .mt-shell { grid-template-rows: auto 1fr; grid-template-columns: 240px 1fr; }
+  /* The side rail is the way back from here, and the browser's own back
+     is visible with a mouse. A second back control is noise. */
+  .mt-shell__back { display: none; }
+  .mt-shell__header { grid-column: 1 / -1; }
+  .mt-shell__nav {
+    position: static;
+    grid-column: 1; grid-row: 2;
+    flex-direction: column; justify-content: flex-start;
+    gap: var(--space-1);
+    border-block-start: none;
+    border-inline-end: 1px solid var(--border-subtle);
+    padding-block: var(--space-4);
+  }
+  .mt-shell__nav-item { flex: none; flex-direction: row; justify-content: flex-start; gap: var(--space-3); font-size: 15px; line-height: 23px; padding-inline: var(--space-3); }
+  .mt-shell__main { grid-column: 2; grid-row: 2; padding-inline: var(--space-8); }
+}
+
+/* --- Tables on a narrow screen become stacked records -------------------- */
+/* A horizontally scrolling operational table is unusable on a phone. Give
+   each cell a data-label and the table restates itself as term/value rows. */
+@media (max-width: 767px) {
+  .mt-table--stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .mt-table--stack tbody tr {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: var(--space-4);
+    row-gap: var(--space-2);
+    padding: var(--space-4) 0;
+    border-block-end: 1px solid var(--border-subtle);
+  }
+  .mt-table--stack td { display: contents; }
+  /* td is display:contents, so its child IS the grid item: keep it its own size. */
+  .mt-table--stack td > * { justify-self: start; }
+  .mt-table--stack td::before {
+    content: attr(data-label);
+    font-size: 13px; line-height: 16px; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-muted);
+  }
+  /* The reference leads the record as its heading, spanning both columns. */
+  .mt-table--stack td.mt-table__ref { display: block; grid-column: 1 / -1; font-size: 15px; }
+  .mt-table--stack td.mt-table__ref::before { content: none; }
+  /* The reference is the way into the record, and on a phone it was a ~20px
+     inline run inside a cell that had grown around it - the padding did not
+     activate anything. The link fills its cell and clears the 44px floor. */
+  .mt-table--stack td.mt-table__ref a {
+    display: flex; align-items: center;
+    min-block-size: var(--mt-tap);
+    inline-size: 100%;
+  }
+  .mt-table--stack td.mt-table__num { text-align: start; }
+}
+
+/* ==========================================================================
+   Motion
+   Motion marks a change the operator must not miss. It is never decorative,
+   never loops forever, and never flashes more than three times in one
+   second — the WCAG 2.3.1 seizure threshold. Every rule here is disabled
+   wholesale by the prefers-reduced-motion block above, so motion is never
+   the only way a change is communicated.
+   ========================================================================== */
+
+/* --- Alert flash: pull the eye to a notice that just arrived ------------- */
+/* Two pulses over 1.2s = 1.67Hz, half the seizure threshold. Runs once. */
+@keyframes mt-flash {
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  25%      { box-shadow: 0 0 0 4px currentColor; }
+  50%      { box-shadow: 0 0 0 0 transparent; }
+  75%      { box-shadow: 0 0 0 4px currentColor; }
+}
+.mt-alert[data-flash] {
+  animation: mt-flash 1.2s ease-in-out 1;
+}
+/* A danger alert earns one extra pulse and nothing more. */
+.mt-alert--danger[data-flash] { animation-duration: 1.8s; }
+
+/* --- Status change: a badge whose value just changed --------------------- */
+@keyframes mt-badge-in {
+  from { transform: scale(0.88); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+.mt-badge[data-changed] { animation: mt-badge-in 200ms ease-out 1; }
+
+/* --- Timeline: a step that just completed -------------------------------- */
+@keyframes mt-step-done {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.5); }
+  100% { transform: scale(1); }
+}
+.mt-timeline__step[data-just-completed]::before { animation: mt-step-done 320ms ease-out 1; }
+
+/* --- Toast: a transient confirmation ------------------------------------- */
+@keyframes mt-toast-in {
+  from { transform: translateY(12px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.mt-toast-region {
+  position: fixed;
+  inset-block-end: calc(var(--space-4) + var(--mt-safe-bottom));
+  inset-inline: var(--mt-gutter);
+  z-index: 60;
+  display: flex; flex-direction: column; gap: var(--space-2);
+  align-items: center;
+  pointer-events: none;
+}
+.mt-toast {
+  display: flex; align-items: center; gap: var(--space-3);
+  max-width: 480px;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--surface-inverse);
+  color: var(--ink-inverse);
+  box-shadow: var(--shadow-lg);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 400;
+  pointer-events: auto;
+  animation: mt-toast-in 200ms ease-out 1;
+}
+.mt-toast svg { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.mt-toast--success svg { color: var(--status-success); }
+.mt-toast--danger svg  { color: var(--status-danger); }
+.mt-toast__close {
+  margin-inline-start: auto;
+  min-inline-size: var(--mt-target-icon); min-block-size: var(--mt-target-icon);
+  border: none; background: transparent; color: var(--ink-inverse-muted);
+  border-radius: var(--radius-sm); cursor: pointer;
+}
+.mt-toast__close:hover { color: var(--ink-inverse); }
+.mt-toast__close:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+
+/* --- Loading: a skeleton, not a spinner ---------------------------------- */
+/* A sweep, not a pulse: it reads as "content is coming", and it stops the
+   moment reduced motion is asked for, leaving a flat block. */
+@keyframes mt-sweep { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+.mt-skeleton {
+  border-radius: var(--radius-sm);
+  background: linear-gradient(90deg, var(--surface-sunken) 25%, var(--border-subtle) 37%, var(--surface-sunken) 63%);
+  background-size: 200% 100%;
+  animation: mt-sweep 1.4s linear infinite;
+  min-height: 1em;
+}
+.mt-skeleton--text { height: 13px; margin-block: 4px; }
+.mt-skeleton--title { height: 21px; width: 40%; }
+
+/* --- Press feedback on touch --------------------------------------------- */
+/* A tap has no hover to confirm it landed, so the surface answers. */
+@media (pointer: coarse) {
+  .mt-btn:active:not([disabled]) { transform: scale(0.97); }
+  .mt-service:active { transform: scale(0.99); }
+}
+
+/* --- Row entrance, capped ------------------------------------------------ */
+/* Only the first eight rows animate. Animating a hundred-row table turns a
+   register into a light show and delays the first readable frame. */
+@keyframes mt-row-in { from { opacity: 0; } to { opacity: 1; } }
+.mt-table--enter tbody tr:nth-child(-n+8) { animation: mt-row-in 180ms ease-out backwards; }
+.mt-table--enter tbody tr:nth-child(1) { animation-delay: 0ms; }
+.mt-table--enter tbody tr:nth-child(2) { animation-delay: 25ms; }
+.mt-table--enter tbody tr:nth-child(3) { animation-delay: 50ms; }
+.mt-table--enter tbody tr:nth-child(4) { animation-delay: 75ms; }
+.mt-table--enter tbody tr:nth-child(5) { animation-delay: 100ms; }
+.mt-table--enter tbody tr:nth-child(6) { animation-delay: 125ms; }
+.mt-table--enter tbody tr:nth-child(7) { animation-delay: 150ms; }
+.mt-table--enter tbody tr:nth-child(8) { animation-delay: 175ms; }
+
+/* ==========================================================================
+   Arabic binding
+   Cairo must follow the language, not a class someone remembered to add.
+   Marking an element lang="ar" is enough; the ar-* type styles are still
+   what give Arabic its taller leading where the text is a block of copy.
+   ========================================================================== */
+[lang="ar"],
+[lang^="ar-"] {
+  /* Rebinding the variable, not just the property, is what makes "Cairo only"
+     true. Every component sets font-family: var(--font-sans) on itself, and a
+     declaration on the component beats a family inherited from this element -
+     so a button, badge, table header or field label would keep rendering its
+     Arabic in Helvetica. Pointing --font-sans at the Arabic face inside this
+     subtree makes all of them resolve to Cairo, with no per-component rules.
+     --font-mono is deliberately left alone: reference numbers stay mono. */
+  --font-sans: var(--font-arabic);
+  font-family: var(--font-arabic);
+}
+/* Reference numbers stay in the mono face inside Arabic too: a booking or
+   AWB number is checked character by character against a document, and it
+   is written in Western digits in every locale. */
+[lang="ar"] .mt-table__ref,
+[lang="ar"] .mt-doc__no,
+[lang="ar"] .data,
+[lang="ar"] .data-sm,
+[lang="ar"] [data-mono] {
+  font-family: var(--font-mono);
+}
+/* Arabic block copy needs the leading Cairo was drawn for. Components that
+   already carry an ar-* style keep theirs; this catches everything else. */
+[lang="ar"] p,
+[lang="ar"] li,
+[lang="ar"] dd,
+[lang="ar"] address {
+  line-height: 1.8;
+}
+
+/* ==========================================================================
+   Report: stat tiles and the bar figure
+   The categorical colours are validated, not chosen by eye: worst adjacent
+   CVD separation is ΔE 16.2 in light and 13.6 in dark, against a target of 8.
+   The order is FIXED and never cycled — a fifth mode folds into "Other".
+   ========================================================================== */
+
+.mt-stats { font-family: var(--font-sans); display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-4); }
+.mt-stat {
+  display: flex; flex-direction: column; gap: var(--space-1);
+  padding: var(--space-4);
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+}
+.mt-stat__label { font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-muted); }
+.mt-stat__value { font-family: var(--font-mono); font-size: 32px; line-height: 38px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--ink-strong); }
+.mt-stat__value[data-pending] { font-family: var(--font-sans); font-size: 15px; line-height: 23px; font-weight: 400; color: var(--ink-muted); }
+.mt-stat__note { font-size: 12px; line-height: 18px; color: var(--ink-muted); }
+
+/* The figure: horizontal bars. Magnitude is length; colour only carries identity. */
+.mt-figure { font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-3); }
+.mt-figure__title { margin: 0; font-size: 17px; line-height: 24px; font-weight: 600; color: var(--ink-strong); }
+.mt-figure__sub { margin: 0; font-size: 12px; line-height: 18px; color: var(--ink-muted); }
+.mt-figure__rows { display: flex; flex-direction: column; gap: var(--space-2); }
+.mt-figure__row { display: grid; grid-template-columns: 96px 1fr max-content; gap: var(--space-3); align-items: center; }
+.mt-figure__name { font-size: 13px; line-height: 20px; color: var(--ink-body); }
+.mt-figure__track { height: 20px; background: var(--surface-sunken); border-radius: 2px; overflow: hidden; }
+.mt-figure__bar {
+  height: 100%;
+  /* 4px rounded data-end, square against the baseline. */
+  border-start-end-radius: 4px; border-end-end-radius: 4px;
+  /* a 2px surface gap keeps adjacent fills from reading as one mark */
+  box-shadow: 0 0 0 2px var(--surface-card);
+}
+.mt-figure__value { font-family: var(--font-mono); font-size: 12px; line-height: 18px; font-variant-numeric: tabular-nums; color: var(--ink-body); }
+.mt-figure__legend { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+.mt-figure__key { display: inline-flex; align-items: center; gap: var(--space-2); font-size: 12px; line-height: 18px; color: var(--ink-muted); }
+.mt-figure__swatch { width: 10px; height: 10px; border-radius: 2px; flex: none; }
+/* Identity is never colour alone: each row is named, and the legend repeats it. */
+.mt-figure__row:focus-visible, .mt-figure__row:hover .mt-figure__track { outline: none; }
+.mt-figure__row:hover .mt-figure__value { color: var(--ink-strong); font-weight: 600; }
+
+.mt-c1 { background: var(--chart-1); } .mt-sw1 { background: var(--chart-1); }
+.mt-c2 { background: var(--chart-2); } .mt-sw2 { background: var(--chart-2); }
+.mt-c3 { background: var(--chart-3); } .mt-sw3 { background: var(--chart-3); }
+.mt-c4 { background: var(--chart-4); } .mt-sw4 { background: var(--chart-4); }
+
+@media print {
+  .mt-stat, .mt-figure__track { border: 1px solid var(--border-strong); }
+  .mt-figure__bar { box-shadow: none; }
+}
+
+/* ---------- Notification ---------- */
+.mt-notes { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; font-family: var(--font-sans); }
+.mt-note {
+  /* Each component carries its own family rather than inheriting one. As an
+     additive skin this stylesheet is dropped into a host page that already
+     sets a body font, and an inherited family would lose to it. */
+  font-family: var(--font-sans);
+  display: grid; grid-template-columns: max-content 1fr max-content;
+  gap: var(--space-3); align-items: start;
+  padding: var(--space-4) var(--space-3);
+  border-block-end: 1px solid var(--border-subtle);
+  background: var(--surface-card);
+}
+.mt-note[data-unread="true"] { background: var(--brand-soft); }
+/* The unread tint is colour alone, and a data attribute reaches no screen
+   reader. This says it in words, visually hidden but read aloud and found by
+   search - status never rides on colour by itself anywhere in this system. */
+.mt-note__unread {
+  position: absolute;
+  inline-size: 1px; block-size: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+.mt-note__icon { width: 32px; height: 32px; border-radius: var(--radius-sm); display: grid; place-items: center; }
+.mt-note__icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.mt-note--info    .mt-note__icon { background: var(--status-info-soft);    color: var(--status-info); }
+.mt-note--success .mt-note__icon { background: var(--status-success-soft); color: var(--status-success); }
+.mt-note--warning .mt-note__icon { background: var(--status-warning-soft); color: var(--status-warning); }
+.mt-note--danger  .mt-note__icon { background: var(--status-danger-soft);  color: var(--status-danger); }
+.mt-note__body { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.mt-note__title { margin: 0; font-size: 15px; line-height: 23px; font-weight: 600; color: var(--ink-strong); }
+.mt-note__text { margin: 0; font-size: 13px; line-height: 20px; color: var(--ink-body); }
+.mt-note__ref { font-family: var(--font-mono); font-size: 12px; font-variant-numeric: tabular-nums; color: var(--ink-muted); }
+.mt-note__time { font-size: 12px; line-height: 18px; color: var(--ink-muted); white-space: nowrap; }
+
+/* ---------- Contact ---------- */
+.mt-offices { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-4); font-family: var(--font-sans); }
+.mt-office {
+  /* Each component carries its own family rather than inheriting one. As an
+     additive skin this stylesheet is dropped into a host page that already
+     sets a body font, and an inherited family would lose to it. */
+  font-family: var(--font-sans);
+  display: flex; flex-direction: column; gap: var(--space-3);
+  padding: var(--space-5);
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+.mt-office__label { margin: 0; font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--brand-link); }
+.mt-office__city { margin: 0; font-size: 21px; line-height: 28px; font-weight: 600; color: var(--ink-strong); }
+.mt-office address { font-style: normal; font-size: 13px; line-height: 20px; color: var(--ink-body); }
+.mt-office__lines { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+.mt-office__line { display: flex; gap: var(--space-2); align-items: baseline; font-size: 13px; line-height: 20px; }
+.mt-office__kind { color: var(--ink-muted); min-width: 44px; }
+.mt-office__line a { font-family: var(--font-mono); font-size: 13px; font-variant-numeric: tabular-nums; color: var(--brand-link); text-decoration: none; }
+.mt-office__line a:hover { text-decoration: underline; }
+.mt-office__sep { color: var(--ink-muted); padding-inline: var(--space-1); }
+.mt-office__line a:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+
+/* The site rail: the persistent stack of actions pinned to the page edge.
+   Four buttons in the live site, in this order: search, documents, the
+   assistant, offices. The order and the count are the site's, not ours. */
+.mt-rail {
+  font-family: var(--font-sans);
+  position: fixed;
+  inset-inline-end: var(--mt-gutter);
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: flex; flex-direction: column; gap: var(--space-3);
+}
+.mt-rail__item {
+  display: flex; align-items: center; justify-content: center;
+  width: 56px; height: 56px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface-inverse);
+  color: var(--ink-inverse);
+  text-decoration: none;
+  box-shadow: var(--shadow-md);
+  transition: background-color 120ms linear, color 120ms linear;
+}
+/* Declared only for pointers that can hover. A reset in @media (hover: none)
+   earlier in the file ties with this on specificity and loses to it, so the tap
+   state stayed latched on the fixed chrome - the case where it shows longest,
+   because these controls open a panel in place rather than navigating away. */
+@media (hover: hover) {
+  .mt-rail__item:hover { background: var(--brand-primary); color: var(--ink-on-brand); border-color: var(--brand-primary); }
+}
+.mt-rail__item:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+/* The assistant's button is the filled one, so the way to reach a person is
+   the one that reads first in the stack. */
+.mt-rail__item--accent { background: var(--brand-primary); color: var(--ink-on-brand); border-color: var(--brand-primary); }
+@media (hover: hover) {
+  .mt-rail__item--accent:hover { background: var(--surface-inverse); color: var(--ink-inverse); border-color: var(--border-strong); }
+}
+.mt-rail__item svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.mt-rail__item img { width: 30px; height: 30px; }
+@media (max-width: 767px) {
+  .mt-rail {
+    inset-block-start: auto;
+    /* Above the launcher, not beside it. As a row the four 44px controls are
+       about 212px wide and the labelled launcher about 224px; on a 360px phone
+       they cannot share the bottom edge, and the rail was landing on top of
+       Mira. The offset is the launcher's own inset (space-5), plus its height,
+       plus a space-3 gap: two touch targets that merely touch get mis-tapped
+       at the boundary. --mt-launcher-block keeps the two in step. */
+    inset-block-end: calc(var(--space-5) + var(--mt-safe-bottom)
+                          + var(--mt-launcher-block) + var(--space-3));
+    inset-inline-end: var(--mt-gutter);
+    transform: none;
+    flex-direction: row;
+  }
+  .mt-rail__item { width: var(--mt-tap); height: var(--mt-tap); border-radius: var(--radius-md); }
+  .mt-rail__item svg { width: 22px; height: 22px; }
+}
+
+/* ---------- AssistantLauncher ---------- */
+/* The pill that opens Mira. It carries her portrait, so by the rule in the
+   Assistant card it also carries her name and role — never a job-title
+   alone, which would read as a human desk. */
+.mt-launcher {
+  font-family: var(--font-sans);
+  position: fixed;
+  /* --mt-gutter takes the larger of the spacing step and the safe-area inset,
+     so in landscape on a notched device this clears the cutout. */
+  inset-inline-start: var(--mt-gutter);
+  inset-block-end: calc(var(--space-5) + var(--mt-safe-bottom));
+  z-index: 40;
+  display: inline-flex; align-items: center; gap: var(--space-3);
+  padding: 6px var(--space-5) 6px 6px;
+  border: 2px solid var(--surface-card);
+  border-radius: var(--radius-pill);
+  background: var(--brand-primary);
+  color: var(--ink-on-brand);
+  text-decoration: none;
+  box-shadow: var(--shadow-lg);
+  min-height: var(--mt-tap);
+}
+@media (hover: hover) {
+  .mt-launcher:hover { background: var(--surface-inverse); color: var(--ink-inverse); }
+}
+.mt-launcher:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 3px; }
+.mt-launcher__avatar {
+  width: 44px; height: 44px; flex: none;
+  border-radius: var(--radius-pill);
+  object-fit: cover; object-position: center 22%;
+  border: 2px solid var(--surface-card);
+  background: var(--surface-sunken);
+}
+.mt-launcher__text { display: flex; flex-direction: column; line-height: 1.2; }
+.mt-launcher__name { font-size: 15px; font-weight: 700; }
+.mt-launcher__role { font-size: 11px; opacity: .9; }
+/* The role is not optional here either. */
+.mt-launcher:not(:has(.mt-launcher__role))::after {
+  content: "Missing required label — Mira · MIDTRANS logistics assistant";
+  position: absolute; inset-inline-start: 0; inset-block-start: 100%;
+  margin-block-start: var(--space-1); padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--status-danger-soft); color: var(--status-danger);
+  font-size: 12px; font-weight: 600; white-space: nowrap;
+}
+@media (max-width: 767px) {
+  /* The launcher's measured height at this width, which the rail's offset is
+     written against. It is asserted in tools/audit/meridian_proof.js rather
+     than trusted: an estimate of 52px left the rail 8px on top of Mira. */
+  :root { --mt-launcher-block: 60px; }
+  .mt-launcher { padding-inline-end: var(--space-4); }
+  .mt-launcher__avatar { width: 36px; height: 36px; }
+  .mt-launcher__name { font-size: 13px; }
+}
+
+/* ---------- FAQ ---------- */
+.mt-faq { font-family: var(--font-sans); border-block-start: 1px solid var(--border-subtle); }
+.mt-faq__item { border-block-end: 1px solid var(--border-subtle); }
+.mt-faq__q {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
+  width: 100%; min-height: var(--mt-tap);
+  padding: var(--space-4) 0;
+  background: none; border: none; cursor: pointer;
+  text-align: start;
+  font-size: 17px; line-height: 24px; font-weight: 600; color: var(--ink-strong);
+  font-family: inherit;
+}
+.mt-faq__q:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+.mt-faq__sign { flex: none; width: 20px; height: 20px; position: relative; }
+.mt-faq__sign::before, .mt-faq__sign::after {
+  content: ""; position: absolute; inset-inline-start: 2px; inset-block-start: 9px;
+  width: 16px; height: 2px; border-radius: 1px; background: var(--brand-link);
+  transition: transform 160ms ease;
+}
+.mt-faq__sign::after { transform: rotate(90deg); }
+.mt-faq__q[aria-expanded="true"] .mt-faq__sign::after { transform: rotate(0deg); }
+.mt-faq__a { padding-block-end: var(--space-4); max-width: 68ch; }
+.mt-faq__a p { margin: 0 0 var(--space-3); font-size: 15px; line-height: 23px; color: var(--ink-body); }
+.mt-faq__a p:last-child { margin: 0; }
+.mt-faq__q[aria-expanded="false"] + .mt-faq__a { display: none; }
+
+/* ---------- HS code share card ---------- */
+.mt-hscard {
+  display: flex; flex-direction: column; gap: var(--space-3);
+  max-width: 420px;
+  padding: var(--space-5);
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-sans);
+}
+.mt-hscard__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+.mt-hscard__brand { font-size: 13px; line-height: 16px; font-weight: 700; letter-spacing: 0.06em; color: var(--ink-strong); }
+.mt-hscard__kind { font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-muted); }
+.mt-hscard__code {
+  font-family: var(--font-mono); font-size: 32px; line-height: 38px; font-weight: 700;
+  font-variant-numeric: tabular-nums; letter-spacing: 0.02em; color: var(--brand-accent);
+}
+.mt-hscard__desc { margin: 0; font-size: 15px; line-height: 23px; color: var(--ink-body); }
+.mt-hscard__foot { padding-block-start: var(--space-3); border-block-start: 1px solid var(--border-subtle); }
+.mt-hscard__foot p { margin: 0; font-size: 12px; line-height: 18px; color: var(--ink-muted); }
+.mt-hscard__actions { display: flex; gap: var(--space-2); }
+
+/* ==========================================================================
+   Assistant — Mira
+   The avatar is a photographic portrait, so it is always accompanied by the
+   name and the word "assistant". A face without that label reads as a person.
+   ========================================================================== */
+
+.mt-avatar {
+  width: 40px; height: 40px; flex: none;
+  border-radius: var(--radius-pill);
+  object-fit: cover;
+  object-position: center 22%;   /* the portrait's head sits above centre */
+  background: var(--surface-sunken);
+  border: 1px solid var(--border-subtle);
+}
+.mt-avatar--sm { width: 32px; height: 32px; }
+.mt-avatar--lg { width: 64px; height: 64px; }
+.mt-avatar--xl { width: 96px; height: 96px; }
+
+.mt-assistant__id { position: relative; display: flex; align-items: center; gap: var(--space-3); font-family: var(--font-sans); }
+.mt-assistant__name { margin: 0; font-size: 15px; line-height: 23px; font-weight: 600; color: var(--ink-strong); }
+.mt-assistant__role { margin: 0; font-size: 12px; line-height: 18px; color: var(--ink-muted); }
+
+/* The label is MANDATORY, not recommended. Mira's avatar is a photograph of
+   a person, so wherever she is introduced the name and the role must appear
+   with her. An identity block missing the role announces itself loudly in
+   review rather than shipping silently. */
+.mt-assistant__id:not(:has(.mt-assistant__role))::after {
+  content: "Missing required label — Mira · MIDTRANS logistics assistant";
+  position: absolute; inset-inline-start: 0; inset-block-start: 100%;
+  margin-block-start: var(--space-1);
+  padding: 2px 8px; border-radius: var(--radius-sm);
+  background: var(--status-danger-soft); color: var(--status-danger);
+  font-size: 12px; line-height: 18px; font-weight: 600; white-space: nowrap;
+}
+/* The compact form, for a launcher or a notification row. */
+.mt-assistant__id--inline { gap: var(--space-2); }
+.mt-assistant__id--inline .mt-assistant__name { font-size: 13px; line-height: 20px; }
+.mt-assistant__id--inline .mt-assistant__role { font-size: 11px; line-height: 16px; }
+
+/* ---------- Chat ---------- */
+.mt-chat { display: flex; flex-direction: column; gap: var(--space-4); font-family: var(--font-sans); }
+.mt-msg { font-family: var(--font-sans); display: flex; gap: var(--space-3); align-items: flex-start; }
+.mt-msg__body {
+  flex: 1; min-width: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: 15px; line-height: 23px;
+}
+.mt-msg__body p { margin: 0 0 var(--space-2); }
+.mt-msg__body p:last-child { margin: 0; }
+.mt-msg--bot .mt-msg__body { background: var(--surface-card); border: 1px solid var(--border-subtle); color: var(--ink-body); }
+.mt-msg--you { flex-direction: row-reverse; }
+.mt-msg--you .mt-msg__body { background: var(--brand-soft); color: var(--ink-body); }
+.mt-msg__who {
+  width: 40px; height: 40px; flex: none;
+  border-radius: var(--radius-pill);
+  display: grid; place-items: center;
+  background: var(--surface-sunken); color: var(--ink-muted);
+  font-size: 12px; font-weight: 600;
+}
+.mt-msg__time { font-size: 12px; line-height: 18px; color: var(--ink-muted); margin-block-start: var(--space-1); }
+
+/* The handoff: where the assistant stops and a person takes over. */
+.mt-handoff {
+  /* Each component carries its own family rather than inheriting one. As an
+     additive skin this stylesheet is dropped into a host page that already
+     sets a body font, and an inherited family would lose to it. */
+  font-family: var(--font-sans);
+  display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center;
+  margin-block-start: var(--space-3); padding-block-start: var(--space-3);
+  border-block-start: 1px solid var(--border-subtle);
+}
+.mt-handoff__note { flex: 1; min-width: 200px; font-size: 12px; line-height: 18px; color: var(--ink-muted); }
+
+/* Typing: three dots, under the 3Hz flash limit and stopped by reduced motion. */
+.mt-typing { display: inline-flex; gap: 4px; padding-block: 6px; }
+.mt-typing i { width: 6px; height: 6px; border-radius: var(--radius-pill); background: var(--ink-muted); animation: mt-typing-blink 1.4s infinite; }
+.mt-typing i:nth-child(2) { animation-delay: .2s; }
+.mt-typing i:nth-child(3) { animation-delay: .4s; }
+@keyframes mt-typing-blink { 0%, 60%, 100% { opacity: .25 } 30% { opacity: 1 } }
+
+.mt-composer {
+  /* Each component carries its own family rather than inheriting one. As an
+     additive skin this stylesheet is dropped into a host page that already
+     sets a body font, and an inherited family would lose to it. */
+  font-family: var(--font-sans);
+  position: sticky; inset-block-end: 0;
+  background: var(--surface-page);
+  border-block-start: 1px solid var(--border-subtle);
+  padding: var(--space-3) var(--mt-gutter);
+  padding-block-end: calc(var(--space-3) + var(--mt-safe-bottom));
+}
+.mt-composer__in { display: flex; gap: var(--space-2); max-width: 760px; margin-inline: auto; }

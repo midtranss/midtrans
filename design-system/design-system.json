@@ -1,0 +1,124 @@
+{
+  "v": 3,
+  "assetGroups": {
+    "MIDTRANS~20LOGO": {
+      "files": {
+        "midtrans-app-icon-1024.png": {
+          "blob": "d28a22ca71f3244caeb312efb1322718",
+          "name": "midtrans-app-icon-1024.png",
+          "sha256": "299f493766d431effe7c98a5d7df34d9a26b6079f05dbee061fb261461025a62",
+          "size": 314352,
+          "type": "image/png"
+        },
+        "midtrans-app-icon-512.png": {
+          "blob": "d7102057ff13c28649cdbbd45fb16c76",
+          "name": "midtrans-app-icon-512.png",
+          "sha256": "45d331ebd6060c5ed33dfece155cbdaff8ffcd2da8ab7a9254c8261c8721502e",
+          "size": 124304,
+          "type": "image/png"
+        },
+        "midtrans-logo-blue.png": {
+          "blob": "ece8303dfbace56590521c4a62e115a5",
+          "name": "midtrans-logo-blue.png",
+          "sha256": "920f743dd1ead24c5056a8c1d7433163ccb06827e4d44a289bb7c3a4c38f41e0",
+          "size": 131454,
+          "type": "image/png"
+        },
+        "midtrans-logo-white.png": {
+          "blob": "068ffef6b0a639c70a66d72d10e246a1",
+          "name": "midtrans-logo-white.png",
+          "sha256": "78b443c3db5762c4bc500f7060d371f5671863d842b9c21c275b9e3058b62fc6",
+          "size": 161602,
+          "type": "image/png"
+        }
+      },
+      "name": "MIDTRANS LOGO",
+      "order": [
+        "midtrans-logo-blue.png",
+        "midtrans-logo-white.png",
+        "midtrans-app-icon-512.png",
+        "midtrans-app-icon-1024.png"
+      ],
+      "tile": "l"
+    },
+    "Icons": {
+      "files": {
+        "midtrans-icons.svg": {
+          "blob": "a43fb04580c44fd1a3c46635c71e71de",
+          "name": "midtrans-icons.svg",
+          "sha256": "ca373e928abd63a525807f1eee8e25023ef2caeaea6fd3232ccc0e25a4f4bbb4",
+          "size": 4506,
+          "type": "image/svg+xml"
+        }
+      },
+      "name": "Icons",
+      "tile": "s",
+      "order": [
+        "midtrans-icons.svg"
+      ]
+    },
+    "Mira": {
+      "files": {
+        "mira-portrait.jpg": {
+          "blob": "14be6d0392a893dac5ed106043a23d00",
+          "name": "mira-portrait.jpg",
+          "sha256": "1d97754fa5c6c6fdc9e8c6b837077fa93e6a7762444ffe0084fa30aa804b25ae",
+          "size": 14254,
+          "type": "image/jpeg"
+        },
+        "mira-avatar.png": {
+          "blob": "dd47dd8ead9d3c471011d313a06f43b0",
+          "name": "mira-avatar.png",
+          "sha256": "2c2f991a141938fc0005a16e84e7e0b259938463a6e125c94befb8cbb9773f22",
+          "size": 90008,
+          "type": "image/png"
+        },
+        "midtrans-chat-mark.png": {
+          "blob": "d16570913b0700cf78b066247bcd4278",
+          "name": "midtrans-chat-mark.png",
+          "sha256": "4d59ffbc38c25c7ffd94c97df87899e125e0e9cf92c8bb74a09548d414884452",
+          "size": 40372,
+          "type": "image/png"
+        }
+      },
+      "name": "Mira",
+      "tile": "m",
+      "order": [
+        "mira-portrait.jpg",
+        "mira-avatar.png",
+        "midtrans-chat-mark.png"
+      ]
+    }
+  },
+  "blobs": {},
+  "createdOnFiles": {
+    "at": "2026-09-16T20:32:57Z",
+    "v": 1
+  },
+  "docs": {
+    "readme": "project/README.md",
+    "sections": [
+      "project/guidelines/10-multilingual-and-rtl.md",
+      "project/guidelines/20-claims-and-figures.md",
+      "project/guidelines/30-properties-and-domains.md",
+      "project/guidelines/40-devices-and-input.md",
+      "project/guidelines/50-messages-and-documents.md"
+    ]
+  },
+  "groups": [
+    "MIDTRANS~20LOGO",
+    "Icons",
+    "Mira"
+  ],
+  "lastChange": {
+    "at": "2026-09-16T23:22:10Z",
+    "by": "Khaldoun",
+    "via": "Claude Code",
+    "note": "Mira resolved: the photographic portrait is her avatar and is now in the system (extracted from the PDF the owner sent). The name-and-role label is mandatory and enforced in CSS - an identity block without the role prints a visible error. The illustrated avatar is kept as the record of what the app ships today."
+  },
+  "layout": "files",
+  "libraries": [],
+  "namespace": "MIDTRANS",
+  "sections": {},
+  "title": "MIDTRANS"
+}

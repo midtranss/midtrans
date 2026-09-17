@@ -1,0 +1,71 @@
+<!-- @dsCard group="Documents" height=560 subtitle="The official template anatomy, wired to the design system" -->
+<style>body { margin: 0; padding: 20px; background: var(--surface-sunken); }
+ .qr { width:72px; height:72px; background:
+   radial-gradient(circle, var(--brand-accent) 1.6px, transparent 1.7px) 0 0/12px 12px; }</style>
+<article class="mt-doc">
+  <div class="mt-doc__top">
+    <div class="mt-doc__brand">
+      <p class="mt-doc__company">MIDTRANS SHIPPING AND SERVICES</p>
+      <p>Deira, Port Saeed, Al Maktoum Road</p>
+      <p>Street No. 19a, Al Makateb Building</p>
+      <p>Office No. 611, Dubai - UAE</p>
+      <p>TEL: +971 4 2714480 · CELL: +971 55 2928560</p>
+    </div>
+    <div class="mt-doc__box">
+      <h2 class="mt-doc__kind">Quotation</h2>
+      <div class="mt-doc__meta">
+        <div class="mt-doc__meta-row"><span>No</span><span>QT-2026-2210</span></div>
+        <div class="mt-doc__meta-row"><span>Job No</span><span>SHP-2026-1258</span></div>
+        <div class="mt-doc__meta-row"><span>Valid</span><span>10 Jul 2026</span></div>
+      </div>
+      <span class="mt-doc__badge">Verified issuer</span>
+    </div>
+    <div class="mt-doc__logo"><strong style="font-size:15px;color:var(--ink-strong);letter-spacing:.06em">MIDTRANS</strong></div>
+  </div>
+
+  <div class="mt-doc__content">
+    <div class="mt-doc__side">
+      <div class="mt-doc__card">
+        <h4>Customer</h4>
+        <strong>ABC Trading Co.</strong>
+        <p>+963 11 555 0101</p>
+        <p>procurement@abctrading.example</p>
+        <p>Damascus, Syria</p>
+      </div>
+      <div class="mt-doc__card mt-doc__qr">
+        <div class="qr" role="img" aria-label="Verification QR code"></div>
+        <span>QR verification</span>
+      </div>
+      <div class="mt-doc__card">
+        <h4>Route</h4>
+        <p>Dubai, UAE to Damascus, Syria</p>
+        <p>Service: Door to door</p>
+        <p>Mode: Sea freight</p>
+      </div>
+    </div>
+
+    <div class="mt-doc__main" tabindex="0" role="region" aria-label="Quotation lines, scrolls horizontally on a narrow screen">
+      <table class="mt-doc__table">
+        <thead><tr><th>Description</th><th class="num">Qty</th><th class="num">Unit</th><th class="num">Amount</th></tr></thead>
+        <tbody>
+          <tr><td>Freight charge — Dubai to Damascus</td><td class="num">1</td><td class="num"><span class="mt-doc__money"><span>USD</span><span>0 000.00</span></span></td><td class="num"><span class="mt-doc__money"><span>USD</span><span>0 000.00</span></span></td></tr>
+          <tr><td>Border handling</td><td class="num">1</td><td class="num"><span class="mt-doc__money"><span>USD</span><span>000.00</span></span></td><td class="num"><span class="mt-doc__money"><span>USD</span><span>000.00</span></span></td></tr>
+          <tr><td>Delivery order</td><td class="num">1</td><td class="num"><span class="mt-doc__money"><span>USD</span><span>00.00</span></span></td><td class="num"><span class="mt-doc__money"><span>USD</span><span>00.00</span></span></td></tr>
+        </tbody>
+      </table>
+
+      <div class="mt-doc__close">
+        <div class="mt-doc__card">
+          <h4>Terms</h4>
+          <p>This quotation is subject to carrier space, final cargo details, and operational review before booking.</p>
+        </div>
+        <div class="mt-doc__totals">
+          <div class="mt-doc__total-row"><span>Subtotal</span><span class="mt-doc__money"><span>USD</span><span>0 000.00</span></span></div>
+          <div class="mt-doc__total-row mt-doc__total-row--grand"><span>Quotation total</span><span class="mt-doc__money"><span>USD</span><span>0 000.00</span></span></div>
+        </div>
+      </div>
+      <p class="mt-doc__note"><strong>Excluded:</strong> import duties and taxes, destination storage and demurrage, inspection fees.</p>
+    </div>
+  </div>
+  <p class="mt-doc__foot">Quotation</p>
+</article>

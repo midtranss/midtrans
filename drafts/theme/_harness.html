@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MIDTRANS theme — verification harness</title>
+<link rel="icon" href="midtrans-app-icon-512.png">
+<meta name="theme-color" content="#007DC5">
+<link rel="preload" href="fonts/cairo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="midtrans.css">
+<style>
+  body { margin: 0; background: var(--surface-page); color: var(--ink-body); font-family: var(--font-sans); }
+  .bar {
+    position: sticky; inset-block-start: 0; z-index: 50;
+    display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center;
+    padding: var(--space-3) var(--mt-gutter);
+    padding-block-start: calc(var(--space-3) + var(--mt-safe-top));
+    background: var(--surface-card); border-block-end: 1px solid var(--border-subtle);
+  }
+  .bar h1 { margin: 0; flex: 1; font-size: 15px; line-height: 23px; font-weight: 600; color: var(--ink-strong); }
+  .wrap { max-width: 1200px; margin-inline: auto; padding: var(--space-6) var(--mt-gutter) var(--space-10); }
+  section { margin-block-end: var(--space-8); }
+  h2 { font: var(--text-heading-2); color: var(--ink-strong); margin: 0 0 var(--space-2); }
+  .hint { margin: 0 0 var(--space-4); font: var(--text-body-sm); color: var(--ink-muted); }
+  .row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+  .g3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); }
+  .size { position: fixed; inset-block-end: 0; inset-inline-end: 0; z-index: 60;
+    padding: var(--space-1) var(--space-3); background: var(--surface-inverse); color: var(--ink-inverse);
+    font: var(--text-data-sm); border-start-start-radius: var(--radius-md); }
+</style>
+</head>
+<body>
+<div class="bar">
+  <h1>MIDTRANS theme — verification harness</h1>
+  <button class="mt-btn mt-btn--secondary mt-btn--sm" type="button" id="t">Dark</button>
+  <button class="mt-btn mt-btn--secondary mt-btn--sm" type="button" id="d">RTL</button>
+</div>
+
+<div class="wrap">
+  <section>
+    <h2>Buttons</h2>
+    <p class="hint">Every target clears 44px on a touch device. Tab through them: the focus ring must appear. Tap them on a phone: no state may stick.</p>
+    <div class="row">
+      <button class="mt-btn mt-btn--primary">Request a quotation</button>
+      <button class="mt-btn mt-btn--secondary">Save draft</button>
+      <button class="mt-btn mt-btn--quiet">View shipment</button>
+      <button class="mt-btn mt-btn--danger">Cancel booking</button>
+      <button class="mt-btn mt-btn--primary" disabled>Send</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Status</h2>
+    <div class="row">
+      <span class="mt-badge mt-badge--neutral"><span class="mt-badge__dot"></span>Draft</span>
+      <span class="mt-badge mt-badge--info"><span class="mt-badge__dot"></span>In transit</span>
+      <span class="mt-badge mt-badge--warning"><span class="mt-badge__dot"></span>Customs hold</span>
+      <span class="mt-badge mt-badge--success"><span class="mt-badge__dot"></span>Delivered</span>
+      <span class="mt-badge mt-badge--danger"><span class="mt-badge__dot"></span>Cancelled</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Arabic — Cairo, RTL</h2>
+    <p class="hint">Press RTL above. Direction, alignment and the arrow must all flip; the reference number must not.</p>
+    <div class="mt-card" lang="ar" dir="rtl">
+      <h3 class="mt-card__title ar-heading-1">الشحن البحري من اللاذقية إلى هامبورغ</h3>
+      <p class="ar-body">نقدم خدمات الشحن البحري والجوي والبري مع التخليص الجمركي والتوثيق. رقم الحجز <span class="data" style="font-variant-numeric:tabular-nums" dir="ltr">MDT-2026-004182</span> يبقى بأرقام غربية في كل اللغات.</p>
+      <div class="mt-card__foot"><button class="mt-btn mt-btn--primary">اطلب عرض سعر</button></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Table → stacked record</h2>
+    <p class="hint">Narrow the window below 768px: the table restates itself as records. It never scrolls sideways.</p>
+    <table class="mt-table mt-table--stack">
+      <caption>Active shipments</caption>
+      <thead><tr><th>Reference</th><th>Route</th><th>Status</th><th class="mt-table__num">Weight</th><th class="mt-table__num">ETA</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="mt-table__ref" data-label="Reference">MDT-2026-004182</td>
+          <td data-label="Route">Lattakia → Hamburg</td>
+          <td data-label="Status"><span class="mt-badge mt-badge--info"><span class="mt-badge__dot"></span>In transit</span></td>
+          <td class="mt-table__num" data-label="Weight">12 500 KG</td>
+          <td class="mt-table__num" data-label="ETA">02 Oct 2026</td>
+        </tr>
+        <tr>
+          <td class="mt-table__ref" data-label="Reference">MDT-2026-004179</td>
+          <td data-label="Route">Damascus → Istanbul</td>
+          <td data-label="Status"><span class="mt-badge mt-badge--warning"><span class="mt-badge__dot"></span>Customs hold</span></td>
+          <td class="mt-table__num" data-label="Weight">3 180 KG</td>
+          <td class="mt-table__num" data-label="ETA">Pending</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Icons</h2>
+    <div class="row" id="icons" style="color: var(--ink-strong)"></div>
+  </section>
+
+  <section>
+    <h2>Form</h2>
+    <div class="g3">
+      <div class="mt-field">
+        <label class="mt-field__label" for="a">Port of loading</label>
+        <input class="mt-field__control" id="a" value="Lattakia, SY">
+        <span class="mt-field__help">Where we take custody.</span>
+      </div>
+      <div class="mt-field mt-field--invalid">
+        <label class="mt-field__label" for="b">Gross weight</label>
+        <input class="mt-field__control" id="b" placeholder="e.g. 12 500 KG" aria-invalid="true" aria-describedby="be">
+        <span class="mt-field__error" id="be">Enter the gross weight to continue.</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Timeline</h2>
+    <ol class="mt-timeline">
+      <li class="mt-timeline__step" data-state="done"><div><p class="mt-timeline__title">Booking confirmed</p><p class="mt-timeline__meta">02 Sep 2026</p></div></li>
+      <li class="mt-timeline__step" data-state="current"><div><p class="mt-timeline__title">In transit</p><p class="mt-timeline__meta">Departed 09 Sep 2026</p></div></li>
+      <li class="mt-timeline__step" data-state="pending"><div><p class="mt-timeline__title">Arrival</p><p class="mt-timeline__meta">Per carrier schedule</p></div></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Closing band</h2>
+    <div class="mt-cta">
+      <div class="mt-cta__copy">
+        <h2 class="mt-cta__title">Send your shipment details</h2>
+        <p class="mt-cta__text">Origin, destination, commodity, weight and dimensions, and your ready date.</p>
+      </div>
+      <div class="mt-cta__actions">
+        <a class="mt-btn mt-btn--primary" href="#">Request a quotation</a>
+        <a class="mt-cta__alt" href="#">Or contact an office</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="size" id="s"></div>
+
+<script>
+const html = document.documentElement;
+t.onclick = () => {
+  const dark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', dark ? 'light' : 'dark');
+  t.textContent = dark ? 'Dark' : 'Light';
+};
+d.onclick = () => {
+  const rtl = html.getAttribute('dir') === 'rtl';
+  html.setAttribute('dir', rtl ? 'ltr' : 'rtl');
+  html.setAttribute('lang', rtl ? 'en' : 'ar');
+  d.textContent = rtl ? 'RTL' : 'LTR';
+};
+// Live viewport readout, so a resize test states its own width.
+const show = () => {
+  const seg = window.visualViewport ? '' : '';
+  s.textContent = window.innerWidth + ' × ' + window.innerHeight + ' CSS px';
+};
+addEventListener('resize', show); show();
+// Inline the sprite so icons inherit currentColor.
+fetch('midtrans-icons.svg').then(r => r.text()).then(svg => {
+  document.body.insertAdjacentHTML('afterbegin', svg);
+  const names = ['ship','aircraft','truck','container','warehouse','document','customs-stamp','shield-check','route','dashboard','scale','package','clock','search','calculator','arrow-end'];
+  icons.innerHTML = names.map(n =>
+    `<svg class="mt-icon" aria-hidden="true"><use href="#mt-${n}"/></svg>`).join('');
+});
+</script>
+</body>
+</html>
