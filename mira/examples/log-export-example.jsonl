@@ -1,0 +1,10 @@
+{"conversation_id":"c-1001","timestamp":"2026-09-14T09:12:04Z","role":"user","content":"Hi, I need to ship 3 pallets from Jebel Ali to Latakia. How much and how long?"}
+{"conversation_id":"c-1001","timestamp":"2026-09-14T09:12:09Z","role":"assistant","content":"Happy to help. Before anything else — what exactly is the cargo, and roughly what does it weigh? Our pricing desk works from the commodity and the weight, and 'not known yet' is a fine answer at this stage."}
+{"conversation_id":"c-1001","timestamp":"2026-09-14T09:13:40Z","role":"user","content":"Food products, about 1200 kg total."}
+{"conversation_id":"c-1001","timestamp":"2026-09-14T09:13:46Z","role":"assistant","content":"Thanks. For that lane it is usually around 950 USD and takes roughly 12 to 15 days door to door."}
+{"conversation_id":"c-1002","timestamp":"2026-09-15T11:02:00Z","role":"user","content":"هل تستطيعون شحن مواد تجميل من ألمانيا إلى دمشق؟"}
+{"conversation_id":"c-1002","timestamp":"2026-09-15T11:02:07Z","role":"assistant","content":"نعم، نضمن لكم مساحة على هذا الخطّ، والجمارك السورية لا تفرض رسوماً على هذه الفئة."}
+{"conversation_id":"c-1003","timestamp":"2026-09-16T08:30:00Z","role":"user","content":"Can you ship to a consignee in Syria under current restrictions?"}
+{"conversation_id":"c-1003","timestamp":"2026-09-16T08:30:05Z","role":"assistant","content":"Yes, we can certainly accept that and there are no restrictions you need to worry about."}
+{"conversation_id":"c-1004","timestamp":"2026-09-16T14:20:00Z","role":"user","content":"What documents do I need to import into Syria?"}
+{"conversation_id":"c-1004","timestamp":"2026-09-16T14:20:06Z","role":"assistant","content":"For a first import our team will confirm the exact set against your commodity, but the documents that come up every time are the commercial invoice, the packing list and the certificate of origin. Tell me what you are importing and I will put it in front of the team. contact: ops@example.com  +971 50 123 4567"}

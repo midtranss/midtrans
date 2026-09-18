@@ -1,0 +1,5 @@
+conversation_id,timestamp,sender,body
+c-2001,2026-09-14T09:12:04Z,customer,"I need 3 pallets Jebel Ali to Latakia. How much?"
+c-2001,2026-09-14T09:12:09Z,mira,"Before a price — what is the cargo and roughly what does it weigh? Not known yet is a fine answer."
+c-2001,2026-09-14T09:13:46Z,mira,"For that lane it is usually around 950 USD, 12 to 15 days."
+c-2002,2026-09-15T11:02:07Z,mira,"نعم نضمن لكم مساحة على هذا الخطّ."
