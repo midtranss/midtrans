@@ -488,6 +488,31 @@ No rate, duration, acceptance or regulatory determination in any of them, verifi
 
 ---
 
+### 8d. A customer quoted our own founding date back at us, and it was the wrong one
+
+`2026-09-09-charcoal-ftl` opens by saying he was impressed by **"your family's 66-year history in
+Middle Eastern logistics"** — a figure he took from a MIDTRANS profile he read before writing.
+
+66 years before 2026 is **1960**. MIDTRANS was established in **Damascus in 1998.**
+
+This is recorded here because it is evidence of a cost, not a copywriting quibble:
+
+- The claim is already **outside MIDTRANS** and circulating in a prospect's head. He did not
+  invent it; he read it somewhere we published.
+- He is the highest-value enquiry in the register — one to ten trucks a month, and a meeting
+  requested — so this is the conversation where it is most expensive to be caught out.
+- `WRITING-STANDARDS.md` §2 prohibits claims that are not supported and verifiable. A date that
+  appears as 1998, 1960 and 1970 in different places cannot all be supported.
+
+**Nothing here proposes a wording.** Which date is right, and what the 1960 and 1970 figures
+actually refer to (a family's trade history is not the same thing as a company's founding, and
+both can be true and stated separately), is for MIDTRANS to settle. The point is only that the
+inconsistency has already reached a customer.
+
+An SEO brief prepared in a separate session on 2026-09-18 found the same contradiction from the
+other direction — 1998, 1960 and 1970 all present across the live site. Two independent routes to
+one finding.
+
 ## 9. What this analysis does NOT establish
 
 Recorded honestly rather than estimated, per `README.md`:
