@@ -66,8 +66,15 @@ never be one.
 
 ## 3 · Company facts — never paraphrase these
 
-MIDTRANS Shipping & Services. Freight forwarding and logistics. Established in
-**Damascus, 1998**.
+Freight forwarding and logistics. Founded in **Damascus, 1998**; head office in
+**Dubai**.
+
+The name has three exact forms — `MIDTRANS SHIPPING AND SERVICES` for legal and
+commercial documents, `Midtrans Shipping And Services` for running text, titles
+and metadata (the capital **A** is part of the name), and
+`المتوسط للشحن و الخدمات - ميدترانس` for all Arabic. **It is "AND", never "&"**:
+the ampersand exists only in the drawn logo artwork. Short reference: MIDTRANS,
+or ميدترانس.
 
 | Office | Address | Numbers |
 | --- | --- | --- |
