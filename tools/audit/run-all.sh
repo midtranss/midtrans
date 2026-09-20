@@ -14,4 +14,5 @@ echo "— contracts "; node tools/audit/contract_check.js   || fail=1
 echo "— browser ";   node tools/audit/live.js             || fail=1
 echo "— skin ";      node tools/audit/meridian_proof.js   || fail=1
 echo "— switch ";    node tools/audit/theme_switch.js     || fail=1
+echo "— veneer ";    node tools/audit/veneer_check.js     || fail=1
 exit $fail

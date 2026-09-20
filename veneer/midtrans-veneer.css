@@ -1,0 +1,322 @@
+/*! MIDTRANS veneer — mid-trans.com
+ *
+ * Applies the MIDTRANS design system's APPEARANCE to an existing site without
+ * touching its markup, its text, or the order of anything on a page.
+ *
+ * One rule governs this file: it may paint, it may not move.
+ *
+ *   permitted   color · background · border · border-radius · box-shadow ·
+ *               outline · font-family · font-size · line-height · font-weight ·
+ *               letter-spacing · transition
+ *   forbidden   display · position · float · order · flex-* · grid-* ·
+ *               width/height on layout containers · content · any ::before or
+ *               ::after that adds text
+ *
+ * Load it LAST, after every stylesheet the site already has.
+ *
+ *     <link rel="stylesheet" href="/veneer/midtrans-veneer.css">
+ *
+ * Loading it changes nothing. It is inert until <html> carries the attribute,
+ * and each of the three layers is independent:
+ *
+ *     <html data-mt="colour">                  colours only        no reflow
+ *     <html data-mt="colour surface">          + borders, shadows  no reflow
+ *     <html data-mt="colour surface type">     + type              reflows
+ *
+ * `type` is the only layer that moves anything: changing a font size or a line
+ * height changes how tall a paragraph is. Ship the first two, look, then add
+ * the third.
+ * ======================================================================== */
+
+
+/* The Arabic face travels with the veneer. It is named "MIDTRANS Cairo", not
+   "Cairo", so it cannot override a Cairo face the site already loads. The file
+   is fetched relative to this stylesheet: keep fonts/ beside it. */
+
+@font-face {
+  font-family: "MIDTRANS Cairo";
+  src: url("fonts/cairo.woff2") format("woff2");
+  font-weight: 200 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* ── Tokens ───────────────────────────────────────────────────────────────
+   Declared on :root but namespaced --mt-*, so nothing the site already
+   defines can be shadowed by them. Declaring a custom property paints
+   nothing on its own. */
+
+:root {
+  --mt-surface-page:    #ffffff;
+  --mt-surface-card:    #ffffff;
+  --mt-surface-sunken:  #f2f5f8;
+  --mt-surface-inverse: #0a2440;
+
+  --mt-ink-strong:      #0a2440;
+  --mt-ink-body:        #1f3448;
+  --mt-ink-muted:       #52657a;
+  --mt-ink-inverse:     #ffffff;
+  --mt-ink-on-brand:    #ffffff;
+
+  --mt-brand-accent:    #007dc5;   /* the identity blue: graphics, rules, display type >=24px */
+  --mt-brand-primary:   #0074b7;   /* fills that carry small white text; #007DC5 is 4.43:1 there */
+  --mt-brand-link:      #0069a8;
+  --mt-brand-soft:      #e6f2f9;
+
+  --mt-border-subtle:   #dde4ea;
+  --mt-border-strong:   #7c8b99;
+  --mt-border-focus:    #007dc5;
+
+  --mt-success:         #0f7a4d;
+  --mt-warning:         #9a5b00;
+  --mt-danger:          #b3261e;
+
+  --mt-radius-sm:       4px;
+  --mt-radius-md:       8px;
+  --mt-radius-lg:       12px;
+  --mt-radius-pill:     999px;
+
+  --mt-shadow-sm:       0 1px 2px rgba(10, 36, 64, 0.08);
+  --mt-shadow-md:       0 2px 8px rgba(10, 36, 64, 0.10);
+  --mt-shadow-lg:       0 12px 32px rgba(10, 36, 64, 0.14);
+
+  --mt-sans:   "Helvetica Neue", Helvetica, Arial, "Liberation Sans", system-ui, sans-serif;
+  --mt-arabic: "MIDTRANS Cairo", Cairo, sans-serif;
+}
+
+
+/* ══ LAYER 1 — COLOUR ═════════════════════════════════════════════════════
+   Nothing here can change the size or position of a box. */
+
+[data-mt~="colour"] body {
+  color: var(--mt-ink-body);
+  background-color: var(--mt-surface-page);
+}
+
+[data-mt~="colour"] h1,
+[data-mt~="colour"] h2,
+[data-mt~="colour"] h3,
+[data-mt~="colour"] h4,
+[data-mt~="colour"] h5,
+[data-mt~="colour"] h6 { color: var(--mt-ink-strong); }
+
+[data-mt~="colour"] a { color: var(--mt-brand-link); }
+[data-mt~="colour"] a:hover { color: var(--mt-brand-accent); }
+
+[data-mt~="colour"] small,
+[data-mt~="colour"] figcaption { color: var(--mt-ink-muted); }
+
+[data-mt~="colour"] mark {
+  background-color: var(--mt-brand-soft);
+  color: var(--mt-ink-strong);
+}
+
+/* Form controls: the one place a wrong colour becomes an accessibility fault. */
+[data-mt~="colour"] input,
+[data-mt~="colour"] select,
+[data-mt~="colour"] textarea {
+  color: var(--mt-ink-body);
+  background-color: var(--mt-surface-card);
+}
+[data-mt~="colour"] ::placeholder { color: var(--mt-ink-muted); opacity: 1; }
+
+/* A visible focus ring on every interactive element, whatever the site did.
+   3:1 against its surroundings, which is the floor for a focus indicator. */
+[data-mt~="colour"] a:focus-visible,
+[data-mt~="colour"] button:focus-visible,
+[data-mt~="colour"] input:focus-visible,
+[data-mt~="colour"] select:focus-visible,
+[data-mt~="colour"] textarea:focus-visible,
+[data-mt~="colour"] [tabindex]:focus-visible {
+  outline: 2px solid var(--mt-border-focus);
+  outline-offset: 2px;
+}
+
+[data-mt~="colour"] ::selection {
+  background-color: var(--mt-brand-soft);
+  color: var(--mt-ink-strong);
+}
+
+[data-mt~="colour"] hr { border-color: var(--mt-border-subtle); }
+
+[data-mt~="colour"] th { color: var(--mt-ink-strong); }
+[data-mt~="colour"] td { color: var(--mt-ink-body); }
+
+
+/* ══ LAYER 2 — SURFACE ════════════════════════════════════════════════════
+   Borders, radii and shadows. A border replaces a border, so nothing grows:
+   every rule here sets border-width to a value the box already reserves, or
+   to 1px where there was none — see the maintenance notes before widening
+   one. */
+
+[data-mt~="surface"] hr {
+  border: 0;
+  border-top: 1px solid var(--mt-border-subtle);
+}
+
+[data-mt~="surface"] img,
+[data-mt~="surface"] video { border-radius: var(--mt-radius-md); }
+
+/* The ring is painted with an inset shadow, NOT a border. A border occupies
+   space: on a site that has not set box-sizing: border-box, and whose inputs
+   carry no border of their own, adding one grows every field by 2px in each
+   direction. Measured, on exactly that case. An inset shadow paints the same
+   ring and occupies nothing. */
+[data-mt~="surface"] input,
+[data-mt~="surface"] select,
+[data-mt~="surface"] textarea {
+  box-shadow: inset 0 0 0 1px var(--mt-border-subtle);
+  border-radius: var(--mt-radius-md);
+  transition: box-shadow .15s ease;
+}
+[data-mt~="surface"] input:focus,
+[data-mt~="surface"] select:focus,
+[data-mt~="surface"] textarea:focus {
+  box-shadow: inset 0 0 0 1px var(--mt-border-focus);
+}
+
+[data-mt~="surface"] button,
+[data-mt~="surface"] input[type="submit"],
+[data-mt~="surface"] input[type="button"] {
+  border-radius: var(--mt-radius-md);
+  transition: background-color .15s ease, border-color .15s ease;
+}
+
+[data-mt~="surface"] table { border-color: var(--mt-border-subtle); }
+[data-mt~="surface"] th,
+[data-mt~="surface"] td { border-color: var(--mt-border-subtle); }
+
+[data-mt~="surface"] blockquote {
+  border-inline-start: 3px solid var(--mt-brand-accent);
+}
+
+[data-mt~="surface"] code,
+[data-mt~="surface"] pre {
+  background-color: var(--mt-surface-sunken);
+  border-radius: var(--mt-radius-sm);
+}
+
+
+/* ══ LAYER 3 — TYPE ═══════════════════════════════════════════════════════
+   The only layer that reflows. Sizes and line heights are the design
+   system's scale, unchanged. */
+
+[data-mt~="type"] body {
+  font-family: var(--mt-sans);
+  font-size: 15px;
+  line-height: 23px;
+}
+
+[data-mt~="type"] h1 { font-size: 32px; line-height: 38px; font-weight: 700; letter-spacing: -0.01em; }
+[data-mt~="type"] h2 { font-size: 26px; line-height: 32px; font-weight: 600; letter-spacing: 0; }
+[data-mt~="type"] h3 { font-size: 21px; line-height: 28px; font-weight: 600; letter-spacing: 0; }
+[data-mt~="type"] h4 { font-size: 17px; line-height: 24px; font-weight: 600; letter-spacing: 0; }
+[data-mt~="type"] h5,
+[data-mt~="type"] h6 { font-size: 15px; line-height: 23px; font-weight: 600; letter-spacing: 0; }
+
+[data-mt~="type"] p,
+[data-mt~="type"] li,
+[data-mt~="type"] dd,
+[data-mt~="type"] dt { font-size: 15px; line-height: 23px; }
+
+[data-mt~="type"] small,
+[data-mt~="type"] figcaption { font-size: 13px; line-height: 20px; }
+
+[data-mt~="type"] th { font-weight: 600; }
+
+[data-mt~="type"] input,
+[data-mt~="type"] select,
+[data-mt~="type"] textarea,
+[data-mt~="type"] button { font-family: inherit; font-size: 15px; line-height: 23px; }
+
+[data-mt~="type"] code,
+[data-mt~="type"] pre,
+[data-mt~="type"] kbd,
+[data-mt~="type"] samp {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+
+/* ══ ARABIC ═══════════════════════════════════════════════════════════════
+   Applies under any layer, because a wrong font in Arabic is not a
+   refinement. The variable is rebound as well as the property: an element
+   whose own rule reads var(--mt-sans) must resolve it to Cairo too. */
+
+[data-mt] [lang="ar"],
+[data-mt] [lang^="ar-"],
+[data-mt][lang="ar"],
+[data-mt][lang^="ar-"] {
+  --mt-sans: var(--mt-arabic);
+  font-family: var(--mt-arabic);
+}
+
+[data-mt~="type"] [lang="ar"] h1,
+[data-mt~="type"][lang="ar"] h1 { font-size: 26px; line-height: 40px; font-weight: 700; }
+[data-mt~="type"] [lang="ar"] p,
+[data-mt~="type"] [lang="ar"] li,
+[data-mt~="type"][lang="ar"] p,
+[data-mt~="type"][lang="ar"] li { font-size: 16px; line-height: 30px; }
+
+/* A reference number is reproduced exactly as issued, in Western digits, in
+   every locale. Never let a locale font or a numeric feature reflow one. */
+[data-mt] [data-ref],
+[data-mt] .ref,
+[data-mt] [lang="ar"] [data-ref] {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-variant-numeric: tabular-nums;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+
+/* ══ MOTION ═══════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  [data-mt] *,
+  [data-mt] *::before,
+  [data-mt] *::after {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+
+/* ══ THE SITE'S OWN CLASSES ═══════════════════════════════════════════════
+ *
+ * Everything above names only elements, so it reaches `img`, `input`, `table`,
+ * `hr`, `blockquote` and `code` — and it cannot see a <div class="card">.
+ * The site's cards, panels, buttons and bands carry most of its visual
+ * character, and they are invisible to element selectors.
+ *
+ * Add them here, and only here. The rules are the same as above, unchanged:
+ * paint, never move. Before adding one, read what the site's own stylesheet
+ * already sets on that class, so you replace a value rather than introduce a
+ * property the box did not reserve space for.
+ *
+ * Template — delete the comment markers and put the site's real class names in:
+ *
+ *   [data-mt~="colour"] .REAL-CARD-CLASS { background: var(--mt-surface-card); }
+ *   [data-mt~="surface"] .REAL-CARD-CLASS {
+ *     border-color: var(--mt-border-subtle);      // replaces a border it HAS
+ *     border-radius: var(--mt-radius-md);
+ *     box-shadow: var(--mt-shadow-sm);
+ *   }
+ *   [data-mt~="colour"] .REAL-PRIMARY-BUTTON {
+ *     background: var(--mt-brand-primary);        // not brand-accent: white
+ *     color: var(--mt-ink-on-brand);              // text on #007DC5 is 4.43:1
+ *   }
+ *   [data-mt~="surface"] .REAL-PRIMARY-BUTTON { border-radius: var(--mt-radius-md); }
+ *
+ * Two traps, both measured:
+ *   - `border-color` on a class that already has a border is free.
+ *     `border: 1px` on one that has none grows the box on a content-box site.
+ *     Use `box-shadow: inset 0 0 0 1px` when in doubt.
+ *   - A shadow on something already inside a shadowed parent reads as dirt,
+ *     not depth. One shadow per stacking level.
+ *
+ * After every addition, run:  node tools/audit/veneer_check.js
+ * and extend its fixture with the class you added, or the check does not
+ * cover it.
+ * ======================================================================== */
