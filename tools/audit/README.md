@@ -17,6 +17,8 @@ several of the defects they caught were invisible in the source.
     node    tools/audit/live.js            # what the browser computes
     node    tools/audit/meridian_proof.js  # the skin's isolation
     node    tools/audit/theme_switch.js    # the settings switch, end to end
+    node    tools/audit/veneer_check.js    # the website veneer paints, never moves
+    node    tools/audit/bidi_check.js      # numbers read left-to-right in Arabic
 
 `live.js`, `meridian_proof.js` and `theme_switch.js` take `PW` (the Playwright
 module path) and `CHROME` (a browser binary) from the environment when the defaults do not
@@ -113,6 +115,22 @@ the *legacy* colour while its radius and font have already changed, because
 freeze the switch is a visible cross-fade of every colour on the page, and any
 measurement taken during it is wrong. This is the same mid-transition read that
 once produced 23 phantom contrast failures in `live.js`.
+
+## bidi_check.js — numbers in Arabic
+
+Renders all 34 component mounts with `dir="rtl" lang="ar"`, finds every text
+node set in the mono face that carries a digit, and measures where its first
+and last characters land. A left-to-right run must start on the left.
+
+Before the isolation block in `bundle.css` existed this found 57 reversed runs:
+`12 500 KG` drawn `KG 500 12`, `+963 11 9067` drawn `9067 11 +963`, and the
+dates and amounts of every document type. It also holds two alignments the fix
+could flip: reference cells at the start of their column, number cells on the
+right so the units digit lines up.
+
+Two ways it has lied, both closed. It once passed having rendered nothing —
+the server was down and it skipped every page that failed to load. A failed
+load is now a failure, and so is measuring fewer than 20 runs.
 
 ## gen_tokens_css.py
 

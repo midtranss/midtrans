@@ -966,6 +966,64 @@ a.mt-btn[aria-disabled="true"] { pointer-events: none; }
 [lang="ar"] [data-mono] {
   font-family: var(--font-mono);
 }
+/* ==========================================================================
+   Data runs read left-to-right in every locale
+   A weight, date, amount, phone or reference is a left-to-right run of Western
+   digits. Inside a right-to-left page, with nothing to isolate it, the bidi
+   algorithm splits it at every space and reverses the pieces: "12 500 KG" is
+   drawn "KG 500 12", "+963 11 9067" is drawn "9067 11 +963", and "0 000.00"
+   on an invoice is drawn "000.00 0". Measured across every component before
+   this block existed: 57 runs in 34 components, including both offices'
+   phones and the dates and amounts of every document type.
+
+   direction:ltr fixes the order; unicode-bidi:isolate keeps the run from
+   reordering its neighbours. But direction also re-resolves start and end,
+   so a reference cell that sat at the start of an Arabic column would jump to
+   the left. text-align:match-parent resolves start and end against the
+   PARENT's direction instead - the run reads left-to-right while still sitting
+   where the surrounding language expects it. (Only Chromium was measured;
+   Firefox and Safari are expected to agree, and are not yet verified.) It is logical, not physical, so
+   the RTL-safety check has nothing to object to.
+
+   Number cells are the one deliberate exception: they keep text-align:end,
+   which under direction:ltr is the right edge in every locale. That lines up
+   the units digit down the column in Arabic as it already did in English -
+   before this block, Arabic number columns were aligned on their first digit.
+
+   Document number cells need nothing extra: .mt-doc__table td.num already sets
+   text-align:end at higher specificity, and keeps it.
+
+   .mt-doc__money is a two-column inline grid (currency, amount). Changing its
+   direction would swap the columns, so its children are isolated instead.
+   ========================================================================== */
+.mt-table__ref,
+.mt-doc__no,
+.data,
+.data-sm,
+[data-mono],
+.mt-doc__meta-row span:last-child,
+.mt-doc__money > *,
+.mt-calc__figure-value,
+.mt-calc__figure-sub,
+.mt-hs__code,
+.mt-hscard__code,
+.mt-stat__value,
+.mt-figure__value,
+.mt-note__ref,
+.mt-office__line a {
+  direction: ltr;
+  unicode-bidi: isolate;
+  /* Both spellings, in this order. Chromium parses the unprefixed keyword but
+     computes it as start - measured, it left reference cells on the left - and
+     honours only the prefixed one, which comes second and wins. Firefox does
+     not know the prefixed spelling, drops it, and keeps the standard one. */
+  text-align: match-parent;
+  text-align: -webkit-match-parent;
+}
+.mt-table__num {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
 /* Arabic block copy needs the leading Cairo was drawn for. Components that
    already carry an ar-* style keep theirs; this catches everything else. */
 [lang="ar"] p,
