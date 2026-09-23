@@ -1,0 +1,87 @@
+{
+  "_comment": [
+    "Container capacities used by the Phase 03 calculators.",
+    "",
+    "Every row is UNCONFIRMED until someone at MIDTRANS operations checks it against the",
+    "equipment actually booked on your lanes and fills in confirmed_by and confirmed_at.",
+    "Nominal ISO figures differ between builds, owners and carriers; a calculator that tells a",
+    "customer their cargo fits, using a capacity nobody checked, has made an operational claim.",
+    "",
+    "freight_math.py refuses to treat an unconfirmed row as authoritative: every result it",
+    "produces carries data_status='unconfirmed', and the tool must not go live in that state.",
+    "See ../../docs/phases/PHASE-03-TOOL-CALCULATION-SPEC.md §3."
+  ],
+  "containers": [
+    {
+      "code": "20GP",
+      "label": "20ft general purpose",
+      "internal_volume_m3": 33.2,
+      "max_payload_kg": 28200,
+      "internal_length_cm": 589,
+      "internal_width_cm": 235,
+      "internal_height_cm": 239,
+      "door_width_cm": 233,
+      "door_height_cm": 228,
+      "source": "Nominal ISO 668 / carrier-published figures. NOT verified against MIDTRANS equipment.",
+      "status": "unconfirmed",
+      "confirmed_by": null,
+      "confirmed_at": null
+    },
+    {
+      "code": "40GP",
+      "label": "40ft general purpose",
+      "internal_volume_m3": 67.7,
+      "max_payload_kg": 26700,
+      "internal_length_cm": 1203,
+      "internal_width_cm": 235,
+      "internal_height_cm": 239,
+      "door_width_cm": 233,
+      "door_height_cm": 228,
+      "source": "Nominal ISO 668 / carrier-published figures. NOT verified against MIDTRANS equipment.",
+      "status": "unconfirmed",
+      "confirmed_by": null,
+      "confirmed_at": null
+    },
+    {
+      "code": "40HC",
+      "label": "40ft high cube",
+      "internal_volume_m3": 76.4,
+      "max_payload_kg": 26500,
+      "internal_length_cm": 1203,
+      "internal_width_cm": 235,
+      "internal_height_cm": 269,
+      "door_width_cm": 233,
+      "door_height_cm": 258,
+      "source": "Nominal ISO 668 / carrier-published figures. NOT verified against MIDTRANS equipment.",
+      "status": "unconfirmed",
+      "confirmed_by": null,
+      "confirmed_at": null
+    }
+  ],
+  "volumetric_divisors": {
+    "_comment": [
+      "cm3 per kg. These are conventions, not physics, and they differ by carrier and contract.",
+      "freight_math.volumetric_weight() takes the divisor as a REQUIRED argument and has no",
+      "default, so a wrong number can never be silently inherited. These rows are a starting",
+      "point for the conversation with operations, not an answer."
+    ],
+    "rows": [
+      {
+        "mode": "air",
+        "divisor_cm3_per_kg": 6000,
+        "source": "IATA convention, widely used. MIDTRANS must confirm what its own air partners apply.",
+        "status": "unconfirmed",
+        "confirmed_by": null,
+        "confirmed_at": null
+      },
+      {
+        "mode": "express",
+        "divisor_cm3_per_kg": 5000,
+        "source": "Common courier convention. Differs by operator and by account.",
+        "status": "unconfirmed",
+        "confirmed_by": null,
+        "confirmed_at": null
+      }
+    ]
+  }
+}

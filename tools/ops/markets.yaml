@@ -1,0 +1,105 @@
+# Market expansion register — PHASE-07 Part B.
+#
+# No market opens until it passes all four tests, and this file is where that is recorded.
+# market_gate.py refuses a market marked `open` or `live` whose record is incomplete, and
+# refuses two markets open at once.
+#
+# The rule that does the most work: demand_evidence must contain a NUMBER. "There is clear
+# demand from Turkey" is an opinion. "9 RFQs and 14 MIRA conversations originated in Turkey
+# between Jan and Jun 2026" is evidence. A gate that accepts the first is not a gate.
+#
+# status:  candidate -> open -> live -> retired, or rejected
+#   candidate  under consideration; no work started
+#   open       gate passed, content being built. AT MOST ONE AT A TIME
+#   live       published and being measured against its own target
+#   retired    did not meet its target; content unpublished with 301s
+#   rejected   gate failed; the reason is recorded so it is not re-litigated monthly
+
+markets:
+  - market: turkey-to-syria
+    label: "Turkey → Syria"
+    status: candidate
+    owner: null
+    target: ""
+    opened_at: null
+    decision_recorded_by: null
+    decision_recorded_at: null
+    gate:
+      demand_evidence:
+        passed: false
+        evidence: ""
+      operational_reality:
+        passed: false
+        evidence: ""
+      capacity:
+        passed: false
+        evidence: ""
+      named_owner:
+        passed: false
+        evidence: ""
+
+  - market: uae-to-syria
+    label: "UAE → Syria"
+    status: candidate
+    owner: null
+    target: ""
+    opened_at: null
+    decision_recorded_by: null
+    decision_recorded_at: null
+    gate:
+      demand_evidence:
+        passed: false
+        evidence: ""
+      operational_reality:
+        passed: false
+        evidence: ""
+      capacity:
+        passed: false
+        evidence: ""
+      named_owner:
+        passed: false
+        evidence: ""
+
+  - market: china-to-syria
+    label: "China → Syria"
+    status: candidate
+    owner: null
+    target: ""
+    opened_at: null
+    decision_recorded_by: null
+    decision_recorded_at: null
+    gate:
+      demand_evidence:
+        passed: false
+        evidence: ""
+      operational_reality:
+        passed: false
+        evidence: ""
+      capacity:
+        passed: false
+        evidence: ""
+      named_owner:
+        passed: false
+        evidence: ""
+
+  - market: germany-to-syria
+    label: "Germany → Syria"
+    status: candidate
+    owner: null
+    target: ""
+    opened_at: null
+    decision_recorded_by: null
+    decision_recorded_at: null
+    gate:
+      demand_evidence:
+        passed: false
+        evidence: ""
+      operational_reality:
+        passed: false
+        evidence: ""
+      capacity:
+        passed: false
+        evidence: ""
+      named_owner:
+        passed: false
+        evidence: ""
