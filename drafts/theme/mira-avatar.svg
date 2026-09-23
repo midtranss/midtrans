@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" class="mira-avatar-svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="miraFace" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2FA8DC"/>
+      <stop offset="1" stop-color="#0E6BB0"/>
+    </linearGradient>
+  </defs>
+  <circle cx="36" cy="36" r="34" fill="url(#miraFace)"/>
+  <circle cx="36" cy="36" r="34" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="2"/>
+  <!-- headset -->
+  <path d="M18 38a18 18 0 0 1 36 0" fill="none" stroke="#EAF6FF" stroke-width="3" stroke-linecap="round"/>
+  <rect x="14" y="37" width="7" height="12" rx="3.5" fill="#EAF6FF"/>
+  <rect x="51" y="37" width="7" height="12" rx="3.5" fill="#EAF6FF"/>
+  <path d="M54 48c0 6-5 9-11 9" fill="none" stroke="#EAF6FF" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="41" cy="58" r="2.6" fill="#EAF6FF"/>
+  <!-- face -->
+  <circle cx="29" cy="35" r="3.1" fill="#0B2B45"/>
+  <circle cx="43" cy="35" r="3.1" fill="#0B2B45"/>
+  <circle cx="30.1" cy="34" r="1" fill="#ffffff"/>
+  <circle cx="44.1" cy="34" r="1" fill="#ffffff"/>
+  <path d="M30 44c3.6 3.2 8.4 3.2 12 0" fill="none" stroke="#0B2B45" stroke-width="2.6" stroke-linecap="round"/>
+  <circle cx="24" cy="41" r="2.6" fill="#F7B7C9" opacity="0.7"/>
+  <circle cx="48" cy="41" r="2.6" fill="#F7B7C9" opacity="0.7"/>
+</svg>

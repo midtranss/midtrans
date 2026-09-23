@@ -13,7 +13,7 @@ Last updated against `master` at the merge of #3.
 design-system/     tokens.json, 34 components, 5 guideline sections
 meridian/          the installable theme package + install/ kit
 drafts/            website, cover, shipments, quotation, tools, Mira, theme
-tools/audit/       six checks and four generators
+tools/audit/       eight checks and four generators
 ```
 
 `design-system/components/` holds one directory per component with a
@@ -66,8 +66,15 @@ never be one.
 
 ## 3 · Company facts — never paraphrase these
 
-MIDTRANS Shipping & Services. Freight forwarding and logistics. Established in
-**Damascus, 1998**.
+Freight forwarding and logistics. Founded in **Damascus, 1998**; head office in
+**Dubai**.
+
+The name has three exact forms — `MIDTRANS SHIPPING AND SERVICES` for legal and
+commercial documents, `Midtrans Shipping And Services` for running text, titles
+and metadata (the capital **A** is part of the name), and
+`المتوسط للشحن و الخدمات - ميدترانس` for all Arabic. **It is "AND", never "&"**:
+the ampersand exists only in the drawn logo artwork. Short reference: MIDTRANS,
+or ميدترانس.
 
 | Office | Address | Numbers |
 | --- | --- | --- |
@@ -133,12 +140,14 @@ sh tools/audit/run-all.sh          # needs a server on :8000 for the browser che
 | --- | --- |
 | `static.py` | Raw hex, undefined vars, physical properties, decided values, radii, Arabic binding, flash rate, ink contrast against the surfaces its own usage text names |
 | `doc_totals.py` | Every document total against the column its label names, plus `closing = opening + debits − credits` |
-| `contract_check.js` | 22 claims, each quoting a card sentence verbatim; the quote must still be in the card |
+| `contract_check.js` | 23 claims, each quoting a card sentence verbatim; the quote must still be in the card |
 | `live.js` | Fonts, contrast, tap targets, focus rings, Arabic subtree, rail/launcher gap |
 | `meridian_proof.js` | The skin's isolation |
 | `theme_switch.js` | Turning the skin on and off again is lossless |
+| `veneer_check.js` | The website veneer paints without moving a box, under both box models |
+| `bidi_check.js` | Every data run - weight, date, amount, phone, reference - reads left-to-right inside a right-to-left page |
 
-All six exit non-zero on failure. They used to print counts and exit 0, which
+All eight exit non-zero on failure. They used to print counts and exit 0, which
 let regressions through.
 
 Every check has a **negative control**: it was proven to fail when its defect
@@ -167,7 +176,15 @@ CHROME=/opt/pw-browsers/chromium-1194/chrome-linux/chrome
   `TBD` or a greyed sample figure.
 - **No superlatives** in any locale: best, largest, cheapest, fastest,
   guaranteed, number one.
+- **Mira is synthetic, and the illustrated mark is her image.** The
+  photographic portrait is retired: a human face beside a reply presents a
+  synthetic persona as a member of staff. `mira-avatar.svg` is the `mt-avatar`
+  source everywhere; `mt-avatar` carries no border, no fill and
+  `object-position: center`, because the mark is already a disc. She is
+  **never presented as an employee** — no team page, no staff directory, no
+  signature, no named contact.
 - **Mira always carries her label**: "Mira · MIDTRANS logistics assistant".
+  The mark makes her nature legible; the label states it. Both, not either.
 - Locales in parity: EN, AR, FR, DE, TR, ZH, SV.
 - `trustbycompass.com` is a different project and out of scope.
 
@@ -190,11 +207,12 @@ next session is likelier to repeat them than to invent new ones.
 | `.mt-doc__main` became focusable with no focus ring | Adding `tabindex` adds a focus obligation |
 | The README claimed 72 KB / 12 KB | It was 87 KB / 17 KB. Measure, do not estimate |
 | An install guide told readers to clone a branch | The merge made it false. Instructions about the repo go stale when the repo changes |
+| Arabic scrambled every number in the system | No rule anywhere isolated a data run, so in RTL "12 500 KG" drew as "KG 500 12" and both offices' phones reversed - 57 runs in 34 components. `direction:ltr` fixed the order but flipped column alignment; unprefixed `match-parent` does nothing in Chromium; `-webkit-match-parent` does. Measured each |
+| A check reported PASS having measured nothing | `bidi_check.js` skipped pages that failed to load - the server was down - and passed on zero runs. A failed load is now a failure, and fewer than 20 runs is a failure |
+| Mira shipped with a photographic portrait | She is synthetic. A human face beside a reply presents her as staff, whatever the label says. Reversed to the illustrated mark, which also removed the resolution limit and reads better at 32px |
 
 ## 8 · Not yet decided
 
-- A larger Mira portrait (>256px) for profile, press and print.
-- The provenance of that portrait — a real employee with consent, or synthetic.
 - Dashboard chrome from the reference pack: header row, top nav, More menu,
   Quick Action, sidebar, notifications, chat dock, mobile bottom nav, KPI grid,
   needs-now, freight cycle. All under "colour, type, size only".

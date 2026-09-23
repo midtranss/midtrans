@@ -32,16 +32,16 @@ body{margin:0}
     <!-- The label is the condition that makes a photographic portrait safe: wherever
          Mira is introduced, her name and her role appear with it. Never drop the role. -->
     <div class="mt-assistant__id" style="margin-block-end:var(--space-5)">
-      <img class="mt-avatar mt-avatar--lg" src="theme/mira-portrait.jpg" alt="">
+      <img class="mt-avatar mt-avatar--lg" src="theme/mira-avatar.svg" alt="">
       <div>
         <p class="mt-assistant__name">Mira</p>
         <p class="mt-assistant__role">MIDTRANS logistics assistant</p>
       </div>
     </div>
     <div class="chat" id="chat">
-      <div class="msg msg--bot"><div class="msg__who"><img class="mt-avatar" src="theme/mira-portrait.jpg" alt="Mira, MIDTRANS logistics assistant"></div><div class="msg__body"><p>I can help with services, coverage, documents and process. What are you shipping, and where from and to?</p></div></div>
+      <div class="msg msg--bot"><div class="msg__who"><img class="mt-avatar" src="theme/mira-avatar.svg" alt="Mira, MIDTRANS logistics assistant"></div><div class="msg__body"><p>I can help with services, coverage, documents and process. What are you shipping, and where from and to?</p></div></div>
       <div class="msg msg--you"><div class="msg__who">You</div><div class="msg__body"><p>18 pallets of olive oil, Lattakia to Hamburg. How much and how long?</p></div></div>
-      <div class="msg msg--bot"><div class="msg__who"><img class="mt-avatar" src="theme/mira-portrait.jpg" alt="Mira, MIDTRANS logistics assistant"></div><div class="msg__body">
+      <div class="msg msg--bot"><div class="msg__who"><img class="mt-avatar" src="theme/mira-avatar.svg" alt="Mira, MIDTRANS logistics assistant"></div><div class="msg__body">
         <p>I can't give you a rate or a transit time — those depend on the sailing and the carrier's space, and they're confirmed by our operations team, not by me.</p>
         <p>What I can tell you: 18 pallets at 120 × 80 × 145 cm is 25.06 CBM, which is 37% of a 40HC. For olive oil the closest heading is 1509.20, but that is a candidate, not a classification: the packing and the pressing decide it, and the binding determination is the import authority's. Our customs desk confirms it before anything goes on a declaration.</p>
         <p>To get you a quotation I need the ready date and the incoterm. Shall I pass this to the team?</p>
@@ -69,7 +69,7 @@ function add(who,cls,html){const d=document.createElement('div');d.className='ms
 function ask(){
   const v=m.value.trim();if(!v)return;m.value='';
   add('You','you','<p>'+v.replace(/[<>&]/g,'')+'</p>');
-  const t=add('<img class="mt-avatar" src="theme/mira-portrait.jpg" alt="Mira, MIDTRANS logistics assistant">','bot','<span class="typing"><i></i><i></i><i></i></span>');
+  const t=add('<img class="mt-avatar" src="theme/mira-avatar.svg" alt="Mira, MIDTRANS logistics assistant">','bot','<span class="typing"><i></i><i></i><i></i></span>');
   setTimeout(()=>{
     t.querySelector('.msg__body').innerHTML =
       '<p>This draft only answers the scripted exchange above. In the real assistant, anything touching a rate, a transit time, a duty or acceptance is handed to the operations team rather than answered.</p>';

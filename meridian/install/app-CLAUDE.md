@@ -81,7 +81,15 @@ guaranteed, number one.
 
 ## Mira
 
-The assistant always carries her label: "Mira · MIDTRANS logistics assistant".
+Mira is **synthetic**, and the illustrated mark `mira-avatar.svg` is her image.
+`mt-avatar` carries no border, no fill and `object-position: center` — the mark
+is already a disc, and either one draws a second ring around it.
+
+She always carries her label: "Mira · MIDTRANS logistics assistant". The mark
+makes her nature legible; the label states it. Both, not either.
+
+She is **never presented as an employee** — not on a team page, not in a staff
+directory, not in a signature, not as a named contact.
 
 ## Reporting
 
